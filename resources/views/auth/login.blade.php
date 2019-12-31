@@ -1,73 +1,120 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="md-layout text-center">
+        <div
+            class="md-layout-item md-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
+        >
+            <login-card header-color="green">
+                <h4 slot="title" class="title">Entrar a la administración</h4>
+                <md-field class="md-form-group" slot="inputs">
+                    <md-icon>email</md-icon>
+                    <label>Correo Electronico</label>
+                    <md-input v-model="email" type="email"></md-input>
+                </md-field>
+                <md-field class="md-form-group" slot="inputs">
+                    <md-icon>lock_outline</md-icon>
+                    <label>Contraseña</label>
+                    <md-input v-model="password"></md-input>
+                </md-field>
+                <md-button slot="footer" class="md-simple md-success md-lg">
+                    Entrar
+                </md-button>
+            </login-card>
         </div>
     </div>
-</div>
 @endsection
+
+@push('scripts')
+    <script>
+        let mixLogin = {
+            props: {
+                backgroundColor: {
+                    type: String,
+                    default: "black"
+                }
+            },
+            inject: {
+                autoClose: {
+                    default: true
+                }
+            },
+            data() {
+                return {
+                    firstname: null,
+                    email: null,
+                    password: null,
+                    responsive: false,
+                    showMenu: false,
+                    menuTransitionDuration: 250,
+                    pageTransitionDuration: 300,
+                    year: new Date().getFullYear()
+                };
+            },
+            computed: {
+                setBgImage() {
+                    return {
+                        backgroundImage: `url(./img/bg-pricing.jpg)`
+                    };
+                }
+            },
+            methods: {
+                toggleSidebarPage() {
+                    if (this.$sidebar.showSidebar) {
+                        this.$sidebar.displaySidebar(false);
+                    }
+                },
+                linkClick() {
+                    if (
+                        this.autoClose &&
+                        this.$sidebar &&
+                        this.$sidebar.showSidebar === true
+                    ) {
+                        this.$sidebar.displaySidebar(false);
+                    }
+                },
+                toggleSidebar() {
+                    this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+                },
+                toggleNavbar() {
+                    document.body.classList.toggle("nav-open");
+                    this.showMenu = !this.showMenu;
+                },
+                closeMenu() {
+                    document.body.classList.remove("nav-open");
+                    this.showMenu = false;
+                },
+                onResponsiveInverted() {
+                    if (window.innerWidth < 991) {
+                        this.responsive = true;
+                    } else {
+                        this.responsive = false;
+                    }
+                }
+            },
+            mounted() {
+                this.onResponsiveInverted();
+                window.addEventListener("resize", this.onResponsiveInverted);
+            },
+            beforeDestroy() {
+                this.closeMenu();
+                window.removeEventListener("resize", this.onResponsiveInverted);
+            },
+            beforeRouteUpdate(to, from, next) {
+                // Close the mobile menu first then transition to next page
+                if (this.showMenu) {
+                    this.closeMenu();
+                    setTimeout(() => {
+                        next();
+                    }, this.menuTransitionDuration);
+                } else {
+                    next();
+                }
+            }
+        };
+
+        window.pageMix.push(mixLogin);
+    </script>
+@endpush
+
+
