@@ -3,9 +3,9 @@
         <form @submit.prevent="validate">
             <div>
                 <div class="md-layout">
-                    <div class="md-layout-item md-size-50 md-small-size-100">
+                    <div class="md-layout-item md-size-100">
                         <ValidationProvider
-                            name="bussinessname"
+                            name="internationalname"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -16,16 +16,16 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Nombre de la empresa</label>
-                                <md-input v-model="bussinessname" type="text"></md-input>
+                                <md-icon>title</md-icon>
+                                <label>Nombre de la internacional</label>
+                                <md-input v-model="internationalname" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="bussinessdirection"
+                            name="internationaldirection"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -36,16 +36,16 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Direccion fisica de la empresa</label>
-                                <md-input v-model="bussinessdirection" type="text"></md-input>
+                                <md-icon>public</md-icon>
+                                <label>Direccion fisica de la internacional</label>
+                                <md-input v-model="internationaldirection" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="bussinesstelphone"
+                            name="internationaltelphone"
                             rules="required|integer"
                             v-slot="{ passed, failed }"
                         >
@@ -56,75 +56,15 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Telefono de la empresa</label>
-                                <md-input v-model="bussinesstelphone" type="text"></md-input>
+                                <md-icon>call</md-icon>
+                                <label>Telefono de la internacional</label>
+                                <md-input v-model="internationaltelphone" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
                     </div>
 
-                    <div class="md-layout-item md-size-50 md-small-size-100">
-                        <ValidationProvider
-                            name="cluni"
-                            rules="required|mimes:application/pdf"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <label>CLUNI [PDF]</label>
-                                <md-file v-model="cluni" accept="application/pdf"/>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="constanciadonatoria"
-                            rules=""
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <label>Contancia Donatoria [PDF] [Opcional]</label>
-                                <md-file v-model="constanciadonatoria" accept="application/pdf"/>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="bussinessrfc"
-                            rules="required|min:10"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>face</md-icon>
-                                <label>RFC de la empresa</label>
-                                <md-input v-model="bussinessrfc" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                    </div>
                 </div>
             </div>
         </form>
@@ -155,12 +95,9 @@
         },
         data() {
             return {
-                bussinessname: "",
-                bussinessdirection: "",
-                bussinesstelphone: "",
-                cluni: null,
-                constanciadonatoria: null,
-                bussinessrfc: "",
+                internationalname: "",
+                internationaldirection: "",
+                internationaltelphone: ""
             };
         },
         methods: {
@@ -174,7 +111,11 @@
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-validated", res);
+                    this.$emit("on-internacional", this.internationalname,
+                        this.internationaldirection,
+                        this.internationaltelphone
+                    );
+
                     return res;
                 });
             },

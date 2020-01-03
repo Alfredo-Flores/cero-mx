@@ -7,7 +7,7 @@
                         <div class="picture-container">
                             <div class="picture">
                                 <div v-if="!image">
-                                    <img class="picture-src" title=""/>
+                                    <img :src="avatar" class="picture-src" title=""/>
                                 </div>
                                 <div v-else>
                                     <img :src="image"/>
@@ -151,7 +151,7 @@
         data() {
             return {
                 image: "",
-                archivo: "",
+                image2: "",
                 firstName: "",
                 tel: "",
                 email: "",
@@ -166,12 +166,14 @@
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length) return;
+                this.image2 = files[0];
+
                 this.createImage(files[0]);
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-validated", res);
-                    this.$emit("on-info", this.image,
+                    this.$emit("on-info", this.image2,
                         this.firstName,
                         this.tel,
                         this.email,
@@ -186,6 +188,7 @@
                 reader.onload = e => {
                     vm.image = e.target.result;
                 };
+
                 reader.readAsDataURL(file);
             }
         }

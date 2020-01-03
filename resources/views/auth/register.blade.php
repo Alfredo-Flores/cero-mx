@@ -3,7 +3,7 @@
 @section('content')
     <div class="md-layout">
         <div class="md-layout-item md-size-66 md-xsmall-size-80 mx-auto">
-            <simple-wizard title="Registro" sub-title="Se parte de una gran comunidad">
+            <simple-wizard title="Registro" sub-title="Se parte de una gran comunidad" next-button-text="Siguiente" prev-button-text="Anterior" finish-button-text="Registrar">
                 <wizard-tab :before-change="() => validateStep('step1')">
                     <template slot="label">
                         Representante
@@ -22,9 +22,9 @@
                     <template slot="label">
                         Info de organización
                     </template>
-                    <empresa-step v-if="type == 1" ref="step3" @on-validated="wizardComplete"></empresa-step>
-                    <organizacion-step v-if="type == 2" ref="step3" @on-validated="wizardComplete"></organizacion-step>
-                    <internacional-step v-if="type == 3" ref="step3" @on-validated="wizardComplete"></internacional-step>
+                    <empresa-step v-if="type === 1" ref="step3" @on-empresa="changeEmpresa"></empresa-step>
+                    <organizacion-step v-if="type === 2" ref="step3" @on-organizacion="changeOrganizacion"></organizacion-step>
+                    <internacional-step v-if="type === 3" ref="step3" @on-internacional="changeInternacional"></internacional-step>
                 </wizard-tab>
             </simple-wizard>
         </div>
@@ -48,13 +48,26 @@
             data() {
                 return {
                     wizardModel: {},
-                    type: null,
+                    type: 0,
                     responsive: false,
                     representantlogo: "",
                     representantname: "",
                     representanttel: "",
                     representantemail: "",
                     representantpass: "",
+                    bussinessname: "",
+                    bussinessdirection: "",
+                    bussinesstel: "",
+                    bussinessrfc: "",
+                    organizationname: "",
+                    organizationdirection: "",
+                    organizationtelphone: "",
+                    cluni: "",
+                    constanciadonatoria: "",
+                    organizationrfc: "",
+                    internacionalname: "",
+                    internacionaldirection: "",
+                    internacionaltel: "",
                 };
             },
             computed: {
@@ -72,21 +85,146 @@
                     this.wizardModel = { ...this.wizardModel, ...model };
                 },
                 changeInfo(logo, name, phone, email, pass) {
-                    this.representantlogo = logo;
                     this.representantname = name;
+                    this.representantlogo = logo;
                     this.representanttel = phone;
                     this.representantemail = email;
                     this.representantpass = pass;
+                    console.log(" 1 " + this.representantlogo);
+                },
+                changeEmpresa(name, direction, phone, rfc) {
+                    this.bussinessname = name;
+                    this.bussinessdirection = direction;
+                    this.bussinesstel = phone;
+                    this.bussinessrfc = rfc;
 
-                    console.log("Nice");
+                    var formData = new FormData();
+
+                    formData.append("token", '@csrf');
+                    formData.append("NombreRepresentante", this.representantname);
+                    formData.append("TelefonoRepresentante", this.representanttel);
+                    formData.append("LogoInstitucion", this.representantlogo);
+                    formData.append("Email", this.representantemail);
+                    formData.append("Password", this.representantpass);
+                    formData.append("TipoDeInstitucion", this.type);
+                    formData.append("NombreEmpresa", this.bussinessname);
+                    formData.append("DireccionEmpresa", this.bussinessdirection);
+                    formData.append("TelefonoEmpresa", this.bussinesstel);
+                    formData.append("RfcEmpresa", this.bussinessrfc);
+
+                    let uri = '/registerUser';
+
+                    axios.post(uri, formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(response => {
+                        if (response.data.success) {
+                            this.$toastr.Add({
+                                title: "Registrado Correctamente", // Toast Title
+                                msg: response.data.message, // Toast Message
+                                type: "success", // Toast type,
+                                preventDuplicates: true, //Default is false,
+                                onClosed: ()=>{
+                                    window.location.replace("/");
+                                },
+                            });
+                        } else {
+                            this.$toastr.e(response.data.message, 'Error');
+                        }
+                    });
+                },
+                changeOrganizacion(name, direction, telphone, cluni, constanciadonatoria, rfc) {
+                    this.organizationname = name;
+                    this.organizationdirection = direction;
+                    this.organizationtelphone = telphone;
+                    this.cluni = cluni;
+                    this.constanciadonatoria = constanciadonatoria;
+                    this.organizationrfc = rfc;
+
+                    var formData = new FormData();
+
+                    formData.append("token", '@csrf');
+                    formData.append("NombreRepresentante", this.representantname);
+                    formData.append("TelefonoRepresentante", this.representanttel);
+                    formData.append("LogoInstitucion", this.representantlogo);
+                    formData.append("Email", this.representantemail);
+                    formData.append("Password", this.representantpass);
+                    formData.append("TipoDeInstitucion", this.type);
+                    formData.append("NombreOrganizacion", this.organizationname);
+                    formData.append("DireccionOrganizacion", this.organizationdirection);
+                    formData.append("TelefonoOrganizacion", this.organizationtelphone);
+                    formData.append("Cluni", this.cluni);
+                    formData.append("Constancia", this.constanciadonatoria);
+                    formData.append("RfcOrganizacion", this.organizationrfc);
+
+                    let uri = '/registerUser';
+
+                    axios.post(uri, formData,
+                        {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.$toastr.Add({
+                                title: "Registrado Correctamente", // Toast Title
+                                msg: response.data.message, // Toast Message
+                                type: "success", // Toast type,
+                                preventDuplicates: true, //Default is false,
+                                onClosed: ()=>{
+                                    window.location.replace("/");
+                                },
+                            });
+                        } else {
+                            this.$toastr.e(response.data.message, 'Error');
+                        }
+                    });
+                },
+                changeInternacional(name, direction, phone) {
+                    this.internacionalname = name;
+                    this.internacionaldirection = direction;
+                    this.internacionaltel = phone;
+
+                    var formData = new FormData();
+
+                    formData.append("token", '@csrf');
+                    formData.append("NombreRepresentante", this.representantname);
+                    formData.append("TelefonoRepresentante", this.representanttel);
+                    formData.append("LogoInstitucion", this.representantlogo);
+                    formData.append("Email", this.representantemail);
+                    formData.append("Password", this.representantpass);
+                    formData.append("TipoDeInstitucion", this.type);
+                    formData.append("NombreInternacional", this.internacionalname);
+                    formData.append("DirecccionInternacional", this.internacionaldirection);
+                    formData.append("TelefonoInternacional", this.internacionaltel);
+
+                    let uri = '/registerUser';
+
+                    axios.post(uri, formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(response => {
+                        if (response.data.success) {
+                            this.$toastr.Add({
+                                title: "Registrado Correctamente", // Toast Title
+                                msg: response.data.message, // Toast Message
+                                type: "success", // Toast type,
+                                preventDuplicates: true, //Default is false,
+                                onClosed: ()=>{
+                                    window.location.replace("/");
+                                },
+                            });
+                        } else {
+                            this.$toastr.e(response.data.message, 'Error');
+                        }
+                    });
                 },
                 changeType(type) {
                     this.type = type;
-
-                    console.log("ulala");
-                },
-                wizardComplete() {
-
                 },
                 toggleSidebarPage() {
                     if (this.$sidebar.showSidebar) {

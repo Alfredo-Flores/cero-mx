@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
+Route::get('/', 'MainController@index');
+Route::get('/register', 'MainController@viewRegister');
+Route::get('/login', 'MainController@viewLogin');
+Route::post('/registerUser', 'MainController@registerUser');
+Route::post('/loginUser', 'MainController@loginUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// dev
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

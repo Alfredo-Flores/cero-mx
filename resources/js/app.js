@@ -9,6 +9,7 @@ import VueToastr from "vue-toastr";
 import VueMaterial from 'vue-material'
 import SideBar from "./components/SidebarPlugin";
 import Chartist from "chartist";
+import VueRouter from 'vue-router'
 
 
 // CSS para el Modulos
@@ -18,6 +19,7 @@ import 'font-awesome/css/font-awesome.css'
 // Importar a Vue
 Vue.use(VueMaterial);
 Vue.use(VueToastr);
+Vue.use(VueRouter);
 Vue.use(SideBar);
 
 import DashboardPlugin from "./material-dashboard";

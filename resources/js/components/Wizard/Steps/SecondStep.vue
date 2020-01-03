@@ -9,7 +9,7 @@
                             v-model="checkone"
                             icon="fas fa-building"
                             title="Empresa"
-                            @click="changeCheck(1)"
+                            @click.native="changeCheck(1)"
                         >
                         </icon-checkbox>
                     </div>
@@ -18,7 +18,7 @@
                             v-model="checktwo"
                             icon="fas fa-home"
                             title="Organización"
-                            @click="changeCheck(2)"
+                            @click.native="changeCheck(2)"
                         >
                         </icon-checkbox>
                     </div>
@@ -27,7 +27,7 @@
                             v-model="checkthree"
                             icon="fas fa-globe"
                             title="internacional"
-                            @click="changeCheck(3)"
+                            @click.native="changeCheck(3)"
                         >
                         </icon-checkbox>
                     </div>
@@ -47,8 +47,6 @@
         },
         methods: {
             changeCheck(check) {
-                console.log("miau");
-
                 if (check === 1) {
                     this.checkone = true;
                     this.checktwo = false;
@@ -64,7 +62,7 @@
                 }
             },
             validate() {
-                let type = 1;
+                var type = 0;
                 if (this.checkone) type = 1;
                 if (this.checktwo) type = 2;
                 if (this.checkthree) type = 3;

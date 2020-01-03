@@ -16,7 +16,7 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
+                                <md-icon>title</md-icon>
                                 <label>Nombre de la empresa</label>
                                 <md-input v-model="bussinessname" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
@@ -36,14 +36,16 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
+                                <md-icon>directions</md-icon>
                                 <label>Direccion fisica de la empresa</label>
                                 <md-input v-model="bussinessdirection" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
+                    </div>
 
+                    <div class="md-layout-item md-size-50 md-small-size-100">
                         <ValidationProvider
                             name="bussinesstelphone"
                             rules="required|integer"
@@ -56,49 +58,9 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
+                                <md-icon>call</md-icon>
                                 <label>Telefono de la empresa</label>
                                 <md-input v-model="bussinesstelphone" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-                    </div>
-
-                    <div class="md-layout-item md-size-50 md-small-size-100">
-                        <ValidationProvider
-                            name="cluni"
-                            rules="required|mimes:application/pdf"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <label>CLUNI [PDF]</label>
-                                <md-file v-model="cluni" accept="application/pdf"/>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="constanciadonatoria"
-                            rules=""
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <label>Contancia Donatoria [PDF] [Opcional]</label>
-                                <md-file v-model="constanciadonatoria" accept="application/pdf"/>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
@@ -116,7 +78,7 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
+                                <md-icon>title</md-icon>
                                 <label>RFC de la empresa</label>
                                 <md-input v-model="bussinessrfc" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
@@ -174,7 +136,12 @@
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-validated", res);
+                    this.$emit("on-empresa", this.bussinessname,
+                        this.bussinessdirection,
+                        this.bussinesstelphone,
+                        this.bussinessrfc
+                    );
+
                     return res;
                 });
             },

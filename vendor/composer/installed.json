@@ -283,33 +283,32 @@
     },
     {
         "name": "egulias/email-validator",
-        "version": "2.1.12",
-        "version_normalized": "2.1.12.0",
+        "version": "2.1.13",
+        "version_normalized": "2.1.13.0",
         "source": {
             "type": "git",
             "url": "https://github.com/egulias/EmailValidator.git",
-            "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208"
+            "reference": "834593d5900615639208417760ba6a17299e2497"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/a6255605af39f2db7f5cb62e672bd8a7bad8d208",
-            "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208",
+            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/834593d5900615639208417760ba6a17299e2497",
+            "reference": "834593d5900615639208417760ba6a17299e2497",
             "shasum": ""
         },
         "require": {
             "doctrine/lexer": "^1.0.1",
-            "php": ">= 5.5"
+            "php": ">=5.5"
         },
         "require-dev": {
-            "dominicsayers/isemail": "dev-master",
-            "phpunit/phpunit": "^4.8.35||^5.7||^6.0",
-            "satooshi/php-coveralls": "^1.0.1",
-            "symfony/phpunit-bridge": "^4.4@dev"
+            "dominicsayers/isemail": "^3.0.7",
+            "phpunit/phpunit": "^4.8.36|^7.5.15",
+            "satooshi/php-coveralls": "^1.0.1"
         },
         "suggest": {
             "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
         },
-        "time": "2019-12-20T12:49:39+00:00",
+        "time": "2019-12-30T08:14:25+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -343,17 +342,17 @@
     },
     {
         "name": "erusev/parsedown",
-        "version": "1.7.3",
-        "version_normalized": "1.7.3.0",
+        "version": "1.7.4",
+        "version_normalized": "1.7.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/erusev/parsedown.git",
-            "reference": "6d893938171a817f4e9bc9e86f2da1e370b7bcd7"
+            "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/6d893938171a817f4e9bc9e86f2da1e370b7bcd7",
-            "reference": "6d893938171a817f4e9bc9e86f2da1e370b7bcd7",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
+            "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
             "shasum": ""
         },
         "require": {
@@ -363,7 +362,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8.35"
         },
-        "time": "2019-03-17T18:48:37+00:00",
+        "time": "2019-12-30T22:54:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -447,17 +446,17 @@
     },
     {
         "name": "facade/ignition",
-        "version": "1.13.0",
-        "version_normalized": "1.13.0.0",
+        "version": "1.13.1",
+        "version_normalized": "1.13.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facade/ignition.git",
-            "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33"
+            "reference": "03a26e0c4f48bf88523137a527e413a9b7c23436"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facade/ignition/zipball/1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
-            "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
+            "url": "https://api.github.com/repos/facade/ignition/zipball/03a26e0c4f48bf88523137a527e413a9b7c23436",
+            "reference": "03a26e0c4f48bf88523137a527e413a9b7c23436",
             "shasum": ""
         },
         "require": {
@@ -481,7 +480,7 @@
         "suggest": {
             "laravel/telescope": "^2.0"
         },
-        "time": "2019-11-27T11:17:18+00:00",
+        "time": "2020-01-02T12:03:02+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2470,6 +2469,72 @@
         ]
     },
     {
+        "name": "propel/propel",
+        "version": "2.0.0-alpha8",
+        "version_normalized": "2.0.0.0-alpha8",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/propelorm/Propel2.git",
+            "reference": "4c309e3e5adaba077f54c0fab93c34995d7c9b3d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/propelorm/Propel2/zipball/4c309e3e5adaba077f54c0fab93c34995d7c9b3d",
+            "reference": "4c309e3e5adaba077f54c0fab93c34995d7c9b3d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5",
+            "psr/log": "~1.0",
+            "symfony/config": "~2.3||~3.0||~4.0",
+            "symfony/console": "~2.3||~3.0||~4.0",
+            "symfony/filesystem": "~2.3||~3.0||~4.0",
+            "symfony/finder": "~2.3||~3.0||~4.0",
+            "symfony/validator": "~2.3||~3.0.0||~3.1.0||^3.2.4||~4.0",
+            "symfony/yaml": "~2.3||~3.0||~4.0"
+        },
+        "require-dev": {
+            "monolog/monolog": "~1.3",
+            "phpunit/phpunit": "~4.0||~5.0"
+        },
+        "suggest": {
+            "monolog/monolog": "The recommended logging library to use with Propel."
+        },
+        "time": "2018-02-19T12:58:55+00:00",
+        "bin": [
+            "bin/propel"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Propel": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "William DURAND",
+                "email": "william.durand1@gmail.com"
+            }
+        ],
+        "description": "Propel2 is an open-source Object-Relational Mapping (ORM) for PHP 5.5 and up.",
+        "homepage": "http://www.propelorm.org/",
+        "keywords": [
+            "Active Record",
+            "orm",
+            "persistence"
+        ]
+    },
+    {
         "name": "psr/container",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -2782,6 +2847,67 @@
             "guid",
             "identifier",
             "uuid"
+        ]
+    },
+    {
+        "name": "rap2hpoutre/laravel-log-viewer",
+        "version": "v1.3.3",
+        "version_normalized": "1.3.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
+            "reference": "031ed45cd09814f5ab3c03a235b4511994911683"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/031ed45cd09814f5ab3c03a235b4511994911683",
+            "reference": "031ed45cd09814f5ab3c03a235b4511994911683",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "4.2.*|5.*|^6.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "orchestra/testbench": "3.7.*",
+            "phpunit/phpunit": "^7"
+        },
+        "time": "2019-12-03T22:00:29+00:00",
+        "type": "laravel-package",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewerServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/controllers"
+            ],
+            "psr-0": {
+                "Rap2hpoutre\\LaravelLogViewer\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "rap2hpoutre",
+                "email": "raphaelht@gmail.com"
+            }
+        ],
+        "description": "A Laravel log reader",
+        "keywords": [
+            "laravel",
+            "log",
+            "log-reader",
+            "log-viewer",
+            "logging",
+            "lumen"
         ]
     },
     {
@@ -3558,6 +3684,72 @@
         ]
     },
     {
+        "name": "symfony/config",
+        "version": "v4.4.2",
+        "version_normalized": "4.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/config.git",
+            "reference": "6911d432edd5b50822986604fd5a5be3af856d30"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/config/zipball/6911d432edd5b50822986604fd5a5be3af856d30",
+            "reference": "6911d432edd5b50822986604fd5a5be3af856d30",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "symfony/filesystem": "^3.4|^4.0|^5.0",
+            "symfony/polyfill-ctype": "~1.8"
+        },
+        "conflict": {
+            "symfony/finder": "<3.4"
+        },
+        "require-dev": {
+            "symfony/event-dispatcher": "^3.4|^4.0|^5.0",
+            "symfony/finder": "^3.4|^4.0|^5.0",
+            "symfony/messenger": "^4.1|^5.0",
+            "symfony/service-contracts": "^1.1|^2",
+            "symfony/yaml": "^3.4|^4.0|^5.0"
+        },
+        "suggest": {
+            "symfony/yaml": "To use the yaml reference dumper"
+        },
+        "time": "2019-12-18T12:00:29+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Config\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Config Component",
+        "homepage": "https://symfony.com"
+    },
+    {
         "name": "symfony/console",
         "version": "v4.4.2",
         "version_normalized": "4.4.2.0",
@@ -3937,6 +4129,58 @@
             "interoperability",
             "standards"
         ]
+    },
+    {
+        "name": "symfony/filesystem",
+        "version": "v4.4.2",
+        "version_normalized": "4.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/filesystem.git",
+            "reference": "40c2606131d56eff6f193b6e2ceb92414653b591"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/filesystem/zipball/40c2606131d56eff6f193b6e2ceb92414653b591",
+            "reference": "40c2606131d56eff6f193b6e2ceb92414653b591",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "symfony/polyfill-ctype": "~1.8"
+        },
+        "time": "2019-11-26T23:16:41+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Filesystem\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Filesystem Component",
+        "homepage": "https://symfony.com"
     },
     {
         "name": "symfony/finder",
@@ -4892,6 +5136,100 @@
         ]
     },
     {
+        "name": "symfony/validator",
+        "version": "v4.4.2",
+        "version_normalized": "4.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/validator.git",
+            "reference": "79eb122bed116c1fbe0769698d5b46acce1860a2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/validator/zipball/79eb122bed116c1fbe0769698d5b46acce1860a2",
+            "reference": "79eb122bed116c1fbe0769698d5b46acce1860a2",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "symfony/polyfill-ctype": "~1.8",
+            "symfony/polyfill-mbstring": "~1.0",
+            "symfony/translation-contracts": "^1.1|^2"
+        },
+        "conflict": {
+            "doctrine/lexer": "<1.0.2",
+            "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
+            "symfony/dependency-injection": "<3.4",
+            "symfony/http-kernel": "<4.4",
+            "symfony/intl": "<4.3",
+            "symfony/translation": ">=5.0",
+            "symfony/yaml": "<3.4"
+        },
+        "require-dev": {
+            "doctrine/annotations": "~1.7",
+            "doctrine/cache": "~1.0",
+            "egulias/email-validator": "^2.1.10",
+            "symfony/cache": "^3.4|^4.0|^5.0",
+            "symfony/config": "^3.4|^4.0|^5.0",
+            "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+            "symfony/expression-language": "^3.4|^4.0|^5.0",
+            "symfony/http-client": "^4.3|^5.0",
+            "symfony/http-foundation": "^4.1|^5.0",
+            "symfony/http-kernel": "^4.4",
+            "symfony/intl": "^4.3|^5.0",
+            "symfony/property-access": "^3.4|^4.0|^5.0",
+            "symfony/property-info": "^3.4|^4.0|^5.0",
+            "symfony/translation": "^4.2",
+            "symfony/yaml": "^3.4|^4.0|^5.0"
+        },
+        "suggest": {
+            "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
+            "doctrine/cache": "For using the default cached annotation reader.",
+            "egulias/email-validator": "Strict (RFC compliant) email validation",
+            "psr/cache-implementation": "For using the mapping cache.",
+            "symfony/config": "",
+            "symfony/expression-language": "For using the Expression validator",
+            "symfony/http-foundation": "",
+            "symfony/intl": "",
+            "symfony/property-access": "For accessing properties within comparison constraints",
+            "symfony/property-info": "To automatically add NotNull and Type constraints",
+            "symfony/translation": "For translating validation errors.",
+            "symfony/yaml": ""
+        },
+        "time": "2019-12-17T08:15:02+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Validator\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Validator Component",
+        "homepage": "https://symfony.com"
+    },
+    {
         "name": "symfony/var-dumper",
         "version": "v4.4.2",
         "version_normalized": "4.4.2.0",
@@ -4968,6 +5306,67 @@
             "debug",
             "dump"
         ]
+    },
+    {
+        "name": "symfony/yaml",
+        "version": "v4.4.2",
+        "version_normalized": "4.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "a08832b974dd5fafe3085a66d41fe4c84bb2628c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/a08832b974dd5fafe3085a66d41fe4c84bb2628c",
+            "reference": "a08832b974dd5fafe3085a66d41fe4c84bb2628c",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "symfony/polyfill-ctype": "~1.8"
+        },
+        "conflict": {
+            "symfony/console": "<3.4"
+        },
+        "require-dev": {
+            "symfony/console": "^3.4|^4.0|^5.0"
+        },
+        "suggest": {
+            "symfony/console": "For validating YAML files using the lint command"
+        },
+        "time": "2019-12-10T10:33:21+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
     },
     {
         "name": "theseer/tokenizer",
@@ -5169,6 +5568,62 @@
             "assert",
             "check",
             "validate"
+        ]
+    },
+    {
+        "name": "webpatser/laravel-uuid",
+        "version": "3.0.2",
+        "version_normalized": "3.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/webpatser/laravel-uuid.git",
+            "reference": "a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/webpatser/laravel-uuid/zipball/a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23",
+            "reference": "a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0"
+        },
+        "require-dev": {
+            "fzaninotto/faker": "~1.4",
+            "phpunit/phpunit": "~6.0"
+        },
+        "time": "2017-10-04T07:47:40+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Webpatser\\Uuid\\UuidServiceProvider"
+                ],
+                "aliases": {
+                    "Uuid": "Webpatser\\Uuid\\Uuid"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Webpatser\\Uuid": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Christoph Kempen",
+                "email": "christoph@downsized.nl"
+            }
+        ],
+        "description": "Laravel package to generate and to validate a universally unique identifier (UUID) according to the RFC 4122 standard. Support for version 1, 3, 4 and 5 UUIDs are built-in.",
+        "homepage": "https://github.com/webpatser/uuid",
+        "keywords": [
+            "UUID RFC4122"
         ]
     }
 ]

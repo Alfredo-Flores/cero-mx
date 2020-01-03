@@ -5,7 +5,7 @@
                 <div class="md-layout">
                     <div class="md-layout-item md-size-50 md-small-size-100">
                         <ValidationProvider
-                            name="bussinessname"
+                            name="organizationname"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -16,16 +16,16 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Nombre de la empresa</label>
-                                <md-input v-model="bussinessname" type="text"></md-input>
+                                <md-icon>title</md-icon>
+                                <label>Nombre de la organización</label>
+                                <md-input v-model="organizationname" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="bussinessdirection"
+                            name="organizationdirection"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -36,16 +36,16 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Direccion fisica de la empresa</label>
-                                <md-input v-model="bussinessdirection" type="text"></md-input>
+                                <md-icon>directions</md-icon>
+                                <label>Direccion fisica de la organización</label>
+                                <md-input v-model="organizationdirection" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="bussinesstelphone"
+                            name="organizationtelphone"
                             rules="required|integer"
                             v-slot="{ passed, failed }"
                         >
@@ -56,9 +56,9 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>Telefono de la empresa</label>
-                                <md-input v-model="bussinesstelphone" type="text"></md-input>
+                                <md-icon>call</md-icon>
+                                <label>Telefono de la organización</label>
+                                <md-input v-model="organizationtelphone" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
@@ -68,20 +68,12 @@
                     <div class="md-layout-item md-size-50 md-small-size-100">
                         <ValidationProvider
                             name="cluni"
-                            rules="required|mimes:application/pdf"
-                            v-slot="{ passed, failed }"
                         >
                             <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
+                                class="md-form-group"
                             >
                                 <label>CLUNI [PDF]</label>
-                                <md-file v-model="cluni" accept="application/pdf"/>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
+                                <md-file @change="changeCLUNI" accept="application/pdf" type="file"/>
                             </md-field>
                         </ValidationProvider>
 
@@ -92,20 +84,21 @@
                         >
                             <md-field
                                 :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
+                              { 'md-error': failed },
+                              { 'md-valid': passed },
+                              { 'md-form-group': true }
+                            ]"
+                                type="file"
                             >
-                                <label>Contancia Donatoria [PDF] [Opcional]</label>
-                                <md-file v-model="constanciadonatoria" accept="application/pdf"/>
+                                <label>Const. Donatoria [PDF] [Opcional]</label>
+                                <md-file @change="changeDonatoria" accept="application/pdf" type="file"/>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="bussinessrfc"
+                            name="organizationrfc"
                             rules="required|min:10"
                             v-slot="{ passed, failed }"
                         >
@@ -116,9 +109,9 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>face</md-icon>
-                                <label>RFC de la empresa</label>
-                                <md-input v-model="bussinessrfc" type="text"></md-input>
+                                <md-icon>title</md-icon>
+                                <label>RFC de la organización</label>
+                                <md-input v-model="organizationrfc" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
@@ -155,12 +148,12 @@
         },
         data() {
             return {
-                bussinessname: "",
-                bussinessdirection: "",
-                bussinesstelphone: "",
+                organizationname: "",
+                organizationdirection: "",
+                organizationtelphone: "",
                 cluni: null,
                 constanciadonatoria: null,
-                bussinessrfc: "",
+                organizationrfc: "",
             };
         },
         methods: {
@@ -174,19 +167,21 @@
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-validated", res);
+                    this.$emit("on-organizacion", this.organizationname,
+                        this.organizationdirection,
+                        this.organizationtelphone,
+                        this.cluni,
+                        this.constanciadonatoria,
+                        this.organizationrfc);
                     return res;
                 });
             },
-            createImage(file) {
-                var reader = new FileReader();
-                var vm = this;
-
-                reader.onload = e => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+            changeCLUNI(event) {
+                this.cluni = event.target.files[0];
+            },
+            changeDonatoria(event) {
+                this.constanciadonatoria = event.target.files[0];
+            },
         }
     };
 </script>
