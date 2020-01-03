@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h5 class="info-text">¿De que se trata?</h5>
+        <h5 class="info-text">¿De que se trata la institucion?</h5>
         <div class="md-layout">
             <div class="md-layout-item">
                 <div class="md-layout">
@@ -66,8 +66,6 @@
                 if (this.checkone) type = 1;
                 if (this.checktwo) type = 2;
                 if (this.checkthree) type = 3;
-
-                this.$emit("on-validated", true, this.model);
                 this.$emit("on-type", type);
                 return Promise.resolve(true);
             }

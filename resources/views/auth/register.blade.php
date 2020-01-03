@@ -8,14 +8,14 @@
                     <template slot="label">
                         Representante
                     </template>
-                    <first-step ref="step1" @on-validated="onStepValidated" @on-info="changeInfo"></first-step>
+                    <first-step ref="step1" @on-info="changeInfo"></first-step>
                 </wizard-tab>
 
                 <wizard-tab :before-change="() => validateStep('step2')">
                     <template slot="label">
                         Tipo de organización
                     </template>
-                    <second-step ref="step2"  @on-validated="onStepValidated" @on-type="changeType"></second-step>
+                    <second-step ref="step2" @on-type="changeType"></second-step>
                 </wizard-tab>
 
                 <wizard-tab :before-change="() => validateStep('step3')">
@@ -47,7 +47,6 @@
             },
             data() {
                 return {
-                    wizardModel: {},
                     type: 0,
                     responsive: false,
                     representantlogo: "",
@@ -81,16 +80,12 @@
                 validateStep(ref) {
                     return this.$refs[ref].validate();
                 },
-                onStepValidated(validated, model) {
-                    this.wizardModel = { ...this.wizardModel, ...model };
-                },
                 changeInfo(logo, name, phone, email, pass) {
                     this.representantname = name;
                     this.representantlogo = logo;
                     this.representanttel = phone;
                     this.representantemail = email;
                     this.representantpass = pass;
-                    console.log(" 1 " + this.representantlogo);
                 },
                 changeEmpresa(name, direction, phone, rfc) {
                     this.bussinessname = name;
@@ -197,7 +192,7 @@
                     formData.append("Password", this.representantpass);
                     formData.append("TipoDeInstitucion", this.type);
                     formData.append("NombreInternacional", this.internacionalname);
-                    formData.append("DirecccionInternacional", this.internacionaldirection);
+                    formData.append("DireccionInternacional", this.internacionaldirection);
                     formData.append("TelefonoInternacional", this.internacionaltel);
 
                     let uri = '/registerUser';
@@ -268,7 +263,6 @@
                 window.removeEventListener("resize", this.onResponsiveInverted);
             },
             beforeRouteUpdate(to, from, next) {
-                // Close the mobile menu first then transition to next page
                 if (this.showMenu) {
                     this.closeMenu();
                     setTimeout(() => {

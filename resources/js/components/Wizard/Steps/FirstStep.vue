@@ -151,7 +151,7 @@
         data() {
             return {
                 image: "",
-                image2: "",
+                imageobject: "",
                 firstName: "",
                 tel: "",
                 email: "",
@@ -166,14 +166,14 @@
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length) return;
-                this.image2 = files[0];
+
+                this.imageobject = files[0];
 
                 this.createImage(files[0]);
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-validated", res);
-                    this.$emit("on-info", this.image2,
+                    this.$emit("on-info", this.imageobject,
                         this.firstName,
                         this.tel,
                         this.email,
@@ -194,4 +194,3 @@
         }
     };
 </script>
-<style></style>

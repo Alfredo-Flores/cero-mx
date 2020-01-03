@@ -46,7 +46,7 @@
 
                         <ValidationProvider
                             name="organizationtelphone"
-                            rules="required|integer"
+                            rules="required|integer|min:9"
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -79,21 +79,14 @@
 
                         <ValidationProvider
                             name="constanciadonatoria"
-                            rules=""
-                            v-slot="{ passed, failed }"
                         >
                             <md-field
                                 :class="[
-                              { 'md-error': failed },
-                              { 'md-valid': passed },
                               { 'md-form-group': true }
                             ]"
-                                type="file"
                             >
                                 <label>Const. Donatoria [PDF] [Opcional]</label>
                                 <md-file @change="changeDonatoria" accept="application/pdf" type="file"/>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
@@ -125,27 +118,14 @@
 </template>
 <script>
     import {extend} from "vee-validate";
-    import {required, email, min, max, integer} from "vee-validate/dist/rules";
+    import {required, min, max, integer} from "vee-validate/dist/rules";
 
     extend("required", required);
-    extend("email", email);
     extend("min", min);
     extend("max", max);
     extend("integer", integer);
-    extend("samepass", {
-        params: ["pass"],
-        validate: (value, pass) => {
-            return value === pass.pass;
-        }
-    });
 
     export default {
-        props: {
-            avatar: {
-                type: String,
-                default: "./img/default-avatar.png"
-            }
-        },
         data() {
             return {
                 organizationname: "",
@@ -157,14 +137,6 @@
             };
         },
         methods: {
-            handlePreview(file) {
-                this.model.imageUrl = URL.createObjectURL(file.raw);
-            },
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length) return;
-                this.createImage(files[0]);
-            },
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-organizacion", this.organizationname,

@@ -14,6 +14,7 @@ import VueRouter from 'vue-router'
 
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/vue-material.css'
 import 'font-awesome/css/font-awesome.css'
 
 // Importar a Vue

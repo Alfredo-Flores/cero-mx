@@ -48,7 +48,7 @@
                     <div class="md-layout-item md-size-50 md-small-size-100">
                         <ValidationProvider
                             name="bussinesstelphone"
-                            rules="required|integer"
+                            rules="required|integer|min:9"
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -85,7 +85,6 @@
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
-
                     </div>
                 </div>
             </div>
@@ -94,46 +93,22 @@
 </template>
 <script>
     import {extend} from "vee-validate";
-    import {required, email, min, max, integer} from "vee-validate/dist/rules";
+    import {required, min, integer} from "vee-validate/dist/rules";
 
     extend("required", required);
-    extend("email", email);
     extend("min", min);
-    extend("max", max);
     extend("integer", integer);
-    extend("samepass", {
-        params: ["pass"],
-        validate: (value, pass) => {
-            return value === pass.pass;
-        }
-    });
 
     export default {
-        props: {
-            avatar: {
-                type: String,
-                default: "./img/default-avatar.png"
-            }
-        },
         data() {
             return {
                 bussinessname: "",
                 bussinessdirection: "",
                 bussinesstelphone: "",
-                cluni: null,
-                constanciadonatoria: null,
                 bussinessrfc: "",
             };
         },
         methods: {
-            handlePreview(file) {
-                this.model.imageUrl = URL.createObjectURL(file.raw);
-            },
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length) return;
-                this.createImage(files[0]);
-            },
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-empresa", this.bussinessname,
@@ -144,15 +119,6 @@
 
                     return res;
                 });
-            },
-            createImage(file) {
-                var reader = new FileReader();
-                var vm = this;
-
-                reader.onload = e => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
             }
         }
     };

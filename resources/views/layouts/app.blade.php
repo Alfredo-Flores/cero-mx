@@ -48,21 +48,21 @@
                             :class="{ 'off-canvas-sidebar': responsive }"
                         >
                             <md-list>
-                                <md-list-item href="/" @click="linkClick">
+                                <md-list-item href="/">
                                     <md-icon>house</md-icon>
-                                    Inicio
+                                    Bienvenida
                                 </md-list-item>
                                 @guest
-                                <md-list-item href="/register" @click="linkClick">
+                                <md-list-item href="/register">
                                     <md-icon>person_add</md-icon>
                                     Registro
                                 </md-list-item>
-                                <md-list-item href="/login" @click="linkClick">
+                                <md-list-item href="/login">
                                     <md-icon>fingerprint</md-icon>
                                     Entrar
                                 </md-list-item>
                                 @else
-                                    <md-list-item href="/" @click="linkClick">
+                                    <md-list-item href="/">
                                         <md-icon>fingerprint</md-icon>
                                         Administrar
                                     </md-list-item>

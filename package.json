@@ -27,6 +27,7 @@
         "buefy": "^0.8.8",
         "chartist": "^0.11.4",
         "font-awesome": "^4.7.0",
+        "material-components-web": "^4.0.0",
         "vee-validate": "^3.2.1",
         "vue-axios": "^2.1.5",
         "vue-clickaway": "^2.2.2",

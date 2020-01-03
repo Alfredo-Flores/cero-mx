@@ -50,17 +50,17 @@ class MainController extends Controller
         ];
 
         $messages = [
-            'NombreRepresentante:required' => 'Ingrese el nombre de representante',
-            'TelefonoRepresentante:required' => 'Ingrese el telefono del representante',
-            'TelefonoRepresentante:numeric' => 'Ingrese el telefono con numeros',
-            'TelefonoRepresentante:min' => 'Ingrese el telefono del representante',
-            'Email:required' => 'Ingrese el correo electronico',
-            'Email:email' => 'Ingrese el correo electronico correctamente',
-            'Password:required' => 'Ingrese la contraseña',
-            'Password:min' => 'Ingrese la contraseña con un minimo de 4 caracteres',
-            'TipoDeInstitucion:required' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4011',
-            'TipoDeInstitucion:numeric' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4012',
-            'TipoDeInstitucion:between' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4013',
+            'NombreRepresentante.required' => 'Ingrese el nombre de representante',
+            'TelefonoRepresentante.required' => 'Ingrese el telefono del representante',
+            'TelefonoRepresentante.numeric' => 'Ingrese el telefono con numeros',
+            'TelefonoRepresentante.min' => 'Ingrese el telefono del representante',
+            'Email.required' => 'Ingrese el correo electronico',
+            'Email.email' => 'Ingrese el correo electronico correctamente',
+            'Password.required' => 'Ingrese la contraseña',
+            'Password.min' => 'Ingrese la contraseña con un minimo de 4 caracteres',
+            'TipoDeInstitucion.required' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4011',
+            'TipoDeInstitucion.numeric' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4012',
+            'TipoDeInstitucion.between' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4013',
         ];
 
         $validador = Validator::make($request->toArray(), $rules, $messages)->errors()->all();
@@ -134,7 +134,7 @@ class MainController extends Controller
             // Insert
             $iduser = $entusr->getId();
             $bussinessname = trim($request->get('NombreEmpresa'));
-            $bussinessdir = trim($request->get('DirecccionEmpresa'));
+            $bussinessdir = trim($request->get('DireccionEmpresa'));
             $bussinesstel = trim($request->get('TelefonoEmpresa'));
             $bussinessrfc = trim($request->get('RfcEmpresa'));
 
@@ -162,15 +162,15 @@ class MainController extends Controller
             ];
 
             $messages = [
-                'NombreOrganizacion:required' => 'Ingrese el nombre de la organización',
-                'DireccionOrganizacion:required' => 'Ingrese la dirección de la organización',
-                'TelefonoOrganizacion:required' => 'Ingrese el telefono de la organización',
-                'TelefonoOrganizacion:numeric' => 'Ingrese el telefono con numeros',
-                'TelefonoOrganizacion:min' => 'Ingrese el telefono con un minimo de 10 digitos',
-                'Cluni:required' => 'Ingrese el CLUNI de la organización',
-                'Cluni:file' => 'Ingrese el CLUNI en formato PDF',
-                'Cluni:mimes' => 'Ingrese el CLUNI en formato PDF',
-                'RfcOrganizacion:required' => 'Ingrese el RFC de la organizacion',
+                'NombreOrganizacion.required' => 'Ingrese el nombre de la organización',
+                'DireccionOrganizacion.required' => 'Ingrese la dirección de la organización',
+                'TelefonoOrganizacion.required' => 'Ingrese el telefono de la organización',
+                'TelefonoOrganizacion.numeric' => 'Ingrese el telefono con numeros',
+                'TelefonoOrganizacion.min' => 'Ingrese el telefono con un minimo de 10 digitos',
+                'Cluni.required' => 'Ingrese el CLUNI de la organización',
+                'Cluni.file' => 'Ingrese el CLUNI en formato PDF',
+                'Cluni.mimes' => 'Ingrese el CLUNI en formato PDF',
+                'RfcOrganizacion.required' => 'Ingrese el RFC de la organizacion',
             ];
 
             $validador = Validator::make($request->toArray(), $rules, $messages)->errors()->all();
@@ -261,17 +261,16 @@ class MainController extends Controller
 
             $rules = [
                 'NombreInternacional' => 'required',
-                'DirecccionInternacional' => 'required',
+                'DireccionInternacional' => 'required',
                 'TelefonoInternacional' => 'required|numeric|min:10',
-                'LogoInstitucion' => 'required|image',
             ];
 
             $messages = [
-                'NombreInternacional:required' => 'Ingrese el nombre de la organización internacional',
-                'DirecccionInternacional:required' => 'Ingrese la dirección de la organización internacional',
-                'TelefonoInternacional:required' => 'Ingrese el telefono de la organización internacional',
-                'TelefonoInternacional:numeric' => 'Ingrese el telefono con numeros',
-                'TelefonoInternacional:min' => 'Ingrese el telefono con un minimo de 10 digitos',
+                'NombreInternacional.required' => 'Ingrese el nombre de la organización internacional',
+                'DireccionInternacional.required' => 'Ingrese la dirección de la organización internacional',
+                'TelefonoInternacional.required' => 'Ingrese el telefono de la organización internacional',
+                'TelefonoInternacional.numeric' => 'Ingrese el telefono con numeros',
+                'TelefonoInternacional.min' => 'Ingrese el telefono con un minimo de 10 digitos',
             ];
 
             $validador = Validator::make($request->toArray(), $rules, $messages)->errors()->all();
@@ -320,7 +319,7 @@ class MainController extends Controller
             // Insert
             $iduser = $entusr->getId();
             $internacionalname = trim($request->get('NombreInternacional'));
-            $internacionaldir = trim($request->get('DirecccionInternacional'));
+            $internacionaldir = trim($request->get('DireccionInternacional'));
             $internacionaltel = trim($request->get('TelefonoInternacional'));
 
             $entorg = \Tblentint::insentint($iduser, $internacionalname, $internacionaldir, $internacionaltel);

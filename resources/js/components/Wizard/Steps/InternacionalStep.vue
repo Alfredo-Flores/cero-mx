@@ -46,7 +46,7 @@
 
                         <ValidationProvider
                             name="internationaltelphone"
-                            rules="required|integer"
+                            rules="required|integer|min:9"
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -64,7 +64,6 @@
                             </md-field>
                         </ValidationProvider>
                     </div>
-
                 </div>
             </div>
         </form>
@@ -72,27 +71,13 @@
 </template>
 <script>
     import {extend} from "vee-validate";
-    import {required, email, min, max, integer} from "vee-validate/dist/rules";
+    import {required, min, integer} from "vee-validate/dist/rules";
 
     extend("required", required);
-    extend("email", email);
     extend("min", min);
-    extend("max", max);
     extend("integer", integer);
-    extend("samepass", {
-        params: ["pass"],
-        validate: (value, pass) => {
-            return value === pass.pass;
-        }
-    });
 
     export default {
-        props: {
-            avatar: {
-                type: String,
-                default: "./img/default-avatar.png"
-            }
-        },
         data() {
             return {
                 internationalname: "",
@@ -101,14 +86,6 @@
             };
         },
         methods: {
-            handlePreview(file) {
-                this.model.imageUrl = URL.createObjectURL(file.raw);
-            },
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length) return;
-                this.createImage(files[0]);
-            },
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-internacional", this.internationalname,
@@ -118,15 +95,6 @@
 
                     return res;
                 });
-            },
-            createImage(file) {
-                var reader = new FileReader();
-                var vm = this;
-
-                reader.onload = e => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
             }
         }
     };
