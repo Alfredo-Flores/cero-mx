@@ -1,12 +1,10 @@
 <template>
     <div class="wizard-container">
         <form @submit.prevent>
-            <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
             <md-card class="md-card-wizard active" data-color="green">
                 <md-card-header>
                     <slot name="header">
                         <h3 class="card-title">{{ title }}</h3>
-                        <h3 class="description">{{ subTitle }}</h3>
                     </slot>
                 </md-card-header>
                 <div class="wizard-navigation">
@@ -225,6 +223,13 @@
                 let isValid = await this.validate();
                 if (isValid && this.activeTabIndex < this.tabCount - 1) {
                     this.activeTabIndex++;
+                } else {
+                    this.$toastr.Add({
+                        title: "Error", // Toast Title
+                        msg: "Verifique los datos por favor", // Toast Message
+                        type: "error",
+                        preventDuplicates: true
+                    });
                 }
                 return isValid;
             },

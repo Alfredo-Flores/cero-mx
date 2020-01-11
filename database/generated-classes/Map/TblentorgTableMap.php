@@ -59,7 +59,7 @@ class TblentorgTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 10;
+    const NUM_COLUMNS = 20;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class TblentorgTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 10;
+    const NUM_HYDRATE_COLUMNS = 20;
 
     /**
      * the column name for the idnentorg field
@@ -77,49 +77,99 @@ class TblentorgTableMap extends TableMap
     const COL_IDNENTORG = 'tblentorg.idnentorg';
 
     /**
-     * the column name for the idnusers field
+     * the column name for the uuid field
      */
-    const COL_IDNUSERS = 'tblentorg.idnusers';
+    const COL_UUID = 'tblentorg.uuid';
 
     /**
-     * the column name for the namentorg field
+     * the column name for the idnentrep field
      */
-    const COL_NAMENTORG = 'tblentorg.namentorg';
+    const COL_IDNENTREP = 'tblentorg.idnentrep';
 
     /**
-     * the column name for the direntorg field
+     * the column name for the srventorg field
      */
-    const COL_DIRENTORG = 'tblentorg.direntorg';
+    const COL_SRVENTORG = 'tblentorg.srventorg';
 
     /**
-     * the column name for the telentorg field
+     * the column name for the sgmentorg field
      */
-    const COL_TELENTORG = 'tblentorg.telentorg';
+    const COL_SGMENTORG = 'tblentorg.sgmentorg';
 
     /**
-     * the column name for the rfcentorg field
+     * the column name for the bnfentorg field
      */
-    const COL_RFCENTORG = 'tblentorg.rfcentorg';
+    const COL_BNFENTORG = 'tblentorg.bnfentorg';
 
     /**
-     * the column name for the cluentorg field
+     * the column name for the nmbentorg field
      */
-    const COL_CLUENTORG = 'tblentorg.cluentorg';
+    const COL_NMBENTORG = 'tblentorg.nmbentorg';
 
     /**
-     * the column name for the donentorg field
+     * the column name for the logentorg field
      */
-    const COL_DONENTORG = 'tblentorg.donentorg';
+    const COL_LOGENTORG = 'tblentorg.logentorg';
 
     /**
-     * the column name for the created_at field
+     * the column name for the dmcentorg field
      */
-    const COL_CREATED_AT = 'tblentorg.created_at';
+    const COL_DMCENTORG = 'tblentorg.dmcentorg';
 
     /**
-     * the column name for the updated_at field
+     * the column name for the lclentorg field
      */
-    const COL_UPDATED_AT = 'tblentorg.updated_at';
+    const COL_LCLENTORG = 'tblentorg.lclentorg';
+
+    /**
+     * the column name for the mncentorg field
+     */
+    const COL_MNCENTORG = 'tblentorg.mncentorg';
+
+    /**
+     * the column name for the etdentorg field
+     */
+    const COL_ETDENTORG = 'tblentorg.etdentorg';
+
+    /**
+     * the column name for the pasentorg field
+     */
+    const COL_PASENTORG = 'tblentorg.pasentorg';
+
+    /**
+     * the column name for the cdgpstorg field
+     */
+    const COL_CDGPSTORG = 'tblentorg.cdgpstorg';
+
+    /**
+     * the column name for the girentorg field
+     */
+    const COL_GIRENTORG = 'tblentorg.girentorg';
+
+    /**
+     * the column name for the tlffcnorg field
+     */
+    const COL_TLFFCNORG = 'tblentorg.tlffcnorg';
+
+    /**
+     * the column name for the emlfcnorg field
+     */
+    const COL_EMLFCNORG = 'tblentorg.emlfcnorg';
+
+    /**
+     * the column name for the plntrborg field
+     */
+    const COL_PLNTRBORG = 'tblentorg.plntrborg';
+
+    /**
+     * the column name for the actcnsorg field
+     */
+    const COL_ACTCNSORG = 'tblentorg.actcnsorg';
+
+    /**
+     * the column name for the cnsdntorg field
+     */
+    const COL_CNSDNTORG = 'tblentorg.cnsdntorg';
 
     /**
      * The default string format for model objects of the related table
@@ -133,11 +183,11 @@ class TblentorgTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Idnentorg', 'Idnusers', 'Namentorg', 'Direntorg', 'Telentorg', 'Rfcentorg', 'Cluentorg', 'Donentorg', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('idnentorg', 'idnusers', 'namentorg', 'direntorg', 'telentorg', 'rfcentorg', 'cluentorg', 'donentorg', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(TblentorgTableMap::COL_IDNENTORG, TblentorgTableMap::COL_IDNUSERS, TblentorgTableMap::COL_NAMENTORG, TblentorgTableMap::COL_DIRENTORG, TblentorgTableMap::COL_TELENTORG, TblentorgTableMap::COL_RFCENTORG, TblentorgTableMap::COL_CLUENTORG, TblentorgTableMap::COL_DONENTORG, TblentorgTableMap::COL_CREATED_AT, TblentorgTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('idnentorg', 'idnusers', 'namentorg', 'direntorg', 'telentorg', 'rfcentorg', 'cluentorg', 'donentorg', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Idnentorg', 'Uuid', 'Idnentrep', 'Srventorg', 'Sgmentorg', 'Bnfentorg', 'Nmbentorg', 'Logentorg', 'Dmcentorg', 'Lclentorg', 'Mncentorg', 'Etdentorg', 'Pasentorg', 'Cdgpstorg', 'Girentorg', 'Tlffcnorg', 'Emlfcnorg', 'Plntrborg', 'Actcnsorg', 'Cnsdntorg', ),
+        self::TYPE_CAMELNAME     => array('idnentorg', 'uuid', 'idnentrep', 'srventorg', 'sgmentorg', 'bnfentorg', 'nmbentorg', 'logentorg', 'dmcentorg', 'lclentorg', 'mncentorg', 'etdentorg', 'pasentorg', 'cdgpstorg', 'girentorg', 'tlffcnorg', 'emlfcnorg', 'plntrborg', 'actcnsorg', 'cnsdntorg', ),
+        self::TYPE_COLNAME       => array(TblentorgTableMap::COL_IDNENTORG, TblentorgTableMap::COL_UUID, TblentorgTableMap::COL_IDNENTREP, TblentorgTableMap::COL_SRVENTORG, TblentorgTableMap::COL_SGMENTORG, TblentorgTableMap::COL_BNFENTORG, TblentorgTableMap::COL_NMBENTORG, TblentorgTableMap::COL_LOGENTORG, TblentorgTableMap::COL_DMCENTORG, TblentorgTableMap::COL_LCLENTORG, TblentorgTableMap::COL_MNCENTORG, TblentorgTableMap::COL_ETDENTORG, TblentorgTableMap::COL_PASENTORG, TblentorgTableMap::COL_CDGPSTORG, TblentorgTableMap::COL_GIRENTORG, TblentorgTableMap::COL_TLFFCNORG, TblentorgTableMap::COL_EMLFCNORG, TblentorgTableMap::COL_PLNTRBORG, TblentorgTableMap::COL_ACTCNSORG, TblentorgTableMap::COL_CNSDNTORG, ),
+        self::TYPE_FIELDNAME     => array('idnentorg', 'uuid', 'idnentrep', 'srventorg', 'sgmentorg', 'bnfentorg', 'nmbentorg', 'logentorg', 'dmcentorg', 'lclentorg', 'mncentorg', 'etdentorg', 'pasentorg', 'cdgpstorg', 'girentorg', 'tlffcnorg', 'emlfcnorg', 'plntrborg', 'actcnsorg', 'cnsdntorg', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, )
     );
 
     /**
@@ -147,11 +197,11 @@ class TblentorgTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Idnentorg' => 0, 'Idnusers' => 1, 'Namentorg' => 2, 'Direntorg' => 3, 'Telentorg' => 4, 'Rfcentorg' => 5, 'Cluentorg' => 6, 'Donentorg' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
-        self::TYPE_CAMELNAME     => array('idnentorg' => 0, 'idnusers' => 1, 'namentorg' => 2, 'direntorg' => 3, 'telentorg' => 4, 'rfcentorg' => 5, 'cluentorg' => 6, 'donentorg' => 7, 'createdAt' => 8, 'updatedAt' => 9, ),
-        self::TYPE_COLNAME       => array(TblentorgTableMap::COL_IDNENTORG => 0, TblentorgTableMap::COL_IDNUSERS => 1, TblentorgTableMap::COL_NAMENTORG => 2, TblentorgTableMap::COL_DIRENTORG => 3, TblentorgTableMap::COL_TELENTORG => 4, TblentorgTableMap::COL_RFCENTORG => 5, TblentorgTableMap::COL_CLUENTORG => 6, TblentorgTableMap::COL_DONENTORG => 7, TblentorgTableMap::COL_CREATED_AT => 8, TblentorgTableMap::COL_UPDATED_AT => 9, ),
-        self::TYPE_FIELDNAME     => array('idnentorg' => 0, 'idnusers' => 1, 'namentorg' => 2, 'direntorg' => 3, 'telentorg' => 4, 'rfcentorg' => 5, 'cluentorg' => 6, 'donentorg' => 7, 'created_at' => 8, 'updated_at' => 9, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Idnentorg' => 0, 'Uuid' => 1, 'Idnentrep' => 2, 'Srventorg' => 3, 'Sgmentorg' => 4, 'Bnfentorg' => 5, 'Nmbentorg' => 6, 'Logentorg' => 7, 'Dmcentorg' => 8, 'Lclentorg' => 9, 'Mncentorg' => 10, 'Etdentorg' => 11, 'Pasentorg' => 12, 'Cdgpstorg' => 13, 'Girentorg' => 14, 'Tlffcnorg' => 15, 'Emlfcnorg' => 16, 'Plntrborg' => 17, 'Actcnsorg' => 18, 'Cnsdntorg' => 19, ),
+        self::TYPE_CAMELNAME     => array('idnentorg' => 0, 'uuid' => 1, 'idnentrep' => 2, 'srventorg' => 3, 'sgmentorg' => 4, 'bnfentorg' => 5, 'nmbentorg' => 6, 'logentorg' => 7, 'dmcentorg' => 8, 'lclentorg' => 9, 'mncentorg' => 10, 'etdentorg' => 11, 'pasentorg' => 12, 'cdgpstorg' => 13, 'girentorg' => 14, 'tlffcnorg' => 15, 'emlfcnorg' => 16, 'plntrborg' => 17, 'actcnsorg' => 18, 'cnsdntorg' => 19, ),
+        self::TYPE_COLNAME       => array(TblentorgTableMap::COL_IDNENTORG => 0, TblentorgTableMap::COL_UUID => 1, TblentorgTableMap::COL_IDNENTREP => 2, TblentorgTableMap::COL_SRVENTORG => 3, TblentorgTableMap::COL_SGMENTORG => 4, TblentorgTableMap::COL_BNFENTORG => 5, TblentorgTableMap::COL_NMBENTORG => 6, TblentorgTableMap::COL_LOGENTORG => 7, TblentorgTableMap::COL_DMCENTORG => 8, TblentorgTableMap::COL_LCLENTORG => 9, TblentorgTableMap::COL_MNCENTORG => 10, TblentorgTableMap::COL_ETDENTORG => 11, TblentorgTableMap::COL_PASENTORG => 12, TblentorgTableMap::COL_CDGPSTORG => 13, TblentorgTableMap::COL_GIRENTORG => 14, TblentorgTableMap::COL_TLFFCNORG => 15, TblentorgTableMap::COL_EMLFCNORG => 16, TblentorgTableMap::COL_PLNTRBORG => 17, TblentorgTableMap::COL_ACTCNSORG => 18, TblentorgTableMap::COL_CNSDNTORG => 19, ),
+        self::TYPE_FIELDNAME     => array('idnentorg' => 0, 'uuid' => 1, 'idnentrep' => 2, 'srventorg' => 3, 'sgmentorg' => 4, 'bnfentorg' => 5, 'nmbentorg' => 6, 'logentorg' => 7, 'dmcentorg' => 8, 'lclentorg' => 9, 'mncentorg' => 10, 'etdentorg' => 11, 'pasentorg' => 12, 'cdgpstorg' => 13, 'girentorg' => 14, 'tlffcnorg' => 15, 'emlfcnorg' => 16, 'plntrborg' => 17, 'actcnsorg' => 18, 'cnsdntorg' => 19, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, )
     );
 
     /**
@@ -171,16 +221,26 @@ class TblentorgTableMap extends TableMap
         $this->setPackage('');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('idnentorg', 'Idnentorg', 'INTEGER', true, 10, null);
-        $this->addForeignKey('idnusers', 'Idnusers', 'INTEGER', 'users', 'id', true, 10, null);
-        $this->addColumn('namentorg', 'Namentorg', 'VARCHAR', true, 255, null);
-        $this->addColumn('direntorg', 'Direntorg', 'VARCHAR', true, 255, null);
-        $this->addColumn('telentorg', 'Telentorg', 'VARCHAR', true, 255, null);
-        $this->addColumn('rfcentorg', 'Rfcentorg', 'VARCHAR', true, 255, null);
-        $this->addColumn('cluentorg', 'Cluentorg', 'VARCHAR', true, 255, null);
-        $this->addColumn('donentorg', 'Donentorg', 'VARCHAR', false, 255, null);
-        $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
-        $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
+        $this->addPrimaryKey('idnentorg', 'Idnentorg', 'BIGINT', true, null, null);
+        $this->addColumn('uuid', 'Uuid', 'CHAR', true, 36, null);
+        $this->addForeignKey('idnentrep', 'Idnentrep', 'BIGINT', 'users', 'id', true, null, null);
+        $this->addColumn('srventorg', 'Srventorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('sgmentorg', 'Sgmentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('bnfentorg', 'Bnfentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('nmbentorg', 'Nmbentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('logentorg', 'Logentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('dmcentorg', 'Dmcentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('lclentorg', 'Lclentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('mncentorg', 'Mncentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('etdentorg', 'Etdentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('pasentorg', 'Pasentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('cdgpstorg', 'Cdgpstorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('girentorg', 'Girentorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('tlffcnorg', 'Tlffcnorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('emlfcnorg', 'Emlfcnorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('plntrborg', 'Plntrborg', 'VARCHAR', true, 255, '');
+        $this->addColumn('actcnsorg', 'Actcnsorg', 'VARCHAR', true, 255, '');
+        $this->addColumn('cnsdntorg', 'Cnsdntorg', 'VARCHAR', true, 255, '');
     } // initialize()
 
     /**
@@ -191,10 +251,10 @@ class TblentorgTableMap extends TableMap
         $this->addRelation('Users', '\\Users', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':idnusers',
+    0 => ':idnentrep',
     1 => ':id',
   ),
-), 'CASCADE', null, null, false);
+), null, null, null, false);
     } // buildRelations()
 
     /**
@@ -234,7 +294,7 @@ class TblentorgTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
+        return (string) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
                 : self::translateFieldName('Idnentorg', TableMap::TYPE_PHPNAME, $indexType)
@@ -339,26 +399,46 @@ class TblentorgTableMap extends TableMap
     {
         if (null === $alias) {
             $criteria->addSelectColumn(TblentorgTableMap::COL_IDNENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_IDNUSERS);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_NAMENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_DIRENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_TELENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_RFCENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_CLUENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_DONENTORG);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_CREATED_AT);
-            $criteria->addSelectColumn(TblentorgTableMap::COL_UPDATED_AT);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_UUID);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_IDNENTREP);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_SRVENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_SGMENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_BNFENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_NMBENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_LOGENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_DMCENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_LCLENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_MNCENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_ETDENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_PASENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_CDGPSTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_GIRENTORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_TLFFCNORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_EMLFCNORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_PLNTRBORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_ACTCNSORG);
+            $criteria->addSelectColumn(TblentorgTableMap::COL_CNSDNTORG);
         } else {
             $criteria->addSelectColumn($alias . '.idnentorg');
-            $criteria->addSelectColumn($alias . '.idnusers');
-            $criteria->addSelectColumn($alias . '.namentorg');
-            $criteria->addSelectColumn($alias . '.direntorg');
-            $criteria->addSelectColumn($alias . '.telentorg');
-            $criteria->addSelectColumn($alias . '.rfcentorg');
-            $criteria->addSelectColumn($alias . '.cluentorg');
-            $criteria->addSelectColumn($alias . '.donentorg');
-            $criteria->addSelectColumn($alias . '.created_at');
-            $criteria->addSelectColumn($alias . '.updated_at');
+            $criteria->addSelectColumn($alias . '.uuid');
+            $criteria->addSelectColumn($alias . '.idnentrep');
+            $criteria->addSelectColumn($alias . '.srventorg');
+            $criteria->addSelectColumn($alias . '.sgmentorg');
+            $criteria->addSelectColumn($alias . '.bnfentorg');
+            $criteria->addSelectColumn($alias . '.nmbentorg');
+            $criteria->addSelectColumn($alias . '.logentorg');
+            $criteria->addSelectColumn($alias . '.dmcentorg');
+            $criteria->addSelectColumn($alias . '.lclentorg');
+            $criteria->addSelectColumn($alias . '.mncentorg');
+            $criteria->addSelectColumn($alias . '.etdentorg');
+            $criteria->addSelectColumn($alias . '.pasentorg');
+            $criteria->addSelectColumn($alias . '.cdgpstorg');
+            $criteria->addSelectColumn($alias . '.girentorg');
+            $criteria->addSelectColumn($alias . '.tlffcnorg');
+            $criteria->addSelectColumn($alias . '.emlfcnorg');
+            $criteria->addSelectColumn($alias . '.plntrborg');
+            $criteria->addSelectColumn($alias . '.actcnsorg');
+            $criteria->addSelectColumn($alias . '.cnsdntorg');
         }
     }
 

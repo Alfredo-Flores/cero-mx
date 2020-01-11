@@ -21,28 +21,30 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  * @method     ChildUsersQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     ChildUsersQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     ChildUsersQuery orderByUuid($order = Criteria::ASC) Order by the uuid column
+ * @method     ChildUsersQuery orderByNamdtsgnr($order = Criteria::ASC) Order by the namdtsgnr column
+ * @method     ChildUsersQuery orderByPrmaplgnr($order = Criteria::ASC) Order by the prmaplgnr column
+ * @method     ChildUsersQuery orderBySgnaplgnr($order = Criteria::ASC) Order by the sgnaplgnr column
  * @method     ChildUsersQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method     ChildUsersQuery orderByEmailVerifiedAt($order = Criteria::ASC) Order by the email_verified_at column
  * @method     ChildUsersQuery orderByPassword($order = Criteria::ASC) Order by the password column
- * @method     ChildUsersQuery orderByRememberToken($order = Criteria::ASC) Order by the remember_token column
  * @method     ChildUsersQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildUsersQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
- * @method     ChildUsersQuery orderByImg($order = Criteria::ASC) Order by the img column
- * @method     ChildUsersQuery orderByTel($order = Criteria::ASC) Order by the tel column
- * @method     ChildUsersQuery orderByTyp($order = Criteria::ASC) Order by the typ column
+ * @method     ChildUsersQuery orderByFinishedAt($order = Criteria::ASC) Order by the finished_at column
+ * @method     ChildUsersQuery orderByRememberToken($order = Criteria::ASC) Order by the remember_token column
  *
  * @method     ChildUsersQuery groupById() Group by the id column
- * @method     ChildUsersQuery groupByName() Group by the name column
+ * @method     ChildUsersQuery groupByUuid() Group by the uuid column
+ * @method     ChildUsersQuery groupByNamdtsgnr() Group by the namdtsgnr column
+ * @method     ChildUsersQuery groupByPrmaplgnr() Group by the prmaplgnr column
+ * @method     ChildUsersQuery groupBySgnaplgnr() Group by the sgnaplgnr column
  * @method     ChildUsersQuery groupByEmail() Group by the email column
  * @method     ChildUsersQuery groupByEmailVerifiedAt() Group by the email_verified_at column
  * @method     ChildUsersQuery groupByPassword() Group by the password column
- * @method     ChildUsersQuery groupByRememberToken() Group by the remember_token column
  * @method     ChildUsersQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildUsersQuery groupByUpdatedAt() Group by the updated_at column
- * @method     ChildUsersQuery groupByImg() Group by the img column
- * @method     ChildUsersQuery groupByTel() Group by the tel column
- * @method     ChildUsersQuery groupByTyp() Group by the typ column
+ * @method     ChildUsersQuery groupByFinishedAt() Group by the finished_at column
+ * @method     ChildUsersQuery groupByRememberToken() Group by the remember_token column
  *
  * @method     ChildUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -52,25 +54,15 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildUsersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildUsersQuery leftJoinTblentbsn($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentbsn relation
- * @method     ChildUsersQuery rightJoinTblentbsn($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentbsn relation
- * @method     ChildUsersQuery innerJoinTblentbsn($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentbsn relation
+ * @method     ChildUsersQuery leftJoinTblentemp($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentemp relation
+ * @method     ChildUsersQuery rightJoinTblentemp($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentemp relation
+ * @method     ChildUsersQuery innerJoinTblentemp($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentemp relation
  *
- * @method     ChildUsersQuery joinWithTblentbsn($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentbsn relation
+ * @method     ChildUsersQuery joinWithTblentemp($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentemp relation
  *
- * @method     ChildUsersQuery leftJoinWithTblentbsn() Adds a LEFT JOIN clause and with to the query using the Tblentbsn relation
- * @method     ChildUsersQuery rightJoinWithTblentbsn() Adds a RIGHT JOIN clause and with to the query using the Tblentbsn relation
- * @method     ChildUsersQuery innerJoinWithTblentbsn() Adds a INNER JOIN clause and with to the query using the Tblentbsn relation
- *
- * @method     ChildUsersQuery leftJoinTblentint($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentint relation
- * @method     ChildUsersQuery rightJoinTblentint($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentint relation
- * @method     ChildUsersQuery innerJoinTblentint($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentint relation
- *
- * @method     ChildUsersQuery joinWithTblentint($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentint relation
- *
- * @method     ChildUsersQuery leftJoinWithTblentint() Adds a LEFT JOIN clause and with to the query using the Tblentint relation
- * @method     ChildUsersQuery rightJoinWithTblentint() Adds a RIGHT JOIN clause and with to the query using the Tblentint relation
- * @method     ChildUsersQuery innerJoinWithTblentint() Adds a INNER JOIN clause and with to the query using the Tblentint relation
+ * @method     ChildUsersQuery leftJoinWithTblentemp() Adds a LEFT JOIN clause and with to the query using the Tblentemp relation
+ * @method     ChildUsersQuery rightJoinWithTblentemp() Adds a RIGHT JOIN clause and with to the query using the Tblentemp relation
+ * @method     ChildUsersQuery innerJoinWithTblentemp() Adds a INNER JOIN clause and with to the query using the Tblentemp relation
  *
  * @method     ChildUsersQuery leftJoinTblentorg($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentorg relation
  * @method     ChildUsersQuery rightJoinTblentorg($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentorg relation
@@ -82,50 +74,53 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery rightJoinWithTblentorg() Adds a RIGHT JOIN clause and with to the query using the Tblentorg relation
  * @method     ChildUsersQuery innerJoinWithTblentorg() Adds a INNER JOIN clause and with to the query using the Tblentorg relation
  *
- * @method     \TblentbsnQuery|\TblentintQuery|\TblentorgQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \TblentempQuery|\TblentorgQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUsers findOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query
  * @method     ChildUsers findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUsers matching the query, or a new ChildUsers object populated from the query conditions when no match is found
  *
- * @method     ChildUsers findOneById(int $id) Return the first ChildUsers filtered by the id column
- * @method     ChildUsers findOneByName(string $name) Return the first ChildUsers filtered by the name column
+ * @method     ChildUsers findOneById(string $id) Return the first ChildUsers filtered by the id column
+ * @method     ChildUsers findOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column
+ * @method     ChildUsers findOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column
+ * @method     ChildUsers findOneByPrmaplgnr(string $prmaplgnr) Return the first ChildUsers filtered by the prmaplgnr column
+ * @method     ChildUsers findOneBySgnaplgnr(string $sgnaplgnr) Return the first ChildUsers filtered by the sgnaplgnr column
  * @method     ChildUsers findOneByEmail(string $email) Return the first ChildUsers filtered by the email column
  * @method     ChildUsers findOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column
  * @method     ChildUsers findOneByPassword(string $password) Return the first ChildUsers filtered by the password column
- * @method     ChildUsers findOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column
  * @method     ChildUsers findOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column
  * @method     ChildUsers findOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column
- * @method     ChildUsers findOneByImg(string $img) Return the first ChildUsers filtered by the img column
- * @method     ChildUsers findOneByTel(string $tel) Return the first ChildUsers filtered by the tel column
- * @method     ChildUsers findOneByTyp(int $typ) Return the first ChildUsers filtered by the typ column *
+ * @method     ChildUsers findOneByFinishedAt(string $finished_at) Return the first ChildUsers filtered by the finished_at column
+ * @method     ChildUsers findOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column *
 
  * @method     ChildUsers requirePk($key, ConnectionInterface $con = null) Return the ChildUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildUsers requireOneById(int $id) Return the first ChildUsers filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByName(string $name) Return the first ChildUsers filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneById(string $id) Return the first ChildUsers filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByPrmaplgnr(string $prmaplgnr) Return the first ChildUsers filtered by the prmaplgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneBySgnaplgnr(string $sgnaplgnr) Return the first ChildUsers filtered by the sgnaplgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmail(string $email) Return the first ChildUsers filtered by the email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByPassword(string $password) Return the first ChildUsers filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByImg(string $img) Return the first ChildUsers filtered by the img column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByTel(string $tel) Return the first ChildUsers filtered by the tel column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByTyp(int $typ) Return the first ChildUsers filtered by the typ column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByFinishedAt(string $finished_at) Return the first ChildUsers filtered by the finished_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
- * @method     ChildUsers[]|ObjectCollection findById(int $id) Return ChildUsers objects filtered by the id column
- * @method     ChildUsers[]|ObjectCollection findByName(string $name) Return ChildUsers objects filtered by the name column
+ * @method     ChildUsers[]|ObjectCollection findById(string $id) Return ChildUsers objects filtered by the id column
+ * @method     ChildUsers[]|ObjectCollection findByUuid(string $uuid) Return ChildUsers objects filtered by the uuid column
+ * @method     ChildUsers[]|ObjectCollection findByNamdtsgnr(string $namdtsgnr) Return ChildUsers objects filtered by the namdtsgnr column
+ * @method     ChildUsers[]|ObjectCollection findByPrmaplgnr(string $prmaplgnr) Return ChildUsers objects filtered by the prmaplgnr column
+ * @method     ChildUsers[]|ObjectCollection findBySgnaplgnr(string $sgnaplgnr) Return ChildUsers objects filtered by the sgnaplgnr column
  * @method     ChildUsers[]|ObjectCollection findByEmail(string $email) Return ChildUsers objects filtered by the email column
  * @method     ChildUsers[]|ObjectCollection findByEmailVerifiedAt(string $email_verified_at) Return ChildUsers objects filtered by the email_verified_at column
  * @method     ChildUsers[]|ObjectCollection findByPassword(string $password) Return ChildUsers objects filtered by the password column
- * @method     ChildUsers[]|ObjectCollection findByRememberToken(string $remember_token) Return ChildUsers objects filtered by the remember_token column
  * @method     ChildUsers[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildUsers objects filtered by the created_at column
  * @method     ChildUsers[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildUsers objects filtered by the updated_at column
- * @method     ChildUsers[]|ObjectCollection findByImg(string $img) Return ChildUsers objects filtered by the img column
- * @method     ChildUsers[]|ObjectCollection findByTel(string $tel) Return ChildUsers objects filtered by the tel column
- * @method     ChildUsers[]|ObjectCollection findByTyp(int $typ) Return ChildUsers objects filtered by the typ column
+ * @method     ChildUsers[]|ObjectCollection findByFinishedAt(string $finished_at) Return ChildUsers objects filtered by the finished_at column
+ * @method     ChildUsers[]|ObjectCollection findByRememberToken(string $remember_token) Return ChildUsers objects filtered by the remember_token column
  * @method     ChildUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -224,7 +219,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, name, email, email_verified_at, password, remember_token, created_at, updated_at, img, tel, typ FROM users WHERE id = :p0';
+        $sql = 'SELECT id, uuid, namdtsgnr, prmaplgnr, sgnaplgnr, email, email_verified_at, password, created_at, updated_at, finished_at, remember_token FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -356,28 +351,103 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the name column
+     * Filter the query on the uuid column
      *
      * Example usage:
      * <code>
-     * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
-     * $query->filterByName('%fooValue%', Criteria::LIKE); // WHERE name LIKE '%fooValue%'
+     * $query->filterByUuid('fooValue');   // WHERE uuid = 'fooValue'
+     * $query->filterByUuid('%fooValue%', Criteria::LIKE); // WHERE uuid LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $name The value to use as filter.
+     * @param     string $uuid The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
      */
-    public function filterByName($name = null, $comparison = null)
+    public function filterByUuid($uuid = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($name)) {
+            if (is_array($uuid)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(UsersTableMap::COL_NAME, $name, $comparison);
+        return $this->addUsingAlias(UsersTableMap::COL_UUID, $uuid, $comparison);
+    }
+
+    /**
+     * Filter the query on the namdtsgnr column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByNamdtsgnr('fooValue');   // WHERE namdtsgnr = 'fooValue'
+     * $query->filterByNamdtsgnr('%fooValue%', Criteria::LIKE); // WHERE namdtsgnr LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $namdtsgnr The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByNamdtsgnr($namdtsgnr = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($namdtsgnr)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_NAMDTSGNR, $namdtsgnr, $comparison);
+    }
+
+    /**
+     * Filter the query on the prmaplgnr column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPrmaplgnr('fooValue');   // WHERE prmaplgnr = 'fooValue'
+     * $query->filterByPrmaplgnr('%fooValue%', Criteria::LIKE); // WHERE prmaplgnr LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $prmaplgnr The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByPrmaplgnr($prmaplgnr = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($prmaplgnr)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_PRMAPLGNR, $prmaplgnr, $comparison);
+    }
+
+    /**
+     * Filter the query on the sgnaplgnr column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySgnaplgnr('fooValue');   // WHERE sgnaplgnr = 'fooValue'
+     * $query->filterBySgnaplgnr('%fooValue%', Criteria::LIKE); // WHERE sgnaplgnr LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $sgnaplgnr The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterBySgnaplgnr($sgnaplgnr = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($sgnaplgnr)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_SGNAPLGNR, $sgnaplgnr, $comparison);
     }
 
     /**
@@ -474,31 +544,6 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the remember_token column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByRememberToken('fooValue');   // WHERE remember_token = 'fooValue'
-     * $query->filterByRememberToken('%fooValue%', Criteria::LIKE); // WHERE remember_token LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $rememberToken The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByRememberToken($rememberToken = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($rememberToken)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_REMEMBER_TOKEN, $rememberToken, $comparison);
-    }
-
-    /**
      * Filter the query on the created_at column
      *
      * Example usage:
@@ -585,66 +630,18 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the img column
+     * Filter the query on the finished_at column
      *
      * Example usage:
      * <code>
-     * $query->filterByImg('fooValue');   // WHERE img = 'fooValue'
-     * $query->filterByImg('%fooValue%', Criteria::LIKE); // WHERE img LIKE '%fooValue%'
+     * $query->filterByFinishedAt('2011-03-14'); // WHERE finished_at = '2011-03-14'
+     * $query->filterByFinishedAt('now'); // WHERE finished_at = '2011-03-14'
+     * $query->filterByFinishedAt(array('max' => 'yesterday')); // WHERE finished_at > '2011-03-13'
      * </code>
      *
-     * @param     string $img The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByImg($img = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($img)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_IMG, $img, $comparison);
-    }
-
-    /**
-     * Filter the query on the tel column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByTel('fooValue');   // WHERE tel = 'fooValue'
-     * $query->filterByTel('%fooValue%', Criteria::LIKE); // WHERE tel LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $tel The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByTel($tel = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($tel)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_TEL, $tel, $comparison);
-    }
-
-    /**
-     * Filter the query on the typ column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByTyp(1234); // WHERE typ = 1234
-     * $query->filterByTyp(array(12, 34)); // WHERE typ IN (12, 34)
-     * $query->filterByTyp(array('min' => 12)); // WHERE typ > 12
-     * </code>
-     *
-     * @param     mixed $typ The value to use as filter.
+     * @param     mixed $finishedAt The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -652,16 +649,16 @@ abstract class UsersQuery extends ModelCriteria
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
      */
-    public function filterByTyp($typ = null, $comparison = null)
+    public function filterByFinishedAt($finishedAt = null, $comparison = null)
     {
-        if (is_array($typ)) {
+        if (is_array($finishedAt)) {
             $useMinMax = false;
-            if (isset($typ['min'])) {
-                $this->addUsingAlias(UsersTableMap::COL_TYP, $typ['min'], Criteria::GREATER_EQUAL);
+            if (isset($finishedAt['min'])) {
+                $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($typ['max'])) {
-                $this->addUsingAlias(UsersTableMap::COL_TYP, $typ['max'], Criteria::LESS_EQUAL);
+            if (isset($finishedAt['max'])) {
+                $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -672,44 +669,69 @@ abstract class UsersQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UsersTableMap::COL_TYP, $typ, $comparison);
+        return $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt, $comparison);
     }
 
     /**
-     * Filter the query by a related \Tblentbsn object
+     * Filter the query on the remember_token column
      *
-     * @param \Tblentbsn|ObjectCollection $tblentbsn the related object to use as filter
+     * Example usage:
+     * <code>
+     * $query->filterByRememberToken('fooValue');   // WHERE remember_token = 'fooValue'
+     * $query->filterByRememberToken('%fooValue%', Criteria::LIKE); // WHERE remember_token LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $rememberToken The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByRememberToken($rememberToken = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($rememberToken)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_REMEMBER_TOKEN, $rememberToken, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tblentemp object
+     *
+     * @param \Tblentemp|ObjectCollection $tblentemp the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUsersQuery The current query, for fluid interface
      */
-    public function filterByTblentbsn($tblentbsn, $comparison = null)
+    public function filterByTblentemp($tblentemp, $comparison = null)
     {
-        if ($tblentbsn instanceof \Tblentbsn) {
+        if ($tblentemp instanceof \Tblentemp) {
             return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $tblentbsn->getIdnusers(), $comparison);
-        } elseif ($tblentbsn instanceof ObjectCollection) {
+                ->addUsingAlias(UsersTableMap::COL_ID, $tblentemp->getIdnentrep(), $comparison);
+        } elseif ($tblentemp instanceof ObjectCollection) {
             return $this
-                ->useTblentbsnQuery()
-                ->filterByPrimaryKeys($tblentbsn->getPrimaryKeys())
+                ->useTblentempQuery()
+                ->filterByPrimaryKeys($tblentemp->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByTblentbsn() only accepts arguments of type \Tblentbsn or Collection');
+            throw new PropelException('filterByTblentemp() only accepts arguments of type \Tblentemp or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Tblentbsn relation
+     * Adds a JOIN clause to the query using the Tblentemp relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
      */
-    public function joinTblentbsn($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinTblentemp($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentbsn');
+        $relationMap = $tableMap->getRelation('Tblentemp');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -724,14 +746,14 @@ abstract class UsersQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Tblentbsn');
+            $this->addJoinObject($join, 'Tblentemp');
         }
 
         return $this;
     }
 
     /**
-     * Use the Tblentbsn relation Tblentbsn object
+     * Use the Tblentemp relation Tblentemp object
      *
      * @see useQuery()
      *
@@ -739,86 +761,13 @@ abstract class UsersQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \TblentbsnQuery A secondary query class using the current class as primary query
+     * @return \TblentempQuery A secondary query class using the current class as primary query
      */
-    public function useTblentbsnQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useTblentempQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinTblentbsn($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentbsn', '\TblentbsnQuery');
-    }
-
-    /**
-     * Filter the query by a related \Tblentint object
-     *
-     * @param \Tblentint|ObjectCollection $tblentint the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByTblentint($tblentint, $comparison = null)
-    {
-        if ($tblentint instanceof \Tblentint) {
-            return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $tblentint->getIdnusers(), $comparison);
-        } elseif ($tblentint instanceof ObjectCollection) {
-            return $this
-                ->useTblentintQuery()
-                ->filterByPrimaryKeys($tblentint->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByTblentint() only accepts arguments of type \Tblentint or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Tblentint relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function joinTblentint($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentint');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Tblentint');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Tblentint relation Tblentint object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \TblentintQuery A secondary query class using the current class as primary query
-     */
-    public function useTblentintQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinTblentint($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentint', '\TblentintQuery');
+            ->joinTblentemp($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Tblentemp', '\TblentempQuery');
     }
 
     /**
@@ -833,7 +782,7 @@ abstract class UsersQuery extends ModelCriteria
     {
         if ($tblentorg instanceof \Tblentorg) {
             return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $tblentorg->getIdnusers(), $comparison);
+                ->addUsingAlias(UsersTableMap::COL_ID, $tblentorg->getIdnentrep(), $comparison);
         } elseif ($tblentorg instanceof ObjectCollection) {
             return $this
                 ->useTblentorgQuery()

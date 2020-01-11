@@ -5,7 +5,6 @@ namespace Base;
 use \TblentorgQuery as ChildTblentorgQuery;
 use \Users as ChildUsers;
 use \UsersQuery as ChildUsersQuery;
-use \DateTime;
 use \Exception;
 use \PDO;
 use Map\TblentorgTableMap;
@@ -20,7 +19,6 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Propel\Runtime\Util\PropelDateTime;
 
 /**
  * Base class that represents a row from the 'tblentorg' table.
@@ -66,72 +64,159 @@ abstract class Tblentorg implements ActiveRecordInterface
     /**
      * The value for the idnentorg field.
      *
-     * @var        int
+     * @var        string
      */
     protected $idnentorg;
 
     /**
-     * The value for the idnusers field.
-     *
-     * @var        int
-     */
-    protected $idnusers;
-
-    /**
-     * The value for the namentorg field.
+     * The value for the uuid field.
      *
      * @var        string
      */
-    protected $namentorg;
+    protected $uuid;
 
     /**
-     * The value for the direntorg field.
+     * The value for the idnentrep field.
      *
      * @var        string
      */
-    protected $direntorg;
+    protected $idnentrep;
 
     /**
-     * The value for the telentorg field.
+     * The value for the srventorg field.
      *
+     * Note: this column has a database default value of: ''
      * @var        string
      */
-    protected $telentorg;
+    protected $srventorg;
 
     /**
-     * The value for the rfcentorg field.
+     * The value for the sgmentorg field.
      *
+     * Note: this column has a database default value of: ''
      * @var        string
      */
-    protected $rfcentorg;
+    protected $sgmentorg;
 
     /**
-     * The value for the cluentorg field.
+     * The value for the bnfentorg field.
      *
+     * Note: this column has a database default value of: ''
      * @var        string
      */
-    protected $cluentorg;
+    protected $bnfentorg;
 
     /**
-     * The value for the donentorg field.
+     * The value for the nmbentorg field.
      *
+     * Note: this column has a database default value of: ''
      * @var        string
      */
-    protected $donentorg;
+    protected $nmbentorg;
 
     /**
-     * The value for the created_at field.
+     * The value for the logentorg field.
      *
-     * @var        DateTime
+     * Note: this column has a database default value of: ''
+     * @var        string
      */
-    protected $created_at;
+    protected $logentorg;
 
     /**
-     * The value for the updated_at field.
+     * The value for the dmcentorg field.
      *
-     * @var        DateTime
+     * Note: this column has a database default value of: ''
+     * @var        string
      */
-    protected $updated_at;
+    protected $dmcentorg;
+
+    /**
+     * The value for the lclentorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $lclentorg;
+
+    /**
+     * The value for the mncentorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $mncentorg;
+
+    /**
+     * The value for the etdentorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $etdentorg;
+
+    /**
+     * The value for the pasentorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $pasentorg;
+
+    /**
+     * The value for the cdgpstorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $cdgpstorg;
+
+    /**
+     * The value for the girentorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $girentorg;
+
+    /**
+     * The value for the tlffcnorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $tlffcnorg;
+
+    /**
+     * The value for the emlfcnorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $emlfcnorg;
+
+    /**
+     * The value for the plntrborg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $plntrborg;
+
+    /**
+     * The value for the actcnsorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $actcnsorg;
+
+    /**
+     * The value for the cnsdntorg field.
+     *
+     * Note: this column has a database default value of: ''
+     * @var        string
+     */
+    protected $cnsdntorg;
 
     /**
      * @var        ChildUsers
@@ -147,10 +232,39 @@ abstract class Tblentorg implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->srventorg = '';
+        $this->sgmentorg = '';
+        $this->bnfentorg = '';
+        $this->nmbentorg = '';
+        $this->logentorg = '';
+        $this->dmcentorg = '';
+        $this->lclentorg = '';
+        $this->mncentorg = '';
+        $this->etdentorg = '';
+        $this->pasentorg = '';
+        $this->cdgpstorg = '';
+        $this->girentorg = '';
+        $this->tlffcnorg = '';
+        $this->emlfcnorg = '';
+        $this->plntrborg = '';
+        $this->actcnsorg = '';
+        $this->cnsdntorg = '';
+    }
+
+    /**
      * Initializes internal state of Base\Tblentorg object.
+     * @see applyDefaults()
      */
     public function __construct()
     {
+        $this->applyDefaultValues();
     }
 
     /**
@@ -374,7 +488,7 @@ abstract class Tblentorg implements ActiveRecordInterface
     /**
      * Get the [idnentorg] column value.
      *
-     * @return int
+     * @return string
      */
     public function getIdnentorg()
     {
@@ -382,125 +496,205 @@ abstract class Tblentorg implements ActiveRecordInterface
     }
 
     /**
-     * Get the [idnusers] column value.
-     *
-     * @return int
-     */
-    public function getIdnusers()
-    {
-        return $this->idnusers;
-    }
-
-    /**
-     * Get the [namentorg] column value.
+     * Get the [uuid] column value.
      *
      * @return string
      */
-    public function getNamentorg()
+    public function getUuid()
     {
-        return $this->namentorg;
+        return $this->uuid;
     }
 
     /**
-     * Get the [direntorg] column value.
+     * Get the [idnentrep] column value.
      *
      * @return string
      */
-    public function getDirentorg()
+    public function getIdnentrep()
     {
-        return $this->direntorg;
+        return $this->idnentrep;
     }
 
     /**
-     * Get the [telentorg] column value.
+     * Get the [srventorg] column value.
      *
      * @return string
      */
-    public function getTelentorg()
+    public function getSrventorg()
     {
-        return $this->telentorg;
+        return $this->srventorg;
     }
 
     /**
-     * Get the [rfcentorg] column value.
+     * Get the [sgmentorg] column value.
      *
      * @return string
      */
-    public function getRfcentorg()
+    public function getSgmentorg()
     {
-        return $this->rfcentorg;
+        return $this->sgmentorg;
     }
 
     /**
-     * Get the [cluentorg] column value.
+     * Get the [bnfentorg] column value.
      *
      * @return string
      */
-    public function getCluentorg()
+    public function getBnfentorg()
     {
-        return $this->cluentorg;
+        return $this->bnfentorg;
     }
 
     /**
-     * Get the [donentorg] column value.
+     * Get the [nmbentorg] column value.
      *
      * @return string
      */
-    public function getDonentorg()
+    public function getNmbentorg()
     {
-        return $this->donentorg;
+        return $this->nmbentorg;
     }
 
     /**
-     * Get the [optionally formatted] temporal [created_at] column value.
+     * Get the [logentorg] column value.
      *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return string
      */
-    public function getCreatedAt($format = 'Y-m-d H:i:s')
+    public function getLogentorg()
     {
-        if ($format === null) {
-            return $this->created_at;
-        } else {
-            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
-        }
+        return $this->logentorg;
     }
 
     /**
-     * Get the [optionally formatted] temporal [updated_at] column value.
+     * Get the [dmcentorg] column value.
      *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return string
      */
-    public function getUpdatedAt($format = 'Y-m-d H:i:s')
+    public function getDmcentorg()
     {
-        if ($format === null) {
-            return $this->updated_at;
-        } else {
-            return $this->updated_at instanceof \DateTimeInterface ? $this->updated_at->format($format) : null;
-        }
+        return $this->dmcentorg;
+    }
+
+    /**
+     * Get the [lclentorg] column value.
+     *
+     * @return string
+     */
+    public function getLclentorg()
+    {
+        return $this->lclentorg;
+    }
+
+    /**
+     * Get the [mncentorg] column value.
+     *
+     * @return string
+     */
+    public function getMncentorg()
+    {
+        return $this->mncentorg;
+    }
+
+    /**
+     * Get the [etdentorg] column value.
+     *
+     * @return string
+     */
+    public function getEtdentorg()
+    {
+        return $this->etdentorg;
+    }
+
+    /**
+     * Get the [pasentorg] column value.
+     *
+     * @return string
+     */
+    public function getPasentorg()
+    {
+        return $this->pasentorg;
+    }
+
+    /**
+     * Get the [cdgpstorg] column value.
+     *
+     * @return string
+     */
+    public function getCdgpstorg()
+    {
+        return $this->cdgpstorg;
+    }
+
+    /**
+     * Get the [girentorg] column value.
+     *
+     * @return string
+     */
+    public function getGirentorg()
+    {
+        return $this->girentorg;
+    }
+
+    /**
+     * Get the [tlffcnorg] column value.
+     *
+     * @return string
+     */
+    public function getTlffcnorg()
+    {
+        return $this->tlffcnorg;
+    }
+
+    /**
+     * Get the [emlfcnorg] column value.
+     *
+     * @return string
+     */
+    public function getEmlfcnorg()
+    {
+        return $this->emlfcnorg;
+    }
+
+    /**
+     * Get the [plntrborg] column value.
+     *
+     * @return string
+     */
+    public function getPlntrborg()
+    {
+        return $this->plntrborg;
+    }
+
+    /**
+     * Get the [actcnsorg] column value.
+     *
+     * @return string
+     */
+    public function getActcnsorg()
+    {
+        return $this->actcnsorg;
+    }
+
+    /**
+     * Get the [cnsdntorg] column value.
+     *
+     * @return string
+     */
+    public function getCnsdntorg()
+    {
+        return $this->cnsdntorg;
     }
 
     /**
      * Set the value of [idnentorg] column.
      *
-     * @param int $v new value
+     * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
     public function setIdnentorg($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (string) $v;
         }
 
         if ($this->idnentorg !== $v) {
@@ -512,20 +706,40 @@ abstract class Tblentorg implements ActiveRecordInterface
     } // setIdnentorg()
 
     /**
-     * Set the value of [idnusers] column.
+     * Set the value of [uuid] column.
      *
-     * @param int $v new value
+     * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setIdnusers($v)
+    public function setUuid($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (string) $v;
         }
 
-        if ($this->idnusers !== $v) {
-            $this->idnusers = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_IDNUSERS] = true;
+        if ($this->uuid !== $v) {
+            $this->uuid = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_UUID] = true;
+        }
+
+        return $this;
+    } // setUuid()
+
+    /**
+     * Set the value of [idnentrep] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setIdnentrep($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->idnentrep !== $v) {
+            $this->idnentrep = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_IDNENTREP] = true;
         }
 
         if ($this->aUsers !== null && $this->aUsers->getId() !== $v) {
@@ -533,167 +747,347 @@ abstract class Tblentorg implements ActiveRecordInterface
         }
 
         return $this;
-    } // setIdnusers()
+    } // setIdnentrep()
 
     /**
-     * Set the value of [namentorg] column.
+     * Set the value of [srventorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setNamentorg($v)
+    public function setSrventorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->namentorg !== $v) {
-            $this->namentorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_NAMENTORG] = true;
+        if ($this->srventorg !== $v) {
+            $this->srventorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_SRVENTORG] = true;
         }
 
         return $this;
-    } // setNamentorg()
+    } // setSrventorg()
 
     /**
-     * Set the value of [direntorg] column.
+     * Set the value of [sgmentorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setDirentorg($v)
+    public function setSgmentorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->direntorg !== $v) {
-            $this->direntorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_DIRENTORG] = true;
+        if ($this->sgmentorg !== $v) {
+            $this->sgmentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_SGMENTORG] = true;
         }
 
         return $this;
-    } // setDirentorg()
+    } // setSgmentorg()
 
     /**
-     * Set the value of [telentorg] column.
+     * Set the value of [bnfentorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setTelentorg($v)
+    public function setBnfentorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->telentorg !== $v) {
-            $this->telentorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_TELENTORG] = true;
+        if ($this->bnfentorg !== $v) {
+            $this->bnfentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_BNFENTORG] = true;
         }
 
         return $this;
-    } // setTelentorg()
+    } // setBnfentorg()
 
     /**
-     * Set the value of [rfcentorg] column.
+     * Set the value of [nmbentorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setRfcentorg($v)
+    public function setNmbentorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->rfcentorg !== $v) {
-            $this->rfcentorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_RFCENTORG] = true;
+        if ($this->nmbentorg !== $v) {
+            $this->nmbentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_NMBENTORG] = true;
         }
 
         return $this;
-    } // setRfcentorg()
+    } // setNmbentorg()
 
     /**
-     * Set the value of [cluentorg] column.
+     * Set the value of [logentorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setCluentorg($v)
+    public function setLogentorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->cluentorg !== $v) {
-            $this->cluentorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_CLUENTORG] = true;
+        if ($this->logentorg !== $v) {
+            $this->logentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_LOGENTORG] = true;
         }
 
         return $this;
-    } // setCluentorg()
+    } // setLogentorg()
 
     /**
-     * Set the value of [donentorg] column.
+     * Set the value of [dmcentorg] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setDonentorg($v)
+    public function setDmcentorg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->donentorg !== $v) {
-            $this->donentorg = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_DONENTORG] = true;
+        if ($this->dmcentorg !== $v) {
+            $this->dmcentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_DMCENTORG] = true;
         }
 
         return $this;
-    } // setDonentorg()
+    } // setDmcentorg()
 
     /**
-     * Sets the value of [created_at] column to a normalized version of the date/time value specified.
+     * Set the value of [lclentorg] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setCreatedAt($v)
+    public function setLclentorg($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->created_at !== null || $dt !== null) {
-            if ($this->created_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->created_at->format("Y-m-d H:i:s.u")) {
-                $this->created_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TblentorgTableMap::COL_CREATED_AT] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->lclentorg !== $v) {
+            $this->lclentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_LCLENTORG] = true;
+        }
 
         return $this;
-    } // setCreatedAt()
+    } // setLclentorg()
 
     /**
-     * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
+     * Set the value of [mncentorg] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setUpdatedAt($v)
+    public function setMncentorg($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->updated_at !== null || $dt !== null) {
-            if ($this->updated_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->updated_at->format("Y-m-d H:i:s.u")) {
-                $this->updated_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TblentorgTableMap::COL_UPDATED_AT] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->mncentorg !== $v) {
+            $this->mncentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_MNCENTORG] = true;
+        }
 
         return $this;
-    } // setUpdatedAt()
+    } // setMncentorg()
+
+    /**
+     * Set the value of [etdentorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setEtdentorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->etdentorg !== $v) {
+            $this->etdentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_ETDENTORG] = true;
+        }
+
+        return $this;
+    } // setEtdentorg()
+
+    /**
+     * Set the value of [pasentorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setPasentorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->pasentorg !== $v) {
+            $this->pasentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_PASENTORG] = true;
+        }
+
+        return $this;
+    } // setPasentorg()
+
+    /**
+     * Set the value of [cdgpstorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setCdgpstorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->cdgpstorg !== $v) {
+            $this->cdgpstorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_CDGPSTORG] = true;
+        }
+
+        return $this;
+    } // setCdgpstorg()
+
+    /**
+     * Set the value of [girentorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setGirentorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->girentorg !== $v) {
+            $this->girentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_GIRENTORG] = true;
+        }
+
+        return $this;
+    } // setGirentorg()
+
+    /**
+     * Set the value of [tlffcnorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setTlffcnorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->tlffcnorg !== $v) {
+            $this->tlffcnorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_TLFFCNORG] = true;
+        }
+
+        return $this;
+    } // setTlffcnorg()
+
+    /**
+     * Set the value of [emlfcnorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setEmlfcnorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->emlfcnorg !== $v) {
+            $this->emlfcnorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_EMLFCNORG] = true;
+        }
+
+        return $this;
+    } // setEmlfcnorg()
+
+    /**
+     * Set the value of [plntrborg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setPlntrborg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->plntrborg !== $v) {
+            $this->plntrborg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_PLNTRBORG] = true;
+        }
+
+        return $this;
+    } // setPlntrborg()
+
+    /**
+     * Set the value of [actcnsorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setActcnsorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->actcnsorg !== $v) {
+            $this->actcnsorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_ACTCNSORG] = true;
+        }
+
+        return $this;
+    } // setActcnsorg()
+
+    /**
+     * Set the value of [cnsdntorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setCnsdntorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->cnsdntorg !== $v) {
+            $this->cnsdntorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_CNSDNTORG] = true;
+        }
+
+        return $this;
+    } // setCnsdntorg()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -705,6 +1099,74 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->srventorg !== '') {
+                return false;
+            }
+
+            if ($this->sgmentorg !== '') {
+                return false;
+            }
+
+            if ($this->bnfentorg !== '') {
+                return false;
+            }
+
+            if ($this->nmbentorg !== '') {
+                return false;
+            }
+
+            if ($this->logentorg !== '') {
+                return false;
+            }
+
+            if ($this->dmcentorg !== '') {
+                return false;
+            }
+
+            if ($this->lclentorg !== '') {
+                return false;
+            }
+
+            if ($this->mncentorg !== '') {
+                return false;
+            }
+
+            if ($this->etdentorg !== '') {
+                return false;
+            }
+
+            if ($this->pasentorg !== '') {
+                return false;
+            }
+
+            if ($this->cdgpstorg !== '') {
+                return false;
+            }
+
+            if ($this->girentorg !== '') {
+                return false;
+            }
+
+            if ($this->tlffcnorg !== '') {
+                return false;
+            }
+
+            if ($this->emlfcnorg !== '') {
+                return false;
+            }
+
+            if ($this->plntrborg !== '') {
+                return false;
+            }
+
+            if ($this->actcnsorg !== '') {
+                return false;
+            }
+
+            if ($this->cnsdntorg !== '') {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -732,40 +1194,64 @@ abstract class Tblentorg implements ActiveRecordInterface
         try {
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : TblentorgTableMap::translateFieldName('Idnentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->idnentorg = (null !== $col) ? (int) $col : null;
+            $this->idnentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TblentorgTableMap::translateFieldName('Idnusers', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->idnusers = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TblentorgTableMap::translateFieldName('Uuid', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->uuid = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentorgTableMap::translateFieldName('Namentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->namentorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentorgTableMap::translateFieldName('Idnentrep', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->idnentrep = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentorgTableMap::translateFieldName('Direntorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->direntorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentorgTableMap::translateFieldName('Srventorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->srventorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentorgTableMap::translateFieldName('Telentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->telentorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentorgTableMap::translateFieldName('Sgmentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->sgmentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentorgTableMap::translateFieldName('Rfcentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->rfcentorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentorgTableMap::translateFieldName('Bnfentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->bnfentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentorgTableMap::translateFieldName('Cluentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->cluentorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentorgTableMap::translateFieldName('Nmbentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->nmbentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentorgTableMap::translateFieldName('Donentorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->donentorg = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentorgTableMap::translateFieldName('Logentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->logentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentorgTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentorgTableMap::translateFieldName('Dmcentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->dmcentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentorgTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentorgTableMap::translateFieldName('Lclentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->lclentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentorgTableMap::translateFieldName('Mncentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->mncentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentorgTableMap::translateFieldName('Etdentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->etdentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentorgTableMap::translateFieldName('Pasentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->pasentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentorgTableMap::translateFieldName('Cdgpstorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->cdgpstorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentorgTableMap::translateFieldName('Girentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->girentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : TblentorgTableMap::translateFieldName('Tlffcnorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->tlffcnorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : TblentorgTableMap::translateFieldName('Emlfcnorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->emlfcnorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : TblentorgTableMap::translateFieldName('Plntrborg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->plntrborg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentorgTableMap::translateFieldName('Actcnsorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->actcnsorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentorgTableMap::translateFieldName('Cnsdntorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->cnsdntorg = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -774,7 +1260,7 @@ abstract class Tblentorg implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 10; // 10 = TblentorgTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 20; // 20 = TblentorgTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentorg'), 0, $e);
@@ -796,7 +1282,7 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aUsers !== null && $this->idnusers !== $this->aUsers->getId()) {
+        if ($this->aUsers !== null && $this->idnentrep !== $this->aUsers->getId()) {
             $this->aUsers = null;
         }
     } // ensureConsistency
@@ -994,32 +1480,62 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTORG)) {
             $modifiedColumns[':p' . $index++]  = 'idnentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_IDNUSERS)) {
-            $modifiedColumns[':p' . $index++]  = 'idnusers';
+        if ($this->isColumnModified(TblentorgTableMap::COL_UUID)) {
+            $modifiedColumns[':p' . $index++]  = 'uuid';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_NAMENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'namentorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTREP)) {
+            $modifiedColumns[':p' . $index++]  = 'idnentrep';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_DIRENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'direntorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_SRVENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'srventorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_TELENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'telentorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_SGMENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'sgmentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_RFCENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'rfcentorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_BNFENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'bnfentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_CLUENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'cluentorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_NMBENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'nmbentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_DONENTORG)) {
-            $modifiedColumns[':p' . $index++]  = 'donentorg';
+        if ($this->isColumnModified(TblentorgTableMap::COL_LOGENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'logentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_CREATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'created_at';
+        if ($this->isColumnModified(TblentorgTableMap::COL_DMCENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'dmcentorg';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_UPDATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'updated_at';
+        if ($this->isColumnModified(TblentorgTableMap::COL_LCLENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'lclentorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_MNCENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'mncentorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_ETDENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'etdentorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_PASENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'pasentorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_CDGPSTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'cdgpstorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_GIRENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'girentorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_TLFFCNORG)) {
+            $modifiedColumns[':p' . $index++]  = 'tlffcnorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_EMLFCNORG)) {
+            $modifiedColumns[':p' . $index++]  = 'emlfcnorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_PLNTRBORG)) {
+            $modifiedColumns[':p' . $index++]  = 'plntrborg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_ACTCNSORG)) {
+            $modifiedColumns[':p' . $index++]  = 'actcnsorg';
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_CNSDNTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'cnsdntorg';
         }
 
         $sql = sprintf(
@@ -1035,32 +1551,62 @@ abstract class Tblentorg implements ActiveRecordInterface
                     case 'idnentorg':
                         $stmt->bindValue($identifier, $this->idnentorg, PDO::PARAM_INT);
                         break;
-                    case 'idnusers':
-                        $stmt->bindValue($identifier, $this->idnusers, PDO::PARAM_INT);
+                    case 'uuid':
+                        $stmt->bindValue($identifier, $this->uuid, PDO::PARAM_STR);
                         break;
-                    case 'namentorg':
-                        $stmt->bindValue($identifier, $this->namentorg, PDO::PARAM_STR);
+                    case 'idnentrep':
+                        $stmt->bindValue($identifier, $this->idnentrep, PDO::PARAM_INT);
                         break;
-                    case 'direntorg':
-                        $stmt->bindValue($identifier, $this->direntorg, PDO::PARAM_STR);
+                    case 'srventorg':
+                        $stmt->bindValue($identifier, $this->srventorg, PDO::PARAM_STR);
                         break;
-                    case 'telentorg':
-                        $stmt->bindValue($identifier, $this->telentorg, PDO::PARAM_STR);
+                    case 'sgmentorg':
+                        $stmt->bindValue($identifier, $this->sgmentorg, PDO::PARAM_STR);
                         break;
-                    case 'rfcentorg':
-                        $stmt->bindValue($identifier, $this->rfcentorg, PDO::PARAM_STR);
+                    case 'bnfentorg':
+                        $stmt->bindValue($identifier, $this->bnfentorg, PDO::PARAM_STR);
                         break;
-                    case 'cluentorg':
-                        $stmt->bindValue($identifier, $this->cluentorg, PDO::PARAM_STR);
+                    case 'nmbentorg':
+                        $stmt->bindValue($identifier, $this->nmbentorg, PDO::PARAM_STR);
                         break;
-                    case 'donentorg':
-                        $stmt->bindValue($identifier, $this->donentorg, PDO::PARAM_STR);
+                    case 'logentorg':
+                        $stmt->bindValue($identifier, $this->logentorg, PDO::PARAM_STR);
                         break;
-                    case 'created_at':
-                        $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                    case 'dmcentorg':
+                        $stmt->bindValue($identifier, $this->dmcentorg, PDO::PARAM_STR);
                         break;
-                    case 'updated_at':
-                        $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                    case 'lclentorg':
+                        $stmt->bindValue($identifier, $this->lclentorg, PDO::PARAM_STR);
+                        break;
+                    case 'mncentorg':
+                        $stmt->bindValue($identifier, $this->mncentorg, PDO::PARAM_STR);
+                        break;
+                    case 'etdentorg':
+                        $stmt->bindValue($identifier, $this->etdentorg, PDO::PARAM_STR);
+                        break;
+                    case 'pasentorg':
+                        $stmt->bindValue($identifier, $this->pasentorg, PDO::PARAM_STR);
+                        break;
+                    case 'cdgpstorg':
+                        $stmt->bindValue($identifier, $this->cdgpstorg, PDO::PARAM_STR);
+                        break;
+                    case 'girentorg':
+                        $stmt->bindValue($identifier, $this->girentorg, PDO::PARAM_STR);
+                        break;
+                    case 'tlffcnorg':
+                        $stmt->bindValue($identifier, $this->tlffcnorg, PDO::PARAM_STR);
+                        break;
+                    case 'emlfcnorg':
+                        $stmt->bindValue($identifier, $this->emlfcnorg, PDO::PARAM_STR);
+                        break;
+                    case 'plntrborg':
+                        $stmt->bindValue($identifier, $this->plntrborg, PDO::PARAM_STR);
+                        break;
+                    case 'actcnsorg':
+                        $stmt->bindValue($identifier, $this->actcnsorg, PDO::PARAM_STR);
+                        break;
+                    case 'cnsdntorg':
+                        $stmt->bindValue($identifier, $this->cnsdntorg, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1128,31 +1674,61 @@ abstract class Tblentorg implements ActiveRecordInterface
                 return $this->getIdnentorg();
                 break;
             case 1:
-                return $this->getIdnusers();
+                return $this->getUuid();
                 break;
             case 2:
-                return $this->getNamentorg();
+                return $this->getIdnentrep();
                 break;
             case 3:
-                return $this->getDirentorg();
+                return $this->getSrventorg();
                 break;
             case 4:
-                return $this->getTelentorg();
+                return $this->getSgmentorg();
                 break;
             case 5:
-                return $this->getRfcentorg();
+                return $this->getBnfentorg();
                 break;
             case 6:
-                return $this->getCluentorg();
+                return $this->getNmbentorg();
                 break;
             case 7:
-                return $this->getDonentorg();
+                return $this->getLogentorg();
                 break;
             case 8:
-                return $this->getCreatedAt();
+                return $this->getDmcentorg();
                 break;
             case 9:
-                return $this->getUpdatedAt();
+                return $this->getLclentorg();
+                break;
+            case 10:
+                return $this->getMncentorg();
+                break;
+            case 11:
+                return $this->getEtdentorg();
+                break;
+            case 12:
+                return $this->getPasentorg();
+                break;
+            case 13:
+                return $this->getCdgpstorg();
+                break;
+            case 14:
+                return $this->getGirentorg();
+                break;
+            case 15:
+                return $this->getTlffcnorg();
+                break;
+            case 16:
+                return $this->getEmlfcnorg();
+                break;
+            case 17:
+                return $this->getPlntrborg();
+                break;
+            case 18:
+                return $this->getActcnsorg();
+                break;
+            case 19:
+                return $this->getCnsdntorg();
                 break;
             default:
                 return null;
@@ -1185,24 +1761,26 @@ abstract class Tblentorg implements ActiveRecordInterface
         $keys = TblentorgTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdnentorg(),
-            $keys[1] => $this->getIdnusers(),
-            $keys[2] => $this->getNamentorg(),
-            $keys[3] => $this->getDirentorg(),
-            $keys[4] => $this->getTelentorg(),
-            $keys[5] => $this->getRfcentorg(),
-            $keys[6] => $this->getCluentorg(),
-            $keys[7] => $this->getDonentorg(),
-            $keys[8] => $this->getCreatedAt(),
-            $keys[9] => $this->getUpdatedAt(),
+            $keys[1] => $this->getUuid(),
+            $keys[2] => $this->getIdnentrep(),
+            $keys[3] => $this->getSrventorg(),
+            $keys[4] => $this->getSgmentorg(),
+            $keys[5] => $this->getBnfentorg(),
+            $keys[6] => $this->getNmbentorg(),
+            $keys[7] => $this->getLogentorg(),
+            $keys[8] => $this->getDmcentorg(),
+            $keys[9] => $this->getLclentorg(),
+            $keys[10] => $this->getMncentorg(),
+            $keys[11] => $this->getEtdentorg(),
+            $keys[12] => $this->getPasentorg(),
+            $keys[13] => $this->getCdgpstorg(),
+            $keys[14] => $this->getGirentorg(),
+            $keys[15] => $this->getTlffcnorg(),
+            $keys[16] => $this->getEmlfcnorg(),
+            $keys[17] => $this->getPlntrborg(),
+            $keys[18] => $this->getActcnsorg(),
+            $keys[19] => $this->getCnsdntorg(),
         );
-        if ($result[$keys[8]] instanceof \DateTimeInterface) {
-            $result[$keys[8]] = $result[$keys[8]]->format('c');
-        }
-
-        if ($result[$keys[9]] instanceof \DateTimeInterface) {
-            $result[$keys[9]] = $result[$keys[9]]->format('c');
-        }
-
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -1262,31 +1840,61 @@ abstract class Tblentorg implements ActiveRecordInterface
                 $this->setIdnentorg($value);
                 break;
             case 1:
-                $this->setIdnusers($value);
+                $this->setUuid($value);
                 break;
             case 2:
-                $this->setNamentorg($value);
+                $this->setIdnentrep($value);
                 break;
             case 3:
-                $this->setDirentorg($value);
+                $this->setSrventorg($value);
                 break;
             case 4:
-                $this->setTelentorg($value);
+                $this->setSgmentorg($value);
                 break;
             case 5:
-                $this->setRfcentorg($value);
+                $this->setBnfentorg($value);
                 break;
             case 6:
-                $this->setCluentorg($value);
+                $this->setNmbentorg($value);
                 break;
             case 7:
-                $this->setDonentorg($value);
+                $this->setLogentorg($value);
                 break;
             case 8:
-                $this->setCreatedAt($value);
+                $this->setDmcentorg($value);
                 break;
             case 9:
-                $this->setUpdatedAt($value);
+                $this->setLclentorg($value);
+                break;
+            case 10:
+                $this->setMncentorg($value);
+                break;
+            case 11:
+                $this->setEtdentorg($value);
+                break;
+            case 12:
+                $this->setPasentorg($value);
+                break;
+            case 13:
+                $this->setCdgpstorg($value);
+                break;
+            case 14:
+                $this->setGirentorg($value);
+                break;
+            case 15:
+                $this->setTlffcnorg($value);
+                break;
+            case 16:
+                $this->setEmlfcnorg($value);
+                break;
+            case 17:
+                $this->setPlntrborg($value);
+                break;
+            case 18:
+                $this->setActcnsorg($value);
+                break;
+            case 19:
+                $this->setCnsdntorg($value);
                 break;
         } // switch()
 
@@ -1318,31 +1926,61 @@ abstract class Tblentorg implements ActiveRecordInterface
             $this->setIdnentorg($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setIdnusers($arr[$keys[1]]);
+            $this->setUuid($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setNamentorg($arr[$keys[2]]);
+            $this->setIdnentrep($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setDirentorg($arr[$keys[3]]);
+            $this->setSrventorg($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setTelentorg($arr[$keys[4]]);
+            $this->setSgmentorg($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setRfcentorg($arr[$keys[5]]);
+            $this->setBnfentorg($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setCluentorg($arr[$keys[6]]);
+            $this->setNmbentorg($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setDonentorg($arr[$keys[7]]);
+            $this->setLogentorg($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setCreatedAt($arr[$keys[8]]);
+            $this->setDmcentorg($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setUpdatedAt($arr[$keys[9]]);
+            $this->setLclentorg($arr[$keys[9]]);
+        }
+        if (array_key_exists($keys[10], $arr)) {
+            $this->setMncentorg($arr[$keys[10]]);
+        }
+        if (array_key_exists($keys[11], $arr)) {
+            $this->setEtdentorg($arr[$keys[11]]);
+        }
+        if (array_key_exists($keys[12], $arr)) {
+            $this->setPasentorg($arr[$keys[12]]);
+        }
+        if (array_key_exists($keys[13], $arr)) {
+            $this->setCdgpstorg($arr[$keys[13]]);
+        }
+        if (array_key_exists($keys[14], $arr)) {
+            $this->setGirentorg($arr[$keys[14]]);
+        }
+        if (array_key_exists($keys[15], $arr)) {
+            $this->setTlffcnorg($arr[$keys[15]]);
+        }
+        if (array_key_exists($keys[16], $arr)) {
+            $this->setEmlfcnorg($arr[$keys[16]]);
+        }
+        if (array_key_exists($keys[17], $arr)) {
+            $this->setPlntrborg($arr[$keys[17]]);
+        }
+        if (array_key_exists($keys[18], $arr)) {
+            $this->setActcnsorg($arr[$keys[18]]);
+        }
+        if (array_key_exists($keys[19], $arr)) {
+            $this->setCnsdntorg($arr[$keys[19]]);
         }
     }
 
@@ -1388,32 +2026,62 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTORG)) {
             $criteria->add(TblentorgTableMap::COL_IDNENTORG, $this->idnentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_IDNUSERS)) {
-            $criteria->add(TblentorgTableMap::COL_IDNUSERS, $this->idnusers);
+        if ($this->isColumnModified(TblentorgTableMap::COL_UUID)) {
+            $criteria->add(TblentorgTableMap::COL_UUID, $this->uuid);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_NAMENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_NAMENTORG, $this->namentorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTREP)) {
+            $criteria->add(TblentorgTableMap::COL_IDNENTREP, $this->idnentrep);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_DIRENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_DIRENTORG, $this->direntorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_SRVENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_SRVENTORG, $this->srventorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_TELENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_TELENTORG, $this->telentorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_SGMENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_SGMENTORG, $this->sgmentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_RFCENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_RFCENTORG, $this->rfcentorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_BNFENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_BNFENTORG, $this->bnfentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_CLUENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_CLUENTORG, $this->cluentorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_NMBENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_NMBENTORG, $this->nmbentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_DONENTORG)) {
-            $criteria->add(TblentorgTableMap::COL_DONENTORG, $this->donentorg);
+        if ($this->isColumnModified(TblentorgTableMap::COL_LOGENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_LOGENTORG, $this->logentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_CREATED_AT)) {
-            $criteria->add(TblentorgTableMap::COL_CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(TblentorgTableMap::COL_DMCENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_DMCENTORG, $this->dmcentorg);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_UPDATED_AT)) {
-            $criteria->add(TblentorgTableMap::COL_UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(TblentorgTableMap::COL_LCLENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_LCLENTORG, $this->lclentorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_MNCENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_MNCENTORG, $this->mncentorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_ETDENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_ETDENTORG, $this->etdentorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_PASENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_PASENTORG, $this->pasentorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_CDGPSTORG)) {
+            $criteria->add(TblentorgTableMap::COL_CDGPSTORG, $this->cdgpstorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_GIRENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_GIRENTORG, $this->girentorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_TLFFCNORG)) {
+            $criteria->add(TblentorgTableMap::COL_TLFFCNORG, $this->tlffcnorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_EMLFCNORG)) {
+            $criteria->add(TblentorgTableMap::COL_EMLFCNORG, $this->emlfcnorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_PLNTRBORG)) {
+            $criteria->add(TblentorgTableMap::COL_PLNTRBORG, $this->plntrborg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_ACTCNSORG)) {
+            $criteria->add(TblentorgTableMap::COL_ACTCNSORG, $this->actcnsorg);
+        }
+        if ($this->isColumnModified(TblentorgTableMap::COL_CNSDNTORG)) {
+            $criteria->add(TblentorgTableMap::COL_CNSDNTORG, $this->cnsdntorg);
         }
 
         return $criteria;
@@ -1461,7 +2129,7 @@ abstract class Tblentorg implements ActiveRecordInterface
 
     /**
      * Returns the primary key for this object (row).
-     * @return int
+     * @return string
      */
     public function getPrimaryKey()
     {
@@ -1471,7 +2139,7 @@ abstract class Tblentorg implements ActiveRecordInterface
     /**
      * Generic method to set the primary key (idnentorg column).
      *
-     * @param       int $key Primary key.
+     * @param       string $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
@@ -1501,15 +2169,25 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setIdnusers($this->getIdnusers());
-        $copyObj->setNamentorg($this->getNamentorg());
-        $copyObj->setDirentorg($this->getDirentorg());
-        $copyObj->setTelentorg($this->getTelentorg());
-        $copyObj->setRfcentorg($this->getRfcentorg());
-        $copyObj->setCluentorg($this->getCluentorg());
-        $copyObj->setDonentorg($this->getDonentorg());
-        $copyObj->setCreatedAt($this->getCreatedAt());
-        $copyObj->setUpdatedAt($this->getUpdatedAt());
+        $copyObj->setUuid($this->getUuid());
+        $copyObj->setIdnentrep($this->getIdnentrep());
+        $copyObj->setSrventorg($this->getSrventorg());
+        $copyObj->setSgmentorg($this->getSgmentorg());
+        $copyObj->setBnfentorg($this->getBnfentorg());
+        $copyObj->setNmbentorg($this->getNmbentorg());
+        $copyObj->setLogentorg($this->getLogentorg());
+        $copyObj->setDmcentorg($this->getDmcentorg());
+        $copyObj->setLclentorg($this->getLclentorg());
+        $copyObj->setMncentorg($this->getMncentorg());
+        $copyObj->setEtdentorg($this->getEtdentorg());
+        $copyObj->setPasentorg($this->getPasentorg());
+        $copyObj->setCdgpstorg($this->getCdgpstorg());
+        $copyObj->setGirentorg($this->getGirentorg());
+        $copyObj->setTlffcnorg($this->getTlffcnorg());
+        $copyObj->setEmlfcnorg($this->getEmlfcnorg());
+        $copyObj->setPlntrborg($this->getPlntrborg());
+        $copyObj->setActcnsorg($this->getActcnsorg());
+        $copyObj->setCnsdntorg($this->getCnsdntorg());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setIdnentorg(NULL); // this is a auto-increment column, so set to default value
@@ -1548,9 +2226,9 @@ abstract class Tblentorg implements ActiveRecordInterface
     public function setUsers(ChildUsers $v = null)
     {
         if ($v === null) {
-            $this->setIdnusers(NULL);
+            $this->setIdnentrep(NULL);
         } else {
-            $this->setIdnusers($v->getId());
+            $this->setIdnentrep($v->getId());
         }
 
         $this->aUsers = $v;
@@ -1575,8 +2253,8 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function getUsers(ConnectionInterface $con = null)
     {
-        if ($this->aUsers === null && ($this->idnusers != 0)) {
-            $this->aUsers = ChildUsersQuery::create()->findPk($this->idnusers, $con);
+        if ($this->aUsers === null && (($this->idnentrep !== "" && $this->idnentrep !== null))) {
+            $this->aUsers = ChildUsersQuery::create()->findPk($this->idnentrep, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1600,17 +2278,28 @@ abstract class Tblentorg implements ActiveRecordInterface
             $this->aUsers->removeTblentorg($this);
         }
         $this->idnentorg = null;
-        $this->idnusers = null;
-        $this->namentorg = null;
-        $this->direntorg = null;
-        $this->telentorg = null;
-        $this->rfcentorg = null;
-        $this->cluentorg = null;
-        $this->donentorg = null;
-        $this->created_at = null;
-        $this->updated_at = null;
+        $this->uuid = null;
+        $this->idnentrep = null;
+        $this->srventorg = null;
+        $this->sgmentorg = null;
+        $this->bnfentorg = null;
+        $this->nmbentorg = null;
+        $this->logentorg = null;
+        $this->dmcentorg = null;
+        $this->lclentorg = null;
+        $this->mncentorg = null;
+        $this->etdentorg = null;
+        $this->pasentorg = null;
+        $this->cdgpstorg = null;
+        $this->girentorg = null;
+        $this->tlffcnorg = null;
+        $this->emlfcnorg = null;
+        $this->plntrborg = null;
+        $this->actcnsorg = null;
+        $this->cnsdntorg = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

@@ -48,28 +48,43 @@
                             :class="{ 'off-canvas-sidebar': responsive }"
                         >
                             <md-list>
-                                <md-list-item href="/">
+                                <md-list-item href="{{ route('index') }}">
                                     <md-icon>house</md-icon>
-                                    Bienvenida
+                                    {{ __('app.index') }}
                                 </md-list-item>
                                 @guest
-                                <md-list-item href="/register">
+                                <md-list-item href="{{ route('registerview') }}">
                                     <md-icon>person_add</md-icon>
-                                    Registro
+                                    {{ __('app.register') }}
                                 </md-list-item>
-                                <md-list-item href="/login">
+                                <md-list-item href="{{ route('loginview') }}">
                                     <md-icon>fingerprint</md-icon>
-                                    Entrar
+                                    {{ __('app.login') }}
                                 </md-list-item>
                                 @else
-                                    <md-list-item href="/">
-                                        <md-icon>fingerprint</md-icon>
-                                        Administrar
+                                    <md-list-item href="#">
+                                        <md-icon>dashboard</md-icon>
+                                        Estadisticas
                                     </md-list-item>
 
-                                    <md-list-item href="{{ route('logout') }}" @click="document.getElementById('logout-form').submit()">
-                                        <md-icon>door</md-icon>
-                                        Salir
+                                    <md-list-item href="#">
+                                        <md-icon>ondemand_video</md-icon>
+                                        Cursos
+                                    </md-list-item>
+
+                                    <md-list-item href="#">
+                                        <md-icon>person</md-icon>
+                                        Organizaciones publicas
+                                    </md-list-item>
+
+                                    <md-list-item href="{{ route("registeradvancedview") }}">
+                                        <md-icon>person_add</md-icon>
+                                        Registro de institución
+                                    </md-list-item>
+
+                                    <md-list-item href="{{ route('logout') }}" onclick="document.getElementById('logout-form').submit()">
+                                        <md-icon>exit_to_app</md-icon>
+                                        {{ __('app.logout') }}
                                     </md-list-item>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -94,13 +109,42 @@
                         @yield('content')
                     </div>
 
-                    <footer class="footer">
+                    <footer class="footer bg-dark" style="margin-top: 1000px !important;">
                         <div class="container md-offset">
-                            <div class="copyright text-center">
-                                &copy; @{{ new Date().getFullYear() }}
-                                <a href="https://www.creative-tim.com/?ref=mdp-vuejs" target="_blank"
-                                >Magnimus Software</a
-                                >, derechos reservados
+                            <div class="md-layout">
+                                <div
+                                    class="md-layout-item md-size-20 md-xsmall-size-100"
+                                >
+                                    <div class="copyright text-center h6">
+                                        &copy; {{ date("Y") }}
+                                        <a href="http://www.magnimussoftware.com/" target="_blank"
+                                        >Magnimus Software</a
+                                        >, {{ __('app.copyright') }}
+
+                                    </div>
+                                </div>
+                                <div
+                                    class="md-layout-item md-size-65 md-xsmall-size-100 mx-auto"
+                                >
+                                    <ul class="h6">
+                                        <li><a href="#">Legal</a></li>
+                                        <li><a href="#">Terminos y condiciones</a></li>
+                                        <li><a href="#">Condiciones de privacidad</a></li>
+                                        <li><a href="#">¿Quienes somos?</a></li>
+                                        <li><a href="#">Trabajo</a></li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="md-layout-item md-size-15 md-xsmall-size-100 mx-auto"
+                                >
+                                    <md-field class="mt-auto">
+                                        <label>Language</label>
+                                        <md-select md-dense>
+                                            <md-option onclick="window.location.replace('/language/en')">English</md-option>
+                                            <md-option onclick="window.location.replace('/language/es')">Español</md-option>
+                                        </md-select>
+                                    </md-field>
+                                </div>
                             </div>
                         </div>
                     </footer>
@@ -110,6 +154,87 @@
     </div>
 
     @stack('scripts')
+    <script>
+        let mix = {
+            props: {
+                backgroundColor: {
+                    type: String,
+                    default: "black"
+                }
+            },
+            inject: {
+                autoClose: {
+                    default: true
+                }
+            },
+            data() {
+                return {
+                    responsive: false,
+                };
+            },
+            computed: {
+                setBgImage() {
+                    return {
+                        backgroundImage: `url(./img/bg-pricing.jpg)`
+                    };
+                }
+            },
+            methods: {
+                toggleSidebarPage() {
+                    if (this.$sidebar.showSidebar) {
+                        this.$sidebar.displaySidebar(false);
+                    }
+                },
+                linkClick() {
+                    if (
+                        this.autoClose &&
+                        this.$sidebar &&
+                        this.$sidebar.showSidebar === true
+                    ) {
+                        this.$sidebar.displaySidebar(false);
+                    }
+                },
+                toggleSidebar() {
+                    this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+                },
+                toggleNavbar() {
+                    document.body.classList.toggle("nav-open");
+                    this.showMenu = !this.showMenu;
+                },
+                closeMenu() {
+                    document.body.classList.remove("nav-open");
+                    this.showMenu = false;
+                },
+                onResponsiveInverted() {
+                    if (window.innerWidth < 991) {
+                        this.responsive = true;
+                    } else {
+                        this.responsive = false;
+                    }
+                }
+            },
+            mounted() {
+                this.onResponsiveInverted();
+                window.addEventListener("resize", this.onResponsiveInverted);
+            },
+            beforeDestroy() {
+                this.closeMenu();
+                window.removeEventListener("resize", this.onResponsiveInverted);
+            },
+            beforeRouteUpdate(to, from, next) {
+                if (this.showMenu) {
+                    this.closeMenu();
+                    setTimeout(() => {
+                        next();
+                    }, this.menuTransitionDuration);
+                } else {
+                    next();
+                }
+            }
+        };
+
+        window.pageMix.push(mix);
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

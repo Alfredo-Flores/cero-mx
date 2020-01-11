@@ -4,6 +4,7 @@ use Base\Users as BaseUsers;
 use Illuminate\Support\Facades\Log;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Exception\PropelException;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Skeleton subclass for representing a row from the 'users' table.
@@ -17,21 +18,27 @@ use Propel\Runtime\Exception\PropelException;
  */
 class Users extends BaseUsers
 {
-    public static function insusers(String $name, String $email, String $password, String $rouimg = null, String $tel, int $tipo){
+    public static function insusers(String $name, String $firstsurname, String $secondsurname, String $email, String $password){
         $user = new \Users();
 
         try {
+            $uuid = Uuid::uuid3(Uuid::NAMESPACE_DNS, $user->getId());
+            $uuid->toString();
+
             $user
-                ->setName($name)
+                ->setUuid($uuid)
+                ->setNamdtsgnr($name)
+                ->setPrmaplgnr($firstsurname)
+                ->setSgnaplgnr($secondsurname)
                 ->setEmail($email)
                 ->setPassword(bcrypt($password))
-                ->setImg($rouimg)
-                ->setTel($tel)
-                ->setTyp($tipo)
                 ->setCreatedAt(date("Y-m-d H:i:s"))
                 ->setUpdatedAt(date("Y-m-d H:i:s"))
                 ->save();
         } catch(PropelException $e) {
+            Log::debug($e);
+            return false;
+        } catch (Exception $e) {
             Log::debug($e);
             return false;
         }
@@ -62,7 +69,18 @@ class Users extends BaseUsers
         return $user;
     }
 
-    static public function updusers($idnusers, String $name, String $email, int $password, String $rouimg = null, String $tel, int $tipo) {
+    static public function fnoemlusr($emlusers){
+        $user = \UsersQuery::create()
+            ->findOneByEmail($emlusers);
+
+        if ($user == null) {
+            return false;
+        }
+
+        return $user;
+    }
+
+    static public function updusers($idnusers, String $name, String $firstsurname, String $secondsurname, String $email, String $password) {
         $user = self::fnousers($idnusers);
 
         if ($user == null) {
@@ -70,12 +88,12 @@ class Users extends BaseUsers
         }
 
         try {
-            $user->setName($name)
+            $user
+                ->setNamdtsgnr($name)
+                ->setPrmaplgnr($firstsurname)
+                ->setSgnaplgnr($secondsurname)
                 ->setEmail($email)
                 ->setPassword(bcrypt($password))
-                ->setImg($rouimg)
-                ->setTel($tel)
-                ->setTyp($tipo)
                 ->setCreatedAt(date("Y-m-d H:i:s"))
                 ->setUpdatedAt(date("Y-m-d H:i:s"))
                 ->save();

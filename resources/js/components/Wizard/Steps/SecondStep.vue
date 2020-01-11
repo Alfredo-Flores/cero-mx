@@ -1,33 +1,24 @@
 <template>
     <div>
-        <h5 class="info-text">¿De que se trata la institucion?</h5>
+        <h5 class="info-text">{{ $t('secondstep.title') }}</h5>
         <div class="md-layout">
             <div class="md-layout-item">
                 <div class="md-layout">
-                    <div class="md-layout-item md-size-33 md-small-size-100">
+                    <div class="md-layout-item md-size-50 md-small-size-100">
                         <icon-checkbox
                             v-model="checkone"
                             icon="fas fa-building"
-                            title="Empresa"
+                            :title="$t('secondstep.bussiness')"
                             @click.native="changeCheck(1)"
                         >
                         </icon-checkbox>
                     </div>
-                    <div class="md-layout-item md-size-33 md-small-size-100">
+                    <div class="md-layout-item md-size-50 md-small-size-100">
                         <icon-checkbox
                             v-model="checktwo"
                             icon="fas fa-home"
-                            title="Organización"
+                            :title=" $t('secondstep.organization') "
                             @click.native="changeCheck(2)"
-                        >
-                        </icon-checkbox>
-                    </div>
-                    <div class="md-layout-item md-size-33 md-small-size-100">
-                        <icon-checkbox
-                            v-model="checkthree"
-                            icon="fas fa-globe"
-                            title="internacional"
-                            @click.native="changeCheck(3)"
                         >
                         </icon-checkbox>
                     </div>

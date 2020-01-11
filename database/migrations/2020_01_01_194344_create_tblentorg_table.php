@@ -14,16 +14,27 @@ class CreateTblentorgTable extends Migration
     public function up()
     {
         Schema::create('tblentorg', function (Blueprint $table) {
-            $table->increments('idnentorg');
-            $table->unsignedInteger('idnusers');
-            $table->foreign('idnusers')->references('id')->on('users')->onDelete('cascade');
-            $table->string('namentorg');
-            $table->string('direntorg');
-            $table->string('telentorg');
-            $table->string('rfcentorg');
-            $table->string('cluentorg');
-            $table->string('donentorg')->nullable();
-            $table->timestamps();
+            $table->Bigincrements('idnentorg')->comment('Id');
+            $table->uuid('uuid')->unique()->comment('Uuid');
+            $table->unsignedBigInteger('idnentrep')->comment('Id Representante');
+            $table->foreign('idnentrep')->references('id')->on('users');
+            $table->string('srventorg')->default('')->comment('Servicios');
+            $table->string('sgmentorg')->default('')->comment('SegmentoMercado');
+            $table->string('bnfentorg')->default('')->comment('Beneficiarios');
+            $table->string('nmbentorg')->default('')->comment('Nombre');
+            $table->string('logentorg')->default('')->comment('Logo');
+            $table->string('dmcentorg')->default('')->comment('Domicilio');
+            $table->string('lclentorg')->default('')->comment('Localidad');
+            $table->string('mncentorg')->default('')->comment('Municipio');
+            $table->string('etdentorg')->default('')->comment('Entidad');
+            $table->string('pasentorg')->default('')->comment('Pais');
+            $table->string('cdgpstorg')->default('')->comment('CodigoPostal');
+            $table->string('girentorg')->default('')->comment('Giro');
+            $table->string('tlffcnorg')->default('')->comment('TelOficina');
+            $table->string('emlfcnorg')->default('')->comment('CorreoOficina');
+            $table->string('plntrborg')->default('')->comment('PlanAnual');
+            $table->string('actcnsorg')->default('')->comment('ActaConstitutiva');
+            $table->string('cnsdntorg')->default('')->comment('ConstanciaDonataria');
         });
     }
 

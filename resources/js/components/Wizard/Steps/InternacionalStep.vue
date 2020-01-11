@@ -2,7 +2,25 @@
     <ValidationObserver ref="form">
         <form @submit.prevent="validate">
             <div>
+                <h6 class="info-text">
+                    Por favor, llene los siguientes formularios, * significa que es obligatorio
+                </h6>
                 <div class="md-layout">
+                    <div class="md-layout-item md-size-100 md-small-size-100">
+                        <div class="picture-container">
+                            <div class="picture">
+                                <div v-if="!image">
+                                    <img :src="avatar" class="picture-src" title=""/>
+                                </div>
+                                <div v-else>
+                                    <img :src="image"/>
+                                </div>
+                                <input type="file" @change="onFileChange"/>
+                            </div>
+                            <h6 class="description">{{ $t('firststep.logo') }}</h6>
+                        </div>
+                    </div>
+
                     <div class="md-layout-item md-size-100">
                         <ValidationProvider
                             name="internationalname"
@@ -17,7 +35,7 @@
                 ]"
                             >
                                 <md-icon>title</md-icon>
-                                <label>Nombre de la internacional</label>
+                                <label>{{ $t('internationalstep.name') }}</label>
                                 <md-input v-model="internationalname" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
@@ -37,7 +55,7 @@
                 ]"
                             >
                                 <md-icon>public</md-icon>
-                                <label>Direccion fisica de la internacional</label>
+                                <label>{{ $t('internationalstep.direction') }}</label>
                                 <md-input v-model="internationaldirection" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
@@ -57,7 +75,7 @@
                 ]"
                             >
                                 <md-icon>call</md-icon>
-                                <label>Telefono de la internacional</label>
+                                <label>{{ $t('internationalstep.phone') }}</label>
                                 <md-input v-model="internationaltelphone" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
@@ -78,14 +96,42 @@
     extend("integer", integer);
 
     export default {
+        props: {
+            avatar: {
+                type: String,
+                default: "./img/default-avatar.png"
+            }
+        },
         data() {
             return {
+                image: "",
                 internationalname: "",
                 internationaldirection: "",
                 internationaltelphone: ""
             };
         },
         methods: {
+            handlePreview(file) {
+                this.model.imageUrl = URL.createObjectURL(file.raw);
+            },
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length) return;
+
+                this.imageobject = files[0];
+
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                var reader = new FileReader();
+                var vm = this;
+
+                reader.onload = e => {
+                    vm.image = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            },
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-internacional", this.internationalname,

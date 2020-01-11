@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -29,17 +30,93 @@ class MainController extends Controller
         return view('welcome');
     }
 
-    public function viewLogin()
+    public function loginView()
     {
         return view('auth.login');
     }
 
-    public function viewRegister()
+    public function registerView()
     {
         return view('auth.register');
     }
 
-    public function registerUser(Request $request)
+    public function registerAdvancedView()
+    {
+        return view('auth.registerinstitution');
+    }
+
+    public function register(Request $request)
+    {
+        $rules = [
+            'Nombre' => 'required',
+            'ApellidoPrimero' => 'required',
+            'ApellidoSegundo' => 'required',
+            'Correo' => 'required|email',
+            'Contrasena' => 'required|min:6',
+        ];
+
+        $messages = [
+            'Nombre.required' => 'Ingrese el nombre',
+            'ApellidoPrimero.required' => 'Ingrese el primer apellido',
+            'ApellidoSegundo.required' => 'Ingrese el segundo apellido',
+            'Correo.required' => 'Ingrese el correo electronico',
+            'Correo.email' => 'Ingrese el correo electronico correctamente',
+            'Contrasena.required' => 'Ingrese la contraseña',
+            'Contrasena.min' => 'Ingrese la contraseña con un minimo de 6 caracteres',
+        ];
+
+        $validador = Validator::make($request->toArray(), $rules, $messages)->errors()->all();
+
+        if (!empty($validador)) {
+            return array(
+                'success' => false,
+                'message' => $validador[0]
+            );
+        }
+
+        // Data
+        $name = trim($request->get('Nombre'));
+        $firstsurname = trim($request->get('ApellidoPrimero'));
+        $secondsurname = trim($request->get('ApellidoSegundo'));
+        $email = trim($request->get('email'));
+        $password = trim($request->get('password'));
+
+        $entemlusr = \Users::fnoemlusr($email);
+
+        if ($entemlusr) {
+            return array(
+                'success' => false,
+                'message' => 'Este correo ya fue registrado'
+            );
+        }
+
+        // Insert
+        $entusr = \Users::insusers($name, $firstsurname, $secondsurname, $email, $password);
+
+        if (!$entusr) {
+            return array(
+                'success' => false,
+                'message' => 'Ocurrio un error inesperado'
+            );
+        }
+
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return array(
+                'success' => true,
+                'message' => 'Ya puede disfrutar de sus beneficios'
+            );
+        } else {
+            return array(
+                'success' => true,
+                'message' => 'Fue registrado, pero ocurrio un error al iniciar sesion automaticamente, hable a los administradores'
+            );
+        }
+    }
+
+    public function registeradvanced(Request $request)
     {
         $rules = [
             'NombreRepresentante' => 'required',
@@ -155,10 +232,10 @@ class MainController extends Controller
         } elseif ($tipo == 2) {
             $rules = [
                 'NombreOrganizacion' => 'required',
-                'DireccionOrganizacion'=> 'required',
-                'TelefonoOrganizacion'=> 'required|numeric|min:10',
-                'Cluni'=> 'required|file|mimes:pdf',
-                'RfcOrganizacion'=> 'required',
+                'DireccionOrganizacion' => 'required',
+                'TelefonoOrganizacion' => 'required|numeric|min:10',
+                'Cluni' => 'required|file|mimes:pdf',
+                'RfcOrganizacion' => 'required',
             ];
 
             $messages = [
@@ -342,5 +419,22 @@ class MainController extends Controller
                 'message' => 'Ninguno'
             );
         }
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('index');
     }
 }

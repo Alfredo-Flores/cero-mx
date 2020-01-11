@@ -21,26 +21,46 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  * @method     ChildTblentorgQuery orderByIdnentorg($order = Criteria::ASC) Order by the idnentorg column
- * @method     ChildTblentorgQuery orderByIdnusers($order = Criteria::ASC) Order by the idnusers column
- * @method     ChildTblentorgQuery orderByNamentorg($order = Criteria::ASC) Order by the namentorg column
- * @method     ChildTblentorgQuery orderByDirentorg($order = Criteria::ASC) Order by the direntorg column
- * @method     ChildTblentorgQuery orderByTelentorg($order = Criteria::ASC) Order by the telentorg column
- * @method     ChildTblentorgQuery orderByRfcentorg($order = Criteria::ASC) Order by the rfcentorg column
- * @method     ChildTblentorgQuery orderByCluentorg($order = Criteria::ASC) Order by the cluentorg column
- * @method     ChildTblentorgQuery orderByDonentorg($order = Criteria::ASC) Order by the donentorg column
- * @method     ChildTblentorgQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
- * @method     ChildTblentorgQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method     ChildTblentorgQuery orderByUuid($order = Criteria::ASC) Order by the uuid column
+ * @method     ChildTblentorgQuery orderByIdnentrep($order = Criteria::ASC) Order by the idnentrep column
+ * @method     ChildTblentorgQuery orderBySrventorg($order = Criteria::ASC) Order by the srventorg column
+ * @method     ChildTblentorgQuery orderBySgmentorg($order = Criteria::ASC) Order by the sgmentorg column
+ * @method     ChildTblentorgQuery orderByBnfentorg($order = Criteria::ASC) Order by the bnfentorg column
+ * @method     ChildTblentorgQuery orderByNmbentorg($order = Criteria::ASC) Order by the nmbentorg column
+ * @method     ChildTblentorgQuery orderByLogentorg($order = Criteria::ASC) Order by the logentorg column
+ * @method     ChildTblentorgQuery orderByDmcentorg($order = Criteria::ASC) Order by the dmcentorg column
+ * @method     ChildTblentorgQuery orderByLclentorg($order = Criteria::ASC) Order by the lclentorg column
+ * @method     ChildTblentorgQuery orderByMncentorg($order = Criteria::ASC) Order by the mncentorg column
+ * @method     ChildTblentorgQuery orderByEtdentorg($order = Criteria::ASC) Order by the etdentorg column
+ * @method     ChildTblentorgQuery orderByPasentorg($order = Criteria::ASC) Order by the pasentorg column
+ * @method     ChildTblentorgQuery orderByCdgpstorg($order = Criteria::ASC) Order by the cdgpstorg column
+ * @method     ChildTblentorgQuery orderByGirentorg($order = Criteria::ASC) Order by the girentorg column
+ * @method     ChildTblentorgQuery orderByTlffcnorg($order = Criteria::ASC) Order by the tlffcnorg column
+ * @method     ChildTblentorgQuery orderByEmlfcnorg($order = Criteria::ASC) Order by the emlfcnorg column
+ * @method     ChildTblentorgQuery orderByPlntrborg($order = Criteria::ASC) Order by the plntrborg column
+ * @method     ChildTblentorgQuery orderByActcnsorg($order = Criteria::ASC) Order by the actcnsorg column
+ * @method     ChildTblentorgQuery orderByCnsdntorg($order = Criteria::ASC) Order by the cnsdntorg column
  *
  * @method     ChildTblentorgQuery groupByIdnentorg() Group by the idnentorg column
- * @method     ChildTblentorgQuery groupByIdnusers() Group by the idnusers column
- * @method     ChildTblentorgQuery groupByNamentorg() Group by the namentorg column
- * @method     ChildTblentorgQuery groupByDirentorg() Group by the direntorg column
- * @method     ChildTblentorgQuery groupByTelentorg() Group by the telentorg column
- * @method     ChildTblentorgQuery groupByRfcentorg() Group by the rfcentorg column
- * @method     ChildTblentorgQuery groupByCluentorg() Group by the cluentorg column
- * @method     ChildTblentorgQuery groupByDonentorg() Group by the donentorg column
- * @method     ChildTblentorgQuery groupByCreatedAt() Group by the created_at column
- * @method     ChildTblentorgQuery groupByUpdatedAt() Group by the updated_at column
+ * @method     ChildTblentorgQuery groupByUuid() Group by the uuid column
+ * @method     ChildTblentorgQuery groupByIdnentrep() Group by the idnentrep column
+ * @method     ChildTblentorgQuery groupBySrventorg() Group by the srventorg column
+ * @method     ChildTblentorgQuery groupBySgmentorg() Group by the sgmentorg column
+ * @method     ChildTblentorgQuery groupByBnfentorg() Group by the bnfentorg column
+ * @method     ChildTblentorgQuery groupByNmbentorg() Group by the nmbentorg column
+ * @method     ChildTblentorgQuery groupByLogentorg() Group by the logentorg column
+ * @method     ChildTblentorgQuery groupByDmcentorg() Group by the dmcentorg column
+ * @method     ChildTblentorgQuery groupByLclentorg() Group by the lclentorg column
+ * @method     ChildTblentorgQuery groupByMncentorg() Group by the mncentorg column
+ * @method     ChildTblentorgQuery groupByEtdentorg() Group by the etdentorg column
+ * @method     ChildTblentorgQuery groupByPasentorg() Group by the pasentorg column
+ * @method     ChildTblentorgQuery groupByCdgpstorg() Group by the cdgpstorg column
+ * @method     ChildTblentorgQuery groupByGirentorg() Group by the girentorg column
+ * @method     ChildTblentorgQuery groupByTlffcnorg() Group by the tlffcnorg column
+ * @method     ChildTblentorgQuery groupByEmlfcnorg() Group by the emlfcnorg column
+ * @method     ChildTblentorgQuery groupByPlntrborg() Group by the plntrborg column
+ * @method     ChildTblentorgQuery groupByActcnsorg() Group by the actcnsorg column
+ * @method     ChildTblentorgQuery groupByCnsdntorg() Group by the cnsdntorg column
  *
  * @method     ChildTblentorgQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildTblentorgQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -65,42 +85,72 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorg findOne(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query
  * @method     ChildTblentorg findOneOrCreate(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query, or a new ChildTblentorg object populated from the query conditions when no match is found
  *
- * @method     ChildTblentorg findOneByIdnentorg(int $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column
- * @method     ChildTblentorg findOneByIdnusers(int $idnusers) Return the first ChildTblentorg filtered by the idnusers column
- * @method     ChildTblentorg findOneByNamentorg(string $namentorg) Return the first ChildTblentorg filtered by the namentorg column
- * @method     ChildTblentorg findOneByDirentorg(string $direntorg) Return the first ChildTblentorg filtered by the direntorg column
- * @method     ChildTblentorg findOneByTelentorg(string $telentorg) Return the first ChildTblentorg filtered by the telentorg column
- * @method     ChildTblentorg findOneByRfcentorg(string $rfcentorg) Return the first ChildTblentorg filtered by the rfcentorg column
- * @method     ChildTblentorg findOneByCluentorg(string $cluentorg) Return the first ChildTblentorg filtered by the cluentorg column
- * @method     ChildTblentorg findOneByDonentorg(string $donentorg) Return the first ChildTblentorg filtered by the donentorg column
- * @method     ChildTblentorg findOneByCreatedAt(string $created_at) Return the first ChildTblentorg filtered by the created_at column
- * @method     ChildTblentorg findOneByUpdatedAt(string $updated_at) Return the first ChildTblentorg filtered by the updated_at column *
+ * @method     ChildTblentorg findOneByIdnentorg(string $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column
+ * @method     ChildTblentorg findOneByUuid(string $uuid) Return the first ChildTblentorg filtered by the uuid column
+ * @method     ChildTblentorg findOneByIdnentrep(string $idnentrep) Return the first ChildTblentorg filtered by the idnentrep column
+ * @method     ChildTblentorg findOneBySrventorg(string $srventorg) Return the first ChildTblentorg filtered by the srventorg column
+ * @method     ChildTblentorg findOneBySgmentorg(string $sgmentorg) Return the first ChildTblentorg filtered by the sgmentorg column
+ * @method     ChildTblentorg findOneByBnfentorg(string $bnfentorg) Return the first ChildTblentorg filtered by the bnfentorg column
+ * @method     ChildTblentorg findOneByNmbentorg(string $nmbentorg) Return the first ChildTblentorg filtered by the nmbentorg column
+ * @method     ChildTblentorg findOneByLogentorg(string $logentorg) Return the first ChildTblentorg filtered by the logentorg column
+ * @method     ChildTblentorg findOneByDmcentorg(string $dmcentorg) Return the first ChildTblentorg filtered by the dmcentorg column
+ * @method     ChildTblentorg findOneByLclentorg(string $lclentorg) Return the first ChildTblentorg filtered by the lclentorg column
+ * @method     ChildTblentorg findOneByMncentorg(string $mncentorg) Return the first ChildTblentorg filtered by the mncentorg column
+ * @method     ChildTblentorg findOneByEtdentorg(string $etdentorg) Return the first ChildTblentorg filtered by the etdentorg column
+ * @method     ChildTblentorg findOneByPasentorg(string $pasentorg) Return the first ChildTblentorg filtered by the pasentorg column
+ * @method     ChildTblentorg findOneByCdgpstorg(string $cdgpstorg) Return the first ChildTblentorg filtered by the cdgpstorg column
+ * @method     ChildTblentorg findOneByGirentorg(string $girentorg) Return the first ChildTblentorg filtered by the girentorg column
+ * @method     ChildTblentorg findOneByTlffcnorg(string $tlffcnorg) Return the first ChildTblentorg filtered by the tlffcnorg column
+ * @method     ChildTblentorg findOneByEmlfcnorg(string $emlfcnorg) Return the first ChildTblentorg filtered by the emlfcnorg column
+ * @method     ChildTblentorg findOneByPlntrborg(string $plntrborg) Return the first ChildTblentorg filtered by the plntrborg column
+ * @method     ChildTblentorg findOneByActcnsorg(string $actcnsorg) Return the first ChildTblentorg filtered by the actcnsorg column
+ * @method     ChildTblentorg findOneByCnsdntorg(string $cnsdntorg) Return the first ChildTblentorg filtered by the cnsdntorg column *
 
  * @method     ChildTblentorg requirePk($key, ConnectionInterface $con = null) Return the ChildTblentorg by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOne(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildTblentorg requireOneByIdnentorg(int $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByIdnusers(int $idnusers) Return the first ChildTblentorg filtered by the idnusers column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByNamentorg(string $namentorg) Return the first ChildTblentorg filtered by the namentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByDirentorg(string $direntorg) Return the first ChildTblentorg filtered by the direntorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByTelentorg(string $telentorg) Return the first ChildTblentorg filtered by the telentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByRfcentorg(string $rfcentorg) Return the first ChildTblentorg filtered by the rfcentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByCluentorg(string $cluentorg) Return the first ChildTblentorg filtered by the cluentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByDonentorg(string $donentorg) Return the first ChildTblentorg filtered by the donentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByCreatedAt(string $created_at) Return the first ChildTblentorg filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentorg filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByIdnentorg(string $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByUuid(string $uuid) Return the first ChildTblentorg filtered by the uuid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByIdnentrep(string $idnentrep) Return the first ChildTblentorg filtered by the idnentrep column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneBySrventorg(string $srventorg) Return the first ChildTblentorg filtered by the srventorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneBySgmentorg(string $sgmentorg) Return the first ChildTblentorg filtered by the sgmentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByBnfentorg(string $bnfentorg) Return the first ChildTblentorg filtered by the bnfentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByNmbentorg(string $nmbentorg) Return the first ChildTblentorg filtered by the nmbentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByLogentorg(string $logentorg) Return the first ChildTblentorg filtered by the logentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByDmcentorg(string $dmcentorg) Return the first ChildTblentorg filtered by the dmcentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByLclentorg(string $lclentorg) Return the first ChildTblentorg filtered by the lclentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByMncentorg(string $mncentorg) Return the first ChildTblentorg filtered by the mncentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByEtdentorg(string $etdentorg) Return the first ChildTblentorg filtered by the etdentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByPasentorg(string $pasentorg) Return the first ChildTblentorg filtered by the pasentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByCdgpstorg(string $cdgpstorg) Return the first ChildTblentorg filtered by the cdgpstorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByGirentorg(string $girentorg) Return the first ChildTblentorg filtered by the girentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByTlffcnorg(string $tlffcnorg) Return the first ChildTblentorg filtered by the tlffcnorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByEmlfcnorg(string $emlfcnorg) Return the first ChildTblentorg filtered by the emlfcnorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByPlntrborg(string $plntrborg) Return the first ChildTblentorg filtered by the plntrborg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByActcnsorg(string $actcnsorg) Return the first ChildTblentorg filtered by the actcnsorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByCnsdntorg(string $cnsdntorg) Return the first ChildTblentorg filtered by the cnsdntorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildTblentorg[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildTblentorg objects based on current ModelCriteria
- * @method     ChildTblentorg[]|ObjectCollection findByIdnentorg(int $idnentorg) Return ChildTblentorg objects filtered by the idnentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByIdnusers(int $idnusers) Return ChildTblentorg objects filtered by the idnusers column
- * @method     ChildTblentorg[]|ObjectCollection findByNamentorg(string $namentorg) Return ChildTblentorg objects filtered by the namentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByDirentorg(string $direntorg) Return ChildTblentorg objects filtered by the direntorg column
- * @method     ChildTblentorg[]|ObjectCollection findByTelentorg(string $telentorg) Return ChildTblentorg objects filtered by the telentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByRfcentorg(string $rfcentorg) Return ChildTblentorg objects filtered by the rfcentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByCluentorg(string $cluentorg) Return ChildTblentorg objects filtered by the cluentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByDonentorg(string $donentorg) Return ChildTblentorg objects filtered by the donentorg column
- * @method     ChildTblentorg[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentorg objects filtered by the created_at column
- * @method     ChildTblentorg[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentorg objects filtered by the updated_at column
+ * @method     ChildTblentorg[]|ObjectCollection findByIdnentorg(string $idnentorg) Return ChildTblentorg objects filtered by the idnentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByUuid(string $uuid) Return ChildTblentorg objects filtered by the uuid column
+ * @method     ChildTblentorg[]|ObjectCollection findByIdnentrep(string $idnentrep) Return ChildTblentorg objects filtered by the idnentrep column
+ * @method     ChildTblentorg[]|ObjectCollection findBySrventorg(string $srventorg) Return ChildTblentorg objects filtered by the srventorg column
+ * @method     ChildTblentorg[]|ObjectCollection findBySgmentorg(string $sgmentorg) Return ChildTblentorg objects filtered by the sgmentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByBnfentorg(string $bnfentorg) Return ChildTblentorg objects filtered by the bnfentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByNmbentorg(string $nmbentorg) Return ChildTblentorg objects filtered by the nmbentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByLogentorg(string $logentorg) Return ChildTblentorg objects filtered by the logentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByDmcentorg(string $dmcentorg) Return ChildTblentorg objects filtered by the dmcentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByLclentorg(string $lclentorg) Return ChildTblentorg objects filtered by the lclentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByMncentorg(string $mncentorg) Return ChildTblentorg objects filtered by the mncentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByEtdentorg(string $etdentorg) Return ChildTblentorg objects filtered by the etdentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByPasentorg(string $pasentorg) Return ChildTblentorg objects filtered by the pasentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByCdgpstorg(string $cdgpstorg) Return ChildTblentorg objects filtered by the cdgpstorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByGirentorg(string $girentorg) Return ChildTblentorg objects filtered by the girentorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByTlffcnorg(string $tlffcnorg) Return ChildTblentorg objects filtered by the tlffcnorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByEmlfcnorg(string $emlfcnorg) Return ChildTblentorg objects filtered by the emlfcnorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByPlntrborg(string $plntrborg) Return ChildTblentorg objects filtered by the plntrborg column
+ * @method     ChildTblentorg[]|ObjectCollection findByActcnsorg(string $actcnsorg) Return ChildTblentorg objects filtered by the actcnsorg column
+ * @method     ChildTblentorg[]|ObjectCollection findByCnsdntorg(string $cnsdntorg) Return ChildTblentorg objects filtered by the cnsdntorg column
  * @method     ChildTblentorg[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -199,7 +249,7 @@ abstract class TblentorgQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentorg, idnusers, namentorg, direntorg, telentorg, rfcentorg, cluentorg, donentorg, created_at, updated_at FROM tblentorg WHERE idnentorg = :p0';
+        $sql = 'SELECT idnentorg, uuid, idnentrep, srventorg, sgmentorg, bnfentorg, nmbentorg, logentorg, dmcentorg, lclentorg, mncentorg, etdentorg, pasentorg, cdgpstorg, girentorg, tlffcnorg, emlfcnorg, plntrborg, actcnsorg, cnsdntorg FROM tblentorg WHERE idnentorg = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -331,18 +381,43 @@ abstract class TblentorgQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idnusers column
+     * Filter the query on the uuid column
      *
      * Example usage:
      * <code>
-     * $query->filterByIdnusers(1234); // WHERE idnusers = 1234
-     * $query->filterByIdnusers(array(12, 34)); // WHERE idnusers IN (12, 34)
-     * $query->filterByIdnusers(array('min' => 12)); // WHERE idnusers > 12
+     * $query->filterByUuid('fooValue');   // WHERE uuid = 'fooValue'
+     * $query->filterByUuid('%fooValue%', Criteria::LIKE); // WHERE uuid LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $uuid The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByUuid($uuid = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($uuid)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_UUID, $uuid, $comparison);
+    }
+
+    /**
+     * Filter the query on the idnentrep column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdnentrep(1234); // WHERE idnentrep = 1234
+     * $query->filterByIdnentrep(array(12, 34)); // WHERE idnentrep IN (12, 34)
+     * $query->filterByIdnentrep(array('min' => 12)); // WHERE idnentrep > 12
      * </code>
      *
      * @see       filterByUsers()
      *
-     * @param     mixed $idnusers The value to use as filter.
+     * @param     mixed $idnentrep The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -350,16 +425,16 @@ abstract class TblentorgQuery extends ModelCriteria
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByIdnusers($idnusers = null, $comparison = null)
+    public function filterByIdnentrep($idnentrep = null, $comparison = null)
     {
-        if (is_array($idnusers)) {
+        if (is_array($idnentrep)) {
             $useMinMax = false;
-            if (isset($idnusers['min'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_IDNUSERS, $idnusers['min'], Criteria::GREATER_EQUAL);
+            if (isset($idnentrep['min'])) {
+                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($idnusers['max'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_IDNUSERS, $idnusers['max'], Criteria::LESS_EQUAL);
+            if (isset($idnentrep['max'])) {
+                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -370,243 +445,432 @@ abstract class TblentorgQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_IDNUSERS, $idnusers, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep, $comparison);
     }
 
     /**
-     * Filter the query on the namentorg column
+     * Filter the query on the srventorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByNamentorg('fooValue');   // WHERE namentorg = 'fooValue'
-     * $query->filterByNamentorg('%fooValue%', Criteria::LIKE); // WHERE namentorg LIKE '%fooValue%'
+     * $query->filterBySrventorg('fooValue');   // WHERE srventorg = 'fooValue'
+     * $query->filterBySrventorg('%fooValue%', Criteria::LIKE); // WHERE srventorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $namentorg The value to use as filter.
+     * @param     string $srventorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByNamentorg($namentorg = null, $comparison = null)
+    public function filterBySrventorg($srventorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($namentorg)) {
+            if (is_array($srventorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_NAMENTORG, $namentorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_SRVENTORG, $srventorg, $comparison);
     }
 
     /**
-     * Filter the query on the direntorg column
+     * Filter the query on the sgmentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByDirentorg('fooValue');   // WHERE direntorg = 'fooValue'
-     * $query->filterByDirentorg('%fooValue%', Criteria::LIKE); // WHERE direntorg LIKE '%fooValue%'
+     * $query->filterBySgmentorg('fooValue');   // WHERE sgmentorg = 'fooValue'
+     * $query->filterBySgmentorg('%fooValue%', Criteria::LIKE); // WHERE sgmentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $direntorg The value to use as filter.
+     * @param     string $sgmentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByDirentorg($direntorg = null, $comparison = null)
+    public function filterBySgmentorg($sgmentorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($direntorg)) {
+            if (is_array($sgmentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_DIRENTORG, $direntorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_SGMENTORG, $sgmentorg, $comparison);
     }
 
     /**
-     * Filter the query on the telentorg column
+     * Filter the query on the bnfentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByTelentorg('fooValue');   // WHERE telentorg = 'fooValue'
-     * $query->filterByTelentorg('%fooValue%', Criteria::LIKE); // WHERE telentorg LIKE '%fooValue%'
+     * $query->filterByBnfentorg('fooValue');   // WHERE bnfentorg = 'fooValue'
+     * $query->filterByBnfentorg('%fooValue%', Criteria::LIKE); // WHERE bnfentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $telentorg The value to use as filter.
+     * @param     string $bnfentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByTelentorg($telentorg = null, $comparison = null)
+    public function filterByBnfentorg($bnfentorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($telentorg)) {
+            if (is_array($bnfentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_TELENTORG, $telentorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_BNFENTORG, $bnfentorg, $comparison);
     }
 
     /**
-     * Filter the query on the rfcentorg column
+     * Filter the query on the nmbentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByRfcentorg('fooValue');   // WHERE rfcentorg = 'fooValue'
-     * $query->filterByRfcentorg('%fooValue%', Criteria::LIKE); // WHERE rfcentorg LIKE '%fooValue%'
+     * $query->filterByNmbentorg('fooValue');   // WHERE nmbentorg = 'fooValue'
+     * $query->filterByNmbentorg('%fooValue%', Criteria::LIKE); // WHERE nmbentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $rfcentorg The value to use as filter.
+     * @param     string $nmbentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByRfcentorg($rfcentorg = null, $comparison = null)
+    public function filterByNmbentorg($nmbentorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($rfcentorg)) {
+            if (is_array($nmbentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_RFCENTORG, $rfcentorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_NMBENTORG, $nmbentorg, $comparison);
     }
 
     /**
-     * Filter the query on the cluentorg column
+     * Filter the query on the logentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByCluentorg('fooValue');   // WHERE cluentorg = 'fooValue'
-     * $query->filterByCluentorg('%fooValue%', Criteria::LIKE); // WHERE cluentorg LIKE '%fooValue%'
+     * $query->filterByLogentorg('fooValue');   // WHERE logentorg = 'fooValue'
+     * $query->filterByLogentorg('%fooValue%', Criteria::LIKE); // WHERE logentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $cluentorg The value to use as filter.
+     * @param     string $logentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByCluentorg($cluentorg = null, $comparison = null)
+    public function filterByLogentorg($logentorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($cluentorg)) {
+            if (is_array($logentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_CLUENTORG, $cluentorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_LOGENTORG, $logentorg, $comparison);
     }
 
     /**
-     * Filter the query on the donentorg column
+     * Filter the query on the dmcentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByDonentorg('fooValue');   // WHERE donentorg = 'fooValue'
-     * $query->filterByDonentorg('%fooValue%', Criteria::LIKE); // WHERE donentorg LIKE '%fooValue%'
+     * $query->filterByDmcentorg('fooValue');   // WHERE dmcentorg = 'fooValue'
+     * $query->filterByDmcentorg('%fooValue%', Criteria::LIKE); // WHERE dmcentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $donentorg The value to use as filter.
+     * @param     string $dmcentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByDonentorg($donentorg = null, $comparison = null)
+    public function filterByDmcentorg($dmcentorg = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($donentorg)) {
+            if (is_array($dmcentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_DONENTORG, $donentorg, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_DMCENTORG, $dmcentorg, $comparison);
     }
 
     /**
-     * Filter the query on the created_at column
+     * Filter the query on the lclentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByCreatedAt('2011-03-14'); // WHERE created_at = '2011-03-14'
-     * $query->filterByCreatedAt('now'); // WHERE created_at = '2011-03-14'
-     * $query->filterByCreatedAt(array('max' => 'yesterday')); // WHERE created_at > '2011-03-13'
+     * $query->filterByLclentorg('fooValue');   // WHERE lclentorg = 'fooValue'
+     * $query->filterByLclentorg('%fooValue%', Criteria::LIKE); // WHERE lclentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $createdAt The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $lclentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByCreatedAt($createdAt = null, $comparison = null)
+    public function filterByLclentorg($lclentorg = null, $comparison = null)
     {
-        if (is_array($createdAt)) {
-            $useMinMax = false;
-            if (isset($createdAt['min'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($createdAt['max'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($lclentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_CREATED_AT, $createdAt, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_LCLENTORG, $lclentorg, $comparison);
     }
 
     /**
-     * Filter the query on the updated_at column
+     * Filter the query on the mncentorg column
      *
      * Example usage:
      * <code>
-     * $query->filterByUpdatedAt('2011-03-14'); // WHERE updated_at = '2011-03-14'
-     * $query->filterByUpdatedAt('now'); // WHERE updated_at = '2011-03-14'
-     * $query->filterByUpdatedAt(array('max' => 'yesterday')); // WHERE updated_at > '2011-03-13'
+     * $query->filterByMncentorg('fooValue');   // WHERE mncentorg = 'fooValue'
+     * $query->filterByMncentorg('%fooValue%', Criteria::LIKE); // WHERE mncentorg LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $updatedAt The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $mncentorg The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByUpdatedAt($updatedAt = null, $comparison = null)
+    public function filterByMncentorg($mncentorg = null, $comparison = null)
     {
-        if (is_array($updatedAt)) {
-            $useMinMax = false;
-            if (isset($updatedAt['min'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($updatedAt['max'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($mncentorg)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_UPDATED_AT, $updatedAt, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_MNCENTORG, $mncentorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the etdentorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByEtdentorg('fooValue');   // WHERE etdentorg = 'fooValue'
+     * $query->filterByEtdentorg('%fooValue%', Criteria::LIKE); // WHERE etdentorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $etdentorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByEtdentorg($etdentorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($etdentorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_ETDENTORG, $etdentorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the pasentorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPasentorg('fooValue');   // WHERE pasentorg = 'fooValue'
+     * $query->filterByPasentorg('%fooValue%', Criteria::LIKE); // WHERE pasentorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $pasentorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByPasentorg($pasentorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($pasentorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_PASENTORG, $pasentorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the cdgpstorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByCdgpstorg('fooValue');   // WHERE cdgpstorg = 'fooValue'
+     * $query->filterByCdgpstorg('%fooValue%', Criteria::LIKE); // WHERE cdgpstorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $cdgpstorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByCdgpstorg($cdgpstorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($cdgpstorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_CDGPSTORG, $cdgpstorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the girentorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByGirentorg('fooValue');   // WHERE girentorg = 'fooValue'
+     * $query->filterByGirentorg('%fooValue%', Criteria::LIKE); // WHERE girentorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $girentorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByGirentorg($girentorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($girentorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_GIRENTORG, $girentorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the tlffcnorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByTlffcnorg('fooValue');   // WHERE tlffcnorg = 'fooValue'
+     * $query->filterByTlffcnorg('%fooValue%', Criteria::LIKE); // WHERE tlffcnorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $tlffcnorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByTlffcnorg($tlffcnorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($tlffcnorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_TLFFCNORG, $tlffcnorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the emlfcnorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByEmlfcnorg('fooValue');   // WHERE emlfcnorg = 'fooValue'
+     * $query->filterByEmlfcnorg('%fooValue%', Criteria::LIKE); // WHERE emlfcnorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $emlfcnorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByEmlfcnorg($emlfcnorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($emlfcnorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_EMLFCNORG, $emlfcnorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the plntrborg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPlntrborg('fooValue');   // WHERE plntrborg = 'fooValue'
+     * $query->filterByPlntrborg('%fooValue%', Criteria::LIKE); // WHERE plntrborg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $plntrborg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByPlntrborg($plntrborg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($plntrborg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_PLNTRBORG, $plntrborg, $comparison);
+    }
+
+    /**
+     * Filter the query on the actcnsorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByActcnsorg('fooValue');   // WHERE actcnsorg = 'fooValue'
+     * $query->filterByActcnsorg('%fooValue%', Criteria::LIKE); // WHERE actcnsorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $actcnsorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByActcnsorg($actcnsorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($actcnsorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_ACTCNSORG, $actcnsorg, $comparison);
+    }
+
+    /**
+     * Filter the query on the cnsdntorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByCnsdntorg('fooValue');   // WHERE cnsdntorg = 'fooValue'
+     * $query->filterByCnsdntorg('%fooValue%', Criteria::LIKE); // WHERE cnsdntorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $cnsdntorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByCnsdntorg($cnsdntorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($cnsdntorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_CNSDNTORG, $cnsdntorg, $comparison);
     }
 
     /**
@@ -623,14 +887,14 @@ abstract class TblentorgQuery extends ModelCriteria
     {
         if ($users instanceof \Users) {
             return $this
-                ->addUsingAlias(TblentorgTableMap::COL_IDNUSERS, $users->getId(), $comparison);
+                ->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $users->getId(), $comparison);
         } elseif ($users instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(TblentorgTableMap::COL_IDNUSERS, $users->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $users->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByUsers() only accepts arguments of type \Users or Collection');
         }
