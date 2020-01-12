@@ -2,17 +2,14 @@
 
 namespace Base;
 
-use \Tblentemp as ChildTblentemp;
-use \TblentempQuery as ChildTblentempQuery;
-use \Tblentorg as ChildTblentorg;
-use \TblentorgQuery as ChildTblentorgQuery;
+use \Tblentprs as ChildTblentprs;
+use \TblentprsQuery as ChildTblentprsQuery;
 use \Users as ChildUsers;
 use \UsersQuery as ChildUsersQuery;
 use \DateTime;
 use \Exception;
 use \PDO;
-use Map\TblentempTableMap;
-use Map\TblentorgTableMap;
+use Map\TblentprsTableMap;
 use Map\UsersTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -92,22 +89,6 @@ abstract class Users implements ActiveRecordInterface
     protected $namdtsgnr;
 
     /**
-     * The value for the prmaplgnr field.
-     *
-     * Note: this column has a database default value of: ''
-     * @var        string
-     */
-    protected $prmaplgnr;
-
-    /**
-     * The value for the sgnaplgnr field.
-     *
-     * Note: this column has a database default value of: ''
-     * @var        string
-     */
-    protected $sgnaplgnr;
-
-    /**
      * The value for the email field.
      *
      * @var        string
@@ -143,13 +124,6 @@ abstract class Users implements ActiveRecordInterface
     protected $updated_at;
 
     /**
-     * The value for the finished_at field.
-     *
-     * @var        DateTime
-     */
-    protected $finished_at;
-
-    /**
      * The value for the remember_token field.
      *
      * @var        string
@@ -157,16 +131,10 @@ abstract class Users implements ActiveRecordInterface
     protected $remember_token;
 
     /**
-     * @var        ObjectCollection|ChildTblentemp[] Collection to store aggregation of ChildTblentemp objects.
+     * @var        ObjectCollection|ChildTblentprs[] Collection to store aggregation of ChildTblentprs objects.
      */
-    protected $collTblentemps;
-    protected $collTblentempsPartial;
-
-    /**
-     * @var        ObjectCollection|ChildTblentorg[] Collection to store aggregation of ChildTblentorg objects.
-     */
-    protected $collTblentorgs;
-    protected $collTblentorgsPartial;
+    protected $collTblentprss;
+    protected $collTblentprssPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -178,15 +146,9 @@ abstract class Users implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildTblentemp[]
+     * @var ObjectCollection|ChildTblentprs[]
      */
-    protected $tblentempsScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildTblentorg[]
-     */
-    protected $tblentorgsScheduledForDeletion = null;
+    protected $tblentprssScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -197,8 +159,6 @@ abstract class Users implements ActiveRecordInterface
     public function applyDefaultValues()
     {
         $this->namdtsgnr = '';
-        $this->prmaplgnr = '';
-        $this->sgnaplgnr = '';
     }
 
     /**
@@ -459,26 +419,6 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [prmaplgnr] column value.
-     *
-     * @return string
-     */
-    public function getPrmaplgnr()
-    {
-        return $this->prmaplgnr;
-    }
-
-    /**
-     * Get the [sgnaplgnr] column value.
-     *
-     * @return string
-     */
-    public function getSgnaplgnr()
-    {
-        return $this->sgnaplgnr;
-    }
-
-    /**
      * Get the [email] column value.
      *
      * @return string
@@ -559,26 +499,6 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [optionally formatted] temporal [finished_at] column value.
-     *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFinishedAt($format = 'Y-m-d H:i:s')
-    {
-        if ($format === null) {
-            return $this->finished_at;
-        } else {
-            return $this->finished_at instanceof \DateTimeInterface ? $this->finished_at->format($format) : null;
-        }
-    }
-
-    /**
      * Get the [remember_token] column value.
      *
      * @return string
@@ -647,46 +567,6 @@ abstract class Users implements ActiveRecordInterface
 
         return $this;
     } // setNamdtsgnr()
-
-    /**
-     * Set the value of [prmaplgnr] column.
-     *
-     * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setPrmaplgnr($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->prmaplgnr !== $v) {
-            $this->prmaplgnr = $v;
-            $this->modifiedColumns[UsersTableMap::COL_PRMAPLGNR] = true;
-        }
-
-        return $this;
-    } // setPrmaplgnr()
-
-    /**
-     * Set the value of [sgnaplgnr] column.
-     *
-     * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setSgnaplgnr($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->sgnaplgnr !== $v) {
-            $this->sgnaplgnr = $v;
-            $this->modifiedColumns[UsersTableMap::COL_SGNAPLGNR] = true;
-        }
-
-        return $this;
-    } // setSgnaplgnr()
 
     /**
      * Set the value of [email] column.
@@ -789,26 +669,6 @@ abstract class Users implements ActiveRecordInterface
     } // setUpdatedAt()
 
     /**
-     * Sets the value of [finished_at] column to a normalized version of the date/time value specified.
-     *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setFinishedAt($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->finished_at !== null || $dt !== null) {
-            if ($this->finished_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->finished_at->format("Y-m-d H:i:s.u")) {
-                $this->finished_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[UsersTableMap::COL_FINISHED_AT] = true;
-            }
-        } // if either are not null
-
-        return $this;
-    } // setFinishedAt()
-
-    /**
      * Set the value of [remember_token] column.
      *
      * @param string $v new value
@@ -839,14 +699,6 @@ abstract class Users implements ActiveRecordInterface
     public function hasOnlyDefaultValues()
     {
             if ($this->namdtsgnr !== '') {
-                return false;
-            }
-
-            if ($this->prmaplgnr !== '') {
-                return false;
-            }
-
-            if ($this->sgnaplgnr !== '') {
                 return false;
             }
 
@@ -885,43 +737,31 @@ abstract class Users implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('Namdtsgnr', TableMap::TYPE_PHPNAME, $indexType)];
             $this->namdtsgnr = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('Prmaplgnr', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->prmaplgnr = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('Sgnaplgnr', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->sgnaplgnr = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('Email', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('Email', TableMap::TYPE_PHPNAME, $indexType)];
             $this->email = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('EmailVerifiedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('EmailVerifiedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->email_verified_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
             $this->password = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UsersTableMap::translateFieldName('FinishedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->finished_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : UsersTableMap::translateFieldName('RememberToken', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('RememberToken', TableMap::TYPE_PHPNAME, $indexType)];
             $this->remember_token = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
@@ -931,7 +771,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 12; // 12 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 9; // 9 = UsersTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Users'), 0, $e);
@@ -992,9 +832,7 @@ abstract class Users implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collTblentemps = null;
-
-            $this->collTblentorgs = null;
+            $this->collTblentprss = null;
 
         } // if (deep)
     }
@@ -1110,34 +948,18 @@ abstract class Users implements ActiveRecordInterface
                 $this->resetModified();
             }
 
-            if ($this->tblentempsScheduledForDeletion !== null) {
-                if (!$this->tblentempsScheduledForDeletion->isEmpty()) {
-                    \TblentempQuery::create()
-                        ->filterByPrimaryKeys($this->tblentempsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->tblentempsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collTblentemps !== null) {
-                foreach ($this->collTblentemps as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
+            if ($this->tblentprssScheduledForDeletion !== null) {
+                if (!$this->tblentprssScheduledForDeletion->isEmpty()) {
+                    foreach ($this->tblentprssScheduledForDeletion as $tblentprs) {
+                        // need to save related object because we set the relation to null
+                        $tblentprs->save($con);
                     }
+                    $this->tblentprssScheduledForDeletion = null;
                 }
             }
 
-            if ($this->tblentorgsScheduledForDeletion !== null) {
-                if (!$this->tblentorgsScheduledForDeletion->isEmpty()) {
-                    \TblentorgQuery::create()
-                        ->filterByPrimaryKeys($this->tblentorgsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->tblentorgsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collTblentorgs !== null) {
-                foreach ($this->collTblentorgs as $referrerFK) {
+            if ($this->collTblentprss !== null) {
+                foreach ($this->collTblentprss as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1179,12 +1001,6 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_NAMDTSGNR)) {
             $modifiedColumns[':p' . $index++]  = 'namdtsgnr';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PRMAPLGNR)) {
-            $modifiedColumns[':p' . $index++]  = 'prmaplgnr';
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_SGNAPLGNR)) {
-            $modifiedColumns[':p' . $index++]  = 'sgnaplgnr';
-        }
         if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
             $modifiedColumns[':p' . $index++]  = 'email';
         }
@@ -1199,9 +1015,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'updated_at';
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_FINISHED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'finished_at';
         }
         if ($this->isColumnModified(UsersTableMap::COL_REMEMBER_TOKEN)) {
             $modifiedColumns[':p' . $index++]  = 'remember_token';
@@ -1226,12 +1039,6 @@ abstract class Users implements ActiveRecordInterface
                     case 'namdtsgnr':
                         $stmt->bindValue($identifier, $this->namdtsgnr, PDO::PARAM_STR);
                         break;
-                    case 'prmaplgnr':
-                        $stmt->bindValue($identifier, $this->prmaplgnr, PDO::PARAM_STR);
-                        break;
-                    case 'sgnaplgnr':
-                        $stmt->bindValue($identifier, $this->sgnaplgnr, PDO::PARAM_STR);
-                        break;
                     case 'email':
                         $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
                         break;
@@ -1246,9 +1053,6 @@ abstract class Users implements ActiveRecordInterface
                         break;
                     case 'updated_at':
                         $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
-                        break;
-                    case 'finished_at':
-                        $stmt->bindValue($identifier, $this->finished_at ? $this->finished_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
                         break;
                     case 'remember_token':
                         $stmt->bindValue($identifier, $this->remember_token, PDO::PARAM_STR);
@@ -1325,30 +1129,21 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getNamdtsgnr();
                 break;
             case 3:
-                return $this->getPrmaplgnr();
-                break;
-            case 4:
-                return $this->getSgnaplgnr();
-                break;
-            case 5:
                 return $this->getEmail();
                 break;
-            case 6:
+            case 4:
                 return $this->getEmailVerifiedAt();
                 break;
-            case 7:
+            case 5:
                 return $this->getPassword();
                 break;
-            case 8:
+            case 6:
                 return $this->getCreatedAt();
                 break;
-            case 9:
+            case 7:
                 return $this->getUpdatedAt();
                 break;
-            case 10:
-                return $this->getFinishedAt();
-                break;
-            case 11:
+            case 8:
                 return $this->getRememberToken();
                 break;
             default:
@@ -1384,30 +1179,23 @@ abstract class Users implements ActiveRecordInterface
             $keys[0] => $this->getId(),
             $keys[1] => $this->getUuid(),
             $keys[2] => $this->getNamdtsgnr(),
-            $keys[3] => $this->getPrmaplgnr(),
-            $keys[4] => $this->getSgnaplgnr(),
-            $keys[5] => $this->getEmail(),
-            $keys[6] => $this->getEmailVerifiedAt(),
-            $keys[7] => $this->getPassword(),
-            $keys[8] => $this->getCreatedAt(),
-            $keys[9] => $this->getUpdatedAt(),
-            $keys[10] => $this->getFinishedAt(),
-            $keys[11] => $this->getRememberToken(),
+            $keys[3] => $this->getEmail(),
+            $keys[4] => $this->getEmailVerifiedAt(),
+            $keys[5] => $this->getPassword(),
+            $keys[6] => $this->getCreatedAt(),
+            $keys[7] => $this->getUpdatedAt(),
+            $keys[8] => $this->getRememberToken(),
         );
+        if ($result[$keys[4]] instanceof \DateTimeInterface) {
+            $result[$keys[4]] = $result[$keys[4]]->format('c');
+        }
+
         if ($result[$keys[6]] instanceof \DateTimeInterface) {
             $result[$keys[6]] = $result[$keys[6]]->format('c');
         }
 
-        if ($result[$keys[8]] instanceof \DateTimeInterface) {
-            $result[$keys[8]] = $result[$keys[8]]->format('c');
-        }
-
-        if ($result[$keys[9]] instanceof \DateTimeInterface) {
-            $result[$keys[9]] = $result[$keys[9]]->format('c');
-        }
-
-        if ($result[$keys[10]] instanceof \DateTimeInterface) {
-            $result[$keys[10]] = $result[$keys[10]]->format('c');
+        if ($result[$keys[7]] instanceof \DateTimeInterface) {
+            $result[$keys[7]] = $result[$keys[7]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1416,35 +1204,20 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collTblentemps) {
+            if (null !== $this->collTblentprss) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'tblentemps';
+                        $key = 'tblentprss';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'tblentemps';
+                        $key = 'tblentprss';
                         break;
                     default:
-                        $key = 'Tblentemps';
+                        $key = 'Tblentprss';
                 }
 
-                $result[$key] = $this->collTblentemps->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collTblentorgs) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'tblentorgs';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'tblentorgs';
-                        break;
-                    default:
-                        $key = 'Tblentorgs';
-                }
-
-                $result[$key] = $this->collTblentorgs->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->collTblentprss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1490,30 +1263,21 @@ abstract class Users implements ActiveRecordInterface
                 $this->setNamdtsgnr($value);
                 break;
             case 3:
-                $this->setPrmaplgnr($value);
-                break;
-            case 4:
-                $this->setSgnaplgnr($value);
-                break;
-            case 5:
                 $this->setEmail($value);
                 break;
-            case 6:
+            case 4:
                 $this->setEmailVerifiedAt($value);
                 break;
-            case 7:
+            case 5:
                 $this->setPassword($value);
                 break;
-            case 8:
+            case 6:
                 $this->setCreatedAt($value);
                 break;
-            case 9:
+            case 7:
                 $this->setUpdatedAt($value);
                 break;
-            case 10:
-                $this->setFinishedAt($value);
-                break;
-            case 11:
+            case 8:
                 $this->setRememberToken($value);
                 break;
         } // switch()
@@ -1552,31 +1316,22 @@ abstract class Users implements ActiveRecordInterface
             $this->setNamdtsgnr($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setPrmaplgnr($arr[$keys[3]]);
+            $this->setEmail($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setSgnaplgnr($arr[$keys[4]]);
+            $this->setEmailVerifiedAt($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setEmail($arr[$keys[5]]);
+            $this->setPassword($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setEmailVerifiedAt($arr[$keys[6]]);
+            $this->setCreatedAt($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setPassword($arr[$keys[7]]);
+            $this->setUpdatedAt($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setCreatedAt($arr[$keys[8]]);
-        }
-        if (array_key_exists($keys[9], $arr)) {
-            $this->setUpdatedAt($arr[$keys[9]]);
-        }
-        if (array_key_exists($keys[10], $arr)) {
-            $this->setFinishedAt($arr[$keys[10]]);
-        }
-        if (array_key_exists($keys[11], $arr)) {
-            $this->setRememberToken($arr[$keys[11]]);
+            $this->setRememberToken($arr[$keys[8]]);
         }
     }
 
@@ -1628,12 +1383,6 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_NAMDTSGNR)) {
             $criteria->add(UsersTableMap::COL_NAMDTSGNR, $this->namdtsgnr);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PRMAPLGNR)) {
-            $criteria->add(UsersTableMap::COL_PRMAPLGNR, $this->prmaplgnr);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_SGNAPLGNR)) {
-            $criteria->add(UsersTableMap::COL_SGNAPLGNR, $this->sgnaplgnr);
-        }
         if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
             $criteria->add(UsersTableMap::COL_EMAIL, $this->email);
         }
@@ -1648,9 +1397,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_UPDATED_AT)) {
             $criteria->add(UsersTableMap::COL_UPDATED_AT, $this->updated_at);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_FINISHED_AT)) {
-            $criteria->add(UsersTableMap::COL_FINISHED_AT, $this->finished_at);
         }
         if ($this->isColumnModified(UsersTableMap::COL_REMEMBER_TOKEN)) {
             $criteria->add(UsersTableMap::COL_REMEMBER_TOKEN, $this->remember_token);
@@ -1743,14 +1489,11 @@ abstract class Users implements ActiveRecordInterface
     {
         $copyObj->setUuid($this->getUuid());
         $copyObj->setNamdtsgnr($this->getNamdtsgnr());
-        $copyObj->setPrmaplgnr($this->getPrmaplgnr());
-        $copyObj->setSgnaplgnr($this->getSgnaplgnr());
         $copyObj->setEmail($this->getEmail());
         $copyObj->setEmailVerifiedAt($this->getEmailVerifiedAt());
         $copyObj->setPassword($this->getPassword());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
-        $copyObj->setFinishedAt($this->getFinishedAt());
         $copyObj->setRememberToken($this->getRememberToken());
 
         if ($deepCopy) {
@@ -1758,15 +1501,9 @@ abstract class Users implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
-            foreach ($this->getTblentemps() as $relObj) {
+            foreach ($this->getTblentprss() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addTblentemp($relObj->copy($deepCopy));
-                }
-            }
-
-            foreach ($this->getTblentorgs() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addTblentorg($relObj->copy($deepCopy));
+                    $copyObj->addTblentprs($relObj->copy($deepCopy));
                 }
             }
 
@@ -1811,42 +1548,38 @@ abstract class Users implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
-        if ('Tblentemp' == $relationName) {
-            $this->initTblentemps();
-            return;
-        }
-        if ('Tblentorg' == $relationName) {
-            $this->initTblentorgs();
+        if ('Tblentprs' == $relationName) {
+            $this->initTblentprss();
             return;
         }
     }
 
     /**
-     * Clears out the collTblentemps collection
+     * Clears out the collTblentprss collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addTblentemps()
+     * @see        addTblentprss()
      */
-    public function clearTblentemps()
+    public function clearTblentprss()
     {
-        $this->collTblentemps = null; // important to set this to NULL since that means it is uninitialized
+        $this->collTblentprss = null; // important to set this to NULL since that means it is uninitialized
     }
 
     /**
-     * Reset is the collTblentemps collection loaded partially.
+     * Reset is the collTblentprss collection loaded partially.
      */
-    public function resetPartialTblentemps($v = true)
+    public function resetPartialTblentprss($v = true)
     {
-        $this->collTblentempsPartial = $v;
+        $this->collTblentprssPartial = $v;
     }
 
     /**
-     * Initializes the collTblentemps collection.
+     * Initializes the collTblentprss collection.
      *
-     * By default this just sets the collTblentemps collection to an empty array (like clearcollTblentemps());
+     * By default this just sets the collTblentprss collection to an empty array (like clearcollTblentprss());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -1855,20 +1588,20 @@ abstract class Users implements ActiveRecordInterface
      *
      * @return void
      */
-    public function initTblentemps($overrideExisting = true)
+    public function initTblentprss($overrideExisting = true)
     {
-        if (null !== $this->collTblentemps && !$overrideExisting) {
+        if (null !== $this->collTblentprss && !$overrideExisting) {
             return;
         }
 
-        $collectionClassName = TblentempTableMap::getTableMap()->getCollectionClassName();
+        $collectionClassName = TblentprsTableMap::getTableMap()->getCollectionClassName();
 
-        $this->collTblentemps = new $collectionClassName;
-        $this->collTblentemps->setModel('\Tblentemp');
+        $this->collTblentprss = new $collectionClassName;
+        $this->collTblentprss->setModel('\Tblentprs');
     }
 
     /**
-     * Gets an array of ChildTblentemp objects which contain a foreign key that references this object.
+     * Gets an array of ChildTblentprs objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -1878,108 +1611,108 @@ abstract class Users implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildTblentemp[] List of ChildTblentemp objects
+     * @return ObjectCollection|ChildTblentprs[] List of ChildTblentprs objects
      * @throws PropelException
      */
-    public function getTblentemps(Criteria $criteria = null, ConnectionInterface $con = null)
+    public function getTblentprss(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        $partial = $this->collTblentempsPartial && !$this->isNew();
-        if (null === $this->collTblentemps || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collTblentemps) {
+        $partial = $this->collTblentprssPartial && !$this->isNew();
+        if (null === $this->collTblentprss || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collTblentprss) {
                 // return empty collection
-                $this->initTblentemps();
+                $this->initTblentprss();
             } else {
-                $collTblentemps = ChildTblentempQuery::create(null, $criteria)
+                $collTblentprss = ChildTblentprsQuery::create(null, $criteria)
                     ->filterByUsers($this)
                     ->find($con);
 
                 if (null !== $criteria) {
-                    if (false !== $this->collTblentempsPartial && count($collTblentemps)) {
-                        $this->initTblentemps(false);
+                    if (false !== $this->collTblentprssPartial && count($collTblentprss)) {
+                        $this->initTblentprss(false);
 
-                        foreach ($collTblentemps as $obj) {
-                            if (false == $this->collTblentemps->contains($obj)) {
-                                $this->collTblentemps->append($obj);
+                        foreach ($collTblentprss as $obj) {
+                            if (false == $this->collTblentprss->contains($obj)) {
+                                $this->collTblentprss->append($obj);
                             }
                         }
 
-                        $this->collTblentempsPartial = true;
+                        $this->collTblentprssPartial = true;
                     }
 
-                    return $collTblentemps;
+                    return $collTblentprss;
                 }
 
-                if ($partial && $this->collTblentemps) {
-                    foreach ($this->collTblentemps as $obj) {
+                if ($partial && $this->collTblentprss) {
+                    foreach ($this->collTblentprss as $obj) {
                         if ($obj->isNew()) {
-                            $collTblentemps[] = $obj;
+                            $collTblentprss[] = $obj;
                         }
                     }
                 }
 
-                $this->collTblentemps = $collTblentemps;
-                $this->collTblentempsPartial = false;
+                $this->collTblentprss = $collTblentprss;
+                $this->collTblentprssPartial = false;
             }
         }
 
-        return $this->collTblentemps;
+        return $this->collTblentprss;
     }
 
     /**
-     * Sets a collection of ChildTblentemp objects related by a one-to-many relationship
+     * Sets a collection of ChildTblentprs objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $tblentemps A Propel collection.
+     * @param      Collection $tblentprss A Propel collection.
      * @param      ConnectionInterface $con Optional connection object
      * @return $this|ChildUsers The current object (for fluent API support)
      */
-    public function setTblentemps(Collection $tblentemps, ConnectionInterface $con = null)
+    public function setTblentprss(Collection $tblentprss, ConnectionInterface $con = null)
     {
-        /** @var ChildTblentemp[] $tblentempsToDelete */
-        $tblentempsToDelete = $this->getTblentemps(new Criteria(), $con)->diff($tblentemps);
+        /** @var ChildTblentprs[] $tblentprssToDelete */
+        $tblentprssToDelete = $this->getTblentprss(new Criteria(), $con)->diff($tblentprss);
 
 
-        $this->tblentempsScheduledForDeletion = $tblentempsToDelete;
+        $this->tblentprssScheduledForDeletion = $tblentprssToDelete;
 
-        foreach ($tblentempsToDelete as $tblentempRemoved) {
-            $tblentempRemoved->setUsers(null);
+        foreach ($tblentprssToDelete as $tblentprsRemoved) {
+            $tblentprsRemoved->setUsers(null);
         }
 
-        $this->collTblentemps = null;
-        foreach ($tblentemps as $tblentemp) {
-            $this->addTblentemp($tblentemp);
+        $this->collTblentprss = null;
+        foreach ($tblentprss as $tblentprs) {
+            $this->addTblentprs($tblentprs);
         }
 
-        $this->collTblentemps = $tblentemps;
-        $this->collTblentempsPartial = false;
+        $this->collTblentprss = $tblentprss;
+        $this->collTblentprssPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related Tblentemp objects.
+     * Returns the number of related Tblentprs objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related Tblentemp objects.
+     * @return int             Count of related Tblentprs objects.
      * @throws PropelException
      */
-    public function countTblentemps(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    public function countTblentprss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        $partial = $this->collTblentempsPartial && !$this->isNew();
-        if (null === $this->collTblentemps || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collTblentemps) {
+        $partial = $this->collTblentprssPartial && !$this->isNew();
+        if (null === $this->collTblentprss || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collTblentprss) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getTblentemps());
+                return count($this->getTblentprss());
             }
 
-            $query = ChildTblentempQuery::create(null, $criteria);
+            $query = ChildTblentprsQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1989,28 +1722,28 @@ abstract class Users implements ActiveRecordInterface
                 ->count($con);
         }
 
-        return count($this->collTblentemps);
+        return count($this->collTblentprss);
     }
 
     /**
-     * Method called to associate a ChildTblentemp object to this object
-     * through the ChildTblentemp foreign key attribute.
+     * Method called to associate a ChildTblentprs object to this object
+     * through the ChildTblentprs foreign key attribute.
      *
-     * @param  ChildTblentemp $l ChildTblentemp
+     * @param  ChildTblentprs $l ChildTblentprs
      * @return $this|\Users The current object (for fluent API support)
      */
-    public function addTblentemp(ChildTblentemp $l)
+    public function addTblentprs(ChildTblentprs $l)
     {
-        if ($this->collTblentemps === null) {
-            $this->initTblentemps();
-            $this->collTblentempsPartial = true;
+        if ($this->collTblentprss === null) {
+            $this->initTblentprss();
+            $this->collTblentprssPartial = true;
         }
 
-        if (!$this->collTblentemps->contains($l)) {
-            $this->doAddTblentemp($l);
+        if (!$this->collTblentprss->contains($l)) {
+            $this->doAddTblentprs($l);
 
-            if ($this->tblentempsScheduledForDeletion and $this->tblentempsScheduledForDeletion->contains($l)) {
-                $this->tblentempsScheduledForDeletion->remove($this->tblentempsScheduledForDeletion->search($l));
+            if ($this->tblentprssScheduledForDeletion and $this->tblentprssScheduledForDeletion->contains($l)) {
+                $this->tblentprssScheduledForDeletion->remove($this->tblentprssScheduledForDeletion->search($l));
             }
         }
 
@@ -2018,254 +1751,29 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildTblentemp $tblentemp The ChildTblentemp object to add.
+     * @param ChildTblentprs $tblentprs The ChildTblentprs object to add.
      */
-    protected function doAddTblentemp(ChildTblentemp $tblentemp)
+    protected function doAddTblentprs(ChildTblentprs $tblentprs)
     {
-        $this->collTblentemps[]= $tblentemp;
-        $tblentemp->setUsers($this);
+        $this->collTblentprss[]= $tblentprs;
+        $tblentprs->setUsers($this);
     }
 
     /**
-     * @param  ChildTblentemp $tblentemp The ChildTblentemp object to remove.
+     * @param  ChildTblentprs $tblentprs The ChildTblentprs object to remove.
      * @return $this|ChildUsers The current object (for fluent API support)
      */
-    public function removeTblentemp(ChildTblentemp $tblentemp)
+    public function removeTblentprs(ChildTblentprs $tblentprs)
     {
-        if ($this->getTblentemps()->contains($tblentemp)) {
-            $pos = $this->collTblentemps->search($tblentemp);
-            $this->collTblentemps->remove($pos);
-            if (null === $this->tblentempsScheduledForDeletion) {
-                $this->tblentempsScheduledForDeletion = clone $this->collTblentemps;
-                $this->tblentempsScheduledForDeletion->clear();
+        if ($this->getTblentprss()->contains($tblentprs)) {
+            $pos = $this->collTblentprss->search($tblentprs);
+            $this->collTblentprss->remove($pos);
+            if (null === $this->tblentprssScheduledForDeletion) {
+                $this->tblentprssScheduledForDeletion = clone $this->collTblentprss;
+                $this->tblentprssScheduledForDeletion->clear();
             }
-            $this->tblentempsScheduledForDeletion[]= clone $tblentemp;
-            $tblentemp->setUsers(null);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Clears out the collTblentorgs collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addTblentorgs()
-     */
-    public function clearTblentorgs()
-    {
-        $this->collTblentorgs = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collTblentorgs collection loaded partially.
-     */
-    public function resetPartialTblentorgs($v = true)
-    {
-        $this->collTblentorgsPartial = $v;
-    }
-
-    /**
-     * Initializes the collTblentorgs collection.
-     *
-     * By default this just sets the collTblentorgs collection to an empty array (like clearcollTblentorgs());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initTblentorgs($overrideExisting = true)
-    {
-        if (null !== $this->collTblentorgs && !$overrideExisting) {
-            return;
-        }
-
-        $collectionClassName = TblentorgTableMap::getTableMap()->getCollectionClassName();
-
-        $this->collTblentorgs = new $collectionClassName;
-        $this->collTblentorgs->setModel('\Tblentorg');
-    }
-
-    /**
-     * Gets an array of ChildTblentorg objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildUsers is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildTblentorg[] List of ChildTblentorg objects
-     * @throws PropelException
-     */
-    public function getTblentorgs(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentorgsPartial && !$this->isNew();
-        if (null === $this->collTblentorgs || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collTblentorgs) {
-                // return empty collection
-                $this->initTblentorgs();
-            } else {
-                $collTblentorgs = ChildTblentorgQuery::create(null, $criteria)
-                    ->filterByUsers($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collTblentorgsPartial && count($collTblentorgs)) {
-                        $this->initTblentorgs(false);
-
-                        foreach ($collTblentorgs as $obj) {
-                            if (false == $this->collTblentorgs->contains($obj)) {
-                                $this->collTblentorgs->append($obj);
-                            }
-                        }
-
-                        $this->collTblentorgsPartial = true;
-                    }
-
-                    return $collTblentorgs;
-                }
-
-                if ($partial && $this->collTblentorgs) {
-                    foreach ($this->collTblentorgs as $obj) {
-                        if ($obj->isNew()) {
-                            $collTblentorgs[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collTblentorgs = $collTblentorgs;
-                $this->collTblentorgsPartial = false;
-            }
-        }
-
-        return $this->collTblentorgs;
-    }
-
-    /**
-     * Sets a collection of ChildTblentorg objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $tblentorgs A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildUsers The current object (for fluent API support)
-     */
-    public function setTblentorgs(Collection $tblentorgs, ConnectionInterface $con = null)
-    {
-        /** @var ChildTblentorg[] $tblentorgsToDelete */
-        $tblentorgsToDelete = $this->getTblentorgs(new Criteria(), $con)->diff($tblentorgs);
-
-
-        $this->tblentorgsScheduledForDeletion = $tblentorgsToDelete;
-
-        foreach ($tblentorgsToDelete as $tblentorgRemoved) {
-            $tblentorgRemoved->setUsers(null);
-        }
-
-        $this->collTblentorgs = null;
-        foreach ($tblentorgs as $tblentorg) {
-            $this->addTblentorg($tblentorg);
-        }
-
-        $this->collTblentorgs = $tblentorgs;
-        $this->collTblentorgsPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Tblentorg objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related Tblentorg objects.
-     * @throws PropelException
-     */
-    public function countTblentorgs(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentorgsPartial && !$this->isNew();
-        if (null === $this->collTblentorgs || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collTblentorgs) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getTblentorgs());
-            }
-
-            $query = ChildTblentorgQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByUsers($this)
-                ->count($con);
-        }
-
-        return count($this->collTblentorgs);
-    }
-
-    /**
-     * Method called to associate a ChildTblentorg object to this object
-     * through the ChildTblentorg foreign key attribute.
-     *
-     * @param  ChildTblentorg $l ChildTblentorg
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function addTblentorg(ChildTblentorg $l)
-    {
-        if ($this->collTblentorgs === null) {
-            $this->initTblentorgs();
-            $this->collTblentorgsPartial = true;
-        }
-
-        if (!$this->collTblentorgs->contains($l)) {
-            $this->doAddTblentorg($l);
-
-            if ($this->tblentorgsScheduledForDeletion and $this->tblentorgsScheduledForDeletion->contains($l)) {
-                $this->tblentorgsScheduledForDeletion->remove($this->tblentorgsScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildTblentorg $tblentorg The ChildTblentorg object to add.
-     */
-    protected function doAddTblentorg(ChildTblentorg $tblentorg)
-    {
-        $this->collTblentorgs[]= $tblentorg;
-        $tblentorg->setUsers($this);
-    }
-
-    /**
-     * @param  ChildTblentorg $tblentorg The ChildTblentorg object to remove.
-     * @return $this|ChildUsers The current object (for fluent API support)
-     */
-    public function removeTblentorg(ChildTblentorg $tblentorg)
-    {
-        if ($this->getTblentorgs()->contains($tblentorg)) {
-            $pos = $this->collTblentorgs->search($tblentorg);
-            $this->collTblentorgs->remove($pos);
-            if (null === $this->tblentorgsScheduledForDeletion) {
-                $this->tblentorgsScheduledForDeletion = clone $this->collTblentorgs;
-                $this->tblentorgsScheduledForDeletion->clear();
-            }
-            $this->tblentorgsScheduledForDeletion[]= clone $tblentorg;
-            $tblentorg->setUsers(null);
+            $this->tblentprssScheduledForDeletion[]= $tblentprs;
+            $tblentprs->setUsers(null);
         }
 
         return $this;
@@ -2281,14 +1789,11 @@ abstract class Users implements ActiveRecordInterface
         $this->id = null;
         $this->uuid = null;
         $this->namdtsgnr = null;
-        $this->prmaplgnr = null;
-        $this->sgnaplgnr = null;
         $this->email = null;
         $this->email_verified_at = null;
         $this->password = null;
         $this->created_at = null;
         $this->updated_at = null;
-        $this->finished_at = null;
         $this->remember_token = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
@@ -2309,20 +1814,14 @@ abstract class Users implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collTblentemps) {
-                foreach ($this->collTblentemps as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
-            if ($this->collTblentorgs) {
-                foreach ($this->collTblentorgs as $o) {
+            if ($this->collTblentprss) {
+                foreach ($this->collTblentprss as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
         } // if ($deep)
 
-        $this->collTblentemps = null;
-        $this->collTblentorgs = null;
+        $this->collTblentprss = null;
     }
 
     /**

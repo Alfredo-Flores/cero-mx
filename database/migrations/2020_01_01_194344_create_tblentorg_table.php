@@ -16,8 +16,8 @@ class CreateTblentorgTable extends Migration
         Schema::create('tblentorg', function (Blueprint $table) {
             $table->Bigincrements('idnentorg')->comment('Id');
             $table->uuid('uuid')->unique()->comment('Uuid');
-            $table->unsignedBigInteger('idnentrep')->comment('Id Representante');
-            $table->foreign('idnentrep')->references('id')->on('users');
+            $table->unsignedBigInteger('idnentprs')->nullable()->comment('Representante');
+            $table->foreign('idnentprs')->references('idnentprs')->on('tblentprs');
             $table->string('srventorg')->default('')->comment('Servicios');
             $table->string('sgmentorg')->default('')->comment('SegmentoMercado');
             $table->string('bnfentorg')->default('')->comment('Beneficiarios');

@@ -3,8 +3,8 @@
 namespace Base;
 
 use \TblentorgQuery as ChildTblentorgQuery;
-use \Users as ChildUsers;
-use \UsersQuery as ChildUsersQuery;
+use \Tblentprs as ChildTblentprs;
+use \TblentprsQuery as ChildTblentprsQuery;
 use \Exception;
 use \PDO;
 use Map\TblentorgTableMap;
@@ -76,11 +76,11 @@ abstract class Tblentorg implements ActiveRecordInterface
     protected $uuid;
 
     /**
-     * The value for the idnentrep field.
+     * The value for the idnentprs field.
      *
      * @var        string
      */
-    protected $idnentrep;
+    protected $idnentprs;
 
     /**
      * The value for the srventorg field.
@@ -219,9 +219,9 @@ abstract class Tblentorg implements ActiveRecordInterface
     protected $cnsdntorg;
 
     /**
-     * @var        ChildUsers
+     * @var        ChildTblentprs
      */
-    protected $aUsers;
+    protected $aTblentprs;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -506,13 +506,13 @@ abstract class Tblentorg implements ActiveRecordInterface
     }
 
     /**
-     * Get the [idnentrep] column value.
+     * Get the [idnentprs] column value.
      *
      * @return string
      */
-    public function getIdnentrep()
+    public function getIdnentprs()
     {
-        return $this->idnentrep;
+        return $this->idnentprs;
     }
 
     /**
@@ -726,28 +726,28 @@ abstract class Tblentorg implements ActiveRecordInterface
     } // setUuid()
 
     /**
-     * Set the value of [idnentrep] column.
+     * Set the value of [idnentprs] column.
      *
      * @param string $v new value
      * @return $this|\Tblentorg The current object (for fluent API support)
      */
-    public function setIdnentrep($v)
+    public function setIdnentprs($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->idnentrep !== $v) {
-            $this->idnentrep = $v;
-            $this->modifiedColumns[TblentorgTableMap::COL_IDNENTREP] = true;
+        if ($this->idnentprs !== $v) {
+            $this->idnentprs = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_IDNENTPRS] = true;
         }
 
-        if ($this->aUsers !== null && $this->aUsers->getId() !== $v) {
-            $this->aUsers = null;
+        if ($this->aTblentprs !== null && $this->aTblentprs->getIdnentprs() !== $v) {
+            $this->aTblentprs = null;
         }
 
         return $this;
-    } // setIdnentrep()
+    } // setIdnentprs()
 
     /**
      * Set the value of [srventorg] column.
@@ -1199,8 +1199,8 @@ abstract class Tblentorg implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TblentorgTableMap::translateFieldName('Uuid', TableMap::TYPE_PHPNAME, $indexType)];
             $this->uuid = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentorgTableMap::translateFieldName('Idnentrep', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->idnentrep = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentorgTableMap::translateFieldName('Idnentprs', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->idnentprs = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentorgTableMap::translateFieldName('Srventorg', TableMap::TYPE_PHPNAME, $indexType)];
             $this->srventorg = (null !== $col) ? (string) $col : null;
@@ -1282,8 +1282,8 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aUsers !== null && $this->idnentrep !== $this->aUsers->getId()) {
-            $this->aUsers = null;
+        if ($this->aTblentprs !== null && $this->idnentprs !== $this->aTblentprs->getIdnentprs()) {
+            $this->aTblentprs = null;
         }
     } // ensureConsistency
 
@@ -1324,7 +1324,7 @@ abstract class Tblentorg implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aUsers = null;
+            $this->aTblentprs = null;
         } // if (deep)
     }
 
@@ -1433,11 +1433,11 @@ abstract class Tblentorg implements ActiveRecordInterface
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aUsers !== null) {
-                if ($this->aUsers->isModified() || $this->aUsers->isNew()) {
-                    $affectedRows += $this->aUsers->save($con);
+            if ($this->aTblentprs !== null) {
+                if ($this->aTblentprs->isModified() || $this->aTblentprs->isNew()) {
+                    $affectedRows += $this->aTblentprs->save($con);
                 }
-                $this->setUsers($this->aUsers);
+                $this->setTblentprs($this->aTblentprs);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -1483,8 +1483,8 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_UUID)) {
             $modifiedColumns[':p' . $index++]  = 'uuid';
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTREP)) {
-            $modifiedColumns[':p' . $index++]  = 'idnentrep';
+        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTPRS)) {
+            $modifiedColumns[':p' . $index++]  = 'idnentprs';
         }
         if ($this->isColumnModified(TblentorgTableMap::COL_SRVENTORG)) {
             $modifiedColumns[':p' . $index++]  = 'srventorg';
@@ -1554,8 +1554,8 @@ abstract class Tblentorg implements ActiveRecordInterface
                     case 'uuid':
                         $stmt->bindValue($identifier, $this->uuid, PDO::PARAM_STR);
                         break;
-                    case 'idnentrep':
-                        $stmt->bindValue($identifier, $this->idnentrep, PDO::PARAM_INT);
+                    case 'idnentprs':
+                        $stmt->bindValue($identifier, $this->idnentprs, PDO::PARAM_INT);
                         break;
                     case 'srventorg':
                         $stmt->bindValue($identifier, $this->srventorg, PDO::PARAM_STR);
@@ -1677,7 +1677,7 @@ abstract class Tblentorg implements ActiveRecordInterface
                 return $this->getUuid();
                 break;
             case 2:
-                return $this->getIdnentrep();
+                return $this->getIdnentprs();
                 break;
             case 3:
                 return $this->getSrventorg();
@@ -1762,7 +1762,7 @@ abstract class Tblentorg implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getIdnentorg(),
             $keys[1] => $this->getUuid(),
-            $keys[2] => $this->getIdnentrep(),
+            $keys[2] => $this->getIdnentprs(),
             $keys[3] => $this->getSrventorg(),
             $keys[4] => $this->getSgmentorg(),
             $keys[5] => $this->getBnfentorg(),
@@ -1787,20 +1787,20 @@ abstract class Tblentorg implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aUsers) {
+            if (null !== $this->aTblentprs) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'users';
+                        $key = 'tblentprs';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'users';
+                        $key = 'tblentprs';
                         break;
                     default:
-                        $key = 'Users';
+                        $key = 'Tblentprs';
                 }
 
-                $result[$key] = $this->aUsers->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aTblentprs->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -1843,7 +1843,7 @@ abstract class Tblentorg implements ActiveRecordInterface
                 $this->setUuid($value);
                 break;
             case 2:
-                $this->setIdnentrep($value);
+                $this->setIdnentprs($value);
                 break;
             case 3:
                 $this->setSrventorg($value);
@@ -1929,7 +1929,7 @@ abstract class Tblentorg implements ActiveRecordInterface
             $this->setUuid($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setIdnentrep($arr[$keys[2]]);
+            $this->setIdnentprs($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setSrventorg($arr[$keys[3]]);
@@ -2029,8 +2029,8 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_UUID)) {
             $criteria->add(TblentorgTableMap::COL_UUID, $this->uuid);
         }
-        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTREP)) {
-            $criteria->add(TblentorgTableMap::COL_IDNENTREP, $this->idnentrep);
+        if ($this->isColumnModified(TblentorgTableMap::COL_IDNENTPRS)) {
+            $criteria->add(TblentorgTableMap::COL_IDNENTPRS, $this->idnentprs);
         }
         if ($this->isColumnModified(TblentorgTableMap::COL_SRVENTORG)) {
             $criteria->add(TblentorgTableMap::COL_SRVENTORG, $this->srventorg);
@@ -2170,7 +2170,7 @@ abstract class Tblentorg implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setUuid($this->getUuid());
-        $copyObj->setIdnentrep($this->getIdnentrep());
+        $copyObj->setIdnentprs($this->getIdnentprs());
         $copyObj->setSrventorg($this->getSrventorg());
         $copyObj->setSgmentorg($this->getSgmentorg());
         $copyObj->setBnfentorg($this->getBnfentorg());
@@ -2217,24 +2217,24 @@ abstract class Tblentorg implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildUsers object.
+     * Declares an association between this object and a ChildTblentprs object.
      *
-     * @param  ChildUsers $v
+     * @param  ChildTblentprs $v
      * @return $this|\Tblentorg The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setUsers(ChildUsers $v = null)
+    public function setTblentprs(ChildTblentprs $v = null)
     {
         if ($v === null) {
-            $this->setIdnentrep(NULL);
+            $this->setIdnentprs(NULL);
         } else {
-            $this->setIdnentrep($v->getId());
+            $this->setIdnentprs($v->getIdnentprs());
         }
 
-        $this->aUsers = $v;
+        $this->aTblentprs = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildUsers object, it will not be re-added.
+        // If this object has already been added to the ChildTblentprs object, it will not be re-added.
         if ($v !== null) {
             $v->addTblentorg($this);
         }
@@ -2245,26 +2245,26 @@ abstract class Tblentorg implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildUsers object
+     * Get the associated ChildTblentprs object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildUsers The associated ChildUsers object.
+     * @return ChildTblentprs The associated ChildTblentprs object.
      * @throws PropelException
      */
-    public function getUsers(ConnectionInterface $con = null)
+    public function getTblentprs(ConnectionInterface $con = null)
     {
-        if ($this->aUsers === null && (($this->idnentrep !== "" && $this->idnentrep !== null))) {
-            $this->aUsers = ChildUsersQuery::create()->findPk($this->idnentrep, $con);
+        if ($this->aTblentprs === null && (($this->idnentprs !== "" && $this->idnentprs !== null))) {
+            $this->aTblentprs = ChildTblentprsQuery::create()->findPk($this->idnentprs, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aUsers->addTblentorgs($this);
+                $this->aTblentprs->addTblentorgs($this);
              */
         }
 
-        return $this->aUsers;
+        return $this->aTblentprs;
     }
 
     /**
@@ -2274,12 +2274,12 @@ abstract class Tblentorg implements ActiveRecordInterface
      */
     public function clear()
     {
-        if (null !== $this->aUsers) {
-            $this->aUsers->removeTblentorg($this);
+        if (null !== $this->aTblentprs) {
+            $this->aTblentprs->removeTblentorg($this);
         }
         $this->idnentorg = null;
         $this->uuid = null;
-        $this->idnentrep = null;
+        $this->idnentprs = null;
         $this->srventorg = null;
         $this->sgmentorg = null;
         $this->bnfentorg = null;
@@ -2318,7 +2318,7 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
-        $this->aUsers = null;
+        $this->aTblentprs = null;
     }
 
     /**

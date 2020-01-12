@@ -17,8 +17,8 @@ class CreateTblentempTable extends Migration
         Schema::create('tblentemp', function (Blueprint $table) {
             $table->Bigincrements('idnentemp')->comment('Id');
             $table->uuid('uuid')->unique()->comment('Uuid');
-            $table->unsignedBigInteger('idnentrep')->comment('Id Representante');
-            $table->foreign('idnentrep')->references('id')->on('tblentrep');
+            $table->unsignedBigInteger('idnentprs')->nullable()->comment('Representante');
+            $table->foreign('idnentprs')->references('idnentprs')->on('tblentprs');
             $table->string('namentemp')->default('')->comment('Nombre');
             $table->string('logentemp')->default('')->comment('Logo');
             $table->string('drcentemp')->default('')->comment('Direccion');

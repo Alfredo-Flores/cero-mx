@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<database name="cero" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+<database name="cerodb" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
   <table name="failed_jobs" idMethod="native" phpName="FailedJobs">
     <column name="id" phpName="Id" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="connection" phpName="Connection" type="LONGVARCHAR" required="true"/>
@@ -30,76 +30,120 @@
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
-  <table name="tblentbsn" idMethod="native" phpName="Tblentbsn">
-    <column name="idnentbsn" phpName="Idnentbsn" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="idnusers" phpName="Idnusers" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
-    <column name="namentbsn" phpName="Namentbsn" type="VARCHAR" size="255" required="true"/>
-    <column name="direntbsn" phpName="Direntbsn" type="VARCHAR" size="255" required="true"/>
-    <column name="telentbsn" phpName="Telentbsn" type="VARCHAR" size="255" required="true"/>
-    <column name="rfcentbsn" phpName="Rfcentbsn" type="VARCHAR" size="255" required="true"/>
-    <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
-    <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
-    <foreign-key foreignTable="users" name="tblentbsn_idnusers_foreign">
-      <reference local="idnusers" foreign="id"/>
+  <table name="tblentemp" idMethod="native" phpName="Tblentemp">
+    <column name="idnentemp" phpName="Idnentemp" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
+    <column name="idnentprs" phpName="Idnentprs" type="BIGINT" sqlType="bigint(20) unsigned"/>
+    <column name="namentemp" phpName="Namentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="logentemp" phpName="Logentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="drcentemp" phpName="Drcentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="lclentemp" phpName="Lclentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="mncentemp" phpName="Mncentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="ententemp" phpName="Ententemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="pasentorg" phpName="Pasentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="cdgpstemp" phpName="Cdgpstemp" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="cdgtrbemp" phpName="Cdgtrbemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="girentemp" phpName="Girentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="tlfofiemp" phpName="Tlfofiemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="emlofiemp" phpName="Emlofiemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="desaliemp" phpName="Desaliemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="candonemp" phpName="Candonemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="temconemp" phpName="Temconemp" type="TIMESTAMP"/>
+    <column name="horentemp" phpName="Horentemp" type="TIMESTAMP"/>
+    <column name="detentemo" phpName="Detentemo" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <foreign-key foreignTable="tblentprs" name="tblentemp_idnentprs_foreign">
+      <reference local="idnentprs" foreign="idnentprs"/>
     </foreign-key>
-    <index name="tblentbsn_idnusers_foreign">
-      <index-column name="idnusers"/>
+    <index name="tblentemp_idnentprs_foreign">
+      <index-column name="idnentprs"/>
     </index>
-    <vendor type="mysql">
-      <parameter name="Engine" value="InnoDB"/>
-    </vendor>
-  </table>
-  <table name="tblentint" idMethod="native" phpName="Tblentint">
-    <column name="idnentint" phpName="Idnentint" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="idnusers" phpName="Idnusers" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
-    <column name="namentint" phpName="Namentint" type="VARCHAR" size="255" required="true"/>
-    <column name="direntint" phpName="Direntint" type="VARCHAR" size="255" required="true"/>
-    <column name="telentint" phpName="Telentint" type="VARCHAR" size="255" required="true"/>
-    <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
-    <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
-    <foreign-key foreignTable="users" name="tblentint_idnusers_foreign" onDelete="CASCADE">
-      <reference local="idnusers" foreign="id"/>
-    </foreign-key>
-    <index name="tblentint_idnusers_foreign">
-      <index-column name="idnusers"/>
-    </index>
+    <unique name="tblentemp_uuid_unique">
+      <unique-column name="uuid"/>
+    </unique>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
   <table name="tblentorg" idMethod="native" phpName="Tblentorg">
-    <column name="idnentorg" phpName="Idnentorg" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="idnusers" phpName="Idnusers" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
-    <column name="namentorg" phpName="Namentorg" type="VARCHAR" size="255" required="true"/>
-    <column name="direntorg" phpName="Direntorg" type="VARCHAR" size="255" required="true"/>
-    <column name="telentorg" phpName="Telentorg" type="VARCHAR" size="255" required="true"/>
-    <column name="rfcentorg" phpName="Rfcentorg" type="VARCHAR" size="255" required="true"/>
-    <column name="cluentorg" phpName="Cluentorg" type="VARCHAR" size="255" required="true"/>
-    <column name="donentorg" phpName="Donentorg" type="VARCHAR" size="255"/>
+    <column name="idnentorg" phpName="Idnentorg" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
+    <column name="idnentprs" phpName="Idnentprs" type="BIGINT" sqlType="bigint(20) unsigned"/>
+    <column name="srventorg" phpName="Srventorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="sgmentorg" phpName="Sgmentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="bnfentorg" phpName="Bnfentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="nmbentorg" phpName="Nmbentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="logentorg" phpName="Logentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="dmcentorg" phpName="Dmcentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="lclentorg" phpName="Lclentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="mncentorg" phpName="Mncentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="etdentorg" phpName="Etdentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="pasentorg" phpName="Pasentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="cdgpstorg" phpName="Cdgpstorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="girentorg" phpName="Girentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="tlffcnorg" phpName="Tlffcnorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="emlfcnorg" phpName="Emlfcnorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="plntrborg" phpName="Plntrborg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="actcnsorg" phpName="Actcnsorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="cnsdntorg" phpName="Cnsdntorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <foreign-key foreignTable="tblentprs" name="tblentorg_idnentprs_foreign">
+      <reference local="idnentprs" foreign="idnentprs"/>
+    </foreign-key>
+    <index name="tblentorg_idnentprs_foreign">
+      <index-column name="idnentprs"/>
+    </index>
+    <unique name="tblentorg_uuid_unique">
+      <unique-column name="uuid"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="tblentprs" idMethod="native" phpName="Tblentprs">
+    <column name="idnentprs" phpName="Idnentprs" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
+    <column name="idnentusr" phpName="Idnentusr" type="BIGINT" sqlType="bigint(20) unsigned"/>
+    <column name="crpdtsprs" phpName="Crpdtsprs" type="VARCHAR" size="18" required="true" defaultValue=""/>
+    <column name="rfcdtsprs" phpName="Rfcdtsprs" type="VARCHAR" size="13" required="true" defaultValue=""/>
+    <column name="emllbrprs" phpName="Emllbrprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="emlprsprs" phpName="Emlprsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="ncndtsprs" phpName="Ncndtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="pasdtsprs" phpName="Pasdtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="entdtsprs" phpName="Entdtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="mncdtsprs" phpName="Mncdtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="lcldtsprs" phpName="Lcldtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="dmcdtsprs" phpName="Dmcdtsprs" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="cdgpstprs" phpName="Cdgpstprs" type="VARCHAR" size="5" required="true" defaultValue=""/>
+    <column name="tlffijprs" phpName="Tlffijprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
+    <column name="tlfmvlprs" phpName="Tlfmvlprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
+    <column name="fotentprs" phpName="Fotentprs" type="VARCHAR" size="255"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
-    <foreign-key foreignTable="users" name="tblentorg_idnusers_foreign" onDelete="CASCADE">
-      <reference local="idnusers" foreign="id"/>
+    <foreign-key foreignTable="users" name="tblentprs_idnentusr_foreign">
+      <reference local="idnentusr" foreign="id"/>
     </foreign-key>
-    <index name="tblentorg_idnusers_foreign">
-      <index-column name="idnusers"/>
+    <index name="tblentprs_idnentusr_foreign">
+      <index-column name="idnentusr"/>
     </index>
+    <unique name="tblentprs_uuid_unique">
+      <unique-column name="uuid"/>
+    </unique>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
   <table name="users" idMethod="native" phpName="Users">
-    <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+    <column name="id" phpName="Id" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
+    <column name="namdtsgnr" phpName="Namdtsgnr" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="email" phpName="Email" type="VARCHAR" size="255" required="true"/>
     <column name="email_verified_at" phpName="EmailVerifiedAt" type="TIMESTAMP"/>
     <column name="password" phpName="Password" type="VARCHAR" size="255" required="true"/>
-    <column name="remember_token" phpName="RememberToken" type="VARCHAR" size="100"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
-    <column name="img" phpName="Img" type="VARCHAR" size="255"/>
-    <column name="tel" phpName="Tel" type="VARCHAR" size="255" required="true"/>
-    <column name="typ" phpName="Typ" type="INTEGER" required="true"/>
+    <column name="remember_token" phpName="RememberToken" type="VARCHAR" size="100"/>
+    <unique name="users_uuid_unique">
+      <unique-column name="uuid"/>
+    </unique>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>

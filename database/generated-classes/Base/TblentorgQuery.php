@@ -22,7 +22,7 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildTblentorgQuery orderByIdnentorg($order = Criteria::ASC) Order by the idnentorg column
  * @method     ChildTblentorgQuery orderByUuid($order = Criteria::ASC) Order by the uuid column
- * @method     ChildTblentorgQuery orderByIdnentrep($order = Criteria::ASC) Order by the idnentrep column
+ * @method     ChildTblentorgQuery orderByIdnentprs($order = Criteria::ASC) Order by the idnentprs column
  * @method     ChildTblentorgQuery orderBySrventorg($order = Criteria::ASC) Order by the srventorg column
  * @method     ChildTblentorgQuery orderBySgmentorg($order = Criteria::ASC) Order by the sgmentorg column
  * @method     ChildTblentorgQuery orderByBnfentorg($order = Criteria::ASC) Order by the bnfentorg column
@@ -43,7 +43,7 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildTblentorgQuery groupByIdnentorg() Group by the idnentorg column
  * @method     ChildTblentorgQuery groupByUuid() Group by the uuid column
- * @method     ChildTblentorgQuery groupByIdnentrep() Group by the idnentrep column
+ * @method     ChildTblentorgQuery groupByIdnentprs() Group by the idnentprs column
  * @method     ChildTblentorgQuery groupBySrventorg() Group by the srventorg column
  * @method     ChildTblentorgQuery groupBySgmentorg() Group by the sgmentorg column
  * @method     ChildTblentorgQuery groupByBnfentorg() Group by the bnfentorg column
@@ -70,24 +70,24 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorgQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildTblentorgQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildTblentorgQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
- * @method     ChildTblentorgQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
- * @method     ChildTblentorgQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
+ * @method     ChildTblentorgQuery leftJoinTblentprs($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentprs relation
+ * @method     ChildTblentorgQuery rightJoinTblentprs($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentprs relation
+ * @method     ChildTblentorgQuery innerJoinTblentprs($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentprs relation
  *
- * @method     ChildTblentorgQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ * @method     ChildTblentorgQuery joinWithTblentprs($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentprs relation
  *
- * @method     ChildTblentorgQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
- * @method     ChildTblentorgQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
- * @method     ChildTblentorgQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
+ * @method     ChildTblentorgQuery leftJoinWithTblentprs() Adds a LEFT JOIN clause and with to the query using the Tblentprs relation
+ * @method     ChildTblentorgQuery rightJoinWithTblentprs() Adds a RIGHT JOIN clause and with to the query using the Tblentprs relation
+ * @method     ChildTblentorgQuery innerJoinWithTblentprs() Adds a INNER JOIN clause and with to the query using the Tblentprs relation
  *
- * @method     \UsersQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \TblentprsQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildTblentorg findOne(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query
  * @method     ChildTblentorg findOneOrCreate(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query, or a new ChildTblentorg object populated from the query conditions when no match is found
  *
  * @method     ChildTblentorg findOneByIdnentorg(string $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column
  * @method     ChildTblentorg findOneByUuid(string $uuid) Return the first ChildTblentorg filtered by the uuid column
- * @method     ChildTblentorg findOneByIdnentrep(string $idnentrep) Return the first ChildTblentorg filtered by the idnentrep column
+ * @method     ChildTblentorg findOneByIdnentprs(string $idnentprs) Return the first ChildTblentorg filtered by the idnentprs column
  * @method     ChildTblentorg findOneBySrventorg(string $srventorg) Return the first ChildTblentorg filtered by the srventorg column
  * @method     ChildTblentorg findOneBySgmentorg(string $sgmentorg) Return the first ChildTblentorg filtered by the sgmentorg column
  * @method     ChildTblentorg findOneByBnfentorg(string $bnfentorg) Return the first ChildTblentorg filtered by the bnfentorg column
@@ -111,7 +111,7 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildTblentorg requireOneByIdnentorg(string $idnentorg) Return the first ChildTblentorg filtered by the idnentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneByUuid(string $uuid) Return the first ChildTblentorg filtered by the uuid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentorg requireOneByIdnentrep(string $idnentrep) Return the first ChildTblentorg filtered by the idnentrep column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByIdnentprs(string $idnentprs) Return the first ChildTblentorg filtered by the idnentprs column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneBySrventorg(string $srventorg) Return the first ChildTblentorg filtered by the srventorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneBySgmentorg(string $sgmentorg) Return the first ChildTblentorg filtered by the sgmentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneByBnfentorg(string $bnfentorg) Return the first ChildTblentorg filtered by the bnfentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -133,7 +133,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorg[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildTblentorg objects based on current ModelCriteria
  * @method     ChildTblentorg[]|ObjectCollection findByIdnentorg(string $idnentorg) Return ChildTblentorg objects filtered by the idnentorg column
  * @method     ChildTblentorg[]|ObjectCollection findByUuid(string $uuid) Return ChildTblentorg objects filtered by the uuid column
- * @method     ChildTblentorg[]|ObjectCollection findByIdnentrep(string $idnentrep) Return ChildTblentorg objects filtered by the idnentrep column
+ * @method     ChildTblentorg[]|ObjectCollection findByIdnentprs(string $idnentprs) Return ChildTblentorg objects filtered by the idnentprs column
  * @method     ChildTblentorg[]|ObjectCollection findBySrventorg(string $srventorg) Return ChildTblentorg objects filtered by the srventorg column
  * @method     ChildTblentorg[]|ObjectCollection findBySgmentorg(string $sgmentorg) Return ChildTblentorg objects filtered by the sgmentorg column
  * @method     ChildTblentorg[]|ObjectCollection findByBnfentorg(string $bnfentorg) Return ChildTblentorg objects filtered by the bnfentorg column
@@ -165,7 +165,7 @@ abstract class TblentorgQuery extends ModelCriteria
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'cero', $modelName = '\\Tblentorg', $modelAlias = null)
+    public function __construct($dbName = 'cerodb', $modelName = '\\Tblentorg', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
@@ -249,7 +249,7 @@ abstract class TblentorgQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentorg, uuid, idnentrep, srventorg, sgmentorg, bnfentorg, nmbentorg, logentorg, dmcentorg, lclentorg, mncentorg, etdentorg, pasentorg, cdgpstorg, girentorg, tlffcnorg, emlfcnorg, plntrborg, actcnsorg, cnsdntorg FROM tblentorg WHERE idnentorg = :p0';
+        $sql = 'SELECT idnentorg, uuid, idnentprs, srventorg, sgmentorg, bnfentorg, nmbentorg, logentorg, dmcentorg, lclentorg, mncentorg, etdentorg, pasentorg, cdgpstorg, girentorg, tlffcnorg, emlfcnorg, plntrborg, actcnsorg, cnsdntorg FROM tblentorg WHERE idnentorg = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -406,18 +406,18 @@ abstract class TblentorgQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the idnentrep column
+     * Filter the query on the idnentprs column
      *
      * Example usage:
      * <code>
-     * $query->filterByIdnentrep(1234); // WHERE idnentrep = 1234
-     * $query->filterByIdnentrep(array(12, 34)); // WHERE idnentrep IN (12, 34)
-     * $query->filterByIdnentrep(array('min' => 12)); // WHERE idnentrep > 12
+     * $query->filterByIdnentprs(1234); // WHERE idnentprs = 1234
+     * $query->filterByIdnentprs(array(12, 34)); // WHERE idnentprs IN (12, 34)
+     * $query->filterByIdnentprs(array('min' => 12)); // WHERE idnentprs > 12
      * </code>
      *
-     * @see       filterByUsers()
+     * @see       filterByTblentprs()
      *
-     * @param     mixed $idnentrep The value to use as filter.
+     * @param     mixed $idnentprs The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -425,16 +425,16 @@ abstract class TblentorgQuery extends ModelCriteria
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByIdnentrep($idnentrep = null, $comparison = null)
+    public function filterByIdnentprs($idnentprs = null, $comparison = null)
     {
-        if (is_array($idnentrep)) {
+        if (is_array($idnentprs)) {
             $useMinMax = false;
-            if (isset($idnentrep['min'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep['min'], Criteria::GREATER_EQUAL);
+            if (isset($idnentprs['min'])) {
+                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTPRS, $idnentprs['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($idnentrep['max'])) {
-                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep['max'], Criteria::LESS_EQUAL);
+            if (isset($idnentprs['max'])) {
+                $this->addUsingAlias(TblentorgTableMap::COL_IDNENTPRS, $idnentprs['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -445,7 +445,7 @@ abstract class TblentorgQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $idnentrep, $comparison);
+        return $this->addUsingAlias(TblentorgTableMap::COL_IDNENTPRS, $idnentprs, $comparison);
     }
 
     /**
@@ -874,44 +874,44 @@ abstract class TblentorgQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Users object
+     * Filter the query by a related \Tblentprs object
      *
-     * @param \Users|ObjectCollection $users The related object(s) to use as filter
+     * @param \Tblentprs|ObjectCollection $tblentprs The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildTblentorgQuery The current query, for fluid interface
      */
-    public function filterByUsers($users, $comparison = null)
+    public function filterByTblentprs($tblentprs, $comparison = null)
     {
-        if ($users instanceof \Users) {
+        if ($tblentprs instanceof \Tblentprs) {
             return $this
-                ->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $users->getId(), $comparison);
-        } elseif ($users instanceof ObjectCollection) {
+                ->addUsingAlias(TblentorgTableMap::COL_IDNENTPRS, $tblentprs->getIdnentprs(), $comparison);
+        } elseif ($tblentprs instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(TblentorgTableMap::COL_IDNENTREP, $users->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(TblentorgTableMap::COL_IDNENTPRS, $tblentprs->toKeyValue('PrimaryKey', 'Idnentprs'), $comparison);
         } else {
-            throw new PropelException('filterByUsers() only accepts arguments of type \Users or Collection');
+            throw new PropelException('filterByTblentprs() only accepts arguments of type \Tblentprs or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Users relation
+     * Adds a JOIN clause to the query using the Tblentprs relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildTblentorgQuery The current query, for fluid interface
      */
-    public function joinUsers($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinTblentprs($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Users');
+        $relationMap = $tableMap->getRelation('Tblentprs');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -926,14 +926,14 @@ abstract class TblentorgQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Users');
+            $this->addJoinObject($join, 'Tblentprs');
         }
 
         return $this;
     }
 
     /**
-     * Use the Users relation Users object
+     * Use the Tblentprs relation Tblentprs object
      *
      * @see useQuery()
      *
@@ -941,13 +941,13 @@ abstract class TblentorgQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \UsersQuery A secondary query class using the current class as primary query
+     * @return \TblentprsQuery A secondary query class using the current class as primary query
      */
-    public function useUsersQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useTblentprsQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinUsers($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Users', '\UsersQuery');
+            ->joinTblentprs($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Tblentprs', '\TblentprsQuery');
     }
 
     /**

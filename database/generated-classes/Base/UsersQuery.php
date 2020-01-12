@@ -23,27 +23,21 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildUsersQuery orderByUuid($order = Criteria::ASC) Order by the uuid column
  * @method     ChildUsersQuery orderByNamdtsgnr($order = Criteria::ASC) Order by the namdtsgnr column
- * @method     ChildUsersQuery orderByPrmaplgnr($order = Criteria::ASC) Order by the prmaplgnr column
- * @method     ChildUsersQuery orderBySgnaplgnr($order = Criteria::ASC) Order by the sgnaplgnr column
  * @method     ChildUsersQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method     ChildUsersQuery orderByEmailVerifiedAt($order = Criteria::ASC) Order by the email_verified_at column
  * @method     ChildUsersQuery orderByPassword($order = Criteria::ASC) Order by the password column
  * @method     ChildUsersQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildUsersQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
- * @method     ChildUsersQuery orderByFinishedAt($order = Criteria::ASC) Order by the finished_at column
  * @method     ChildUsersQuery orderByRememberToken($order = Criteria::ASC) Order by the remember_token column
  *
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByUuid() Group by the uuid column
  * @method     ChildUsersQuery groupByNamdtsgnr() Group by the namdtsgnr column
- * @method     ChildUsersQuery groupByPrmaplgnr() Group by the prmaplgnr column
- * @method     ChildUsersQuery groupBySgnaplgnr() Group by the sgnaplgnr column
  * @method     ChildUsersQuery groupByEmail() Group by the email column
  * @method     ChildUsersQuery groupByEmailVerifiedAt() Group by the email_verified_at column
  * @method     ChildUsersQuery groupByPassword() Group by the password column
  * @method     ChildUsersQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildUsersQuery groupByUpdatedAt() Group by the updated_at column
- * @method     ChildUsersQuery groupByFinishedAt() Group by the finished_at column
  * @method     ChildUsersQuery groupByRememberToken() Group by the remember_token column
  *
  * @method     ChildUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -54,27 +48,17 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildUsersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildUsersQuery leftJoinTblentemp($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentemp relation
- * @method     ChildUsersQuery rightJoinTblentemp($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentemp relation
- * @method     ChildUsersQuery innerJoinTblentemp($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentemp relation
+ * @method     ChildUsersQuery leftJoinTblentprs($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentprs relation
+ * @method     ChildUsersQuery rightJoinTblentprs($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentprs relation
+ * @method     ChildUsersQuery innerJoinTblentprs($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentprs relation
  *
- * @method     ChildUsersQuery joinWithTblentemp($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentemp relation
+ * @method     ChildUsersQuery joinWithTblentprs($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentprs relation
  *
- * @method     ChildUsersQuery leftJoinWithTblentemp() Adds a LEFT JOIN clause and with to the query using the Tblentemp relation
- * @method     ChildUsersQuery rightJoinWithTblentemp() Adds a RIGHT JOIN clause and with to the query using the Tblentemp relation
- * @method     ChildUsersQuery innerJoinWithTblentemp() Adds a INNER JOIN clause and with to the query using the Tblentemp relation
+ * @method     ChildUsersQuery leftJoinWithTblentprs() Adds a LEFT JOIN clause and with to the query using the Tblentprs relation
+ * @method     ChildUsersQuery rightJoinWithTblentprs() Adds a RIGHT JOIN clause and with to the query using the Tblentprs relation
+ * @method     ChildUsersQuery innerJoinWithTblentprs() Adds a INNER JOIN clause and with to the query using the Tblentprs relation
  *
- * @method     ChildUsersQuery leftJoinTblentorg($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentorg relation
- * @method     ChildUsersQuery rightJoinTblentorg($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentorg relation
- * @method     ChildUsersQuery innerJoinTblentorg($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentorg relation
- *
- * @method     ChildUsersQuery joinWithTblentorg($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentorg relation
- *
- * @method     ChildUsersQuery leftJoinWithTblentorg() Adds a LEFT JOIN clause and with to the query using the Tblentorg relation
- * @method     ChildUsersQuery rightJoinWithTblentorg() Adds a RIGHT JOIN clause and with to the query using the Tblentorg relation
- * @method     ChildUsersQuery innerJoinWithTblentorg() Adds a INNER JOIN clause and with to the query using the Tblentorg relation
- *
- * @method     \TblentempQuery|\TblentorgQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \TblentprsQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUsers findOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query
  * @method     ChildUsers findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUsers matching the query, or a new ChildUsers object populated from the query conditions when no match is found
@@ -82,14 +66,11 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers findOneById(string $id) Return the first ChildUsers filtered by the id column
  * @method     ChildUsers findOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column
  * @method     ChildUsers findOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column
- * @method     ChildUsers findOneByPrmaplgnr(string $prmaplgnr) Return the first ChildUsers filtered by the prmaplgnr column
- * @method     ChildUsers findOneBySgnaplgnr(string $sgnaplgnr) Return the first ChildUsers filtered by the sgnaplgnr column
  * @method     ChildUsers findOneByEmail(string $email) Return the first ChildUsers filtered by the email column
  * @method     ChildUsers findOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column
  * @method     ChildUsers findOneByPassword(string $password) Return the first ChildUsers filtered by the password column
  * @method     ChildUsers findOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column
  * @method     ChildUsers findOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column
- * @method     ChildUsers findOneByFinishedAt(string $finished_at) Return the first ChildUsers filtered by the finished_at column
  * @method     ChildUsers findOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column *
 
  * @method     ChildUsers requirePk($key, ConnectionInterface $con = null) Return the ChildUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -98,28 +79,22 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers requireOneById(string $id) Return the first ChildUsers filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByPrmaplgnr(string $prmaplgnr) Return the first ChildUsers filtered by the prmaplgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneBySgnaplgnr(string $sgnaplgnr) Return the first ChildUsers filtered by the sgnaplgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmail(string $email) Return the first ChildUsers filtered by the email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByPassword(string $password) Return the first ChildUsers filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByFinishedAt(string $finished_at) Return the first ChildUsers filtered by the finished_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
  * @method     ChildUsers[]|ObjectCollection findById(string $id) Return ChildUsers objects filtered by the id column
  * @method     ChildUsers[]|ObjectCollection findByUuid(string $uuid) Return ChildUsers objects filtered by the uuid column
  * @method     ChildUsers[]|ObjectCollection findByNamdtsgnr(string $namdtsgnr) Return ChildUsers objects filtered by the namdtsgnr column
- * @method     ChildUsers[]|ObjectCollection findByPrmaplgnr(string $prmaplgnr) Return ChildUsers objects filtered by the prmaplgnr column
- * @method     ChildUsers[]|ObjectCollection findBySgnaplgnr(string $sgnaplgnr) Return ChildUsers objects filtered by the sgnaplgnr column
  * @method     ChildUsers[]|ObjectCollection findByEmail(string $email) Return ChildUsers objects filtered by the email column
  * @method     ChildUsers[]|ObjectCollection findByEmailVerifiedAt(string $email_verified_at) Return ChildUsers objects filtered by the email_verified_at column
  * @method     ChildUsers[]|ObjectCollection findByPassword(string $password) Return ChildUsers objects filtered by the password column
  * @method     ChildUsers[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildUsers objects filtered by the created_at column
  * @method     ChildUsers[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildUsers objects filtered by the updated_at column
- * @method     ChildUsers[]|ObjectCollection findByFinishedAt(string $finished_at) Return ChildUsers objects filtered by the finished_at column
  * @method     ChildUsers[]|ObjectCollection findByRememberToken(string $remember_token) Return ChildUsers objects filtered by the remember_token column
  * @method     ChildUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
@@ -135,7 +110,7 @@ abstract class UsersQuery extends ModelCriteria
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'cero', $modelName = '\\Users', $modelAlias = null)
+    public function __construct($dbName = 'cerodb', $modelName = '\\Users', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
@@ -219,7 +194,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, uuid, namdtsgnr, prmaplgnr, sgnaplgnr, email, email_verified_at, password, created_at, updated_at, finished_at, remember_token FROM users WHERE id = :p0';
+        $sql = 'SELECT id, uuid, namdtsgnr, email, email_verified_at, password, created_at, updated_at, remember_token FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -398,56 +373,6 @@ abstract class UsersQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UsersTableMap::COL_NAMDTSGNR, $namdtsgnr, $comparison);
-    }
-
-    /**
-     * Filter the query on the prmaplgnr column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByPrmaplgnr('fooValue');   // WHERE prmaplgnr = 'fooValue'
-     * $query->filterByPrmaplgnr('%fooValue%', Criteria::LIKE); // WHERE prmaplgnr LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $prmaplgnr The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByPrmaplgnr($prmaplgnr = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($prmaplgnr)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_PRMAPLGNR, $prmaplgnr, $comparison);
-    }
-
-    /**
-     * Filter the query on the sgnaplgnr column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterBySgnaplgnr('fooValue');   // WHERE sgnaplgnr = 'fooValue'
-     * $query->filterBySgnaplgnr('%fooValue%', Criteria::LIKE); // WHERE sgnaplgnr LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $sgnaplgnr The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterBySgnaplgnr($sgnaplgnr = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($sgnaplgnr)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_SGNAPLGNR, $sgnaplgnr, $comparison);
     }
 
     /**
@@ -630,49 +555,6 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the finished_at column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByFinishedAt('2011-03-14'); // WHERE finished_at = '2011-03-14'
-     * $query->filterByFinishedAt('now'); // WHERE finished_at = '2011-03-14'
-     * $query->filterByFinishedAt(array('max' => 'yesterday')); // WHERE finished_at > '2011-03-13'
-     * </code>
-     *
-     * @param     mixed $finishedAt The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByFinishedAt($finishedAt = null, $comparison = null)
-    {
-        if (is_array($finishedAt)) {
-            $useMinMax = false;
-            if (isset($finishedAt['min'])) {
-                $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($finishedAt['max'])) {
-                $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_FINISHED_AT, $finishedAt, $comparison);
-    }
-
-    /**
      * Filter the query on the remember_token column
      *
      * Example usage:
@@ -698,40 +580,40 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tblentemp object
+     * Filter the query by a related \Tblentprs object
      *
-     * @param \Tblentemp|ObjectCollection $tblentemp the related object to use as filter
+     * @param \Tblentprs|ObjectCollection $tblentprs the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUsersQuery The current query, for fluid interface
      */
-    public function filterByTblentemp($tblentemp, $comparison = null)
+    public function filterByTblentprs($tblentprs, $comparison = null)
     {
-        if ($tblentemp instanceof \Tblentemp) {
+        if ($tblentprs instanceof \Tblentprs) {
             return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $tblentemp->getIdnentrep(), $comparison);
-        } elseif ($tblentemp instanceof ObjectCollection) {
+                ->addUsingAlias(UsersTableMap::COL_ID, $tblentprs->getIdnentusr(), $comparison);
+        } elseif ($tblentprs instanceof ObjectCollection) {
             return $this
-                ->useTblentempQuery()
-                ->filterByPrimaryKeys($tblentemp->getPrimaryKeys())
+                ->useTblentprsQuery()
+                ->filterByPrimaryKeys($tblentprs->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByTblentemp() only accepts arguments of type \Tblentemp or Collection');
+            throw new PropelException('filterByTblentprs() only accepts arguments of type \Tblentprs or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Tblentemp relation
+     * Adds a JOIN clause to the query using the Tblentprs relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
      */
-    public function joinTblentemp($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinTblentprs($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentemp');
+        $relationMap = $tableMap->getRelation('Tblentprs');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -746,14 +628,14 @@ abstract class UsersQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Tblentemp');
+            $this->addJoinObject($join, 'Tblentprs');
         }
 
         return $this;
     }
 
     /**
-     * Use the Tblentemp relation Tblentemp object
+     * Use the Tblentprs relation Tblentprs object
      *
      * @see useQuery()
      *
@@ -761,86 +643,13 @@ abstract class UsersQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \TblentempQuery A secondary query class using the current class as primary query
+     * @return \TblentprsQuery A secondary query class using the current class as primary query
      */
-    public function useTblentempQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useTblentprsQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinTblentemp($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentemp', '\TblentempQuery');
-    }
-
-    /**
-     * Filter the query by a related \Tblentorg object
-     *
-     * @param \Tblentorg|ObjectCollection $tblentorg the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByTblentorg($tblentorg, $comparison = null)
-    {
-        if ($tblentorg instanceof \Tblentorg) {
-            return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $tblentorg->getIdnentrep(), $comparison);
-        } elseif ($tblentorg instanceof ObjectCollection) {
-            return $this
-                ->useTblentorgQuery()
-                ->filterByPrimaryKeys($tblentorg->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByTblentorg() only accepts arguments of type \Tblentorg or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Tblentorg relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function joinTblentorg($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentorg');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Tblentorg');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Tblentorg relation Tblentorg object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \TblentorgQuery A secondary query class using the current class as primary query
-     */
-    public function useTblentorgQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinTblentorg($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentorg', '\TblentorgQuery');
+            ->joinTblentprs($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Tblentprs', '\TblentprsQuery');
     }
 
     /**
