@@ -21,32 +21,12 @@
                         </div>
                     </div>
                     <div class="md-layout-item md-size-70 mt-4 md-small-size-100">
-                        <ValidationProvider
-                            name="nombre"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>face</md-icon>
-                                <label>Nombre</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="nombre" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
 
                         <div class="md-layout">
                             <div class="md-layout-item md-size-50 md-small-size-100">
                                 <ValidationProvider
-                                    name="primerapellido"
-                                    rules="required"
+                                    name="curp"
+                                    rules="required|curp"
                                     v-slot="{ passed, failed }"
                                 >
                                     <md-field
@@ -56,10 +36,10 @@
                   { 'md-form-group': true }
                 ]"
                                     >
-                                        <md-icon>face</md-icon>
-                                        <label>Primer Apellido</label>
+                                        <md-icon>info</md-icon>
+                                        <label>CURP</label>
                                         <p style="color: red">*</p>
-                                        <md-input v-model="primerapellido" type="text"></md-input>
+                                        <md-input v-model="curp" type="text"></md-input>
                                         <md-icon class="error" v-show="failed">close</md-icon>
                                         <md-icon class="success" v-show="passed">done</md-icon>
                                     </md-field>
@@ -67,8 +47,8 @@
                             </div>
                             <div class="md-layout-item md-size-50 md-small-size-100">
                                 <ValidationProvider
-                                    name="segundoapellido"
-                                    rules="required"
+                                    name="rfc"
+                                    rules="required|rfc"
                                     v-slot="{ passed, failed }"
                                 >
                                     <md-field
@@ -78,10 +58,57 @@
                   { 'md-form-group': true }
                 ]"
                                     >
-                                        <md-icon>face</md-icon>
-                                        <label>Segundo Apellido</label>
+                                        <md-icon>info</md-icon>
+                                        <label>RFC</label>
                                         <p style="color: red">*</p>
-                                        <md-input v-model="segundoapellido" type="text"></md-input>
+                                        <md-input v-model="rfc" type="text"></md-input>
+                                        <md-icon class="error" v-show="failed">close</md-icon>
+                                        <md-icon class="success" v-show="passed">done</md-icon>
+                                    </md-field>
+                                </ValidationProvider>
+                            </div>
+                        </div>
+
+                        <div class="md-layout">
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+                                <ValidationProvider
+                                    name="correolaboral"
+                                    rules="required|email"
+                                    v-slot="{ passed, failed }"
+                                >
+                                    <md-field
+                                        :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                                    >
+                                        <md-icon>email</md-icon>
+                                        <label>Correo Laboral</label>
+                                        <p style="color: red">*</p>
+                                        <md-input v-model="correolaboral" type="text"></md-input>
+                                        <md-icon class="error" v-show="failed">close</md-icon>
+                                        <md-icon class="success" v-show="passed">done</md-icon>
+                                    </md-field>
+                                </ValidationProvider>
+                            </div>
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+                                <ValidationProvider
+                                    name="correopersonal"
+                                    rules="required|email"
+                                    v-slot="{ passed, failed }"
+                                >
+                                    <md-field
+                                        :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                                    >
+                                        <md-icon>email</md-icon>
+                                        <label>Correo Personal</label>
+                                        <p style="color: red">*</p>
+                                        <md-input v-model="correopersonal" type="text"></md-input>
                                         <md-icon class="error" v-show="failed">close</md-icon>
                                         <md-icon class="success" v-show="passed">done</md-icon>
                                     </md-field>
@@ -92,69 +119,6 @@
                     </div>
 
                     <div class="md-layout-item md-size-50 ml-auto md-small-size-100">
-                        <ValidationProvider
-                            name="curp"
-                            rules="required|curp"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>info</md-icon>
-                                <label>CURP</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="curp" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="correolaboral"
-                            rules="required|email"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>email</md-icon>
-                                <label>Correo Laboral</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="correolaboral" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="correopersonal"
-                            rules="required|email"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>email</md-icon>
-                                <label>Correo Personal</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="correopersonal" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
                         <ValidationProvider
                             name="nacionalidad"
                             rules="required"
@@ -256,34 +220,13 @@
                                 <p style="color: red">*</p>
                                 <md-select v-model="municipio" class="ml-1">
                                     <md-option value="Durango">Durango</md-option>
-                                </md-select>                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
+                                </md-select>
                             </md-field>
                         </ValidationProvider>
 
                     </div>
 
                     <div class="md-layout-item md-size-50 ml-auto md-small-size-100">
-                        <ValidationProvider
-                            name="rfc"
-                            rules="required|rfc"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>info</md-icon>
-                                <label>RFC</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="rfc" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
 
                         <ValidationProvider
                             name="entidadfederativa"
@@ -303,8 +246,6 @@
                                 <md-select v-model="entidadfederativa" class="ml-1">
                                     <md-option value="Durango">Durango</md-option>
                                 </md-select>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
@@ -370,69 +311,6 @@
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
-
-                        <ValidationProvider
-                            name="correocuenta"
-                            rules="required|email"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>email</md-icon>
-                                <label>{{ $t('firststep.email') }}</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="correocuenta" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="pass"
-                            rules="required|min:4"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>more_horiz</md-icon>
-                                <label>{{ $t('firststep.password') }}</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="pass" type="password"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="passconf"
-                            rules="required|min:4|samepass:@pass"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>more_horiz</md-icon>
-                                <label>{{ $t('firststep.passwordconf') }}</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="passconf" type="password"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
                     </div>
                 </div>
             </div>
@@ -441,14 +319,12 @@
 </template>
 <script>
     import {extend} from "vee-validate";
-    import {email, integer, max, mimes, min, required} from "vee-validate/dist/rules";
+    import {email, integer, min, required} from "vee-validate/dist/rules";
 
     extend("required", required);
     extend("email", email);
     extend("min", min);
-    extend("max", max);
     extend("integer", integer);
-    extend("mimes", mimes);
 
     extend("rfc", {
         validate: (value) => {
@@ -473,9 +349,6 @@
         },
         data() {
             return {
-                nombre: "",
-                primerapellido: "",
-                segundoapellido: "",
                 curp: "",
                 rfc: "",
                 correolaboral: "",
@@ -491,9 +364,6 @@
                 telefonomovil: "",
                 foto: "",
                 image: "",
-                correocuenta: "",
-                pass: "",
-                passconf: "",
             };
         },
         methods: {
@@ -511,9 +381,6 @@
             validate() {
                 return this.$refs.form.validate().then(res => {
                     this.$emit("on-info",
-                        this.nombre,
-                        this.primerapellido,
-                        this.segundoapellido,
                         this.curp,
                         this.rfc,
                         this.correolaboral,
@@ -528,8 +395,6 @@
                         this.telefonofijo,
                         this.telefonomovil,
                         this.foto,
-                        this.correocuenta,
-                        this.pass,
                         );
                     return res;
                 });

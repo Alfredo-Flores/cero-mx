@@ -18,7 +18,7 @@ class CreateTblentempTable extends Migration
             $table->Bigincrements('idnentemp')->comment('Id');
             $table->uuid('uuid')->unique()->comment('Uuid');
             $table->unsignedBigInteger('idnentrep')->comment('Id Representante');
-            $table->foreign('idnentrep')->references('id')->on('users');
+            $table->foreign('idnentrep')->references('id')->on('tblentrep');
             $table->string('namentemp')->default('')->comment('Nombre');
             $table->string('logentemp')->default('')->comment('Logo');
             $table->string('drcentemp')->default('')->comment('Direccion');

@@ -119,22 +119,10 @@ class MainController extends Controller
     public function registeradvanced(Request $request)
     {
         $rules = [
-            'NombreRepresentante' => 'required',
-            'TelefonoRepresentante' => 'required|numeric|min:10',
-            'Email' => 'required|email',
-            'Password' => 'required|min:4',
-            'TipoDeInstitucion' => 'required|numeric|between:0,4',
+            'TipoDeInstitucion' => 'required|numeric|between:0,3',
         ];
 
         $messages = [
-            'NombreRepresentante.required' => 'Ingrese el nombre de representante',
-            'TelefonoRepresentante.required' => 'Ingrese el telefono del representante',
-            'TelefonoRepresentante.numeric' => 'Ingrese el telefono con numeros',
-            'TelefonoRepresentante.min' => 'Ingrese el telefono del representante',
-            'Email.required' => 'Ingrese el correo electronico',
-            'Email.email' => 'Ingrese el correo electronico correctamente',
-            'Password.required' => 'Ingrese la contraseña',
-            'Password.min' => 'Ingrese la contraseña con un minimo de 4 caracteres',
             'TipoDeInstitucion.required' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4011',
             'TipoDeInstitucion.numeric' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4012',
             'TipoDeInstitucion.between' => 'Ocurrio algun problema inesperado, recarge la pagina codigo 4013',
@@ -334,86 +322,7 @@ class MainController extends Controller
                 'success' => true,
                 'message' => 'Organización'
             );
-        } elseif ($tipo == 3) {
-
-            $rules = [
-                'NombreInternacional' => 'required',
-                'DireccionInternacional' => 'required',
-                'TelefonoInternacional' => 'required|numeric|min:10',
-            ];
-
-            $messages = [
-                'NombreInternacional.required' => 'Ingrese el nombre de la organización internacional',
-                'DireccionInternacional.required' => 'Ingrese la dirección de la organización internacional',
-                'TelefonoInternacional.required' => 'Ingrese el telefono de la organización internacional',
-                'TelefonoInternacional.numeric' => 'Ingrese el telefono con numeros',
-                'TelefonoInternacional.min' => 'Ingrese el telefono con un minimo de 10 digitos',
-            ];
-
-            $validador = Validator::make($request->toArray(), $rules, $messages)->errors()->all();
-
-            if (!empty($validador)) {
-                return array(
-                    'success' => false,
-                    'message' => $validador[0]
-                );
-            }
-
-            // Data
-            $username = trim($request->get('NombreRepresentante'));
-            $useremail = trim($request->get('Email'));
-            $userpassword = trim($request->get('Password'));
-            $usertelephone = trim($request->get('TelefonoRepresentante'));
-
-            // Logo
-            try {
-                $img = $request->file('LogoInstitucion');
-                $rouimg = null;
-
-                Log::debug($img);
-                if ($img != null) {
-                    $rouimg = 'archivos/' . Uuid::generate(3, $useremail, Uuid::NS_DNS)->string . '/logo';
-                    Storage::disk('local')->put($rouimg, $img);
-                }
-            } catch (\Exception $e) {
-                Log::debug($e);
-                return array(
-                    'success' => false,
-                    'message' => 'Ocurrio un error inesperado'
-                );
-            }
-
-            // Insert
-            $entusr = \Users::insusers($username, $useremail, $userpassword, $rouimg, $usertelephone, $tipo);
-
-            if (!$entusr) {
-                return array(
-                    'success' => false,
-                    'message' => 'Ocurrio un error inesperado'
-                );
-            }
-
-            // Insert
-            $iduser = $entusr->getId();
-            $internacionalname = trim($request->get('NombreInternacional'));
-            $internacionaldir = trim($request->get('DireccionInternacional'));
-            $internacionaltel = trim($request->get('TelefonoInternacional'));
-
-            $entorg = \Tblentint::insentint($iduser, $internacionalname, $internacionaldir, $internacionaltel);
-
-            if (!$entorg) {
-                return array(
-                    'success' => false,
-                    'message' => 'Ocurrio un error inesperado'
-                );
-            }
-
-            // Done
-            return array(
-                'success' => true,
-                'message' => 'Enviaremos un correo con la aprobacion o comunicado de esta cuenta por parte de los administradores'
-            );
-        } else {
+        }  else {
             return array(
                 'success' => false,
                 'message' => 'Ninguno'
