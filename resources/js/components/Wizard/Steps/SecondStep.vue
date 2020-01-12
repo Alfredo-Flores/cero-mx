@@ -46,10 +46,6 @@
                     this.checkone = false;
                     this.checktwo = true;
                     this.checkthree = false;
-                } if (check === 3) {
-                    this.checkone = false;
-                    this.checktwo = false;
-                    this.checkthree = true;
                 }
             },
             validate() {

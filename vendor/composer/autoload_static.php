@@ -455,6 +455,7 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
     );
 
     public static $classMap = array (
+        'AlterTblentrepTable' => __DIR__ . '/../..' . '/database/migrations/2020_01_11_182144_alter_tblentrep_table.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
