@@ -2,18 +2,28 @@
 
 namespace Base;
 
+use \Catgirorg as ChildCatgirorg;
+use \CatgirorgQuery as ChildCatgirorgQuery;
+use \Tblentcln as ChildTblentcln;
+use \TblentclnQuery as ChildTblentclnQuery;
+use \Tblentdnc as ChildTblentdnc;
+use \TblentdncQuery as ChildTblentdncQuery;
+use \Tblentemp as ChildTblentemp;
 use \TblentempQuery as ChildTblentempQuery;
 use \Tblentprs as ChildTblentprs;
 use \TblentprsQuery as ChildTblentprsQuery;
 use \DateTime;
 use \Exception;
 use \PDO;
+use Map\TblentclnTableMap;
+use Map\TblentdncTableMap;
 use Map\TblentempTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\Collection;
+use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\BadMethodCallException;
 use Propel\Runtime\Exception\LogicException;
@@ -83,6 +93,13 @@ abstract class Tblentemp implements ActiveRecordInterface
      * @var        string
      */
     protected $idnentprs;
+
+    /**
+     * The value for the idngirorg field.
+     *
+     * @var        string
+     */
+    protected $idngirorg;
 
     /**
      * The value for the namentemp field.
@@ -219,9 +236,40 @@ abstract class Tblentemp implements ActiveRecordInterface
     protected $detentemo;
 
     /**
+     * The value for the created_at field.
+     *
+     * @var        DateTime
+     */
+    protected $created_at;
+
+    /**
+     * The value for the updated_at field.
+     *
+     * @var        DateTime
+     */
+    protected $updated_at;
+
+    /**
      * @var        ChildTblentprs
      */
     protected $aTblentprs;
+
+    /**
+     * @var        ChildCatgirorg
+     */
+    protected $aCatgirorg;
+
+    /**
+     * @var        ObjectCollection|ChildTblentcln[] Collection to store aggregation of ChildTblentcln objects.
+     */
+    protected $collTblentclns;
+    protected $collTblentclnsPartial;
+
+    /**
+     * @var        ObjectCollection|ChildTblentdnc[] Collection to store aggregation of ChildTblentdnc objects.
+     */
+    protected $collTblentdncs;
+    protected $collTblentdncsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -230,6 +278,18 @@ abstract class Tblentemp implements ActiveRecordInterface
      * @var boolean
      */
     protected $alreadyInSave = false;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildTblentcln[]
+     */
+    protected $tblentclnsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildTblentdnc[]
+     */
+    protected $tblentdncsScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -514,6 +574,16 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
+     * Get the [idngirorg] column value.
+     *
+     * @return string
+     */
+    public function getIdngirorg()
+    {
+        return $this->idngirorg;
+    }
+
+    /**
      * Get the [namentemp] column value.
      *
      * @return string
@@ -704,6 +774,46 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
+     * Get the [optionally formatted] temporal [created_at] column value.
+     *
+     *
+     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
+     *                            If format is NULL, then the raw DateTime object will be returned.
+     *
+     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+     *
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getCreatedAt($format = 'Y-m-d H:i:s')
+    {
+        if ($format === null) {
+            return $this->created_at;
+        } else {
+            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
+        }
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [updated_at] column value.
+     *
+     *
+     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
+     *                            If format is NULL, then the raw DateTime object will be returned.
+     *
+     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+     *
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getUpdatedAt($format = 'Y-m-d H:i:s')
+    {
+        if ($format === null) {
+            return $this->updated_at;
+        } else {
+            return $this->updated_at instanceof \DateTimeInterface ? $this->updated_at->format($format) : null;
+        }
+    }
+
+    /**
      * Set the value of [idnentemp] column.
      *
      * @param string $v new value
@@ -766,6 +876,30 @@ abstract class Tblentemp implements ActiveRecordInterface
 
         return $this;
     } // setIdnentprs()
+
+    /**
+     * Set the value of [idngirorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function setIdngirorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->idngirorg !== $v) {
+            $this->idngirorg = $v;
+            $this->modifiedColumns[TblentempTableMap::COL_IDNGIRORG] = true;
+        }
+
+        if ($this->aCatgirorg !== null && $this->aCatgirorg->getIdngirorg() !== $v) {
+            $this->aCatgirorg = null;
+        }
+
+        return $this;
+    } // setIdngirorg()
 
     /**
      * Set the value of [namentemp] column.
@@ -1108,6 +1242,46 @@ abstract class Tblentemp implements ActiveRecordInterface
     } // setDetentemo()
 
     /**
+     * Sets the value of [created_at] column to a normalized version of the date/time value specified.
+     *
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     *               Empty strings are treated as NULL.
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function setCreatedAt($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->created_at !== null || $dt !== null) {
+            if ($this->created_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->created_at->format("Y-m-d H:i:s.u")) {
+                $this->created_at = $dt === null ? null : clone $dt;
+                $this->modifiedColumns[TblentempTableMap::COL_CREATED_AT] = true;
+            }
+        } // if either are not null
+
+        return $this;
+    } // setCreatedAt()
+
+    /**
+     * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
+     *
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     *               Empty strings are treated as NULL.
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function setUpdatedAt($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->updated_at !== null || $dt !== null) {
+            if ($this->updated_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->updated_at->format("Y-m-d H:i:s.u")) {
+                $this->updated_at = $dt === null ? null : clone $dt;
+                $this->modifiedColumns[TblentempTableMap::COL_UPDATED_AT] = true;
+            }
+        } // if either are not null
+
+        return $this;
+    } // setUpdatedAt()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -1212,62 +1386,77 @@ abstract class Tblentemp implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentempTableMap::translateFieldName('Idnentprs', TableMap::TYPE_PHPNAME, $indexType)];
             $this->idnentprs = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentempTableMap::translateFieldName('Namentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentempTableMap::translateFieldName('Idngirorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->idngirorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentempTableMap::translateFieldName('Namentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->namentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentempTableMap::translateFieldName('Logentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentempTableMap::translateFieldName('Logentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->logentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentempTableMap::translateFieldName('Drcentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentempTableMap::translateFieldName('Drcentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->drcentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentempTableMap::translateFieldName('Lclentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentempTableMap::translateFieldName('Lclentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->lclentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentempTableMap::translateFieldName('Mncentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentempTableMap::translateFieldName('Mncentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->mncentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentempTableMap::translateFieldName('Ententemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentempTableMap::translateFieldName('Ententemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->ententemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentempTableMap::translateFieldName('Pasentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentempTableMap::translateFieldName('Pasentorg', TableMap::TYPE_PHPNAME, $indexType)];
             $this->pasentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentempTableMap::translateFieldName('Cdgpstemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentempTableMap::translateFieldName('Cdgpstemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cdgpstemp = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentempTableMap::translateFieldName('Cdgtrbemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentempTableMap::translateFieldName('Cdgtrbemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cdgtrbemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentempTableMap::translateFieldName('Girentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentempTableMap::translateFieldName('Girentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->girentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentempTableMap::translateFieldName('Tlfofiemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentempTableMap::translateFieldName('Tlfofiemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->tlfofiemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentempTableMap::translateFieldName('Emlofiemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : TblentempTableMap::translateFieldName('Emlofiemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->emlofiemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : TblentempTableMap::translateFieldName('Desaliemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : TblentempTableMap::translateFieldName('Desaliemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->desaliemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : TblentempTableMap::translateFieldName('Candonemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : TblentempTableMap::translateFieldName('Candonemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->candonemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : TblentempTableMap::translateFieldName('Temconemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentempTableMap::translateFieldName('Temconemp', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->temconemp = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentempTableMap::translateFieldName('Horentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentempTableMap::translateFieldName('Horentemp', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->horentemp = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentempTableMap::translateFieldName('Detentemo', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentempTableMap::translateFieldName('Detentemo', TableMap::TYPE_PHPNAME, $indexType)];
             $this->detentemo = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : TblentempTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            if ($col === '0000-00-00 00:00:00') {
+                $col = null;
+            }
+            $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : TblentempTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            if ($col === '0000-00-00 00:00:00') {
+                $col = null;
+            }
+            $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1276,7 +1465,7 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 20; // 20 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 23; // 23 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentemp'), 0, $e);
@@ -1300,6 +1489,9 @@ abstract class Tblentemp implements ActiveRecordInterface
     {
         if ($this->aTblentprs !== null && $this->idnentprs !== $this->aTblentprs->getIdnentprs()) {
             $this->aTblentprs = null;
+        }
+        if ($this->aCatgirorg !== null && $this->idngirorg !== $this->aCatgirorg->getIdngirorg()) {
+            $this->aCatgirorg = null;
         }
     } // ensureConsistency
 
@@ -1341,6 +1533,11 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aTblentprs = null;
+            $this->aCatgirorg = null;
+            $this->collTblentclns = null;
+
+            $this->collTblentdncs = null;
+
         } // if (deep)
     }
 
@@ -1456,6 +1653,13 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->setTblentprs($this->aTblentprs);
             }
 
+            if ($this->aCatgirorg !== null) {
+                if ($this->aCatgirorg->isModified() || $this->aCatgirorg->isNew()) {
+                    $affectedRows += $this->aCatgirorg->save($con);
+                }
+                $this->setCatgirorg($this->aCatgirorg);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -1465,6 +1669,42 @@ abstract class Tblentemp implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
+            }
+
+            if ($this->tblentclnsScheduledForDeletion !== null) {
+                if (!$this->tblentclnsScheduledForDeletion->isEmpty()) {
+                    foreach ($this->tblentclnsScheduledForDeletion as $tblentcln) {
+                        // need to save related object because we set the relation to null
+                        $tblentcln->save($con);
+                    }
+                    $this->tblentclnsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collTblentclns !== null) {
+                foreach ($this->collTblentclns as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->tblentdncsScheduledForDeletion !== null) {
+                if (!$this->tblentdncsScheduledForDeletion->isEmpty()) {
+                    foreach ($this->tblentdncsScheduledForDeletion as $tblentdnc) {
+                        // need to save related object because we set the relation to null
+                        $tblentdnc->save($con);
+                    }
+                    $this->tblentdncsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collTblentdncs !== null) {
+                foreach ($this->collTblentdncs as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             $this->alreadyInSave = false;
@@ -1501,6 +1741,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentempTableMap::COL_IDNENTPRS)) {
             $modifiedColumns[':p' . $index++]  = 'idnentprs';
+        }
+        if ($this->isColumnModified(TblentempTableMap::COL_IDNGIRORG)) {
+            $modifiedColumns[':p' . $index++]  = 'idngirorg';
         }
         if ($this->isColumnModified(TblentempTableMap::COL_NAMENTEMP)) {
             $modifiedColumns[':p' . $index++]  = 'namentemp';
@@ -1553,6 +1796,12 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($this->isColumnModified(TblentempTableMap::COL_DETENTEMO)) {
             $modifiedColumns[':p' . $index++]  = 'detentemo';
         }
+        if ($this->isColumnModified(TblentempTableMap::COL_CREATED_AT)) {
+            $modifiedColumns[':p' . $index++]  = 'created_at';
+        }
+        if ($this->isColumnModified(TblentempTableMap::COL_UPDATED_AT)) {
+            $modifiedColumns[':p' . $index++]  = 'updated_at';
+        }
 
         $sql = sprintf(
             'INSERT INTO tblentemp (%s) VALUES (%s)',
@@ -1572,6 +1821,9 @@ abstract class Tblentemp implements ActiveRecordInterface
                         break;
                     case 'idnentprs':
                         $stmt->bindValue($identifier, $this->idnentprs, PDO::PARAM_INT);
+                        break;
+                    case 'idngirorg':
+                        $stmt->bindValue($identifier, $this->idngirorg, PDO::PARAM_INT);
                         break;
                     case 'namentemp':
                         $stmt->bindValue($identifier, $this->namentemp, PDO::PARAM_STR);
@@ -1623,6 +1875,12 @@ abstract class Tblentemp implements ActiveRecordInterface
                         break;
                     case 'detentemo':
                         $stmt->bindValue($identifier, $this->detentemo, PDO::PARAM_STR);
+                        break;
+                    case 'created_at':
+                        $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        break;
+                    case 'updated_at':
+                        $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1696,55 +1954,64 @@ abstract class Tblentemp implements ActiveRecordInterface
                 return $this->getIdnentprs();
                 break;
             case 3:
-                return $this->getNamentemp();
+                return $this->getIdngirorg();
                 break;
             case 4:
-                return $this->getLogentemp();
+                return $this->getNamentemp();
                 break;
             case 5:
-                return $this->getDrcentemp();
+                return $this->getLogentemp();
                 break;
             case 6:
-                return $this->getLclentemp();
+                return $this->getDrcentemp();
                 break;
             case 7:
-                return $this->getMncentemp();
+                return $this->getLclentemp();
                 break;
             case 8:
-                return $this->getEntentemp();
+                return $this->getMncentemp();
                 break;
             case 9:
-                return $this->getPasentorg();
+                return $this->getEntentemp();
                 break;
             case 10:
-                return $this->getCdgpstemp();
+                return $this->getPasentorg();
                 break;
             case 11:
-                return $this->getCdgtrbemp();
+                return $this->getCdgpstemp();
                 break;
             case 12:
-                return $this->getGirentemp();
+                return $this->getCdgtrbemp();
                 break;
             case 13:
-                return $this->getTlfofiemp();
+                return $this->getGirentemp();
                 break;
             case 14:
-                return $this->getEmlofiemp();
+                return $this->getTlfofiemp();
                 break;
             case 15:
-                return $this->getDesaliemp();
+                return $this->getEmlofiemp();
                 break;
             case 16:
-                return $this->getCandonemp();
+                return $this->getDesaliemp();
                 break;
             case 17:
-                return $this->getTemconemp();
+                return $this->getCandonemp();
                 break;
             case 18:
-                return $this->getHorentemp();
+                return $this->getTemconemp();
                 break;
             case 19:
+                return $this->getHorentemp();
+                break;
+            case 20:
                 return $this->getDetentemo();
+                break;
+            case 21:
+                return $this->getCreatedAt();
+                break;
+            case 22:
+                return $this->getUpdatedAt();
                 break;
             default:
                 return null;
@@ -1779,30 +2046,41 @@ abstract class Tblentemp implements ActiveRecordInterface
             $keys[0] => $this->getIdnentemp(),
             $keys[1] => $this->getUuid(),
             $keys[2] => $this->getIdnentprs(),
-            $keys[3] => $this->getNamentemp(),
-            $keys[4] => $this->getLogentemp(),
-            $keys[5] => $this->getDrcentemp(),
-            $keys[6] => $this->getLclentemp(),
-            $keys[7] => $this->getMncentemp(),
-            $keys[8] => $this->getEntentemp(),
-            $keys[9] => $this->getPasentorg(),
-            $keys[10] => $this->getCdgpstemp(),
-            $keys[11] => $this->getCdgtrbemp(),
-            $keys[12] => $this->getGirentemp(),
-            $keys[13] => $this->getTlfofiemp(),
-            $keys[14] => $this->getEmlofiemp(),
-            $keys[15] => $this->getDesaliemp(),
-            $keys[16] => $this->getCandonemp(),
-            $keys[17] => $this->getTemconemp(),
-            $keys[18] => $this->getHorentemp(),
-            $keys[19] => $this->getDetentemo(),
+            $keys[3] => $this->getIdngirorg(),
+            $keys[4] => $this->getNamentemp(),
+            $keys[5] => $this->getLogentemp(),
+            $keys[6] => $this->getDrcentemp(),
+            $keys[7] => $this->getLclentemp(),
+            $keys[8] => $this->getMncentemp(),
+            $keys[9] => $this->getEntentemp(),
+            $keys[10] => $this->getPasentorg(),
+            $keys[11] => $this->getCdgpstemp(),
+            $keys[12] => $this->getCdgtrbemp(),
+            $keys[13] => $this->getGirentemp(),
+            $keys[14] => $this->getTlfofiemp(),
+            $keys[15] => $this->getEmlofiemp(),
+            $keys[16] => $this->getDesaliemp(),
+            $keys[17] => $this->getCandonemp(),
+            $keys[18] => $this->getTemconemp(),
+            $keys[19] => $this->getHorentemp(),
+            $keys[20] => $this->getDetentemo(),
+            $keys[21] => $this->getCreatedAt(),
+            $keys[22] => $this->getUpdatedAt(),
         );
-        if ($result[$keys[17]] instanceof \DateTimeInterface) {
-            $result[$keys[17]] = $result[$keys[17]]->format('c');
-        }
-
         if ($result[$keys[18]] instanceof \DateTimeInterface) {
             $result[$keys[18]] = $result[$keys[18]]->format('c');
+        }
+
+        if ($result[$keys[19]] instanceof \DateTimeInterface) {
+            $result[$keys[19]] = $result[$keys[19]]->format('c');
+        }
+
+        if ($result[$keys[21]] instanceof \DateTimeInterface) {
+            $result[$keys[21]] = $result[$keys[21]]->format('c');
+        }
+
+        if ($result[$keys[22]] instanceof \DateTimeInterface) {
+            $result[$keys[22]] = $result[$keys[22]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1825,6 +2103,51 @@ abstract class Tblentemp implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->aTblentprs->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aCatgirorg) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'catgirorg';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'catgirorg';
+                        break;
+                    default:
+                        $key = 'Catgirorg';
+                }
+
+                $result[$key] = $this->aCatgirorg->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->collTblentclns) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'tblentclns';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'tblentclns';
+                        break;
+                    default:
+                        $key = 'Tblentclns';
+                }
+
+                $result[$key] = $this->collTblentclns->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collTblentdncs) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'tblentdncs';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'tblentdncs';
+                        break;
+                    default:
+                        $key = 'Tblentdncs';
+                }
+
+                $result[$key] = $this->collTblentdncs->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1870,55 +2193,64 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->setIdnentprs($value);
                 break;
             case 3:
-                $this->setNamentemp($value);
+                $this->setIdngirorg($value);
                 break;
             case 4:
-                $this->setLogentemp($value);
+                $this->setNamentemp($value);
                 break;
             case 5:
-                $this->setDrcentemp($value);
+                $this->setLogentemp($value);
                 break;
             case 6:
-                $this->setLclentemp($value);
+                $this->setDrcentemp($value);
                 break;
             case 7:
-                $this->setMncentemp($value);
+                $this->setLclentemp($value);
                 break;
             case 8:
-                $this->setEntentemp($value);
+                $this->setMncentemp($value);
                 break;
             case 9:
-                $this->setPasentorg($value);
+                $this->setEntentemp($value);
                 break;
             case 10:
-                $this->setCdgpstemp($value);
+                $this->setPasentorg($value);
                 break;
             case 11:
-                $this->setCdgtrbemp($value);
+                $this->setCdgpstemp($value);
                 break;
             case 12:
-                $this->setGirentemp($value);
+                $this->setCdgtrbemp($value);
                 break;
             case 13:
-                $this->setTlfofiemp($value);
+                $this->setGirentemp($value);
                 break;
             case 14:
-                $this->setEmlofiemp($value);
+                $this->setTlfofiemp($value);
                 break;
             case 15:
-                $this->setDesaliemp($value);
+                $this->setEmlofiemp($value);
                 break;
             case 16:
-                $this->setCandonemp($value);
+                $this->setDesaliemp($value);
                 break;
             case 17:
-                $this->setTemconemp($value);
+                $this->setCandonemp($value);
                 break;
             case 18:
-                $this->setHorentemp($value);
+                $this->setTemconemp($value);
                 break;
             case 19:
+                $this->setHorentemp($value);
+                break;
+            case 20:
                 $this->setDetentemo($value);
+                break;
+            case 21:
+                $this->setCreatedAt($value);
+                break;
+            case 22:
+                $this->setUpdatedAt($value);
                 break;
         } // switch()
 
@@ -1956,55 +2288,64 @@ abstract class Tblentemp implements ActiveRecordInterface
             $this->setIdnentprs($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setNamentemp($arr[$keys[3]]);
+            $this->setIdngirorg($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setLogentemp($arr[$keys[4]]);
+            $this->setNamentemp($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setDrcentemp($arr[$keys[5]]);
+            $this->setLogentemp($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setLclentemp($arr[$keys[6]]);
+            $this->setDrcentemp($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setMncentemp($arr[$keys[7]]);
+            $this->setLclentemp($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setEntentemp($arr[$keys[8]]);
+            $this->setMncentemp($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setPasentorg($arr[$keys[9]]);
+            $this->setEntentemp($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setCdgpstemp($arr[$keys[10]]);
+            $this->setPasentorg($arr[$keys[10]]);
         }
         if (array_key_exists($keys[11], $arr)) {
-            $this->setCdgtrbemp($arr[$keys[11]]);
+            $this->setCdgpstemp($arr[$keys[11]]);
         }
         if (array_key_exists($keys[12], $arr)) {
-            $this->setGirentemp($arr[$keys[12]]);
+            $this->setCdgtrbemp($arr[$keys[12]]);
         }
         if (array_key_exists($keys[13], $arr)) {
-            $this->setTlfofiemp($arr[$keys[13]]);
+            $this->setGirentemp($arr[$keys[13]]);
         }
         if (array_key_exists($keys[14], $arr)) {
-            $this->setEmlofiemp($arr[$keys[14]]);
+            $this->setTlfofiemp($arr[$keys[14]]);
         }
         if (array_key_exists($keys[15], $arr)) {
-            $this->setDesaliemp($arr[$keys[15]]);
+            $this->setEmlofiemp($arr[$keys[15]]);
         }
         if (array_key_exists($keys[16], $arr)) {
-            $this->setCandonemp($arr[$keys[16]]);
+            $this->setDesaliemp($arr[$keys[16]]);
         }
         if (array_key_exists($keys[17], $arr)) {
-            $this->setTemconemp($arr[$keys[17]]);
+            $this->setCandonemp($arr[$keys[17]]);
         }
         if (array_key_exists($keys[18], $arr)) {
-            $this->setHorentemp($arr[$keys[18]]);
+            $this->setTemconemp($arr[$keys[18]]);
         }
         if (array_key_exists($keys[19], $arr)) {
-            $this->setDetentemo($arr[$keys[19]]);
+            $this->setHorentemp($arr[$keys[19]]);
+        }
+        if (array_key_exists($keys[20], $arr)) {
+            $this->setDetentemo($arr[$keys[20]]);
+        }
+        if (array_key_exists($keys[21], $arr)) {
+            $this->setCreatedAt($arr[$keys[21]]);
+        }
+        if (array_key_exists($keys[22], $arr)) {
+            $this->setUpdatedAt($arr[$keys[22]]);
         }
     }
 
@@ -2056,6 +2397,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($this->isColumnModified(TblentempTableMap::COL_IDNENTPRS)) {
             $criteria->add(TblentempTableMap::COL_IDNENTPRS, $this->idnentprs);
         }
+        if ($this->isColumnModified(TblentempTableMap::COL_IDNGIRORG)) {
+            $criteria->add(TblentempTableMap::COL_IDNGIRORG, $this->idngirorg);
+        }
         if ($this->isColumnModified(TblentempTableMap::COL_NAMENTEMP)) {
             $criteria->add(TblentempTableMap::COL_NAMENTEMP, $this->namentemp);
         }
@@ -2106,6 +2450,12 @@ abstract class Tblentemp implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentempTableMap::COL_DETENTEMO)) {
             $criteria->add(TblentempTableMap::COL_DETENTEMO, $this->detentemo);
+        }
+        if ($this->isColumnModified(TblentempTableMap::COL_CREATED_AT)) {
+            $criteria->add(TblentempTableMap::COL_CREATED_AT, $this->created_at);
+        }
+        if ($this->isColumnModified(TblentempTableMap::COL_UPDATED_AT)) {
+            $criteria->add(TblentempTableMap::COL_UPDATED_AT, $this->updated_at);
         }
 
         return $criteria;
@@ -2195,6 +2545,7 @@ abstract class Tblentemp implements ActiveRecordInterface
     {
         $copyObj->setUuid($this->getUuid());
         $copyObj->setIdnentprs($this->getIdnentprs());
+        $copyObj->setIdngirorg($this->getIdngirorg());
         $copyObj->setNamentemp($this->getNamentemp());
         $copyObj->setLogentemp($this->getLogentemp());
         $copyObj->setDrcentemp($this->getDrcentemp());
@@ -2212,6 +2563,28 @@ abstract class Tblentemp implements ActiveRecordInterface
         $copyObj->setTemconemp($this->getTemconemp());
         $copyObj->setHorentemp($this->getHorentemp());
         $copyObj->setDetentemo($this->getDetentemo());
+        $copyObj->setCreatedAt($this->getCreatedAt());
+        $copyObj->setUpdatedAt($this->getUpdatedAt());
+
+        if ($deepCopy) {
+            // important: temporarily setNew(false) because this affects the behavior of
+            // the getter/setter methods for fkey referrer objects.
+            $copyObj->setNew(false);
+
+            foreach ($this->getTblentclns() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addTblentcln($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getTblentdncs() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addTblentdnc($relObj->copy($deepCopy));
+                }
+            }
+
+        } // if ($deepCopy)
+
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setIdnentemp(NULL); // this is a auto-increment column, so set to default value
@@ -2292,6 +2665,553 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildCatgirorg object.
+     *
+     * @param  ChildCatgirorg $v
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setCatgirorg(ChildCatgirorg $v = null)
+    {
+        if ($v === null) {
+            $this->setIdngirorg(NULL);
+        } else {
+            $this->setIdngirorg($v->getIdngirorg());
+        }
+
+        $this->aCatgirorg = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildCatgirorg object, it will not be re-added.
+        if ($v !== null) {
+            $v->addTblentemp($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildCatgirorg object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildCatgirorg The associated ChildCatgirorg object.
+     * @throws PropelException
+     */
+    public function getCatgirorg(ConnectionInterface $con = null)
+    {
+        if ($this->aCatgirorg === null && (($this->idngirorg !== "" && $this->idngirorg !== null))) {
+            $this->aCatgirorg = ChildCatgirorgQuery::create()->findPk($this->idngirorg, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aCatgirorg->addTblentemps($this);
+             */
+        }
+
+        return $this->aCatgirorg;
+    }
+
+
+    /**
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
+     *
+     * @param      string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName)
+    {
+        if ('Tblentcln' == $relationName) {
+            $this->initTblentclns();
+            return;
+        }
+        if ('Tblentdnc' == $relationName) {
+            $this->initTblentdncs();
+            return;
+        }
+    }
+
+    /**
+     * Clears out the collTblentclns collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addTblentclns()
+     */
+    public function clearTblentclns()
+    {
+        $this->collTblentclns = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collTblentclns collection loaded partially.
+     */
+    public function resetPartialTblentclns($v = true)
+    {
+        $this->collTblentclnsPartial = $v;
+    }
+
+    /**
+     * Initializes the collTblentclns collection.
+     *
+     * By default this just sets the collTblentclns collection to an empty array (like clearcollTblentclns());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initTblentclns($overrideExisting = true)
+    {
+        if (null !== $this->collTblentclns && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = TblentclnTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collTblentclns = new $collectionClassName;
+        $this->collTblentclns->setModel('\Tblentcln');
+    }
+
+    /**
+     * Gets an array of ChildTblentcln objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildTblentemp is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildTblentcln[] List of ChildTblentcln objects
+     * @throws PropelException
+     */
+    public function getTblentclns(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentclnsPartial && !$this->isNew();
+        if (null === $this->collTblentclns || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collTblentclns) {
+                // return empty collection
+                $this->initTblentclns();
+            } else {
+                $collTblentclns = ChildTblentclnQuery::create(null, $criteria)
+                    ->filterByTblentemp($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collTblentclnsPartial && count($collTblentclns)) {
+                        $this->initTblentclns(false);
+
+                        foreach ($collTblentclns as $obj) {
+                            if (false == $this->collTblentclns->contains($obj)) {
+                                $this->collTblentclns->append($obj);
+                            }
+                        }
+
+                        $this->collTblentclnsPartial = true;
+                    }
+
+                    return $collTblentclns;
+                }
+
+                if ($partial && $this->collTblentclns) {
+                    foreach ($this->collTblentclns as $obj) {
+                        if ($obj->isNew()) {
+                            $collTblentclns[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collTblentclns = $collTblentclns;
+                $this->collTblentclnsPartial = false;
+            }
+        }
+
+        return $this->collTblentclns;
+    }
+
+    /**
+     * Sets a collection of ChildTblentcln objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $tblentclns A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildTblentemp The current object (for fluent API support)
+     */
+    public function setTblentclns(Collection $tblentclns, ConnectionInterface $con = null)
+    {
+        /** @var ChildTblentcln[] $tblentclnsToDelete */
+        $tblentclnsToDelete = $this->getTblentclns(new Criteria(), $con)->diff($tblentclns);
+
+
+        $this->tblentclnsScheduledForDeletion = $tblentclnsToDelete;
+
+        foreach ($tblentclnsToDelete as $tblentclnRemoved) {
+            $tblentclnRemoved->setTblentemp(null);
+        }
+
+        $this->collTblentclns = null;
+        foreach ($tblentclns as $tblentcln) {
+            $this->addTblentcln($tblentcln);
+        }
+
+        $this->collTblentclns = $tblentclns;
+        $this->collTblentclnsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Tblentcln objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Tblentcln objects.
+     * @throws PropelException
+     */
+    public function countTblentclns(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentclnsPartial && !$this->isNew();
+        if (null === $this->collTblentclns || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collTblentclns) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getTblentclns());
+            }
+
+            $query = ChildTblentclnQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByTblentemp($this)
+                ->count($con);
+        }
+
+        return count($this->collTblentclns);
+    }
+
+    /**
+     * Method called to associate a ChildTblentcln object to this object
+     * through the ChildTblentcln foreign key attribute.
+     *
+     * @param  ChildTblentcln $l ChildTblentcln
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function addTblentcln(ChildTblentcln $l)
+    {
+        if ($this->collTblentclns === null) {
+            $this->initTblentclns();
+            $this->collTblentclnsPartial = true;
+        }
+
+        if (!$this->collTblentclns->contains($l)) {
+            $this->doAddTblentcln($l);
+
+            if ($this->tblentclnsScheduledForDeletion and $this->tblentclnsScheduledForDeletion->contains($l)) {
+                $this->tblentclnsScheduledForDeletion->remove($this->tblentclnsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildTblentcln $tblentcln The ChildTblentcln object to add.
+     */
+    protected function doAddTblentcln(ChildTblentcln $tblentcln)
+    {
+        $this->collTblentclns[]= $tblentcln;
+        $tblentcln->setTblentemp($this);
+    }
+
+    /**
+     * @param  ChildTblentcln $tblentcln The ChildTblentcln object to remove.
+     * @return $this|ChildTblentemp The current object (for fluent API support)
+     */
+    public function removeTblentcln(ChildTblentcln $tblentcln)
+    {
+        if ($this->getTblentclns()->contains($tblentcln)) {
+            $pos = $this->collTblentclns->search($tblentcln);
+            $this->collTblentclns->remove($pos);
+            if (null === $this->tblentclnsScheduledForDeletion) {
+                $this->tblentclnsScheduledForDeletion = clone $this->collTblentclns;
+                $this->tblentclnsScheduledForDeletion->clear();
+            }
+            $this->tblentclnsScheduledForDeletion[]= $tblentcln;
+            $tblentcln->setTblentemp(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Tblentemp is new, it will return
+     * an empty collection; or if this Tblentemp has previously
+     * been saved, it will retrieve related Tblentclns from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Tblentemp.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildTblentcln[] List of ChildTblentcln objects
+     */
+    public function getTblentclnsJoinTblentorg(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildTblentclnQuery::create(null, $criteria);
+        $query->joinWith('Tblentorg', $joinBehavior);
+
+        return $this->getTblentclns($query, $con);
+    }
+
+    /**
+     * Clears out the collTblentdncs collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addTblentdncs()
+     */
+    public function clearTblentdncs()
+    {
+        $this->collTblentdncs = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collTblentdncs collection loaded partially.
+     */
+    public function resetPartialTblentdncs($v = true)
+    {
+        $this->collTblentdncsPartial = $v;
+    }
+
+    /**
+     * Initializes the collTblentdncs collection.
+     *
+     * By default this just sets the collTblentdncs collection to an empty array (like clearcollTblentdncs());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initTblentdncs($overrideExisting = true)
+    {
+        if (null !== $this->collTblentdncs && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = TblentdncTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collTblentdncs = new $collectionClassName;
+        $this->collTblentdncs->setModel('\Tblentdnc');
+    }
+
+    /**
+     * Gets an array of ChildTblentdnc objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildTblentemp is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildTblentdnc[] List of ChildTblentdnc objects
+     * @throws PropelException
+     */
+    public function getTblentdncs(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentdncsPartial && !$this->isNew();
+        if (null === $this->collTblentdncs || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collTblentdncs) {
+                // return empty collection
+                $this->initTblentdncs();
+            } else {
+                $collTblentdncs = ChildTblentdncQuery::create(null, $criteria)
+                    ->filterByTblentemp($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collTblentdncsPartial && count($collTblentdncs)) {
+                        $this->initTblentdncs(false);
+
+                        foreach ($collTblentdncs as $obj) {
+                            if (false == $this->collTblentdncs->contains($obj)) {
+                                $this->collTblentdncs->append($obj);
+                            }
+                        }
+
+                        $this->collTblentdncsPartial = true;
+                    }
+
+                    return $collTblentdncs;
+                }
+
+                if ($partial && $this->collTblentdncs) {
+                    foreach ($this->collTblentdncs as $obj) {
+                        if ($obj->isNew()) {
+                            $collTblentdncs[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collTblentdncs = $collTblentdncs;
+                $this->collTblentdncsPartial = false;
+            }
+        }
+
+        return $this->collTblentdncs;
+    }
+
+    /**
+     * Sets a collection of ChildTblentdnc objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $tblentdncs A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildTblentemp The current object (for fluent API support)
+     */
+    public function setTblentdncs(Collection $tblentdncs, ConnectionInterface $con = null)
+    {
+        /** @var ChildTblentdnc[] $tblentdncsToDelete */
+        $tblentdncsToDelete = $this->getTblentdncs(new Criteria(), $con)->diff($tblentdncs);
+
+
+        $this->tblentdncsScheduledForDeletion = $tblentdncsToDelete;
+
+        foreach ($tblentdncsToDelete as $tblentdncRemoved) {
+            $tblentdncRemoved->setTblentemp(null);
+        }
+
+        $this->collTblentdncs = null;
+        foreach ($tblentdncs as $tblentdnc) {
+            $this->addTblentdnc($tblentdnc);
+        }
+
+        $this->collTblentdncs = $tblentdncs;
+        $this->collTblentdncsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Tblentdnc objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Tblentdnc objects.
+     * @throws PropelException
+     */
+    public function countTblentdncs(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentdncsPartial && !$this->isNew();
+        if (null === $this->collTblentdncs || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collTblentdncs) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getTblentdncs());
+            }
+
+            $query = ChildTblentdncQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByTblentemp($this)
+                ->count($con);
+        }
+
+        return count($this->collTblentdncs);
+    }
+
+    /**
+     * Method called to associate a ChildTblentdnc object to this object
+     * through the ChildTblentdnc foreign key attribute.
+     *
+     * @param  ChildTblentdnc $l ChildTblentdnc
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function addTblentdnc(ChildTblentdnc $l)
+    {
+        if ($this->collTblentdncs === null) {
+            $this->initTblentdncs();
+            $this->collTblentdncsPartial = true;
+        }
+
+        if (!$this->collTblentdncs->contains($l)) {
+            $this->doAddTblentdnc($l);
+
+            if ($this->tblentdncsScheduledForDeletion and $this->tblentdncsScheduledForDeletion->contains($l)) {
+                $this->tblentdncsScheduledForDeletion->remove($this->tblentdncsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildTblentdnc $tblentdnc The ChildTblentdnc object to add.
+     */
+    protected function doAddTblentdnc(ChildTblentdnc $tblentdnc)
+    {
+        $this->collTblentdncs[]= $tblentdnc;
+        $tblentdnc->setTblentemp($this);
+    }
+
+    /**
+     * @param  ChildTblentdnc $tblentdnc The ChildTblentdnc object to remove.
+     * @return $this|ChildTblentemp The current object (for fluent API support)
+     */
+    public function removeTblentdnc(ChildTblentdnc $tblentdnc)
+    {
+        if ($this->getTblentdncs()->contains($tblentdnc)) {
+            $pos = $this->collTblentdncs->search($tblentdnc);
+            $this->collTblentdncs->remove($pos);
+            if (null === $this->tblentdncsScheduledForDeletion) {
+                $this->tblentdncsScheduledForDeletion = clone $this->collTblentdncs;
+                $this->tblentdncsScheduledForDeletion->clear();
+            }
+            $this->tblentdncsScheduledForDeletion[]= $tblentdnc;
+            $tblentdnc->setTblentemp(null);
+        }
+
+        return $this;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -2301,9 +3221,13 @@ abstract class Tblentemp implements ActiveRecordInterface
         if (null !== $this->aTblentprs) {
             $this->aTblentprs->removeTblentemp($this);
         }
+        if (null !== $this->aCatgirorg) {
+            $this->aCatgirorg->removeTblentemp($this);
+        }
         $this->idnentemp = null;
         $this->uuid = null;
         $this->idnentprs = null;
+        $this->idngirorg = null;
         $this->namentemp = null;
         $this->logentemp = null;
         $this->drcentemp = null;
@@ -2321,6 +3245,8 @@ abstract class Tblentemp implements ActiveRecordInterface
         $this->temconemp = null;
         $this->horentemp = null;
         $this->detentemo = null;
+        $this->created_at = null;
+        $this->updated_at = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->applyDefaultValues();
@@ -2340,9 +3266,22 @@ abstract class Tblentemp implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collTblentclns) {
+                foreach ($this->collTblentclns as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collTblentdncs) {
+                foreach ($this->collTblentdncs as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
+        $this->collTblentclns = null;
+        $this->collTblentdncs = null;
         $this->aTblentprs = null;
+        $this->aCatgirorg = null;
     }
 
     /**

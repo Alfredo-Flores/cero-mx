@@ -20,11 +20,9 @@ class Tblentorg extends BaseTblentorg
                     $entorg->setIdnentprs($data['idnentprs']);
                 }
             }
-            if(array_key_exists('srventorg', $data)){
-                if(!is_null($data['srventorg'])){
-                    $entorg->setSrventorg($data['srventorg']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('srventorg cannot be null');
+            if(array_key_exists('idngirorg', $data)){
+                if(!is_null($data['idngirorg'])){
+                    $entorg->setIdngirorg($data['idngirorg']);
                 }
             }
             if(array_key_exists('sgmentorg', $data)){
@@ -53,6 +51,13 @@ class Tblentorg extends BaseTblentorg
                     $entorg->setLogentorg($data['logentorg']);
                 }else{
                     throw new \Propel\Runtime\Exception\PropelException('logentorg cannot be null');
+                }
+            }
+            if(array_key_exists('rfcentorg', $data)){
+                if(!is_null($data['rfcentorg'])){
+                    $entorg->setRfcentorg($data['rfcentorg']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('rfcentorg cannot be null');
                 }
             }
             if(array_key_exists('dmcentorg', $data)){
@@ -97,13 +102,6 @@ class Tblentorg extends BaseTblentorg
                     throw new \Propel\Runtime\Exception\PropelException('cdgpstorg cannot be null');
                 }
             }
-            if(array_key_exists('girentorg', $data)){
-                if(!is_null($data['girentorg'])){
-                    $entorg->setGirentorg($data['girentorg']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('girentorg cannot be null');
-                }
-            }
             if(array_key_exists('tlffcnorg', $data)){
                 if(!is_null($data['tlffcnorg'])){
                     $entorg->setTlffcnorg($data['tlffcnorg']);
@@ -137,6 +135,16 @@ class Tblentorg extends BaseTblentorg
                     $entorg->setCnsdntorg($data['cnsdntorg']);
                 }else{
                     throw new \Propel\Runtime\Exception\PropelException('cnsdntorg cannot be null');
+                }
+            }
+            if(array_key_exists('created_at', $data)){
+                if(!is_null($data['created_at'])){
+                    $entorg->setCreatedAt($data['created_at']);
+                }
+            }
+            if(array_key_exists('updated_at', $data)){
+                if(!is_null($data['updated_at'])){
+                    $entorg->setUpdatedAt($data['updated_at']);
                 }
             }
             $entorg->save($connection);
@@ -182,13 +190,7 @@ class Tblentorg extends BaseTblentorg
                 }
             }
             $entorg->setIdnentprs(array_key_exists('idnentprs', $data) ? $data['idnentprs'] : null);
-            if(array_key_exists('srventorg', $data)){
-                if(!is_null($data['srventorg'])){
-                    $entorg->setSrventorg($data['srventorg']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('srventorg cannot be null');
-                }
-            }
+            $entorg->setIdngirorg(array_key_exists('idngirorg', $data) ? $data['idngirorg'] : null);
             if(array_key_exists('sgmentorg', $data)){
                 if(!is_null($data['sgmentorg'])){
                     $entorg->setSgmentorg($data['sgmentorg']);
@@ -215,6 +217,13 @@ class Tblentorg extends BaseTblentorg
                     $entorg->setLogentorg($data['logentorg']);
                 }else{
                     throw new \Propel\Runtime\Exception\PropelException('logentorg cannot be null');
+                }
+            }
+            if(array_key_exists('rfcentorg', $data)){
+                if(!is_null($data['rfcentorg'])){
+                    $entorg->setRfcentorg($data['rfcentorg']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('rfcentorg cannot be null');
                 }
             }
             if(array_key_exists('dmcentorg', $data)){
@@ -259,13 +268,6 @@ class Tblentorg extends BaseTblentorg
                     throw new \Propel\Runtime\Exception\PropelException('cdgpstorg cannot be null');
                 }
             }
-            if(array_key_exists('girentorg', $data)){
-                if(!is_null($data['girentorg'])){
-                    $entorg->setGirentorg($data['girentorg']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('girentorg cannot be null');
-                }
-            }
             if(array_key_exists('tlffcnorg', $data)){
                 if(!is_null($data['tlffcnorg'])){
                     $entorg->setTlffcnorg($data['tlffcnorg']);
@@ -301,6 +303,8 @@ class Tblentorg extends BaseTblentorg
                     throw new \Propel\Runtime\Exception\PropelException('cnsdntorg cannot be null');
                 }
             }
+            $entorg->setCreatedAt(array_key_exists('created_at', $data) ? $data['created_at'] : null);
+            $entorg->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
             $entorg->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
@@ -309,11 +313,14 @@ class Tblentorg extends BaseTblentorg
             return $entorg;
     }
 
-    public static function dspentorg($filidnentprs, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    public static function dspentorg($filidnentprs, $filidngirorg, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $allentorg = \TblentorgQuery::create();
 if($filidnentprs != 0){
             $allentorg = $allentorg->filterByIdnentprs($filidnentprs);
+        }
+if($filidngirorg != 0){
+            $allentorg = $allentorg->filterByIdngirorg($filidngirorg);
         }
 
         $allentorg = $allentorg->find();

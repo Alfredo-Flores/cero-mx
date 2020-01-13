@@ -59,7 +59,7 @@ class UsersTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 9;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class UsersTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 9;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
@@ -80,11 +80,6 @@ class UsersTableMap extends TableMap
      * the column name for the uuid field
      */
     const COL_UUID = 'users.uuid';
-
-    /**
-     * the column name for the namdtsgnr field
-     */
-    const COL_NAMDTSGNR = 'users.namdtsgnr';
 
     /**
      * the column name for the email field
@@ -128,11 +123,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Namdtsgnr', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'RememberToken', ),
-        self::TYPE_CAMELNAME     => array('id', 'uuid', 'namdtsgnr', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'rememberToken', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_NAMDTSGNR, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_REMEMBER_TOKEN, ),
-        self::TYPE_FIELDNAME     => array('id', 'uuid', 'namdtsgnr', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'remember_token', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'RememberToken', ),
+        self::TYPE_CAMELNAME     => array('id', 'uuid', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'rememberToken', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_REMEMBER_TOKEN, ),
+        self::TYPE_FIELDNAME     => array('id', 'uuid', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'remember_token', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -142,11 +137,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Namdtsgnr' => 2, 'Email' => 3, 'EmailVerifiedAt' => 4, 'Password' => 5, 'CreatedAt' => 6, 'UpdatedAt' => 7, 'RememberToken' => 8, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'namdtsgnr' => 2, 'email' => 3, 'emailVerifiedAt' => 4, 'password' => 5, 'createdAt' => 6, 'updatedAt' => 7, 'rememberToken' => 8, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_NAMDTSGNR => 2, UsersTableMap::COL_EMAIL => 3, UsersTableMap::COL_EMAIL_VERIFIED_AT => 4, UsersTableMap::COL_PASSWORD => 5, UsersTableMap::COL_CREATED_AT => 6, UsersTableMap::COL_UPDATED_AT => 7, UsersTableMap::COL_REMEMBER_TOKEN => 8, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'namdtsgnr' => 2, 'email' => 3, 'email_verified_at' => 4, 'password' => 5, 'created_at' => 6, 'updated_at' => 7, 'remember_token' => 8, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Email' => 2, 'EmailVerifiedAt' => 3, 'Password' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'RememberToken' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'emailVerifiedAt' => 3, 'password' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'rememberToken' => 7, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_EMAIL => 2, UsersTableMap::COL_EMAIL_VERIFIED_AT => 3, UsersTableMap::COL_PASSWORD => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_REMEMBER_TOKEN => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'email_verified_at' => 3, 'password' => 4, 'created_at' => 5, 'updated_at' => 6, 'remember_token' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -168,7 +163,6 @@ class UsersTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'BIGINT', true, null, null);
         $this->addColumn('uuid', 'Uuid', 'CHAR', true, 36, null);
-        $this->addColumn('namdtsgnr', 'Namdtsgnr', 'VARCHAR', true, 255, '');
         $this->addColumn('email', 'Email', 'VARCHAR', true, 255, null);
         $this->addColumn('email_verified_at', 'EmailVerifiedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('password', 'Password', 'VARCHAR', true, 255, null);
@@ -334,7 +328,6 @@ class UsersTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(UsersTableMap::COL_ID);
             $criteria->addSelectColumn(UsersTableMap::COL_UUID);
-            $criteria->addSelectColumn(UsersTableMap::COL_NAMDTSGNR);
             $criteria->addSelectColumn(UsersTableMap::COL_EMAIL);
             $criteria->addSelectColumn(UsersTableMap::COL_EMAIL_VERIFIED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_PASSWORD);
@@ -344,7 +337,6 @@ class UsersTableMap extends TableMap
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.uuid');
-            $criteria->addSelectColumn($alias . '.namdtsgnr');
             $criteria->addSelectColumn($alias . '.email');
             $criteria->addSelectColumn($alias . '.email_verified_at');
             $criteria->addSelectColumn($alias . '.password');

@@ -22,7 +22,6 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildUsersQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildUsersQuery orderByUuid($order = Criteria::ASC) Order by the uuid column
- * @method     ChildUsersQuery orderByNamdtsgnr($order = Criteria::ASC) Order by the namdtsgnr column
  * @method     ChildUsersQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method     ChildUsersQuery orderByEmailVerifiedAt($order = Criteria::ASC) Order by the email_verified_at column
  * @method     ChildUsersQuery orderByPassword($order = Criteria::ASC) Order by the password column
@@ -32,7 +31,6 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByUuid() Group by the uuid column
- * @method     ChildUsersQuery groupByNamdtsgnr() Group by the namdtsgnr column
  * @method     ChildUsersQuery groupByEmail() Group by the email column
  * @method     ChildUsersQuery groupByEmailVerifiedAt() Group by the email_verified_at column
  * @method     ChildUsersQuery groupByPassword() Group by the password column
@@ -65,7 +63,6 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildUsers findOneById(string $id) Return the first ChildUsers filtered by the id column
  * @method     ChildUsers findOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column
- * @method     ChildUsers findOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column
  * @method     ChildUsers findOneByEmail(string $email) Return the first ChildUsers filtered by the email column
  * @method     ChildUsers findOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column
  * @method     ChildUsers findOneByPassword(string $password) Return the first ChildUsers filtered by the password column
@@ -78,7 +75,6 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildUsers requireOneById(string $id) Return the first ChildUsers filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUuid(string $uuid) Return the first ChildUsers filtered by the uuid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByNamdtsgnr(string $namdtsgnr) Return the first ChildUsers filtered by the namdtsgnr column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmail(string $email) Return the first ChildUsers filtered by the email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByEmailVerifiedAt(string $email_verified_at) Return the first ChildUsers filtered by the email_verified_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByPassword(string $password) Return the first ChildUsers filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -89,7 +85,6 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
  * @method     ChildUsers[]|ObjectCollection findById(string $id) Return ChildUsers objects filtered by the id column
  * @method     ChildUsers[]|ObjectCollection findByUuid(string $uuid) Return ChildUsers objects filtered by the uuid column
- * @method     ChildUsers[]|ObjectCollection findByNamdtsgnr(string $namdtsgnr) Return ChildUsers objects filtered by the namdtsgnr column
  * @method     ChildUsers[]|ObjectCollection findByEmail(string $email) Return ChildUsers objects filtered by the email column
  * @method     ChildUsers[]|ObjectCollection findByEmailVerifiedAt(string $email_verified_at) Return ChildUsers objects filtered by the email_verified_at column
  * @method     ChildUsers[]|ObjectCollection findByPassword(string $password) Return ChildUsers objects filtered by the password column
@@ -194,7 +189,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, uuid, namdtsgnr, email, email_verified_at, password, created_at, updated_at, remember_token FROM users WHERE id = :p0';
+        $sql = 'SELECT id, uuid, email, email_verified_at, password, created_at, updated_at, remember_token FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -348,31 +343,6 @@ abstract class UsersQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UsersTableMap::COL_UUID, $uuid, $comparison);
-    }
-
-    /**
-     * Filter the query on the namdtsgnr column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByNamdtsgnr('fooValue');   // WHERE namdtsgnr = 'fooValue'
-     * $query->filterByNamdtsgnr('%fooValue%', Criteria::LIKE); // WHERE namdtsgnr LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $namdtsgnr The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByNamdtsgnr($namdtsgnr = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($namdtsgnr)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_NAMDTSGNR, $namdtsgnr, $comparison);
     }
 
     /**

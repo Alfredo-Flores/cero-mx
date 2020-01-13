@@ -17,6 +17,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Catgirorg Route
+Route::get('/Catgirorg', 'CatgirorgController@index')->name('Catgirorg.main');
+Route::post('/Catgirorg/fetch', 'CatgirorgController@loadtable')->name('Catgirorg.fetch');
+Route::post('/Catgirorg/submit', 'CatgirorgController@create')->name('Catgirorg.submit');
+Route::post('/Catgirorg/modify', 'CatgirorgController@update')->name('Catgirorg.modify');
+Route::post('/Catgirorg/remove', 'CatgirorgController@destroy')->name('Catgirorg.remove');
+
+//Cattipsrv Route
+Route::get('/Cattipsrv', 'CattipsrvController@index')->name('Cattipsrv.main');
+Route::post('/Cattipsrv/fetch', 'CattipsrvController@loadtable')->name('Cattipsrv.fetch');
+Route::post('/Cattipsrv/submit', 'CattipsrvController@create')->name('Cattipsrv.submit');
+Route::post('/Cattipsrv/modify', 'CattipsrvController@update')->name('Cattipsrv.modify');
+Route::post('/Cattipsrv/remove', 'CattipsrvController@destroy')->name('Cattipsrv.remove');
+
+//Tblentcln Route
+Route::get('/Tblentcln', 'TblentclnController@index')->name('Tblentcln.main');
+Route::post('/Tblentcln/fetch', 'TblentclnController@loadtable')->name('Tblentcln.fetch');
+Route::post('/Tblentcln/submit', 'TblentclnController@create')->name('Tblentcln.submit');
+Route::post('/Tblentcln/modify', 'TblentclnController@update')->name('Tblentcln.modify');
+Route::post('/Tblentcln/remove', 'TblentclnController@destroy')->name('Tblentcln.remove');
+
+//Tblentdnc Route
+Route::get('/Tblentdnc', 'TblentdncController@index')->name('Tblentdnc.main');
+Route::post('/Tblentdnc/fetch', 'TblentdncController@loadtable')->name('Tblentdnc.fetch');
+Route::post('/Tblentdnc/submit', 'TblentdncController@create')->name('Tblentdnc.submit');
+Route::post('/Tblentdnc/modify', 'TblentdncController@update')->name('Tblentdnc.modify');
+Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
+
 //Tblentemp Route
 Route::get('/Tblentemp', 'TblentempController@index')->name('Tblentemp.main');
 Route::post('/Tblentemp/fetch', 'TblentempController@loadtable')->name('Tblentemp.fetch');
@@ -37,6 +65,13 @@ Route::post('/Tblentprs/fetch', 'TblentprsController@loadtable')->name('Tblentpr
 Route::post('/Tblentprs/submit', 'TblentprsController@create')->name('Tblentprs.submit');
 Route::post('/Tblentprs/modify', 'TblentprsController@update')->name('Tblentprs.modify');
 Route::post('/Tblentprs/remove', 'TblentprsController@destroy')->name('Tblentprs.remove');
+
+//Tblentsrv Route
+Route::get('/Tblentsrv', 'TblentsrvController@index')->name('Tblentsrv.main');
+Route::post('/Tblentsrv/fetch', 'TblentsrvController@loadtable')->name('Tblentsrv.fetch');
+Route::post('/Tblentsrv/submit', 'TblentsrvController@create')->name('Tblentsrv.submit');
+Route::post('/Tblentsrv/modify', 'TblentsrvController@update')->name('Tblentsrv.modify');
+Route::post('/Tblentsrv/remove', 'TblentsrvController@destroy')->name('Tblentsrv.remove');
 
 //Users Route
 Route::get('/Users', 'UsersController@index')->name('Users.main');

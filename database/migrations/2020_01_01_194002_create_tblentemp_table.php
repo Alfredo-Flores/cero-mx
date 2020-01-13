@@ -17,8 +17,10 @@ class CreateTblentempTable extends Migration
         Schema::create('tblentemp', function (Blueprint $table) {
             $table->Bigincrements('idnentemp')->comment('Id');
             $table->uuid('uuid')->unique()->comment('Uuid');
-            $table->unsignedBigInteger('idnentprs')->nullable()->comment('Representante');
+            $table->unsignedBigInteger('idnentprs')->nullable()->comment('Internal');
             $table->foreign('idnentprs')->references('idnentprs')->on('tblentprs');
+            $table->unsignedBigInteger('idngirorg')->nullable()->comment('Internal');
+            $table->foreign('idngirorg')->references('idngirorg')->on('catgirorg');
             $table->string('namentemp')->default('')->comment('Nombre');
             $table->string('logentemp')->default('')->comment('Logo');
             $table->string('drcentemp')->default('')->comment('Direccion');
@@ -36,6 +38,8 @@ class CreateTblentempTable extends Migration
             $table->timestampTz('temconemp')->nullable()->comment('TiempoConsumo');
             $table->timestampTz('horentemp')->nullable()->comment('HoraEntrega');
             $table->string('detentemo')->default('')->comment('DetallesEntrega');
+            $table->timestampTz('created_at')->nullable()->comment('Creado');
+            $table->timestampTz('updated_at')->nullable()->comment('Actualizado');
         });
 
         $table = "tblentemp";

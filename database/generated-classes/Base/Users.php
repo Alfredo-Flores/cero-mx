@@ -81,14 +81,6 @@ abstract class Users implements ActiveRecordInterface
     protected $uuid;
 
     /**
-     * The value for the namdtsgnr field.
-     *
-     * Note: this column has a database default value of: ''
-     * @var        string
-     */
-    protected $namdtsgnr;
-
-    /**
      * The value for the email field.
      *
      * @var        string
@@ -151,23 +143,10 @@ abstract class Users implements ActiveRecordInterface
     protected $tblentprssScheduledForDeletion = null;
 
     /**
-     * Applies default values to this object.
-     * This method should be called from the object's constructor (or
-     * equivalent initialization method).
-     * @see __construct()
-     */
-    public function applyDefaultValues()
-    {
-        $this->namdtsgnr = '';
-    }
-
-    /**
      * Initializes internal state of Base\Users object.
-     * @see applyDefaults()
      */
     public function __construct()
     {
-        $this->applyDefaultValues();
     }
 
     /**
@@ -409,16 +388,6 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [namdtsgnr] column value.
-     *
-     * @return string
-     */
-    public function getNamdtsgnr()
-    {
-        return $this->namdtsgnr;
-    }
-
-    /**
      * Get the [email] column value.
      *
      * @return string
@@ -547,26 +516,6 @@ abstract class Users implements ActiveRecordInterface
 
         return $this;
     } // setUuid()
-
-    /**
-     * Set the value of [namdtsgnr] column.
-     *
-     * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setNamdtsgnr($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->namdtsgnr !== $v) {
-            $this->namdtsgnr = $v;
-            $this->modifiedColumns[UsersTableMap::COL_NAMDTSGNR] = true;
-        }
-
-        return $this;
-    } // setNamdtsgnr()
 
     /**
      * Set the value of [email] column.
@@ -698,10 +647,6 @@ abstract class Users implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
-            if ($this->namdtsgnr !== '') {
-                return false;
-            }
-
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -734,34 +679,31 @@ abstract class Users implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UsersTableMap::translateFieldName('Uuid', TableMap::TYPE_PHPNAME, $indexType)];
             $this->uuid = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('Namdtsgnr', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->namdtsgnr = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('Email', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('Email', TableMap::TYPE_PHPNAME, $indexType)];
             $this->email = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('EmailVerifiedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('EmailVerifiedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->email_verified_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
             $this->password = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('RememberToken', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('RememberToken', TableMap::TYPE_PHPNAME, $indexType)];
             $this->remember_token = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
@@ -771,7 +713,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 9; // 9 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = UsersTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Users'), 0, $e);
@@ -998,9 +940,6 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_UUID)) {
             $modifiedColumns[':p' . $index++]  = 'uuid';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_NAMDTSGNR)) {
-            $modifiedColumns[':p' . $index++]  = 'namdtsgnr';
-        }
         if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
             $modifiedColumns[':p' . $index++]  = 'email';
         }
@@ -1035,9 +974,6 @@ abstract class Users implements ActiveRecordInterface
                         break;
                     case 'uuid':
                         $stmt->bindValue($identifier, $this->uuid, PDO::PARAM_STR);
-                        break;
-                    case 'namdtsgnr':
-                        $stmt->bindValue($identifier, $this->namdtsgnr, PDO::PARAM_STR);
                         break;
                     case 'email':
                         $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
@@ -1126,24 +1062,21 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getUuid();
                 break;
             case 2:
-                return $this->getNamdtsgnr();
-                break;
-            case 3:
                 return $this->getEmail();
                 break;
-            case 4:
+            case 3:
                 return $this->getEmailVerifiedAt();
                 break;
-            case 5:
+            case 4:
                 return $this->getPassword();
                 break;
-            case 6:
+            case 5:
                 return $this->getCreatedAt();
                 break;
-            case 7:
+            case 6:
                 return $this->getUpdatedAt();
                 break;
-            case 8:
+            case 7:
                 return $this->getRememberToken();
                 break;
             default:
@@ -1178,24 +1111,23 @@ abstract class Users implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getUuid(),
-            $keys[2] => $this->getNamdtsgnr(),
-            $keys[3] => $this->getEmail(),
-            $keys[4] => $this->getEmailVerifiedAt(),
-            $keys[5] => $this->getPassword(),
-            $keys[6] => $this->getCreatedAt(),
-            $keys[7] => $this->getUpdatedAt(),
-            $keys[8] => $this->getRememberToken(),
+            $keys[2] => $this->getEmail(),
+            $keys[3] => $this->getEmailVerifiedAt(),
+            $keys[4] => $this->getPassword(),
+            $keys[5] => $this->getCreatedAt(),
+            $keys[6] => $this->getUpdatedAt(),
+            $keys[7] => $this->getRememberToken(),
         );
-        if ($result[$keys[4]] instanceof \DateTimeInterface) {
-            $result[$keys[4]] = $result[$keys[4]]->format('c');
+        if ($result[$keys[3]] instanceof \DateTimeInterface) {
+            $result[$keys[3]] = $result[$keys[3]]->format('c');
+        }
+
+        if ($result[$keys[5]] instanceof \DateTimeInterface) {
+            $result[$keys[5]] = $result[$keys[5]]->format('c');
         }
 
         if ($result[$keys[6]] instanceof \DateTimeInterface) {
             $result[$keys[6]] = $result[$keys[6]]->format('c');
-        }
-
-        if ($result[$keys[7]] instanceof \DateTimeInterface) {
-            $result[$keys[7]] = $result[$keys[7]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1260,24 +1192,21 @@ abstract class Users implements ActiveRecordInterface
                 $this->setUuid($value);
                 break;
             case 2:
-                $this->setNamdtsgnr($value);
-                break;
-            case 3:
                 $this->setEmail($value);
                 break;
-            case 4:
+            case 3:
                 $this->setEmailVerifiedAt($value);
                 break;
-            case 5:
+            case 4:
                 $this->setPassword($value);
                 break;
-            case 6:
+            case 5:
                 $this->setCreatedAt($value);
                 break;
-            case 7:
+            case 6:
                 $this->setUpdatedAt($value);
                 break;
-            case 8:
+            case 7:
                 $this->setRememberToken($value);
                 break;
         } // switch()
@@ -1313,25 +1242,22 @@ abstract class Users implements ActiveRecordInterface
             $this->setUuid($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setNamdtsgnr($arr[$keys[2]]);
+            $this->setEmail($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setEmail($arr[$keys[3]]);
+            $this->setEmailVerifiedAt($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setEmailVerifiedAt($arr[$keys[4]]);
+            $this->setPassword($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setPassword($arr[$keys[5]]);
+            $this->setCreatedAt($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setCreatedAt($arr[$keys[6]]);
+            $this->setUpdatedAt($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setUpdatedAt($arr[$keys[7]]);
-        }
-        if (array_key_exists($keys[8], $arr)) {
-            $this->setRememberToken($arr[$keys[8]]);
+            $this->setRememberToken($arr[$keys[7]]);
         }
     }
 
@@ -1379,9 +1305,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_UUID)) {
             $criteria->add(UsersTableMap::COL_UUID, $this->uuid);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_NAMDTSGNR)) {
-            $criteria->add(UsersTableMap::COL_NAMDTSGNR, $this->namdtsgnr);
         }
         if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
             $criteria->add(UsersTableMap::COL_EMAIL, $this->email);
@@ -1488,7 +1411,6 @@ abstract class Users implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setUuid($this->getUuid());
-        $copyObj->setNamdtsgnr($this->getNamdtsgnr());
         $copyObj->setEmail($this->getEmail());
         $copyObj->setEmailVerifiedAt($this->getEmailVerifiedAt());
         $copyObj->setPassword($this->getPassword());
@@ -1788,7 +1710,6 @@ abstract class Users implements ActiveRecordInterface
     {
         $this->id = null;
         $this->uuid = null;
-        $this->namdtsgnr = null;
         $this->email = null;
         $this->email_verified_at = null;
         $this->password = null;
@@ -1797,7 +1718,6 @@ abstract class Users implements ActiveRecordInterface
         $this->remember_token = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
-        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

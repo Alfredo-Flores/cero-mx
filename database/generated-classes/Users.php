@@ -15,13 +15,6 @@ class Users extends BaseUsers
                     throw new \Propel\Runtime\Exception\PropelException('uuid cannot be null');
                 }
             }
-            if(array_key_exists('namdtsgnr', $data)){
-                if(!is_null($data['namdtsgnr'])){
-                    $usr->setNamdtsgnr($data['namdtsgnr']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('namdtsgnr cannot be null');
-                }
-            }
             if(array_key_exists('email', $data)){
                 if(!is_null($data['email'])){
                     $usr->setEmail($data['email']);
@@ -96,13 +89,6 @@ class Users extends BaseUsers
                     $usr->setUuid($data['uuid']);
                 }else{
                     throw new \Propel\Runtime\Exception\PropelException('uuid cannot be null');
-                }
-            }
-            if(array_key_exists('namdtsgnr', $data)){
-                if(!is_null($data['namdtsgnr'])){
-                    $usr->setNamdtsgnr($data['namdtsgnr']);
-                }else{
-                    throw new \Propel\Runtime\Exception\PropelException('namdtsgnr cannot be null');
                 }
             }
             if(array_key_exists('email', $data)){

@@ -20,6 +20,11 @@ class Tblentemp extends BaseTblentemp
                     $entemp->setIdnentprs($data['idnentprs']);
                 }
             }
+            if(array_key_exists('idngirorg', $data)){
+                if(!is_null($data['idngirorg'])){
+                    $entemp->setIdngirorg($data['idngirorg']);
+                }
+            }
             if(array_key_exists('namentemp', $data)){
                 if(!is_null($data['namentemp'])){
                     $entemp->setNamentemp($data['namentemp']);
@@ -135,6 +140,16 @@ class Tblentemp extends BaseTblentemp
                     throw new \Propel\Runtime\Exception\PropelException('detentemo cannot be null');
                 }
             }
+            if(array_key_exists('created_at', $data)){
+                if(!is_null($data['created_at'])){
+                    $entemp->setCreatedAt($data['created_at']);
+                }
+            }
+            if(array_key_exists('updated_at', $data)){
+                if(!is_null($data['updated_at'])){
+                    $entemp->setUpdatedAt($data['updated_at']);
+                }
+            }
             $entemp->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
@@ -178,6 +193,7 @@ class Tblentemp extends BaseTblentemp
                 }
             }
             $entemp->setIdnentprs(array_key_exists('idnentprs', $data) ? $data['idnentprs'] : null);
+            $entemp->setIdngirorg(array_key_exists('idngirorg', $data) ? $data['idngirorg'] : null);
             if(array_key_exists('namentemp', $data)){
                 if(!is_null($data['namentemp'])){
                     $entemp->setNamentemp($data['namentemp']);
@@ -285,6 +301,8 @@ class Tblentemp extends BaseTblentemp
                     throw new \Propel\Runtime\Exception\PropelException('detentemo cannot be null');
                 }
             }
+            $entemp->setCreatedAt(array_key_exists('created_at', $data) ? $data['created_at'] : null);
+            $entemp->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
             $entemp->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
@@ -293,11 +311,14 @@ class Tblentemp extends BaseTblentemp
             return $entemp;
     }
 
-    public static function dspentemp($filidnentprs, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    public static function dspentemp($filidnentprs, $filidngirorg, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $allentemp = \TblentempQuery::create();
 if($filidnentprs != 0){
             $allentemp = $allentemp->filterByIdnentprs($filidnentprs);
+        }
+if($filidngirorg != 0){
+            $allentemp = $allentemp->filterByIdngirorg($filidngirorg);
         }
 
         $allentemp = $allentemp->find();
