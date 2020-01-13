@@ -39,7 +39,7 @@ class UsersTableMap extends TableMap
     /**
      * The default database name for this class
      */
-    const DATABASE_NAME = 'cero';
+    const DATABASE_NAME = 'cerodb';
 
     /**
      * The table name for this class
@@ -59,7 +59,7 @@ class UsersTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 12;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class UsersTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 12;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
@@ -80,21 +80,6 @@ class UsersTableMap extends TableMap
      * the column name for the uuid field
      */
     const COL_UUID = 'users.uuid';
-
-    /**
-     * the column name for the namdtsgnr field
-     */
-    const COL_NAMDTSGNR = 'users.namdtsgnr';
-
-    /**
-     * the column name for the prmaplgnr field
-     */
-    const COL_PRMAPLGNR = 'users.prmaplgnr';
-
-    /**
-     * the column name for the sgnaplgnr field
-     */
-    const COL_SGNAPLGNR = 'users.sgnaplgnr';
 
     /**
      * the column name for the email field
@@ -122,11 +107,6 @@ class UsersTableMap extends TableMap
     const COL_UPDATED_AT = 'users.updated_at';
 
     /**
-     * the column name for the finished_at field
-     */
-    const COL_FINISHED_AT = 'users.finished_at';
-
-    /**
      * the column name for the remember_token field
      */
     const COL_REMEMBER_TOKEN = 'users.remember_token';
@@ -143,11 +123,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Namdtsgnr', 'Prmaplgnr', 'Sgnaplgnr', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'FinishedAt', 'RememberToken', ),
-        self::TYPE_CAMELNAME     => array('id', 'uuid', 'namdtsgnr', 'prmaplgnr', 'sgnaplgnr', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'finishedAt', 'rememberToken', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_NAMDTSGNR, UsersTableMap::COL_PRMAPLGNR, UsersTableMap::COL_SGNAPLGNR, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_FINISHED_AT, UsersTableMap::COL_REMEMBER_TOKEN, ),
-        self::TYPE_FIELDNAME     => array('id', 'uuid', 'namdtsgnr', 'prmaplgnr', 'sgnaplgnr', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'finished_at', 'remember_token', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'RememberToken', ),
+        self::TYPE_CAMELNAME     => array('id', 'uuid', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'rememberToken', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_REMEMBER_TOKEN, ),
+        self::TYPE_FIELDNAME     => array('id', 'uuid', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'remember_token', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -157,11 +137,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Namdtsgnr' => 2, 'Prmaplgnr' => 3, 'Sgnaplgnr' => 4, 'Email' => 5, 'EmailVerifiedAt' => 6, 'Password' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, 'FinishedAt' => 10, 'RememberToken' => 11, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'namdtsgnr' => 2, 'prmaplgnr' => 3, 'sgnaplgnr' => 4, 'email' => 5, 'emailVerifiedAt' => 6, 'password' => 7, 'createdAt' => 8, 'updatedAt' => 9, 'finishedAt' => 10, 'rememberToken' => 11, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_NAMDTSGNR => 2, UsersTableMap::COL_PRMAPLGNR => 3, UsersTableMap::COL_SGNAPLGNR => 4, UsersTableMap::COL_EMAIL => 5, UsersTableMap::COL_EMAIL_VERIFIED_AT => 6, UsersTableMap::COL_PASSWORD => 7, UsersTableMap::COL_CREATED_AT => 8, UsersTableMap::COL_UPDATED_AT => 9, UsersTableMap::COL_FINISHED_AT => 10, UsersTableMap::COL_REMEMBER_TOKEN => 11, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'namdtsgnr' => 2, 'prmaplgnr' => 3, 'sgnaplgnr' => 4, 'email' => 5, 'email_verified_at' => 6, 'password' => 7, 'created_at' => 8, 'updated_at' => 9, 'finished_at' => 10, 'remember_token' => 11, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Email' => 2, 'EmailVerifiedAt' => 3, 'Password' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'RememberToken' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'emailVerifiedAt' => 3, 'password' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'rememberToken' => 7, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_EMAIL => 2, UsersTableMap::COL_EMAIL_VERIFIED_AT => 3, UsersTableMap::COL_PASSWORD => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_REMEMBER_TOKEN => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'email_verified_at' => 3, 'password' => 4, 'created_at' => 5, 'updated_at' => 6, 'remember_token' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -183,15 +163,11 @@ class UsersTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'BIGINT', true, null, null);
         $this->addColumn('uuid', 'Uuid', 'CHAR', true, 36, null);
-        $this->addColumn('namdtsgnr', 'Namdtsgnr', 'VARCHAR', true, 255, '');
-        $this->addColumn('prmaplgnr', 'Prmaplgnr', 'VARCHAR', true, 255, '');
-        $this->addColumn('sgnaplgnr', 'Sgnaplgnr', 'VARCHAR', true, 255, '');
         $this->addColumn('email', 'Email', 'VARCHAR', true, 255, null);
         $this->addColumn('email_verified_at', 'EmailVerifiedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('password', 'Password', 'VARCHAR', true, 255, null);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
-        $this->addColumn('finished_at', 'FinishedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('remember_token', 'RememberToken', 'VARCHAR', false, 100, null);
     } // initialize()
 
@@ -200,20 +176,13 @@ class UsersTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Tblentemp', '\\Tblentemp', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('Tblentprs', '\\Tblentprs', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
-    0 => ':idnentrep',
+    0 => ':idnentusr',
     1 => ':id',
   ),
-), null, null, 'Tblentemps', false);
-        $this->addRelation('Tblentorg', '\\Tblentorg', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':idnentrep',
-    1 => ':id',
-  ),
-), null, null, 'Tblentorgs', false);
+), null, null, 'Tblentprss', false);
     } // buildRelations()
 
     /**
@@ -359,28 +328,20 @@ class UsersTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(UsersTableMap::COL_ID);
             $criteria->addSelectColumn(UsersTableMap::COL_UUID);
-            $criteria->addSelectColumn(UsersTableMap::COL_NAMDTSGNR);
-            $criteria->addSelectColumn(UsersTableMap::COL_PRMAPLGNR);
-            $criteria->addSelectColumn(UsersTableMap::COL_SGNAPLGNR);
             $criteria->addSelectColumn(UsersTableMap::COL_EMAIL);
             $criteria->addSelectColumn(UsersTableMap::COL_EMAIL_VERIFIED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_PASSWORD);
             $criteria->addSelectColumn(UsersTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_UPDATED_AT);
-            $criteria->addSelectColumn(UsersTableMap::COL_FINISHED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_REMEMBER_TOKEN);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.uuid');
-            $criteria->addSelectColumn($alias . '.namdtsgnr');
-            $criteria->addSelectColumn($alias . '.prmaplgnr');
-            $criteria->addSelectColumn($alias . '.sgnaplgnr');
             $criteria->addSelectColumn($alias . '.email');
             $criteria->addSelectColumn($alias . '.email_verified_at');
             $criteria->addSelectColumn($alias . '.password');
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
-            $criteria->addSelectColumn($alias . '.finished_at');
             $criteria->addSelectColumn($alias . '.remember_token');
         }
     }

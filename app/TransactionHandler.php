@@ -9,6 +9,7 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\Log;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Propel;
 
@@ -20,6 +21,7 @@ class TransactionHandler
             $trncnn->beginTransaction();
 
         }catch (\Exception $e) {
+            Log::debug($e);
             return false;
         }
 

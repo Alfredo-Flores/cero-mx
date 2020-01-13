@@ -17,16 +17,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->Bigincrements('id')->comment('Id');
             $table->uuid('uuid')->unique()->comment('Uuid');
-            $table->string('namdtsgnr')->default('')->comment('Nombre');
-            $table->string('prmaplgnr')->default('')->comment('PrimerApellido');
-            $table->string('sgnaplgnr')->default('')->comment('SegundoApellido');
             $table->string('email')->comment('Correo');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable()->comment('Internal');
             $table->string('password')->comment('Contraseña');
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');
-            $table->timestampTz('finished_at')->nullable()->comment('Terminado');
-            $table->rememberToken();
+            $table->rememberToken()->comment('Internal');
         });
 
         $table = "users";

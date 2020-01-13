@@ -89,12 +89,11 @@ function getAbr(String $word){
 }
 // MAIN
 foreach ($schemaTmp as $table){
-//    $table = $schemaTmp->xpath("//table[@name='catentcls']")[0]; //<-- TODO quitar este por foreach
     $nameTbl = $table->attributes()['name']->__toString();
     if($nameTbl == 'migrations' || $nameTbl == 'password_resets' || $nameTbl == 'failed_jobs') continue;
     $phpNameTbl = strtoupper(substr($nameTbl,0,1)).substr($nameTbl,1, strlen($nameTbl));
 
-    $conn = mysqli_connect("localhost", "root", "", "cero");
+    $conn = mysqli_connect("localhost", "root", "", "cerodb");
     $result = $conn->query("show full columns from ".$nameTbl."");
     $camposNulos = array();
     $camposComments = array();
@@ -187,7 +186,7 @@ foreach ($schemaTmp as $table){
 
     //Modelo
     $modelCode =
-"<?php
+        "<?php
 
 use Base\\".$phpNameTbl." as Base".$phpNameTbl.";
 
@@ -198,19 +197,19 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
         \$".$abrTblName." = new \\".$phpNameTbl."();
         try{
             ";
-            for($i=0; $i<count($camposName); $i++){
-                if($i!=$primaryPos){
-                    if($camposNulos[$i]=="YES"){
-                        $modelCode.=
-                            "if(array_key_exists('".$camposName[$i]."', \$data)){
+    for($i=0; $i<count($camposName); $i++){
+        if($i!=$primaryPos){
+            if($camposNulos[$i]=="YES"){
+                $modelCode.=
+                    "if(array_key_exists('".$camposName[$i]."', \$data)){
                 if(!is_null(\$data['".$camposName[$i]."'])){
                     \$".$abrTblName."->set".$camposPhpName[$i]."(\$data['".$camposName[$i]."']);
                 }
             }
             ";
-                    }else{
-                        $modelCode.=
-                            "if(array_key_exists('".$camposName[$i]."', \$data)){
+            }else{
+                $modelCode.=
+                    "if(array_key_exists('".$camposName[$i]."', \$data)){
                 if(!is_null(\$data['".$camposName[$i]."'])){
                     \$".$abrTblName."->set".$camposPhpName[$i]."(\$data['".$camposName[$i]."']);
                 }else{
@@ -218,11 +217,11 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
                 }
             }
             ";
-                    }
-                }
             }
-            $modelCode .=
-            "\$".$abrTblName."->save(\$connection);
+        }
+    }
+    $modelCode .=
+        "\$".$abrTblName."->save(\$connection);
         } catch (\Propel\Runtime\Exception\PropelException \$e) {
             Illuminate\Support\Facades\Log::debug(\$e);
             return false;
@@ -259,15 +258,15 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
 
         try{
             ";
-            for($i=0; $i<count($camposName); $i++){
-                if($i!=$primaryPos){
-                    if($camposNulos[$i]=="YES"){
-                        $modelCode.=
-            "\$".$abrTblName."->set".$camposPhpName[$i]."(array_key_exists('".$camposName[$i]."', \$data) ? \$data['".$camposName[$i]."'] : null);
+    for($i=0; $i<count($camposName); $i++){
+        if($i!=$primaryPos){
+            if($camposNulos[$i]=="YES"){
+                $modelCode.=
+                    "\$".$abrTblName."->set".$camposPhpName[$i]."(array_key_exists('".$camposName[$i]."', \$data) ? \$data['".$camposName[$i]."'] : null);
             ";
-                    }else{
-                        $modelCode.=
-            "if(array_key_exists('".$camposName[$i]."', \$data)){
+            }else{
+                $modelCode.=
+                    "if(array_key_exists('".$camposName[$i]."', \$data)){
                 if(!is_null(\$data['".$camposName[$i]."'])){
                     \$".$abrTblName."->set".$camposPhpName[$i]."(\$data['".$camposName[$i]."']);
                 }else{
@@ -275,11 +274,11 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
                 }
             }
             ";
-                    }
-                }
             }
-            $modelCode .=
-            "\$".$abrTblName."->save(\$connection);
+        }
+    }
+    $modelCode .=
+        "\$".$abrTblName."->save(\$connection);
         } catch (\Propel\Runtime\Exception\PropelException \$e) {
             Illuminate\Support\Facades\Log::debug(\$e);
             return false;
@@ -294,12 +293,12 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
     $modelCode .= "\Propel\Runtime\Connection\ConnectionInterface \$connection = null)
     {
         \$all".$abrTblName." = \\".$phpNameTbl."Query::create();";
-        for ($i=0; $i<count($foraneas); $i++){
-            $modelCode .= "if(\$fil".$foraneas[$i]." != 0){
+    for ($i=0; $i<count($foraneas); $i++){
+        $modelCode .= "\nif(\$fil".$foraneas[$i]." != 0){
             \$all".$abrTblName." = \$all".$abrTblName."->filterBy".$foraneasPhpName[$i]."(\$fil".$foraneas[$i].");
         }";
-        }
-        $modelCode .= "
+    }
+    $modelCode .= "
 
         \$all".$abrTblName." = \$all".$abrTblName."->find();
 
@@ -357,7 +356,7 @@ class ".$phpNameTbl." extends Base".$phpNameTbl."
 
     // Controlador
     $controllerCode =
-"<?php
+        "<?php
 
 namespace App\\Http\\Controllers;
 
@@ -383,41 +382,41 @@ class ".$phpNameTbl."Controller extends Controller
     {
         // 1.- Validacion del request TODO *Modificar*
         \$rules = [\n";
-        for($i=0; $i<count($camposPhpName); $i++){
-            if($camposComments[$i] == 'Internal') continue;
-            if($camposPhpName[$i] == 'Uuid'){
-                $controllerCode .= "\t\t\t'".$camposPhpName[$i]."' => 'required|uuid|size:36',\n";
-            }
-            $nullable = $camposNulos[$i] == 'YES' ? "nullable" : "required";
-            if($i!=$primaryPos && $i!=$uuidPos){
-                switch($campoType[$i]) {
-                    case 'SMALLINT':
-                    case 'BIGINT':
-                    case 'INTEGER':
-                        $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|integer|min:0|max:".str_pad("9",$campoSize[$i],"9")."',\n";
-                        break;
-                    case 'DOUBLE':
-                        $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|numeric|min:0|max:".str_pad("9",$campoSize[$i],"9")."',\n";
-                        break;
-                    case 'CLOB':
-                    case 'LONGVARCHAR':
-                    case 'CHAR':
-                    case 'VARCHAR':
-                        $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|max:".str_pad("9",$campoSize[$i],"9")."',\n";
-                        break;
-                    case 'DATE':
-                    case 'TIMESTAMP':
-                        $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|date_format:\"Y-m-d\TH:i:sO\"',\n";
+    for($i=0; $i<count($camposPhpName); $i++){
+        if($camposComments[$i] == 'Internal') continue;
+        if($camposPhpName[$i] == 'Uuid'){
+            $controllerCode .= "\t\t\t'".$camposPhpName[$i]."' => 'required|uuid|size:36',\n";
+        }
+        $nullable = $camposNulos[$i] == 'YES' ? "nullable" : "required";
+        if($i!=$primaryPos && $i!=$uuidPos){
+            switch($campoType[$i]) {
+                case 'SMALLINT':
+                case 'BIGINT':
+                case 'INTEGER':
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|integer|min:0|max:".str_pad("9",$campoSize[$i],"9")."',\n";
                     break;
-                    case 'BOOLEAN':
-                        $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|boolean',\n";
-                        break;
-                    default:
-                        $controllerCode .= "\t\t\t'".$camposPhpName[$i]."' => '".$nullable."',\n";
-                        break;
-                }
+                case 'DOUBLE':
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|numeric|min:0|max:".str_pad("9",$campoSize[$i],"9")."',\n";
+                    break;
+                case 'CLOB':
+                case 'LONGVARCHAR':
+                case 'CHAR':
+                case 'VARCHAR':
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|max:".$campoSize[$i]."',\n";
+                    break;
+                case 'DATE':
+                case 'TIMESTAMP':
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|date_format:\"Y-m-d\TH:i:sO\"',\n";
+                    break;
+                case 'BOOLEAN':
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|boolean',\n";
+                    break;
+                default:
+                    $controllerCode .= "\t\t\t'".$camposPhpName[$i]."' => '".$nullable."',\n";
+                    break;
             }
         }
+    }
     $controllerCode.= "\t\t];
 
         \$msgs = [ // TODO *Customizable*\n";
@@ -443,7 +442,7 @@ class ".$phpNameTbl."Controller extends Controller
                     $controllerCode .= "\t\t\t'".$camposComments[$i].".integer' => 'Validacion fallada en ".$camposComments[$i].".integer',\n";
                     $controllerCode .= "\t\t\t'".$camposComments[$i].".min' => 'Validacion fallada en ".$camposComments[$i].".min',\n";
                     $controllerCode .= "\t\t\t'".$camposComments[$i].".max' => 'Validacion fallada en ".$camposComments[$i].".max',\n";
-                break;
+                    break;
                 case 'DOUBLE':
                     $controllerCode .= "\t\t\t'".$camposComments[$i].".numeric' => 'Validacion fallada en ".$camposComments[$i].".numeric',\n";
                     $controllerCode .= "\t\t\t'".$camposComments[$i].".min' => 'Validacion fallada en ".$camposComments[$i].".min',\n";
@@ -489,7 +488,7 @@ class ".$phpNameTbl."Controller extends Controller
         }
     }
     $controllerCode.=
-"        ];
+        "        ];
 
         // 3.- Iniciar transaccion
         \$trncnn = TransactionHandler::begin();
@@ -502,7 +501,7 @@ class ".$phpNameTbl."Controller extends Controller
             TransactionHandler::rollback(\$trncnn);
             return ReturnHandler::rtrerrjsn('');
         }
-
+         
         TransactionHandler::commit(\$trncnn);
         return ReturnHandler::rtrsccjsn('Guardado correctamente');
     }
@@ -547,10 +546,10 @@ class ".$phpNameTbl."Controller extends Controller
             TransactionHandler::rollback(\$trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
-
+            
         TransactionHandler::commit(\$trncnn);
         return ReturnHandler::rtrsccjsn('Eliminado correctamente');
-
+        
     }
 
     // update (U)
@@ -578,7 +577,7 @@ class ".$phpNameTbl."Controller extends Controller
                 case 'LONGVARCHAR':
                 case 'CHAR':
                 case 'VARCHAR':
-                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|max:".str_pad("9",$campoSize[$i],"9")."',\n";
+                    $controllerCode .= "\t\t\t'".$camposComments[$i]."' => '".$nullable."|max:".$campoSize[$i]."',\n";
                     break;
                 case 'DATE':
                 case 'TIMESTAMP':
@@ -648,7 +647,7 @@ class ".$phpNameTbl."Controller extends Controller
 
     $controllerCode.= "
         ];
-
+        
         \$validator = Validator::make(\$request->toArray(), \$rules, \$msgs)->errors()->all();
 
         if(!empty(\$validator)){
@@ -673,18 +672,18 @@ class ".$phpNameTbl."Controller extends Controller
 
         \$data = [
 ";
-        for ($i=0;$i<count($abrCampos);$i++){
-            if($camposComments[$i] == 'Internal') continue;
-            if($i==$primaryPos){
-                $controllerCode.="\t\t\t'".$camposName[$i]."' => $".$sixletters."->get".$camposPhpName[$primaryPos]."(),\n";
-            }else if($i==$uuidPos){
-                $controllerCode.="\t\t\t'".$camposName[$i]."' => $".$sixletters."->getUuid(),\n";
-            }else{
-                $controllerCode.="\t\t\t'".$camposName[$i]."' => request('".$camposComments[$i]."'),\n";
-            }
+    for ($i=0;$i<count($abrCampos);$i++){
+        if($camposComments[$i] == 'Internal') continue;
+        if($i==$primaryPos){
+            $controllerCode.="\t\t\t'".$camposName[$i]."' => $".$sixletters."->get".$camposPhpName[$primaryPos]."(),\n";
+        }else if($i==$uuidPos){
+            $controllerCode.="\t\t\t'".$camposName[$i]."' => $".$sixletters."->getUuid(),\n";
+        }else{
+            $controllerCode.="\t\t\t'".$camposName[$i]."' => request('".$camposComments[$i]."'),\n";
         }
-        $controllerCode.=
-"        ];
+    }
+    $controllerCode.=
+        "        ];
 
         \$result = \\".$phpNameTbl."::upd".$sixletters."(\$data, \$trncnn);
 
@@ -693,30 +692,30 @@ class ".$phpNameTbl."Controller extends Controller
             TransactionHandler::rollback(\$trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
-
+        
         TransactionHandler::commit(\$trncnn);
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
-
+    
 // Views
-
+    
     // Show table(D)
     public function table(Request \$request)
     {
-
+        
     }
-
+    
     // Display one(D)
     public function edit(Request \$request)
     {
-
+        
     }
-
-
+    
+    
 ";
 
 
-    $controllerCode.="
+    $controllerCode.="            
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 ";
 
@@ -741,7 +740,7 @@ class ".$phpNameTbl."Controller extends Controller
     //Policies
     $policiesCode = "";
     $policiesCode .=
-"<?php
+        "<?php
 
 namespace App\\Policies;
 
@@ -777,16 +776,16 @@ class ".$phpNameTbl."Policy
         return true;
     }
 }";
-
-$archivo = fopen('app/Policies/'.$phpNameTbl."Policy.php", "w") or die("Unable to open file!");
-fwrite($archivo, $policiesCode);
-fclose($archivo);
+    @mkdir('app/Policies');
+    $archivo = fopen('app/Policies/'.$phpNameTbl."Policy.php", "w") or die("Unable to open file!");
+    fwrite($archivo, $policiesCode);
+    fclose($archivo);
 
 //Testing
 
-$unitTestingCode = "";
-$unitTestingCode .=
-"<?php
+    $unitTestingCode = "";
+    $unitTestingCode .=
+        "<?php
 
 namespace Tests\Unit\Models;
 
@@ -806,73 +805,18 @@ class ".$phpNameTbl."UnitTest extends TestCase
         \$trncnn = TransactionHandler::begin();
 
         \$data = [\n";
-for ($i=0;$i<count($camposName);$i++) {
-    if($i!=$primaryPos){ // Evitar la llave primaria autoincrementable
-        $unitTestingCode.="\t\t\t'".$camposName[$i]."' => \$faker->";
-        switch($campoType[$i]) {
-            case 'SMALLINT':
-            case 'BIGINT':
-            case 'INTEGER':
-                $unitTestingCode .= "numberBetween(0, ".str_pad("9",$campoSize[$i],"9").")";
-                break;
-            case 'DOUBLE':
-                $unitTestingCode .= "randomFloat()";
-                break;
-            case 'CLOB':
-            case 'LONGVARCHAR':
-            case 'VARCHAR':
-                $unitTestingCode .= "text(".$campoSize[$i].")";
-                break;
-            case 'CHAR':
-                $unitTestingCode .= "text(".$campoSize[$i].")";
-                break;
-            case 'DATE':
-            case 'TIMESTAMP':
-                $unitTestingCode .= "iso8601()";
-                break;
-            case 'BOOLEAN':
-                $unitTestingCode .= "boolean()";
-                break;
-        }
-        $unitTestingCode .= ",\n";
-    }
-}
-$unitTestingCode.=
-    "\t\t];
-        \$result = \\".$phpNameTbl."::crt".$sixletters."(\$data, \$trncnn);
-        self::assertInstanceOf(\\".$phpNameTbl."::class, \$result);\n";
-for ($i=0;$i<count($camposName);$i++) {
-    if($i!=$primaryPos){
-        if($campoType[$i] == "TIMESTAMP") {
-            $unitTestingCode .=
-                "       try {\n";
-            $unitTestingCode .= "\t\t\tself::assertEquals(\$data['" . $camposName[$i] . "'], \$result->get" . $camposPhpName[$i];
-            $unitTestingCode .= "(DATE_ISO8601), 'Valor inserción no concuerda en ".$camposName[$i]."');\n";
-            $unitTestingCode .=
-"       } catch(PropelException \$e) {
-            Log::debug(\$e);
-            self::assertTrue(false, 'Formato inserción no concuerda: ".$camposName[$i]."');
-       }\n";
-        }
-        else {
-            $unitTestingCode .= "\t\tself::assertEquals(\$data['".$camposName[$i]."'], \$result->get".$camposPhpName[$i];
-            $unitTestingCode .= "(), 'Valor inserción no concuerda en ".$camposName[$i]."');\n";
-        }
-    }
-}
-$unitTestingCode.=
-"
-// UPDATE
-        \$update = [\n";
-for ($i=0;$i<count($camposName);$i++){
-    if($i!=$primaryPos){ // Evitar la llave primaria autoincrementable
-        if($camposNulos[$i] == 'NO') {
+    for ($i=0;$i<count($camposName);$i++) {
+        if($i!=$primaryPos){ // Evitar la llave primaria autoincrementable
+            if(substr($camposName[$i], 0, 3) == 'idn') {
+                $unitTestingCode .= "\t\t\t'".$camposName[$i]."' => null,\n";
+                continue;
+            }
             $unitTestingCode.="\t\t\t'".$camposName[$i]."' => \$faker->";
-            switch ($campoType[$i]) {
+            switch($campoType[$i]) {
                 case 'SMALLINT':
                 case 'BIGINT':
                 case 'INTEGER':
-                    $unitTestingCode .= "numberBetween(0, " . str_pad("9", $campoSize[$i], "9") . ")";
+                    $unitTestingCode .= "numberBetween(0, ".str_pad("9",$campoSize[$i],"9").")";
                     break;
                 case 'DOUBLE':
                     $unitTestingCode .= "randomFloat()";
@@ -880,10 +824,10 @@ for ($i=0;$i<count($camposName);$i++){
                 case 'CLOB':
                 case 'LONGVARCHAR':
                 case 'VARCHAR':
-                    $unitTestingCode .= "text(" . $campoSize[$i] . ")";
+                    $unitTestingCode .= "text(".$campoSize[$i].")";
                     break;
                 case 'CHAR':
-                    $unitTestingCode .= "text(" . $campoSize[$i] . ")";
+                    $unitTestingCode .= "text(".$campoSize[$i].")";
                     break;
                 case 'DATE':
                 case 'TIMESTAMP':
@@ -893,47 +837,106 @@ for ($i=0;$i<count($camposName);$i++){
                     $unitTestingCode .= "boolean()";
                     break;
             }
-        } else {
-            $unitTestingCode.="\t\t\t'".$camposName[$i]."' => null";
+            $unitTestingCode .= ",\n";
         }
-        $unitTestingCode .= ",\n";
-    } else {
-        $unitTestingCode.="\t\t\t'".$camposName[$i]."' => \$result->get".$camposPhpName[$i]."(),\n";
     }
-}
-$unitTestingCode.=
+    $unitTestingCode.=
+        "\t\t];
+        \$result = \\".$phpNameTbl."::crt".$sixletters."(\$data, \$trncnn);
+        self::assertInstanceOf(\\".$phpNameTbl."::class, \$result);\n";
+    for ($i=0;$i<count($camposName);$i++) {
+        if($i!=$primaryPos){
+            if($campoType[$i] == "TIMESTAMP") {
+                $unitTestingCode .=
+                    "       try {\n";
+                $unitTestingCode .= "\t\t\tself::assertEquals(\$data['" . $camposName[$i] . "'], \$result->get" . $camposPhpName[$i];
+                $unitTestingCode .= "(DATE_ISO8601), 'Valor inserción no concuerda en ".$camposName[$i]."');\n";
+                $unitTestingCode .=
+                    "       } catch(PropelException \$e) {
+            Log::debug(\$e);
+            self::assertTrue(false, 'Formato inserción no concuerda: ".$camposName[$i]."');
+       }\n";
+            }
+            else {
+                $unitTestingCode .= "\t\tself::assertEquals(\$data['".$camposName[$i]."'], \$result->get".$camposPhpName[$i];
+                $unitTestingCode .= "(), 'Valor inserción no concuerda en ".$camposName[$i]."');\n";
+            }
+        }
+    }
+    $unitTestingCode.=
+        "
+// UPDATE
+        \$update = [\n";
+    for ($i=0;$i<count($camposName);$i++){
+        if($i!=$primaryPos){ // Evitar la llave primaria autoincrementable
+            if($camposNulos[$i] == 'NO') {
+                $unitTestingCode.="\t\t\t'".$camposName[$i]."' => \$faker->";
+                switch ($campoType[$i]) {
+                    case 'SMALLINT':
+                    case 'BIGINT':
+                    case 'INTEGER':
+                        $unitTestingCode .= "numberBetween(0, " . str_pad("9", $campoSize[$i], "9") . ")";
+                        break;
+                    case 'DOUBLE':
+                        $unitTestingCode .= "randomFloat()";
+                        break;
+                    case 'CLOB':
+                    case 'LONGVARCHAR':
+                    case 'VARCHAR':
+                        $unitTestingCode .= "text(" . $campoSize[$i] . ")";
+                        break;
+                    case 'CHAR':
+                        $unitTestingCode .= "text(" . $campoSize[$i] . ")";
+                        break;
+                    case 'DATE':
+                    case 'TIMESTAMP':
+                        $unitTestingCode .= "iso8601()";
+                        break;
+                    case 'BOOLEAN':
+                        $unitTestingCode .= "boolean()";
+                        break;
+                }
+            } else {
+                $unitTestingCode.="\t\t\t'".$camposName[$i]."' => null";
+            }
+            $unitTestingCode .= ",\n";
+        } else {
+            $unitTestingCode.="\t\t\t'".$camposName[$i]."' => \$result->get".$camposPhpName[$i]."(),\n";
+        }
+    }
+    $unitTestingCode.=
         "\t\t];
         \$updated = \\".$phpNameTbl."::upd".$sixletters."(\$update, \$trncnn);
         self::assertInstanceOf(\\".$phpNameTbl."::class, \$updated);\n";
-for ($i=0;$i<count($camposName);$i++) {
-    $updatedVal = "\$update['" . $camposName[$i] . "']";
-    if($camposNulos[$i] == 'YES') $updatedVal = 'null';
-    if($i!=$primaryPos){
-        if($campoType[$i] == "TIMESTAMP") {
-            $unitTestingCode .=
-                "\t\ttry {\n";
-            $unitTestingCode .= "\t\t\tself::assertEquals(".$updatedVal.", \$updated->get" . $camposPhpName[$i];
-            $unitTestingCode .= "(DATE_ISO8601), 'Valor actualización no concuerda en ".$camposName[$i]."');\n";
-            $unitTestingCode .=
-                "\t\t} catch(PropelException \$e) {
+    for ($i=0;$i<count($camposName);$i++) {
+        $updatedVal = "\$update['" . $camposName[$i] . "']";
+        if($camposNulos[$i] == 'YES') $updatedVal = 'null';
+        if($i!=$primaryPos){
+            if($campoType[$i] == "TIMESTAMP") {
+                $unitTestingCode .=
+                    "\t\ttry {\n";
+                $unitTestingCode .= "\t\t\tself::assertEquals(".$updatedVal.", \$updated->get" . $camposPhpName[$i];
+                $unitTestingCode .= "(DATE_ISO8601), 'Valor actualización no concuerda en ".$camposName[$i]."');\n";
+                $unitTestingCode .=
+                    "\t\t} catch(PropelException \$e) {
             Log::debug(\$e);
             self::assertTrue(false, 'Formato actualización no concuerda: ".$camposName[$i]."');
         }\n";
+            }
+            else {
+                $unitTestingCode .= "\t\tself::assertEquals(".$updatedVal.", \$updated->get".$camposPhpName[$i];
+                $unitTestingCode .= "(), 'Valor actualización no concuerda en ".$camposName[$i]."');\n";
+            }
+        } else {
+            $unitTestingCode.="\t\tself::assertEquals(\$result->get".$camposPhpName[$i]."(),"."\$updated->get".$camposPhpName[$i]."(), 'Llaves actualización no concuerdan');\n";
         }
-        else {
-            $unitTestingCode .= "\t\tself::assertEquals(".$updatedVal.", \$updated->get".$camposPhpName[$i];
-            $unitTestingCode .= "(), 'Valor actualización no concuerda en ".$camposName[$i]."');\n";
-        }
-    } else {
-        $unitTestingCode.="\t\tself::assertEquals(\$result->get".$camposPhpName[$i]."(),"."\$updated->get".$camposPhpName[$i]."(), 'Llaves actualización no concuerdan');\n";
     }
-}
 
-$unitTestingCode.=
-"
+    $unitTestingCode.=
+        "
 //DISPLAY ONE CVE\n";
 
-$unitTestingCode.="\t\t\$found = \\".$phpNameTbl."::fno".$sixletters."(\$updated->get".$camposPhpName[$primaryPos]."(),\$trncnn);
+    $unitTestingCode.="\t\t\$found = \\".$phpNameTbl."::fno".$sixletters."(\$updated->get".$camposPhpName[$primaryPos]."(),\$trncnn);
 \t\tself::assertInstanceOf(\\".$phpNameTbl."::class, \$found);\n";
     for ($i=0;$i<count($camposName);$i++) {
         if($i!=$primaryPos){
@@ -956,11 +959,11 @@ $unitTestingCode.="\t\t\$found = \\".$phpNameTbl."::fno".$sixletters."(\$updated
             $unitTestingCode.="\t\tself::assertEquals(\$result->get".$camposPhpName[$i]."(),"."\$found->get".$camposPhpName[$i]."(), 'Llaves búsqueda no concuerdan');\n";
         }
     }
-$unitTestingCode.=
-"
+    $unitTestingCode.=
+        "
 //DISPLAY ONE UUID\n";
 
-$unitTestingCode.="\t\t\$foundU = \\".$phpNameTbl."::fnu".$sixletters."(\$updated->getUuid(),\$trncnn);
+    $unitTestingCode.="\t\t\$foundU = \\".$phpNameTbl."::fnu".$sixletters."(\$updated->getUuid(),\$trncnn);
 \t\tself::assertInstanceOf(\\".$phpNameTbl."::class, \$foundU);\n";
     for ($i=0;$i<count($camposName);$i++) {
         if($i!=$primaryPos){
@@ -984,35 +987,39 @@ $unitTestingCode.="\t\t\$foundU = \\".$phpNameTbl."::fnu".$sixletters."(\$update
         }
     }
 
-$unitTestingCode.=
+    $unitTestingCode.=
         "
 //DISPLAY ALL\n";
 
-    $unitTestingCode.="\t\t\$all = \\".$phpNameTbl."::dsp".$sixletters."(\$trncnn);\n".
-    "\t\tself::assertInstanceOf(\Propel\Runtime\Collection\Collection::class, \$all);\n".
-    "\t\tself::assertTrue(\$all->count() > 0);\n";
+    $unitTestingCode.="\t\t\$all = \\".$phpNameTbl."::dsp".$sixletters."(";
+    foreach($foraneas as $foranea) {
+        $unitTestingCode.="0,";
+    }
+    $unitTestingCode.="\$trncnn);\n".
+        "\t\tself::assertInstanceOf(\Propel\Runtime\Collection\Collection::class, \$all);\n".
+        "\t\tself::assertTrue(\$all->count() > 0);\n";
 
-$unitTestingCode.=
+    $unitTestingCode.=
         "
 //REMOVE ONE\n".
-    "\t\t\$destroyed = \\".$phpNameTbl."::rmv".$sixletters."(\$result->get".$camposName[$primaryPos]."(),\$trncnn);\n".
-    "\t\tself::assertTrue(\$destroyed);\n";
+        "\t\t\$destroyed = \\".$phpNameTbl."::rmv".$sixletters."(\$result->get".$camposName[$primaryPos]."(),\$trncnn);\n".
+        "\t\tself::assertTrue(\$destroyed);\n";
 
-$unitTestingCode.=
-"        TransactionHandler::rollback(\$trncnn);
+    $unitTestingCode.=
+        "        TransactionHandler::rollback(\$trncnn);
     }
 }";
 
-if(!file_exists('tests/Unit/Models'))
-    mkdir('tests/Unit/Models');
+    if(!file_exists('tests/Unit/Models'))
+        mkdir('tests/Unit/Models');
 
-$archivo = fopen('tests/Unit/Models/'.$phpNameTbl."Test.php", "w") or die("Unable to open file!");
-fwrite($archivo, $unitTestingCode);
-fclose($archivo);
+    $archivo = fopen('tests/Unit/Models/'.$phpNameTbl."Test.php", "w") or die("Unable to open file!");
+    fwrite($archivo, $unitTestingCode);
+    fclose($archivo);
 
-$controllerTestingCode = "";
-$controllerTestingCode.=
-    "<?php
+    $controllerTestingCode = "";
+    $controllerTestingCode.=
+        "<?php
 
 namespace Tests\Feature\Controllers;
 
@@ -1035,6 +1042,10 @@ class ".$phpNameTbl."FeatureTest extends TestCase
         if($i!=$primaryPos){ // Evitar la llave primaria autoincrementable
             if($camposPhpName[$i] == 'Uuid'){
                 $controllerTestingCode .= "\t\t\t'".$camposPhpName[$i]."' => \$faker->uuid,\n";
+                continue;
+            }
+            if(substr($camposPhpName[$i], 0, 3) == 'Idn') {
+                $controllerTestingCode .= "\t\t\t'".$camposPhpName[$i]."' => null,\n";
                 continue;
             }
             $controllerTestingCode.="\t\t\t'".$camposComments[$i]."' => \$faker->";
@@ -1069,8 +1080,8 @@ class ".$phpNameTbl."FeatureTest extends TestCase
     $controllerTestingCode.="\t\t];
 \t\t\$this
 \t\t\t->post(route('".$phpNameTbl.".submit'), \$data)\n".
-"\t\t\t->assertStatus(200)\n".
-"\t\t\t->assertSee('\"success\":true');\n";
+        "\t\t\t->assertStatus(200)\n".
+        "\t\t\t->assertSee('\"success\":true');\n";
 
     $controllerTestingCode.=
         "
@@ -1088,7 +1099,7 @@ class ".$phpNameTbl."FeatureTest extends TestCase
                     case 'SMALLINT':
                     case 'BIGINT':
                     case 'INTEGER':
-                    $controllerTestingCode .= "numberBetween(0, " . str_pad("9", $campoSize[$i], "9") . ")";
+                        $controllerTestingCode .= "numberBetween(0, " . str_pad("9", $campoSize[$i], "9") . ")";
                         break;
                     case 'DOUBLE':
                         $controllerTestingCode .= "randomFloat()";
@@ -1096,14 +1107,14 @@ class ".$phpNameTbl."FeatureTest extends TestCase
                     case 'CLOB':
                     case 'LONGVARCHAR':
                     case 'VARCHAR':
-                    $controllerTestingCode .= "text(" . $campoSize[$i] . ")";
+                        $controllerTestingCode .= "text(" . $campoSize[$i] . ")";
                         break;
                     case 'CHAR':
                         $controllerTestingCode .= "text(" . $campoSize[$i] . ")";
                         break;
                     case 'DATE':
                     case 'TIMESTAMP':
-                    $controllerTestingCode .= "iso8601()";
+                        $controllerTestingCode .= "iso8601()";
                         break;
                     case 'BOOLEAN':
                         $controllerTestingCode .= "boolean()";
@@ -1119,8 +1130,8 @@ class ".$phpNameTbl."FeatureTest extends TestCase
         "\t\t];
 \t\t\$this
 \t\t\t->post(route('".$phpNameTbl.".modify'), \$update)\n".
-"\t\t\t->assertStatus(200)\n".
-"\t\t\t->assertSee('\"success\":true');\n\n";
+        "\t\t\t->assertStatus(200)\n".
+        "\t\t\t->assertSee('\"success\":true');\n\n";
 
     $controllerTestingCode.="\n\n//DELETE
 \t\t\$this
@@ -1129,22 +1140,22 @@ class ".$phpNameTbl."FeatureTest extends TestCase
         "\t\t\t->assertSee('\"success\":true');\n";
 
     $controllerTestingCode .=
-"\t}
+        "\t}
 }";
 
-if(!file_exists('tests/Feature/Controllers'))
-    mkdir('tests/Feature/Controllers');
+    if(!file_exists('tests/Feature/Controllers'))
+        mkdir('tests/Feature/Controllers');
 
-$archivo = fopen('tests/Feature/Controllers/'.$phpNameTbl."ControllerTest.php", "w") or die("Unable to open file!");
-fwrite($archivo, $controllerTestingCode);
-fclose($archivo);
+    $archivo = fopen('tests/Feature/Controllers/'.$phpNameTbl."ControllerTest.php", "w") or die("Unable to open file!");
+    fwrite($archivo, $controllerTestingCode);
+    fclose($archivo);
 
 
 
 // Vistas
-@mkdir("resources/views/app/".$phpNameTbl);
-$mainViewCode =
-"@extends('layouts.app')
+    @mkdir("resources/views/app/".$phpNameTbl);
+    $mainViewCode =
+        "@extends('layouts.app')
 
 @section('content')
     <div class=\"container\">
@@ -1169,14 +1180,14 @@ $mainViewCode =
     </div>
 @endsection";
 
-@mkdir('resources/views/app');
-@mkdir('resources/views/app/'.$phpNameTbl);
-$archivo = fopen('resources/views/app/'.$phpNameTbl."/main.blade.php", "w") or die("Unable to open file!");
-fwrite($archivo, $mainViewCode);
-fclose($archivo);
+    @mkdir('resources/views/app');
+    @mkdir('resources/views/app/'.$phpNameTbl);
+    $archivo = fopen('resources/views/app/'.$phpNameTbl."/main.blade.php", "w") or die("Unable to open file!");
+    fwrite($archivo, $mainViewCode);
+    fclose($archivo);
 
-$tableViewCode =
-"<b-table :items=\"items\" :fields=\"fields\" striped responsive=\"sm\">
+    $tableViewCode =
+        "<b-table :items=\"items\" :fields=\"fields\" striped responsive=\"sm\">
     <template v-slot:cell(acciones)=\"row\">
         <b-button size=\"sm\" @click=\"onModify\" class=\"mr-2\">
             Modificar
@@ -1207,17 +1218,17 @@ $tableViewCode =
 @endpush
 ";
 
-$archivo = fopen('resources/views/app/'.$phpNameTbl."/table.blade.php", "w") or die("Unable to open file!");
-fwrite($archivo, $tableViewCode);
-fclose($archivo);
+    $archivo = fopen('resources/views/app/'.$phpNameTbl."/table.blade.php", "w") or die("Unable to open file!");
+    fwrite($archivo, $tableViewCode);
+    fclose($archivo);
 
-echo $phpNameTbl.PHP_EOL;
+    echo $phpNameTbl.PHP_EOL;
 // END MAIN
 }
 
 //Rutas
 $codeRoutes =
-"<?php
+    "<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -1244,7 +1255,7 @@ foreach ($tbls as $key => $table) {
     if($nameTbl == 'migrations' || $nameTbl == 'password_resets' || $nameTbl == 'failed_jobs') continue;
     $phpNameTbl = strtoupper(substr($nameTbl,0,1)).substr($nameTbl,1, strlen($nameTbl));
     $codeRoutes .= //Todo: CAMBIAR EL NOMBRE PHP POR NOMBRE NATURAL DE LA TABLA
-"//".$phpNameTbl." Route
+        "//".$phpNameTbl." Route
 Route::get('/".$phpNameTbl."', '".$phpNameTbl."Controller@index')->name('".$phpNameTbl.".main');
 Route::post('/".$phpNameTbl."/fetch', '".$phpNameTbl."Controller@loadtable')->name('".$phpNameTbl.".fetch');
 Route::post('/".$phpNameTbl."/submit', '".$phpNameTbl."Controller@create')->name('".$phpNameTbl.".submit');
@@ -1256,7 +1267,7 @@ Route::post('/".$phpNameTbl."/remove', '".$phpNameTbl."Controller@destroy')->nam
     //});
 }
 $codeRoutes .=
-"//TODO *CRUD Generator control separator line* (Don't remove this line!)
+    "//TODO *CRUD Generator control separator line* (Don't remove this line!)
 
 ";
 //print_r($codeRoutes);

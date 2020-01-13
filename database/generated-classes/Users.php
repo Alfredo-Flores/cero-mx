@@ -1,124 +1,154 @@
 <?php
 
 use Base\Users as BaseUsers;
-use Illuminate\Support\Facades\Log;
-use Propel\Runtime\ActiveQuery\Criteria;
-use Propel\Runtime\Exception\PropelException;
-use Ramsey\Uuid\Uuid;
 
-/**
- * Skeleton subclass for representing a row from the 'users' table.
- *
- *
- *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- */
 class Users extends BaseUsers
 {
-    public static function insusers(String $name, String $firstsurname, String $secondsurname, String $email, String $password){
-        $user = new \Users();
+    public static function crtusers(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = new \Users();
+        try{
+            if(array_key_exists('uuid', $data)){
+                if(!is_null($data['uuid'])){
+                    $usr->setUuid($data['uuid']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('uuid cannot be null');
+                }
+            }
+            if(array_key_exists('email', $data)){
+                if(!is_null($data['email'])){
+                    $usr->setEmail($data['email']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('email cannot be null');
+                }
+            }
+            if(array_key_exists('email_verified_at', $data)){
+                if(!is_null($data['email_verified_at'])){
+                    $usr->setEmailVerifiedAt($data['email_verified_at']);
+                }
+            }
+            if(array_key_exists('password', $data)){
+                if(!is_null($data['password'])){
+                    $usr->setPassword($data['password']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('password cannot be null');
+                }
+            }
+            if(array_key_exists('created_at', $data)){
+                if(!is_null($data['created_at'])){
+                    $usr->setCreatedAt($data['created_at']);
+                }
+            }
+            if(array_key_exists('updated_at', $data)){
+                if(!is_null($data['updated_at'])){
+                    $usr->setUpdatedAt($data['updated_at']);
+                }
+            }
+            if(array_key_exists('remember_token', $data)){
+                if(!is_null($data['remember_token'])){
+                    $usr->setRememberToken($data['remember_token']);
+                }
+            }
+            $usr->save($connection);
+        } catch (\Propel\Runtime\Exception\PropelException $e) {
+            Illuminate\Support\Facades\Log::debug($e);
+            return false;
+        }
+        return $usr;
+    }
+
+    public static function rmvusers($id, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = \UsersQuery::create()
+            ->filterById($id)
+            ->findOne($connection);
+
+        if(!$usr) return false;
 
         try {
-            $uuid = Uuid::uuid3(Uuid::NAMESPACE_DNS, $user->getId());
-            $uuid->toString();
-
-            $user
-                ->setUuid($uuid)
-                ->setNamdtsgnr($name)
-                ->setPrmaplgnr($firstsurname)
-                ->setSgnaplgnr($secondsurname)
-                ->setEmail($email)
-                ->setPassword(bcrypt($password))
-                ->setCreatedAt(date("Y-m-d H:i:s"))
-                ->setUpdatedAt(date("Y-m-d H:i:s"))
-                ->save();
-        } catch(PropelException $e) {
-            Log::debug($e);
-            return false;
-        } catch (Exception $e) {
-            Log::debug($e);
+            $usr->delete($connection);
+        } catch (\Propel\Runtime\Exception\PropelException $e) {
+            Illuminate\Support\Facades\Log::debug($e);
             return false;
         }
 
-        return $user;
+        return true;
     }
 
-    static public function fndusers(){
-        $user = \UsersQuery::create()
-            ->orderByCreatedAt(Criteria::ASC)
-            ->find();
+    public static function updusers(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = \UsersQuery::create()
+            ->filterById($data['id'])
+            ->findOne($connection);
 
-        if ($user == null) {
+        if(!$usr) return false;
+
+        try{
+            if(array_key_exists('uuid', $data)){
+                if(!is_null($data['uuid'])){
+                    $usr->setUuid($data['uuid']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('uuid cannot be null');
+                }
+            }
+            if(array_key_exists('email', $data)){
+                if(!is_null($data['email'])){
+                    $usr->setEmail($data['email']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('email cannot be null');
+                }
+            }
+            $usr->setEmailVerifiedAt(array_key_exists('email_verified_at', $data) ? $data['email_verified_at'] : null);
+            if(array_key_exists('password', $data)){
+                if(!is_null($data['password'])){
+                    $usr->setPassword($data['password']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('password cannot be null');
+                }
+            }
+            $usr->setCreatedAt(array_key_exists('created_at', $data) ? $data['created_at'] : null);
+            $usr->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
+            $usr->setRememberToken(array_key_exists('remember_token', $data) ? $data['remember_token'] : null);
+            $usr->save($connection);
+        } catch (\Propel\Runtime\Exception\PropelException $e) {
+            Illuminate\Support\Facades\Log::debug($e);
             return false;
         }
-
-        return $user;
+            return $usr;
     }
 
-    static public function fnousers($idnusers){
-        $user = \UsersQuery::create()
-            ->findOneById($idnusers);
+    public static function dspusers(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $allusr = \UsersQuery::create();
 
-        if ($user == null) {
-            return false;
-        }
+        $allusr = $allusr->find();
 
-        return $user;
+        if(!$allusr) return false;
+
+        return $allusr;
     }
 
-    static public function fnoemlusr($emlusers){
-        $user = \UsersQuery::create()
-            ->findOneByEmail($emlusers);
+    public static function fnousers($id, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = \UsersQuery::create()
+            ->filterById($id)
+            ->findOne($connection);
 
-        if ($user == null) {
-            return false;
-        }
+        if(!$usr) return false;
 
-        return $user;
+        return $usr;
     }
 
-    static public function updusers($idnusers, String $name, String $firstsurname, String $secondsurname, String $email, String $password) {
-        $user = self::fnousers($idnusers);
+    public static function fnuusers($uuid,\Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = \UsersQuery::create()
+            ->filterByUuid($uuid)
+            ->findOne($connection);
 
-        if ($user == null) {
-            return false;
-        }
+        if(!$usr) return false;
 
-        try {
-            $user
-                ->setNamdtsgnr($name)
-                ->setPrmaplgnr($firstsurname)
-                ->setSgnaplgnr($secondsurname)
-                ->setEmail($email)
-                ->setPassword(bcrypt($password))
-                ->setCreatedAt(date("Y-m-d H:i:s"))
-                ->setUpdatedAt(date("Y-m-d H:i:s"))
-                ->save();
-        } catch(PropelException $e) {
-            Log::debug($e);
-            return false;
-        }
-
-        return $user;
+        return $usr;
     }
 
-    static public function dltusers($idnusers){
-        $dcmbin = self::fnousers($idnusers);
-
-        if ($dcmbin == null) {
-            return false;
-        }
-
-        try {
-            $dcmbin->delete();
-        } catch(PropelException $e) {
-            Log::debug($e);
-            return false;
-        }
-
-        return $dcmbin;
-    }
+    //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }
