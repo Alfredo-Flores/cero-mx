@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class TblentprsController extends Controller
 {
@@ -22,9 +26,8 @@ class TblentprsController extends Controller
     // store (C)
     public function create(Request $request)
     {
-        // 1.- Validacion del request TODO *Modificar*
+        // 1.- Validacion del request
         $rules = [
-			'Uuid' => 'required|uuid|size:36',
 			'Nombre' => 'required|max:255',
 			'PrimerApellido' => 'required|max:255',
 			'SegundoApellido' => 'required|max:255',
@@ -38,18 +41,13 @@ class TblentprsController extends Controller
 			'Municipio' => 'required|max:255',
 			'Localidad' => 'required|max:255',
 			'Domicilio' => 'required|max:255',
-			'Codigo' => 'required|max:5',
+			'Codigo' => 'required',
 			'TelFijo' => 'required|max:12',
 			'TelMovil' => 'required|max:12',
-			'Foto' => 'nullable|max:255',
-			'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
+			'Foto' => 'nullable'
 		];
 
-        $msgs = [ // TODO *Customizable*
-			'Uuid.required' => 'Validacion fallada en Uuid.required',
-			'Uuid.uuid' => 'Uuid no válido',
-			'Uuid.size' => 'Uuid no válido',
+        $msgs = [
 			'Nombre.required' => 'Validacion fallada en Nombre.required',
 			'Nombre.string' => 'Validacion fallada en Nombre.string',
 			'Nombre.max' => 'Validacion fallada en Nombre.max',
@@ -91,20 +89,12 @@ class TblentprsController extends Controller
 			'Domicilio.max' => 'Validacion fallada en Domicilio.max',
 			'Codigo.required' => 'Validacion fallada en Codigo.required',
 			'Codigo.string' => 'Validacion fallada en Codigo.string',
-			'Codigo.max' => 'Validacion fallada en Codigo.max',
 			'TelFijo.required' => 'Validacion fallada en TelFijo.required',
 			'TelFijo.string' => 'Validacion fallada en TelFijo.string',
 			'TelFijo.max' => 'Validacion fallada en TelFijo.max',
 			'TelMovil.required' => 'Validacion fallada en TelMovil.required',
 			'TelMovil.string' => 'Validacion fallada en TelMovil.string',
 			'TelMovil.max' => 'Validacion fallada en TelMovil.max',
-			'Foto.nullable' => 'Validacion fallada en Foto.nullable',
-			'Foto.string' => 'Validacion fallada en Foto.string',
-			'Foto.max' => 'Validacion fallada en Foto.max',
-			'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-			'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
-			'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
 		];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -113,9 +103,14 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
+        $fotentprs = request('Foto');
+        $fotrutprs = trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('Rfc')));
+        Storage::disk('local')->put($fotrutprs .'/foto.png', $fotentprs);
+
         // 2.- Peticion a variables TODO *Modificar*
         $data = [
-			'uuid' => request('Uuid'),
+                'uuid' => trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('Rfc'))),
+			'idnentusr' => Auth::user()->id,
 			'nomentprs' => request('Nombre'),
 			'prmaplprs' => request('PrimerApellido'),
 			'sgnaplprs' => request('SegundoApellido'),
@@ -132,9 +127,9 @@ class TblentprsController extends Controller
 			'cdgpstprs' => request('Codigo'),
 			'tlffijprs' => request('TelFijo'),
 			'tlfmvlprs' => request('TelMovil'),
-			'fotentprs' => request('Foto'),
-			'created_at' => request('Creado'),
-			'updated_at' => request('Actualizado'),
+			'fotentprs' => $fotrutprs,
+			'created_at' => date("Y-m-d H:i:s"),
+			'updated_at' => date("Y-m-d H:i:s"),
         ];
 
         // 3.- Iniciar transaccion
@@ -148,9 +143,18 @@ class TblentprsController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('');
         }
-         
-        TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Guardado correctamente');
+
+        $tipo_institucion = request('TipoInstitucion');
+
+        if ($tipo_institucion == 1) {
+            return app(TblentempController::class)->create($request, $trncnn);
+        } elseif ($tipo_institucion == 2) {
+            return app(TblentorgController::class)->create($request, $trncnn);
+        } else {
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
+        }
+
     }
 
     // destroy (R)
@@ -193,10 +197,10 @@ class TblentprsController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
-            
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Eliminado correctamente');
-        
+
     }
 
     // update (U)
@@ -269,7 +273,7 @@ class TblentprsController extends Controller
 			'Domicilio.max' => 'Validacion fallada en Domicilio.max',
 			'Codigo.required' => 'Validacion fallada en Codigo.required',
 			'Codigo.string' => 'Validacion fallada en Codigo.string',
-			'Codigo.max' => 'Validacion fallada en Codigo.max',
+			'Codigo.max' => 'Validacion fallada en Codigo.max 3',
 			'TelFijo.required' => 'Validacion fallada en TelFijo.required',
 			'TelFijo.string' => 'Validacion fallada en TelFijo.string',
 			'TelFijo.max' => 'Validacion fallada en TelFijo.max',
@@ -288,7 +292,7 @@ class TblentprsController extends Controller
 			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
 
         ];
-        
+
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
         if(!empty($validator)){
@@ -340,26 +344,26 @@ class TblentprsController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
-        
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
-    
+
 // Views
-    
+
     // Show table(D)
     public function table(Request $request)
     {
-        
+
     }
-    
+
     // Display one(D)
     public function edit(Request $request)
     {
-        
+
     }
-    
-    
-            
+
+
+
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }

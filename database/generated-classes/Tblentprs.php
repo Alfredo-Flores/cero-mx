@@ -17,6 +17,12 @@ class Tblentprs extends BaseTblentprs
             }
             if(array_key_exists('idnentusr', $data)){
                 if(!is_null($data['idnentusr'])){
+                    $usr = \UsersQuery::create()
+                        ->findOneById($data['idnentusr']);
+
+                    $usr->setIsinstitution(1)
+                    ->save();
+
                     $entprs->setIdnentusr($data['idnentusr']);
                 }
             }

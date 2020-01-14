@@ -39,7 +39,7 @@ class TblentprsTableMap extends TableMap
     /**
      * The default database name for this class
      */
-    const DATABASE_NAME = 'cerodb';
+    const DATABASE_NAME = 'cero';
 
     /**
      * The table name for this class

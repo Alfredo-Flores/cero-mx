@@ -13,8 +13,28 @@
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'MainController@index')->name("index");
+
+// Auth
+Route::get('/register',  function () { return view('auth.register'); })->name("registerview");
+Route::get('/login',  function () { return view('auth.login'); })->name("loginview");
+
+Route::post('/Users/submit/register', 'UsersController@create')->name("register");
+Route::post('/Users/submit/login', 'UsersController@login')->name("login");
+
+Route::middleware("auth")->group(function () {
+    Route::get('/Users/submit/logout', 'UsersController@logout')->name("logout");
+    Route::get('/registeradvanced', function () { return view('auth.registerinstitution'); })->name("registeradvancedview");
+    Route::post('/postregisteradvanced', 'MainController@registeradvanced')->name("registeradvanced");
+});
+
+
+Route::get('language/{locale}', function ($locale) {
+    if (in_array($locale, \Config::get('app.locales'))) {
+        session(['locale' => $locale]);
+    }
+
+    return back();
 });
 
 //Catgirorg Route

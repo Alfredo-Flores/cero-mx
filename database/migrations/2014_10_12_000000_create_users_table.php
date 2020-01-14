@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');
             $table->rememberToken()->comment('Internal');
+            $table->boolean('isinstitution')->comment('CondicionalInstitucion');
         });
 
         $table = "users";

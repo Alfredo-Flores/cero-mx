@@ -26,24 +26,9 @@
                     </div>
                 </div>
                 <div
-                    class="md-layout-item md-size-50 md-medium-size-50 md-small-size-100 mr-auto"
+                    class="md-layout-item md-size-50 md-medium-size-50 md-small-size-100 mr-auto mt-3"
                     slot="content-right"
                 >
-                    <md-field class="md-form-group">
-                        <md-icon>face</md-icon>
-                        <label>Nombre</label>
-                        <md-input v-model="nombre" type="text"></md-input>
-                    </md-field>
-                    <md-field class="md-form-group">
-                        <md-icon>face</md-icon>
-                        <label>Apellido Paterno</label>
-                        <md-input v-model="apellidoprimero" type="text"></md-input>
-                    </md-field>
-                    <md-field class="md-form-group">
-                        <md-icon>face</md-icon>
-                        <label>Apellido materno</label>
-                        <md-input v-model="apellidosegundo" type="text"></md-input>
-                    </md-field>
                     <md-field class="md-form-group">
                         <md-icon>email</md-icon>
                         <label>Correo</label>
@@ -53,6 +38,11 @@
                         <md-icon>lock_outline</md-icon>
                         <label>Contraseña</label>
                         <md-input v-model="password" type="password"></md-input>
+                    </md-field>
+                    <md-field class="md-form-group">
+                        <md-icon>lock_outline</md-icon>
+                        <label>Confirmar Contraseña</label>
+                        <md-input v-model="passwordconfirmation" type="password"></md-input>
                     </md-field>
 
                     <md-checkbox v-model="boolean"
@@ -74,11 +64,9 @@
         let mixLogin = {
             data() {
                 return {
-                    nombre: null,
-                    apellidoprimero: "",
-                    apellidosegundo: "",
                     email: null,
                     password: null,
+                    passwordconfirmation: null,
                     boolean: false,
                     contentLeft: [
                         {
@@ -101,6 +89,16 @@
             methods: {
                 register() {
 
+                    if (this.password != this.passwordconfirmation) {
+                        this.$toastr.Add({
+                            title: "Revise su contraseña", // Toast Title
+                            msg: "Su contraseña no coincide con la contraseña de confirmación", // Toast Message
+                            type: "error", // Toast type,
+                            preventDuplicates: true, //Default is false
+                        });
+                        return
+                    }
+
                     if (this.boolean == false) {
                         this.$toastr.Add({
                             title: "Acepte terminos y condiciones", // Toast Title
@@ -114,9 +112,6 @@
                     let uri = "{{ route("register") }}";
 
                     axios.post(uri, {
-                            Nombre: this.nombre,
-                            ApellidoPrimero: this.apellidoprimero,
-                            ApellidoSegundo: this.apellidosegundo,
                             email: this.email,
                             password: this.password,
                         }

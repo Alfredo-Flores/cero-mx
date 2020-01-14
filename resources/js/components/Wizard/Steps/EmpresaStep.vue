@@ -59,7 +59,7 @@
                                 <label>Pais</label>
                                 <p style="color: red">*</p>
                                 <md-select v-model="pais" class="ml-1">
-                                    <md-option value="Mexicano">Mexicano</md-option>
+                                    <md-option value="Mexico">México</md-option>
                                 </md-select>
                             </md-field>
                         </ValidationProvider>
@@ -195,6 +195,27 @@
                         </ValidationProvider>
 
                         <ValidationProvider
+                            name="giro"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>Giro de la empresa</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="giro" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
                             name="telefonooficina"
                             rules="required|integer|min:10"
                             v-slot="{ passed, failed }"
@@ -280,7 +301,7 @@
 
                         <ValidationProvider
                             name="tiempoconsumo"
-                            rules="required"
+                            rules=""
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -292,8 +313,8 @@
                             >
                                 <md-icon>face</md-icon>
                                 <label>Tiempo de restante para consumo humano</label>
-                                <p style="color: red">*</p>
                                 <md-select v-model="tiempoconsumo" class="ml-1">
+                                    <md-option value=""></md-option>
                                     <md-option value="1">1 día</md-option>
                                     <md-option value="2">2 días</md-option>
                                     <md-option value="3">3 días</md-option>
@@ -301,15 +322,14 @@
                                     <md-option value="5">5 días</md-option>
                                     <md-option value="6">6 días</md-option>
                                     <md-option value="7">1 semana</md-option>
+                                    <md-option value="8">Más de 1 semana</md-option>
                                 </md-select>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
                             name="horarioentrega"
-                            rules="required"
+                            rules=""
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -321,15 +341,33 @@
                             >
                                 <md-icon>face</md-icon>
                                 <label>Horario de entrega de alimentos</label>
-                                <p style="color: red">*</p>
                                 <md-select v-model="horarioentrega" class="ml-1">
+                                    <md-option value=""></md-option>
+                                    <md-option value="0:00">0:00 AM</md-option>
+                                    <md-option value="1:00">1:00 AM</md-option>
+                                    <md-option value="2:00">2:00 AM</md-option>
+                                    <md-option value="3:00">3:00 AM</md-option>
+                                    <md-option value="4:00">4:00 AM</md-option>
+                                    <md-option value="5:00">5:00 AM</md-option>
+                                    <md-option value="6:00">6:00 AM</md-option>
+                                    <md-option value="7:00">7:00 AM</md-option>
                                     <md-option value="8:00">8:00 AM</md-option>
                                     <md-option value="9:00">9:00 AM</md-option>
                                     <md-option value="10:00">10:00 AM</md-option>
                                     <md-option value="11:00">11:00 AM</md-option>
+                                    <md-option value="12:00">12:00 AM</md-option>
+                                    <md-option value="13:00">1:00 PM</md-option>
+                                    <md-option value="14:00">2:00 PM</md-option>
+                                    <md-option value="15:00">3:00 PM</md-option>
+                                    <md-option value="16:00">4:00 PM</md-option>
+                                    <md-option value="17:00">5:00 PM</md-option>
+                                    <md-option value="18:00">6:00 PM</md-option>
+                                    <md-option value="19:00">7:00 PM</md-option>
+                                    <md-option value="20:00">8:00 PM</md-option>
+                                    <md-option value="21:00">9:00 PM</md-option>
+                                    <md-option value="22:00">10:00 PM</md-option>
+                                    <md-option value="23:00">11:00 PM</md-option>
                                 </md-select>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
                     </div>
@@ -394,6 +432,7 @@
             return {
                 image: "",
                 logo: "",
+
                 nombre: "",
                 direccion: "",
                 localidad: "",
@@ -436,10 +475,23 @@
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-empresa", this.bussinessname,
-                        this.bussinessdirection,
-                        this.bussinesstelphone,
-                        this.bussinessrfc
+                    this.$emit("on-empresa",
+                        this.nombre,
+                        this.direccion,
+                        this.localidad,
+                        this.municipio,
+                        this.entidad,
+                        this.pais,
+                        this.codigopostal,
+                        this.rfc,
+                        this.giro,
+                        this.telefonooficina,
+                        this.correooficina,
+                        this.descripcionalimentos,
+                        this.cantidaddonacion,
+                        this.tiempoconsumo,
+                        this.horarioentrega,
+                        this.detallesentrega,
                     );
 
                     return res;

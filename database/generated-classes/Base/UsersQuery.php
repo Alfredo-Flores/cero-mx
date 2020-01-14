@@ -28,6 +28,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildUsersQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  * @method     ChildUsersQuery orderByRememberToken($order = Criteria::ASC) Order by the remember_token column
+ * @method     ChildUsersQuery orderByIsinstitution($order = Criteria::ASC) Order by the isinstitution column
  *
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByUuid() Group by the uuid column
@@ -37,6 +38,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildUsersQuery groupByUpdatedAt() Group by the updated_at column
  * @method     ChildUsersQuery groupByRememberToken() Group by the remember_token column
+ * @method     ChildUsersQuery groupByIsinstitution() Group by the isinstitution column
  *
  * @method     ChildUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -68,7 +70,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers findOneByPassword(string $password) Return the first ChildUsers filtered by the password column
  * @method     ChildUsers findOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column
  * @method     ChildUsers findOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column
- * @method     ChildUsers findOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column *
+ * @method     ChildUsers findOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column
+ * @method     ChildUsers findOneByIsinstitution(boolean $isinstitution) Return the first ChildUsers filtered by the isinstitution column *
 
  * @method     ChildUsers requirePk($key, ConnectionInterface $con = null) Return the ChildUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -81,6 +84,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers requireOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUpdatedAt(string $updated_at) Return the first ChildUsers filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByRememberToken(string $remember_token) Return the first ChildUsers filtered by the remember_token column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByIsinstitution(boolean $isinstitution) Return the first ChildUsers filtered by the isinstitution column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
  * @method     ChildUsers[]|ObjectCollection findById(string $id) Return ChildUsers objects filtered by the id column
@@ -91,6 +95,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildUsers objects filtered by the created_at column
  * @method     ChildUsers[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildUsers objects filtered by the updated_at column
  * @method     ChildUsers[]|ObjectCollection findByRememberToken(string $remember_token) Return ChildUsers objects filtered by the remember_token column
+ * @method     ChildUsers[]|ObjectCollection findByIsinstitution(boolean $isinstitution) Return ChildUsers objects filtered by the isinstitution column
  * @method     ChildUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -105,7 +110,7 @@ abstract class UsersQuery extends ModelCriteria
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'cerodb', $modelName = '\\Users', $modelAlias = null)
+    public function __construct($dbName = 'cero', $modelName = '\\Users', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
@@ -189,7 +194,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, uuid, email, email_verified_at, password, created_at, updated_at, remember_token FROM users WHERE id = :p0';
+        $sql = 'SELECT id, uuid, email, email_verified_at, password, created_at, updated_at, remember_token, isinstitution FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -547,6 +552,33 @@ abstract class UsersQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UsersTableMap::COL_REMEMBER_TOKEN, $rememberToken, $comparison);
+    }
+
+    /**
+     * Filter the query on the isinstitution column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIsinstitution(true); // WHERE isinstitution = true
+     * $query->filterByIsinstitution('yes'); // WHERE isinstitution = true
+     * </code>
+     *
+     * @param     boolean|string $isinstitution The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByIsinstitution($isinstitution = null, $comparison = null)
+    {
+        if (is_string($isinstitution)) {
+            $isinstitution = in_array(strtolower($isinstitution), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_ISINSTITUTION, $isinstitution, $comparison);
     }
 
     /**

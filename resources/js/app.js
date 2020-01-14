@@ -56,7 +56,6 @@ import FirstStep from "./components/Wizard/Steps/FirstStep.vue";
 import SecondStep from "./components/Wizard/Steps/SecondStep.vue";
 import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
 import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
-import InternacionalStep from "./components/Wizard/Steps/InternacionalStep.vue";
 import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
 
 import SlideYDownTransition from "vue2-transitions";
@@ -72,7 +71,6 @@ Vue.component("first-step", FirstStep);
 Vue.component("second-step", SecondStep);
 Vue.component("empresa-step", EmpresaStep);
 Vue.component("organizacion-step", OrganizacionStep);
-Vue.component("internacional-step", InternacionalStep);
 Vue.component("icon-checkbox", IconCheckbox);
 Vue.component("signup-card", SignupCard);
 

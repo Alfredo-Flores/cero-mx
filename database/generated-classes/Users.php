@@ -1,10 +1,11 @@
 <?php
 
 use Base\Users as BaseUsers;
+use Propel\Runtime\Connection\ConnectionInterface;
 
 class Users extends BaseUsers
 {
-    public static function crtusers(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    public static function crtusers(array $data , ConnectionInterface $connection = null)
     {
         $usr = new \Users();
         try{

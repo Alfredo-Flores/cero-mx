@@ -22,7 +22,7 @@
                     </div>
                     <div class="md-layout-item md-size-50 md-small-size-100">
                         <ValidationProvider
-                            name="organizationname"
+                            name="nombre"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -34,15 +34,16 @@
                 ]"
                             >
                                 <md-icon>title</md-icon>
-                                <label>{{ $t('organizationstep.name') }}</label>
-                                <md-input v-model="organizationname" type="text"></md-input>
+                                <label>Nombre, Denominacion o Razon Social</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="nombre" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="organizationdirection"
+                            name="pais"
                             rules="required"
                             v-slot="{ passed, failed }"
                         >
@@ -53,17 +54,149 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>directions</md-icon>
-                                <label>{{ $t('organizationstep.direction') }}</label>
-                                <md-input v-model="organizationdirection" type="text"></md-input>
+                                <md-icon>emoji_flags</md-icon>
+                                <label>Pais</label>
+                                <p style="color: red">*</p>
+                                <md-select v-model="pais" class="ml-1">
+                                    <md-option value="Mexico">México</md-option>
+                                </md-select>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="pais"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>emoji_flags</md-icon>
+                                <label>Entidad Federativa</label>
+                                <p style="color: red">*</p>
+                                <md-select v-model="entidad" class="ml-1">
+                                    <md-option value="Mexicano">Mexicano</md-option>
+                                </md-select>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="municipio"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>gps_fixed</md-icon>
+                                <label>Municipio</label>
+                                <p style="color: red">*</p>
+                                <md-select v-model="municipio" class="ml-1">
+                                    <md-option value="Durango">Durango</md-option>
+                                </md-select>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="domicilio"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>gps_fixed</md-icon>
+                                <label>Calle, Numero Exterior y/o Interior</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="domicilio" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="organizationtelphone"
-                            rules="required|integer|min:9"
+                            name="localidad"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>gps_fixed</md-icon>
+                                <label>Localidad o colonia</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="localidad" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="codigo"
+                            rules="required|integer"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>Codigo Postal</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="codigo" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+                    </div>
+
+                    <div class="md-layout-item md-size-50 md-small-size-100">
+                        <ValidationProvider
+                            name="rfc"
+                            rules="required|rfc"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>RFC</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="rfc" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="telefonooficina"
+                            rules="required|integer|min:10"
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -74,42 +207,17 @@
                 ]"
                             >
                                 <md-icon>call</md-icon>
-                                <label>{{ $t('organizationstep.phone') }}</label>
-                                <md-input v-model="organizationtelphone" type="text"></md-input>
+                                <label>Telefono de Oficina</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="telefonooficina" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
-                    </div>
-
-                    <div class="md-layout-item md-size-50 md-small-size-100">
-                        <ValidationProvider
-                            name="cluni"
-                        >
-                            <md-field
-                                class="md-form-group"
-                            >
-                                <label>{{ $t('organizationstep.cluni') }}</label>
-                                <md-file @change="changeCLUNI" accept="application/pdf" type="file"/>
-                            </md-field>
-                        </ValidationProvider>
 
                         <ValidationProvider
-                            name="constanciadonatoria"
-                        >
-                            <md-field
-                                :class="[
-                              { 'md-form-group': true }
-                            ]"
-                            >
-                                <label>{{ $t('organizationstep.constancy') }}</label>
-                                <md-file @change="changeDonatoria" accept="application/pdf" type="file"/>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="organizationrfc"
-                            rules="required|min:10"
+                            name="correooficina"
+                            rules="required|email"
                             v-slot="{ passed, failed }"
                         >
                             <md-field
@@ -119,14 +227,86 @@
                   { 'md-form-group': true }
                 ]"
                             >
-                                <md-icon>title</md-icon>
-                                <label>{{ $t('organizationstep.rfc') }}</label>
-                                <md-input v-model="organizationrfc" type="text"></md-input>
+                                <md-icon>email</md-icon>
+                                <label>Correo de Oficina</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="correooficina" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
+                        <ValidationProvider
+                            name="segmentomercado"
+                            rules=""
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>Segmento del mercado</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="segmentomercado" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="beneficiossemanales"
+                            rules=""
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>Beneficiarios por semana</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="beneficiossemanales" type="numeric"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <md-field
+                            :class="[
+                  { 'md-form-group': true }
+                ]"
+                        >
+                            <label>Plan de trabajo anual</label>
+                            <p style="color: red">*</p>
+                            <md-file @change="changePlananual"></md-file>
+                        </md-field>
+
+                        <md-field
+                            :class="[
+                  { 'md-form-group': true }
+                ]"
+                        >
+                            <label>Acta constitutiva</label>
+                            <p style="color: red">*</p>
+                            <md-file @change="changeActaconstitutiva"></md-file>
+                        </md-field>
+
+                        <md-field
+                            :class="[
+                  { 'md-form-group': true }
+                ]"
+                        >
+                            <label>Constancia donatoria</label>
+                            <p style="color: red">*</p>
+                            <md-file @change="changeConstanciadonatoria"></md-file>
+                        </md-field>
                     </div>
                 </div>
             </div>
@@ -152,12 +332,23 @@
         data() {
             return {
                 image: "",
-                organizationname: "",
-                organizationdirection: "",
-                organizationtelphone: "",
-                cluni: null,
-                constanciadonatoria: null,
-                organizationrfc: "",
+
+                segmentomercado: "",
+                beneficiossemanales: "",
+                nombre: "",
+                logo: "",
+                rfc: "",
+                domicilio: "",
+                localidad: "",
+                municipio: "",
+                entidad: "",
+                pais: "",
+                codigo: "",
+                telefonooficina: "",
+                correooficina: "",
+                plananual: "",
+                actaconstitutiva: "",
+                constanciadonatoria: "",
             };
         },
         methods: {
@@ -168,7 +359,7 @@
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length) return;
 
-                this.imageobject = files[0];
+                this.logo = files[0];
 
                 this.createImage(files[0]);
             },
@@ -184,22 +375,36 @@
             },
             validate() {
                 return this.$refs.form.validate().then(res => {
-                    this.$emit("on-organizacion", this.organizationname,
-                        this.organizationdirection,
-                        this.organizationtelphone,
-                        this.cluni,
+                    this.$emit("on-organizacion",
+                        this.segmentomercado,
+                        this.beneficiossemanales,
+                        this.nombre,
+                        this.logo,
+                        this.rfc,
+                        this.domicilio,
+                        this.localidad,
+                        this.municipio,
+                        this.entidad,
+                        this.pais,
+                        this.codigo,
+                        this.telefonooficina,
+                        this.correooficina,
+                        this.plananual,
+                        this.actaconstitutiva,
                         this.constanciadonatoria,
-                        this.organizationrfc);
+                    );
                     return res;
                 });
             },
-            changeCLUNI(event) {
-                this.cluni = event.target.files[0];
-            },
-            changeDonatoria(event) {
+            changeConstanciadonatoria(event) {
                 this.constanciadonatoria = event.target.files[0];
+            },
+            changePlananual(event) {
+                this.plananual = event.target.files[0];
+            },
+            changeActaconstitutiva(event) {
+                this.actaconstitutiva = event.target.files[0];
             },
         }
     };
 </script>
-<style></style>

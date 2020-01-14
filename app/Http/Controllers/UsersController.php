@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class UsersController extends Controller
 {
@@ -22,30 +24,17 @@ class UsersController extends Controller
     // store (C)
     public function create(Request $request)
     {
-        // 1.- Validacion del request TODO *Modificar*
         $rules = [
-			'Uuid' => 'required|uuid|size:36',
-			'Correo' => 'required|max:255',
-			'Contraseña' => 'required|max:255',
-			'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-		];
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6|max:255',
+        ];
 
-        $msgs = [ // TODO *Customizable*
-			'Uuid.required' => 'Validacion fallada en Uuid.required',
-			'Uuid.uuid' => 'Uuid no válido',
-			'Uuid.size' => 'Uuid no válido',
-			'Correo.required' => 'Validacion fallada en Correo.required',
-			'Correo.string' => 'Validacion fallada en Correo.string',
-			'Correo.max' => 'Validacion fallada en Correo.max',
-			'Contraseña.required' => 'Validacion fallada en Contraseña.required',
-			'Contraseña.string' => 'Validacion fallada en Contraseña.string',
-			'Contraseña.max' => 'Validacion fallada en Contraseña.max',
-			'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-			'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
-			'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
-		];
+        $msgs = [
+            'email.required' => 'Ingrese el correo electronico',
+            'email.email' => 'Ingrese el correo electronico correctamente',
+            'password.required' => 'Ingrese la contraseña',
+            'password.min' => 'Ingrese la contraseña con un minimo de 6 caracteres',
+        ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
@@ -53,13 +42,12 @@ class UsersController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        // 2.- Peticion a variables TODO *Modificar*
         $data = [
-			'uuid' => request('Uuid'),
-			'email' => request('Correo'),
-			'password' => request('Contraseña'),
-			'created_at' => request('Creado'),
-			'updated_at' => request('Actualizado'),
+            'uuid' => trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('email'))),
+            'email' => trim($request->get('email')),
+            'password' => bcrypt(trim($request->get('password'))),
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
         ];
 
         // 3.- Iniciar transaccion
@@ -71,11 +59,15 @@ class UsersController extends Controller
         // 6.- Commit y return
         if(!$result){
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('');
+            return ReturnHandler::rtrerrjsn('Este correo ya fue registrado');
         }
-         
+
+        // Login
+        $credentials = $request->only('email', 'password');
+        Auth::attempt($credentials);
+
         TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Guardado correctamente');
+        return ReturnHandler::rtrsccjsn('Registrado correctamente');
     }
 
     // destroy (R)
@@ -118,10 +110,10 @@ class UsersController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
-            
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Eliminado correctamente');
-        
+
     }
 
     // update (U)
@@ -152,7 +144,7 @@ class UsersController extends Controller
 			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
 
         ];
-        
+
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
         if(!empty($validator)){
@@ -189,26 +181,28 @@ class UsersController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
-        
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
-    
-// Views
-    
-    // Show table(D)
-    public function table(Request $request)
+
+    public function login(Request $request)
     {
-        
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return "true";
+        } else {
+            return "false";
+        }
     }
-    
-    // Display one(D)
-    public function edit(Request $request)
+
+    public function logout()
     {
-        
+        Auth::logout();
+        return redirect()->route('index');
     }
-    
-    
-            
+
+
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }
