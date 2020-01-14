@@ -35,8 +35,8 @@ class CreateTblentempTable extends Migration
             $table->string('emlofiemp')->default('')->comment('CorreoOficina');
             $table->string('desaliemp')->default('')->comment('DescripAli');
             $table->string('candonemp')->default('')->comment('CantDonacion');
-            $table->timestampTz('temconemp')->nullable()->comment('TiempoConsumo');
-            $table->timestampTz('horentemp')->nullable()->comment('HoraEntrega');
+            $table->string('temconemp')->nullable()->comment('TiempoConsumo');
+            $table->string('horentemp')->nullable()->comment('HoraEntrega');
             $table->string('detentemo')->default('')->comment('DetallesEntrega');
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');

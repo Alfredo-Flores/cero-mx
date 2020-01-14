@@ -6,6 +6,7 @@ use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Ramsey\Uuid\Uuid;
@@ -23,7 +24,7 @@ class TblentempController extends Controller
     }
 
     // store (C)
-    public function create(Request $request, ConnectionInterface &$trncnn)
+    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4)
     {
         // 1.- Validacion del request
         $rules = [
@@ -41,8 +42,6 @@ class TblentempController extends Controller
 			'EmpresaCorreoOficina' => 'required|max:255',
 			'EmpresaDescripAli' => 'required|max:255',
 			'EmpresaCantDonacion' => 'required|max:255',
-			'EmpresaTiempoConsumo' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'EmpresaHoraEntrega' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
 			'EmpresaDetallesEntrega' => 'required|max:255'
 		];
 
@@ -90,10 +89,6 @@ class TblentempController extends Controller
 			'EmpresaCantDonacion.required' => 'Validacion fallada en CantDonacion.required',
 			'EmpresaCantDonacion.string' => 'Validacion fallada en CantDonacion.string',
 			'EmpresaCantDonacion.max' => 'Validacion fallada en CantDonacion.max',
-			'EmpresaTiempoConsumo.nullable' => 'Validacion fallada en TiempoConsumo.nullable',
-			'EmpresaTiempoConsumo.date_format' => 'Validacion fallada en TiempoConsumo.date_format',
-			'EmpresaHoraEntrega.nullable' => 'Validacion fallada en HoraEntrega.nullable',
-			'EmpresaHoraEntrega.date_format' => 'Validacion fallada en HoraEntrega.date_format',
 			'EmpresaDetallesEntrega.required' => 'Validacion fallada en DetallesEntrega.required',
 			'EmpresaDetallesEntrega.string' => 'Validacion fallada en DetallesEntrega.string',
 			'EmpresaDetallesEntrega.max' => 'Validacion fallada en DetallesEntrega.max',
@@ -105,11 +100,24 @@ class TblentempController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        // 2.- Peticion a variables TODO *Modificar*
+        // 2.- Peticion a variables
+
+        try {
+            $logentemp = request('EmpresaLogo');
+
+            $logrutemp = $uuid4 . "/";
+
+            Storage::disk('local')->put($logrutemp, $logentemp);
+        } catch (\Exception $e) {
+            Log::debug($e);
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('');
+        }
+
         $data = [
-            'uuid' => trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('EmpresaTributante'))),
+            'uuid' => $uuid4,
             'namentemp' => request('EmpresaNombre'),
-			'logentemp' => request('EmpresaLogo'),
+			'logentemp' => $logrutemp,
 			'drcentemp' => request('EmpresaDireccion'),
 			'lclentemp' => request('EmpresaLocalidad'),
 			'mncentemp' => request('EmpresaMunicipio'),

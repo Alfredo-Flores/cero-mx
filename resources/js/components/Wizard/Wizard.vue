@@ -221,9 +221,7 @@
             },
             async nextTab() {
                 let isValid = await this.validate();
-                if (isValid && this.activeTabIndex < this.tabCount - 1) {
-                    this.activeTabIndex++;
-                } else {
+                if (!isValid) {
                     this.$toastr.Add({
                         title: "Error", // Toast Title
                         msg: "Verifique los datos por favor", // Toast Message
@@ -231,6 +229,11 @@
                         preventDuplicates: true
                     });
                 }
+
+                if (isValid && this.activeTabIndex < this.tabCount - 1) {
+                    this.activeTabIndex++;
+                }
+
                 return isValid;
             },
             prevTab() {

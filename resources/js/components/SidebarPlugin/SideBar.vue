@@ -21,8 +21,7 @@
         class="simple-text logo-normal"
         target="_blank"
       >
-        <template v-if="$route.meta.rtlActive">{{ rtlTitle }}</template>
-        <template v-else>{{ title }}</template>
+        <template>{{ title }}</template>
       </a>
       <div class="navbar-minimize">
         <md-button
@@ -68,10 +67,6 @@ export default {
     title: {
       type: String,
       default: "Vue MD PRO"
-    },
-    rtlTitle: {
-      type: String,
-      default: "توقيت الإبداعية"
     },
     activeColor: {
       type: String,

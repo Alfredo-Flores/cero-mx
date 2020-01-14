@@ -38,6 +38,7 @@ const i18n = new VueInternationalization({
 });
 
 import DashboardPlugin from "./material-dashboard";
+import DashboardLayout from "./components/Layout/DashboardLayout";
 
 import PricingCard from "./components/Cards/PricingCard.vue";
 import SignupCard from "./components/Cards/SignupCard.vue";
@@ -58,8 +59,6 @@ import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
 import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
 import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
 
-import SlideYDownTransition from "vue2-transitions";
-import { required, email } from "vee-validate/dist/rules";
 
 Vue.component("validation-provider", ValidationProvider);
 Vue.component("validation-observer", ValidationObserver);
@@ -73,6 +72,7 @@ Vue.component("empresa-step", EmpresaStep);
 Vue.component("organizacion-step", OrganizacionStep);
 Vue.component("icon-checkbox", IconCheckbox);
 Vue.component("signup-card", SignupCard);
+Vue.component("dashboard-layout", DashboardLayout);
 
 Vue.use(DashboardPlugin);
 

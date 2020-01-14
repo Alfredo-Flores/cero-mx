@@ -6,6 +6,7 @@ use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Ramsey\Uuid\Uuid;
@@ -23,9 +24,9 @@ class TblentorgController extends Controller
     }
 
     // store (C)
-    public function create(Request $request, ConnectionInterface &$trncnn)
+    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4)
     {
-        // 1.- Validacion del request TODO *Modificar*
+        // 1.- Validacion del request
         $rules = [
 			'OrganizacionSegmentoMercado' => 'required|max:255',
 			'OrganizacionBenefSemana' => 'required|max:255',
@@ -102,13 +103,33 @@ class TblentorgController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        // 2.- Peticion a variables TODO *Modificar*
+
+        // 2.- Peticion a variables
+
+        try {
+            $logentorg = request('OrganizacionLogo');
+            $plntrborg = request('OrganizacionPlanAnual');
+			$actcnsorg = request('OrganizacionActaConstitutiva');
+			$cnsdntorg = request('OrganizacionConstanciaDonataria');
+
+            $rutorg = $uuid4 . "/";
+
+            Storage::disk('local')->put($rutorg, $logentorg);
+            Storage::disk('local')->put($rutorg, $plntrborg);
+            Storage::disk('local')->put($rutorg, $actcnsorg);
+            Storage::disk('local')->put($rutorg, $cnsdntorg);
+        } catch (\Exception $e) {
+            Log::debug($e);
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('');
+        }
+
         $data = [
-            'uuid' => trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('OrganizacionRfc'))),
+            'uuid' => $uuid4,
 			'sgmentorg' => request('OrganizacionSegmentoMercado'),
 			'bnfentorg' => request('OrganizacionBenefSemana'),
 			'nmbentorg' => request('OrganizacionNombre'),
-			'logentorg' => request('OrganizacionLogo'),
+			'logentorg' => $rutorg,
 			'rfcentorg' => request('OrganizacionRfc'),
 			'dmcentorg' => request('OrganizacionDomicilio'),
 			'lclentorg' => request('OrganizacionLocalidad'),
@@ -118,9 +139,9 @@ class TblentorgController extends Controller
 			'cdgpstorg' => request('OrganizacionCodigo'),
 			'tlffcnorg' => request('OrganizacionTelOficina'),
 			'emlfcnorg' => request('OrganizacionCorreoOficina'),
-			'plntrborg' => request('OrganizacionPlanAnual'),
-			'actcnsorg' => request('OrganizacionActaConstitutiva'),
-			'cnsdntorg' => request('OrganizacionConstanciaDonataria'),
+			'plntrborg' => $rutorg,
+			'actcnsorg' => $rutorg,
+			'cnsdntorg' => $rutorg,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ];
