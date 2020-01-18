@@ -1,104 +1,280 @@
 <template>
-    <div class="full-page" :class="{ 'nav-open': $sidebar.showSidebar }">
-        <md-toolbar md-elevation="0" class="md-transparent md-toolbar-absolute">
-            <div class="md-toolbar-row md-offset">
-                <div class="md-toolbar-section-start">
-                    <h3 class="md-title">{{ $route.name }}</h3>
-                </div>
-                <div class="md-toolbar-section-end">
-                    <md-button
-                        class="md-just-icon md-simple md-round md-toolbar-toggle"
-                        :class="{ toggled: $sidebar.showSidebar }"
-                        @click="toggleSidebar"
-                    >
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </md-button>
-
-                    <div
-                        class="md-collapse"
-                        :class="{ 'off-canvas-sidebar': responsive }"
-                    >
-                        <md-list>
-                            <md-list-item href="/">
-                                <md-icon>dashboard</md-icon>
-                                Dashboard
-                            </md-list-item>
-                            <md-list-item href="#/pricing" @click="linkClick">
-                                <md-icon>attach_money</md-icon>
-                                Pricing
-                            </md-list-item>
-                            <md-list-item href="#/register" @click="linkClick">
-                                <md-icon>person_add</md-icon>
-                                Register
-                            </md-list-item>
-                            <md-list-item href="#/login" @click="linkClick">
-                                <md-icon>fingerprint</md-icon>
-                                login
-                            </md-list-item>
-                            <md-list-item href="#/lock" @click="linkClick">
-                                <md-icon>lock_open</md-icon>
-                                lock
-                            </md-list-item>
-                        </md-list>
-                    </div>
-                </div>
-            </div>
-        </md-toolbar>
-        <div class="wrapper wrapper-full-page" @click="toggleSidebarPage">
-            <div
-                class="page-header header-filter"
-                :class="setPageClass"
-                filter-color="black"
-                :style="setBgImage"
-            >
-                <div class="container md-offset">
-                    <zoom-center-transition
-                        :duration="pageTransitionDuration"
-                        mode="out-in"
-                    >
-                        <router-view></router-view>
-                    </zoom-center-transition>
-                </div>
-                <footer class="footer">
-                    <div class="container md-offset">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <router-link :to="{ path: '/dashboard' }">Home</router-link>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Company
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Portfolio
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Blog
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div class="copyright text-center">
-                            &copy; {{ new Date().getFullYear() }}
-                            <a
-                                href="https://www.creative-tim.com/?ref=mdf-vuejs"
-                                target="_blank"
-                            >Creative Tim</a
-                            >, made with <i class="fa fa-heart heart"></i> for a better web
+        <div class="container md-offset">
+            <div class="md-layout">
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="green">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <p class="category">Folowers</p>
+                            <h3 class="title">
+                                +<div :value="245"></div>
+                            </h3>
                         </div>
-                    </div>
-                </footer>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>update</md-icon>
+                                Just Updated
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="blue">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <p class="category">Folowers</p>
+                            <h3 class="title">
+                                +<div :value="245"></div>
+                            </h3>
+                        </div>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>update</md-icon>
+                                Just Updated
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="blue">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <p class="category">Folowers</p>
+                            <h3 class="title">
+                                +<div :value="245"></div>
+                            </h3>
+                        </div>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>update</md-icon>
+                                Just Updated
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="blue">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <p class="category">Folowers</p>
+                            <h3 class="title">
+                                +<div :value="245"></div>
+                            </h3>
+                        </div>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>update</md-icon>
+                                Just Updated
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+
+
+                <md-card class="">
+                    <md-card-content>
+                        <div class="md-layout">
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+                                <md-card class="md-elevation-10">
+                                    <md-card-media-cover>
+                                        <md-card-media md-ratio="4:3">
+                                            <img
+                                                src='/img/placeholder.jpg'
+                                                alt="Thumbnail">
+                                        </md-card-media>
+                                    </md-card-media-cover>
+                                </md-card>
+                            </div>
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+
+
+                                <md-card>
+                                    <md-card-header  class="md-elevation-3 md-primary">
+                                        <div class="md-title">
+                                            ¿Qué es Cero?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                                <md-card>
+                                    <md-card-header class="md-elevation-3">
+                                        <div class="md-title">
+                                            ¿Cómo trabajamos?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                                <md-card>
+                                    <md-card-header class="md-elevation-3">
+                                        <div class="md-title">
+                                            ¿Qué es Cero?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="md-layout md-alignment-center-center">
+                            <div class="md-layout-item md-size-100 text-center">
+                                <h3>
+                                    Noticias
+                                </h3>
+                            </div>
+                            <div class="md-layout-item md-size-30 md-small-size-100 ">
+                                <md-card class="md-elevation-10">
+                                    <md-card-area>
+                                        <md-card-media>
+                                            <img
+                                                src='/img/faces/marc.jpg'
+                                                alt="Thumbnail">
+                                        </md-card-media>
+                                        <md-card-header>
+                                            <div class="md-title">
+                                                Noticia
+                                            </div>
+                                            <div class="md-subhead">
+                                                Subtitulo noticia
+                                            </div>
+                                        </md-card-header>
+                                        <md-card-content>
+                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                        </md-card-content>
+                                    </md-card-area>
+                                    <md-card-actions>
+                                        <md-button>
+                                            Leer más
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card>
+                            </div>
+                            <div class="md-layout-item md-size-30 md-small-size-100 ">
+                                <md-card class="md-elevation-10">
+                                    <md-card-area>
+                                        <md-card-media>
+                                            <img
+                                                src='/img/faces/marc.jpg'
+                                                alt="Thumbnail">
+                                        </md-card-media>
+                                        <md-card-header>
+                                            <div class="md-title">
+                                                Noticia
+                                            </div>
+                                            <div class="md-subhead">
+                                                Subtitulo noticia
+                                            </div>
+                                        </md-card-header>
+                                        <md-card-content>
+                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                        </md-card-content>
+                                    </md-card-area>
+                                    <md-card-actions>
+                                        <md-button>
+                                            Leer más
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card>
+                            </div>
+                            <div class="md-layout-item md-size-50 md-small-size-100 ">
+                                <md-card class="md-elevation-10">
+                                    <md-card-area>
+                                        <md-card-media>
+                                            <img
+                                                src='/img/faces/marc.jpg'
+                                                alt="Thumbnail"
+                                            >
+                                        </md-card-media>
+                                        <md-card-header>
+                                            <div class="md-title">
+                                                Noticia
+                                            </div>
+                                            <div class="md-subhead">
+                                                Subtitulo noticia
+                                            </div>
+                                        </md-card-header>
+                                        <md-card-content>
+                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                        </md-card-content>
+                                    </md-card-area>
+                                    <md-card-actions>
+                                        <md-button>
+                                            Leer más
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
             </div>
+
         </div>
-    </div>
-</template>
+
+
+    </template>
 <script>
     import { ZoomCenterTransition } from "vue2-transitions";
 
@@ -107,7 +283,7 @@
             ZoomCenterTransition
         },
         props: {
-            backgroundColor: {
+                backgroundColor: {
                 type: String,
                 default: "black"
             }
