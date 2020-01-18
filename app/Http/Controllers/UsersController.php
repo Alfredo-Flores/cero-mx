@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\ReturnHandler;
 use App\TransactionHandler;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWTAuth;
 
 class UsersController extends Controller
 {
@@ -192,7 +193,7 @@ class UsersController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = JWTAuth::attempt($credentials)) {
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',
@@ -209,7 +210,27 @@ class UsersController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('index');
+        JWTAuth::invalidate();
+
+        return response([
+            'status' => 'success',
+            'msg' => 'Logged out Successfully.'
+        ], 200);
+    }
+
+    public function user(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ]);
+    }
+    public function refresh()
+    {
+        return response([
+            'status' => 'success'
+        ]);
     }
 
 

@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post("auth/register", "UsersController@create");
 
 Route::post('auth/login', 'UsersController@login');
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::get('auth/user', 'UsersController@user');
+});
+Route::group(['middleware' => 'jwt.refresh'], function(){
+    Route::get('auth/refresh', 'UsersController@refresh');
+});

@@ -11,12 +11,12 @@ import VueRouter from 'vue-router';
 import DashboardPlugin from "./material-dashboard";
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
-import router from './routes/router'
 import App from './App.vue'
 import routes from "./routes/routes";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
+import VueResource from 'vue-resource'
 
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
@@ -29,6 +29,7 @@ Vue.use(VueRouter);
 Vue.use(DashboardPlugin);
 Vue.use(SideBar);
 Vue.use(VueInternationalization);
+Vue.use(VueResource);
 
 axios.defaults.baseURL = 'http://localhost:50000/api';
 
@@ -43,7 +44,7 @@ const i18n = new VueInternationalization({
 Vue.http.options.root = 'https://api-demo.websanova.com/api/v1';
 
 // configure router
-Vue.router = new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes, // short for routes: routes
     scrollBehavior: to => {
@@ -56,6 +57,7 @@ Vue.router = new VueRouter({
     linkExactActiveClass: "nav-item active"
 });
 
+Vue.router = router;
 
 
 Vue.use(require('@websanova/vue-auth'), {
@@ -64,6 +66,7 @@ Vue.use(require('@websanova/vue-auth'), {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
+App.router = Vue.router;
 
 // global library setup
 Vue.prototype.$Chartist = Chartist;

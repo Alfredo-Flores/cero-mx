@@ -44,22 +44,24 @@
         },
         methods: {
             login() {
-                let uri = 'auth/login';
+                var app = this;
 
-                axios.post(uri, {
-                    email: this.email,
-                    password: this.password
-                }).then(response => {
-                    console.log(response)
-                    if (response.data) {
-                        window.location.replace("/");
-                    } else {
-                        this.$toastr.Add({
-                            title: "No existe el usuario", // Toast Title
-                            msg: "Porfavor corrija sus credenciales", // Toast Message
-                            type: "error", // Toast type,
-                        });
-                    }
+                console.log(this.$auth.check());
+                this.$auth.login({
+                    params: {
+                        email: app.email,
+                        password: app.password
+                    },
+                    success: function () {
+                        console.log("yes");
+
+                    },
+                    error: function () {
+                        console.log("nope");
+                    },
+                    rememberMe: true,
+                    redirect: '/',
+                    fetchUser: true,
                 });
             },
         },

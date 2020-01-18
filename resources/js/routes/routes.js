@@ -15,7 +15,7 @@ let authPages = {
     children: [
         {
             path: "/",
-            name: "Welcome",
+            name: "welcome",
             component: Welcome,
             meta: {
                 auth: false

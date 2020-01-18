@@ -276,9 +276,9 @@
 
     </template>
 <script>
-    import { ZoomCenterTransition } from "vue2-transitions";
-    import StatsCard from "../components/Cards/StatsCard";
-    import AnimatedNumber from "../components/AnimatedNumber";
+    import ZoomCenterTransition from "vue2-transitions";
+    import StatsCard from "../components/Cards/StatsCard.vue";
+    import AnimatedNumber from "../components/AnimatedNumber.vue";
 
     export default {
         components: {

@@ -37,7 +37,7 @@
                               <md-icon>fingerprint</md-icon>
                               <router-link to="/oferta">Administración</router-link>
                           </md-list-item>
-                          <md-list-item v-if="$auth.check()" @click.prevent="$auth.logout()">
+                          <md-list-item  @click.prevent="$auth.logout()">
                               <md-icon>fingerprint</md-icon>
                               Salir
                           </md-list-item>
@@ -193,7 +193,6 @@ export default {
     }
   },
   mounted() {
-      console.log($auth.check());
     this.onResponsiveInverted();
     window.addEventListener("resize", this.onResponsiveInverted);
   },
