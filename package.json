@@ -24,7 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "buefy": "^0.8.8",
+        "@tweenjs/tween.js": "17.4.0",
         "chartist": "^0.11.4",
         "font-awesome": "^4.7.0",
         "material-components-web": "^4.0.0",

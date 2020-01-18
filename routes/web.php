@@ -17,11 +17,8 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 // Auth
-Route::get('/register',  function () { return view('auth.register'); })->name("registerview");
-Route::get('/login',  function () { return view('auth.login'); })->name("loginview");
-
-Route::post('/Users/submit/register', 'UsersController@create')->name("register");
-Route::post('/Users/submit/login', 'UsersController@login')->name("login");
+Route::post('register', 'UsersController@create')->name("register");
+Route::post('login', 'UsersController@login')->name("login");
 
 Route::middleware("auth")->group(function () {
     Route::get('/Users/submit/logout', 'UsersController@logout')->name("logout");

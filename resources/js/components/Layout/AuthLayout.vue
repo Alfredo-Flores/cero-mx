@@ -3,7 +3,7 @@
       <md-toolbar md-elevation="8" class="md-primary md-toolbar-absolute md-absolute">
           <div class="md-toolbar-row md-offset">
               <div class="md-toolbar-section-start">
-                  <h1 class="md-title">CERO HAMBRE</h1>
+                  <h1 href="#/" @click="linkClick" class="md-title">CERO HAMBRE</h1>
               </div>
               <div class="md-toolbar-section-end">
                   <md-button
@@ -21,15 +21,15 @@
                       :class="{ 'off-canvas-sidebar': responsive }"
                   >
                       <md-list>
-                          <md-list-item href="/">
+                          <md-list-item href="#/" @click="linkClick">
                               <md-icon>house</md-icon>
                               Inicio
                           </md-list-item>
-                          <md-list-item href="/register" >
+                          <md-list-item href="#/Register" @click="linkClick">
                               <md-icon>person_add</md-icon>
                               Registro
                           </md-list-item>
-                          <md-list-item href="/login">
+                          <md-list-item href="#/Login" @click="linkClick">
                               <md-icon>fingerprint</md-icon>
                               Iniciar Sesión
                           </md-list-item>
