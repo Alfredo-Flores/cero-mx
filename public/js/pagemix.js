@@ -84,34 +84,17 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./resources/js/pagemix.js":
-/*!*********************************!*\
-  !*** ./resources/js/pagemix.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* Este acrhivo contiene un array que almacenara varios objetos js
-con script vue, para que se pueda usar antes de que se buildee Vue,
-de otro modo ya no se le podra inyectar vue a los blades de una manera
-tan simple
-*/
-window.pageMix = [];
-
-/***/ }),
-
-/***/ 1:
+/******/ ([
+/* 0 */,
+/* 1 */
 /*!***************************************!*\
   !*** multi ./resources/js/pagemix.js ***!
   \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/c/xampp/htdocs/cero/resources/js/pagemix.js */"./resources/js/pagemix.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/mnt/c/xampp/htdocs/cero/resources/js/pagemix.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 /***/ })
-
-/******/ });
+/******/ ]);

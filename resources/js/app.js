@@ -1,9 +1,5 @@
 // Boostrap y axios por defecto
-import {ValidationObserver, ValidationProvider} from "vee-validate";
-
 require("./bootstrap");
-
-
 window.Vue = require('vue');
 
 // Modulos NPM
@@ -12,6 +8,7 @@ import VueMaterial from 'vue-material'
 import SideBar from "./components/SidebarPlugin";
 import Chartist from "chartist";
 import VueRouter from 'vue-router';
+import DashboardPlugin from "./material-dashboard";
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 import FullCalendar from "@fullcalendar/vue";
@@ -29,6 +26,7 @@ Vue.use(VueToastr);
 Vue.use(VueRouter);
 Vue.use(SideBar);
 Vue.use(VueInternationalization);
+Vue.use(DashboardPlugin);
 
 // Internalicionalizacion
 const lang = document.documentElement.lang.substr(0, 2);
@@ -38,74 +36,31 @@ const i18n = new VueInternationalization({
     messages: Locale
 });
 
-import DashboardPlugin from "./material-dashboard";
-import DashboardLayout from "./components/Layout/DashboardLayout";
-import EmpresasLayout from "./components/Layout/EmpresasLayout";
-import OrganizacionesLayout from "./components/Layout/OrganizacionesLayout";
+// Plugins
+import App from "./App.vue";
 
-import PricingCard from "./components/Cards/PricingCard.vue";
-import SignupCard from "./components/Cards/SignupCard.vue";
-import LoginCard from "./components/Cards/LoginCard.vue";
-import StatsCard from "./components/Cards/StatsCard.vue";
-import ChartCard from "./components/Cards/ChartCard.vue";
-import TestimonialCard from "./components/Cards/TestimonialCard.vue";
-import GlobalSalesCard from "./components/Cards/GlobalSalesCard.vue";
-import NavTabsCard from "./components/Cards/NavTabsCard.vue";
-import ProductCard from "./components/Cards/ProductCard.vue";
+// router setup
+import routes from "./routes/routes";
 
-import SimpleWizard from "./components/Wizard/Wizard.vue";
-import WizardTab from "./components/Wizard/WizardTab.vue";
-import FirstStep from "./components/Wizard/Steps/FirstStep.vue";
-import SecondStep from "./components/Wizard/Steps/SecondStep.vue";
-import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
-import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
-import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
-import Modal from "./components/Modal.vue";
-
-
-import TimeLine from "./components/Timeline/TimeLine.vue";
-import TimeLineItem from "./components/Timeline/TimeLineItem.vue";
-import Badge from "./components/Badge.vue";
-//import AnimatedNumber from "./components/AnimatedNumber.vue";
-
-Vue.component("validation-provider", ValidationProvider);
-Vue.component("validation-observer", ValidationObserver);
-Vue.component("pricing-card", PricingCard);
-Vue.component("login-card", LoginCard);
-Vue.component("simple-wizard", SimpleWizard);
-Vue.component("wizard-tab", WizardTab);
-Vue.component("first-step", FirstStep);
-Vue.component("second-step", SecondStep);
-Vue.component("empresa-step", EmpresaStep);
-Vue.component("organizacion-step", OrganizacionStep);
-Vue.component("icon-checkbox", IconCheckbox);
-Vue.component("signup-card", SignupCard);
-Vue.component("dashboard-layout", DashboardLayout);
-Vue.component("empresas-layout", EmpresasLayout);
-Vue.component("organizaciones-layout", OrganizacionesLayout);
-Vue.component("full-calendar", FullCalendar);
-Vue.component("modal", Modal);
-Vue.component("time-line", TimeLine);
-Vue.component("time-line-item", TimeLineItem);
-Vue.component("badge", Badge);
-Vue.component("stats-card", StatsCard);
-//Vue.component("animated-number", AnimatedNumber);
-
-Vue.use(DashboardPlugin);
-
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-
-// Chartist
-Object.defineProperty(Vue.prototype, "$Chartist", {
-    get() {
-        return Chartist;
-    }
+// configure router
+const router = new VueRouter({
+    routes, // short for routes: routes
+    scrollBehavior: to => {
+        if (to.hash) {
+            return { selector: to.hash };
+        } else {
+            return { x: 0, y: 0 };
+        }
+    },
+    linkExactActiveClass: "nav-item active"
 });
 
-// Buildear Vue
-const app = new Vue({
-    el: '#app',
-    i18n,
-    mixins: window.pageMix
+// global library setup
+Vue.prototype.$Chartist = Chartist;
+
+/* eslint-disable no-new */
+new Vue({
+    el: "#app",
+    render: h => h(App),
+    router
 });
