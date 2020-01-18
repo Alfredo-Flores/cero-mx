@@ -1,4 +1,4 @@
-@extends('layouts.dash')
+@extends('layouts.emplayout')
 
 @section('content')
     <div class="md-layout text-center">

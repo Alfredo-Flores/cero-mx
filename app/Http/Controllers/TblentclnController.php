@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class TblentclnController extends Controller
@@ -16,7 +18,40 @@ class TblentclnController extends Controller
 
     public function index()
     {
-        return view('app.Tblentcln.main');
+        $id = Auth::user()->id;
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return view('auth.login');
+        }
+
+        $tipentprs = $tipentprs->getTipentprs();
+
+
+        if ($tipentprs == 1) {
+            $tipentprs = \Tblentprs::fnoentusr($id);
+            $idnentprs = $tipentprs->getIdnentprs();
+            $entemp = \Tblentemp::fnoentprs($idnentprs);
+
+            if (!$entemp) {
+                return view('auth.login');
+            }
+
+            $idnentemp = $entemp->getIdnentemp();
+
+            $ofertas = \Tblentdnc::fndreqdnc($idnentemp);
+            $ofertas = $ofertas->toArray();
+
+            return view('app.Tblentemp.calendario')
+                ->with("ofertas", $ofertas);;
+        } elseif ($tipentprs == 2) {
+
+
+            return view('app.Tblentorg.calendario');
+        } else {
+            return view('auth.login');
+        }
     }
 
     // store (C)
@@ -77,7 +112,7 @@ class TblentclnController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('');
         }
-         
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Guardado correctamente');
     }
@@ -122,10 +157,10 @@ class TblentclnController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
-            
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Eliminado correctamente');
-        
+
     }
 
     // update (U)
@@ -161,7 +196,7 @@ class TblentclnController extends Controller
 			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
 
         ];
-        
+
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
         if(!empty($validator)){
@@ -199,26 +234,26 @@ class TblentclnController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
-        
+
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
-    
+
 // Views
-    
+
     // Show table(D)
     public function table(Request $request)
     {
-        
+
     }
-    
+
     // Display one(D)
     public function edit(Request $request)
     {
-        
+
     }
-    
-    
-            
+
+
+
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }

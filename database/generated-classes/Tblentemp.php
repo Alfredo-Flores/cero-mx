@@ -339,6 +339,17 @@ if($filidngirorg != 0){
         return $entemp;
     }
 
+    public static function fnoentprs($idnentprs, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entprs = \TblentempQuery::create()
+            ->filterByIdnentprs($idnentprs)
+            ->findOne($connection);
+
+        if(!$entprs) return false;
+
+        return $entprs;
+    }
+
     public static function fnuentemp($uuid,\Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entemp = \TblentempQuery::create()

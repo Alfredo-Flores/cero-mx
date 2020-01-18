@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,7 @@ class TblentempController extends Controller
     }
 
     // store (C)
-    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4)
+    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4, int $idnentprs)
     {
         // 1.- Validacion del request
         $rules = [
@@ -105,17 +106,18 @@ class TblentempController extends Controller
         try {
             $logentemp = request('EmpresaLogo');
 
-            $logrutemp = $uuid4 . "/";
+            $logrutemp = $uuid4 . "/logo/";
 
             Storage::disk('local')->put($logrutemp, $logentemp);
         } catch (\Exception $e) {
             Log::debug($e);
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('');
+            return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
 
         $data = [
             'uuid' => $uuid4,
+            'idnentprs' => $idnentprs,
             'namentemp' => request('EmpresaNombre'),
 			'logentemp' => $logrutemp,
 			'drcentemp' => request('EmpresaDireccion'),

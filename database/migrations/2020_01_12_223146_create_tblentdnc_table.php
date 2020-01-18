@@ -22,7 +22,10 @@ class CreateTblentdncTable extends Migration
             $table->string('tipentdnc')->comment('TipoAlimento');
             $table->double('kgsentdnc')->comment('Kilogramos');
             $table->integer('cntcjsdnc')->comment('CantCajas');
-            $table->integer('tmprstdnc')->comment('TiempoRestante');
+            $table->timestampTz('tmprstdnc')->comment('TiempoRestante');
+
+            $table->boolean('rqsentdnc')->default(false)->comment('BanderaPedido');
+            $table->boolean('fnsentdnc')->default(false)->comment('BanderaTerminado');
 
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');

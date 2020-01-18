@@ -59,7 +59,7 @@ class TblentdncTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 10;
+    const NUM_COLUMNS = 12;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class TblentdncTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 10;
+    const NUM_HYDRATE_COLUMNS = 12;
 
     /**
      * the column name for the identdnc field
@@ -112,6 +112,16 @@ class TblentdncTableMap extends TableMap
     const COL_TMPRSTDNC = 'tblentdnc.tmprstdnc';
 
     /**
+     * the column name for the rqsentdnc field
+     */
+    const COL_RQSENTDNC = 'tblentdnc.rqsentdnc';
+
+    /**
+     * the column name for the fnsentdnc field
+     */
+    const COL_FNSENTDNC = 'tblentdnc.fnsentdnc';
+
+    /**
      * the column name for the created_at field
      */
     const COL_CREATED_AT = 'tblentdnc.created_at';
@@ -133,11 +143,11 @@ class TblentdncTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Identdnc', 'Idnentemp', 'Uuid', 'Dscentdnc', 'Tipentdnc', 'Kgsentdnc', 'Cntcjsdnc', 'Tmprstdnc', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('identdnc', 'idnentemp', 'uuid', 'dscentdnc', 'tipentdnc', 'kgsentdnc', 'cntcjsdnc', 'tmprstdnc', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(TblentdncTableMap::COL_IDENTDNC, TblentdncTableMap::COL_IDNENTEMP, TblentdncTableMap::COL_UUID, TblentdncTableMap::COL_DSCENTDNC, TblentdncTableMap::COL_TIPENTDNC, TblentdncTableMap::COL_KGSENTDNC, TblentdncTableMap::COL_CNTCJSDNC, TblentdncTableMap::COL_TMPRSTDNC, TblentdncTableMap::COL_CREATED_AT, TblentdncTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('identdnc', 'idnentemp', 'uuid', 'dscentdnc', 'tipentdnc', 'kgsentdnc', 'cntcjsdnc', 'tmprstdnc', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Identdnc', 'Idnentemp', 'Uuid', 'Dscentdnc', 'Tipentdnc', 'Kgsentdnc', 'Cntcjsdnc', 'Tmprstdnc', 'Rqsentdnc', 'Fnsentdnc', 'CreatedAt', 'UpdatedAt', ),
+        self::TYPE_CAMELNAME     => array('identdnc', 'idnentemp', 'uuid', 'dscentdnc', 'tipentdnc', 'kgsentdnc', 'cntcjsdnc', 'tmprstdnc', 'rqsentdnc', 'fnsentdnc', 'createdAt', 'updatedAt', ),
+        self::TYPE_COLNAME       => array(TblentdncTableMap::COL_IDENTDNC, TblentdncTableMap::COL_IDNENTEMP, TblentdncTableMap::COL_UUID, TblentdncTableMap::COL_DSCENTDNC, TblentdncTableMap::COL_TIPENTDNC, TblentdncTableMap::COL_KGSENTDNC, TblentdncTableMap::COL_CNTCJSDNC, TblentdncTableMap::COL_TMPRSTDNC, TblentdncTableMap::COL_RQSENTDNC, TblentdncTableMap::COL_FNSENTDNC, TblentdncTableMap::COL_CREATED_AT, TblentdncTableMap::COL_UPDATED_AT, ),
+        self::TYPE_FIELDNAME     => array('identdnc', 'idnentemp', 'uuid', 'dscentdnc', 'tipentdnc', 'kgsentdnc', 'cntcjsdnc', 'tmprstdnc', 'rqsentdnc', 'fnsentdnc', 'created_at', 'updated_at', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -147,11 +157,11 @@ class TblentdncTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Identdnc' => 0, 'Idnentemp' => 1, 'Uuid' => 2, 'Dscentdnc' => 3, 'Tipentdnc' => 4, 'Kgsentdnc' => 5, 'Cntcjsdnc' => 6, 'Tmprstdnc' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
-        self::TYPE_CAMELNAME     => array('identdnc' => 0, 'idnentemp' => 1, 'uuid' => 2, 'dscentdnc' => 3, 'tipentdnc' => 4, 'kgsentdnc' => 5, 'cntcjsdnc' => 6, 'tmprstdnc' => 7, 'createdAt' => 8, 'updatedAt' => 9, ),
-        self::TYPE_COLNAME       => array(TblentdncTableMap::COL_IDENTDNC => 0, TblentdncTableMap::COL_IDNENTEMP => 1, TblentdncTableMap::COL_UUID => 2, TblentdncTableMap::COL_DSCENTDNC => 3, TblentdncTableMap::COL_TIPENTDNC => 4, TblentdncTableMap::COL_KGSENTDNC => 5, TblentdncTableMap::COL_CNTCJSDNC => 6, TblentdncTableMap::COL_TMPRSTDNC => 7, TblentdncTableMap::COL_CREATED_AT => 8, TblentdncTableMap::COL_UPDATED_AT => 9, ),
-        self::TYPE_FIELDNAME     => array('identdnc' => 0, 'idnentemp' => 1, 'uuid' => 2, 'dscentdnc' => 3, 'tipentdnc' => 4, 'kgsentdnc' => 5, 'cntcjsdnc' => 6, 'tmprstdnc' => 7, 'created_at' => 8, 'updated_at' => 9, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Identdnc' => 0, 'Idnentemp' => 1, 'Uuid' => 2, 'Dscentdnc' => 3, 'Tipentdnc' => 4, 'Kgsentdnc' => 5, 'Cntcjsdnc' => 6, 'Tmprstdnc' => 7, 'Rqsentdnc' => 8, 'Fnsentdnc' => 9, 'CreatedAt' => 10, 'UpdatedAt' => 11, ),
+        self::TYPE_CAMELNAME     => array('identdnc' => 0, 'idnentemp' => 1, 'uuid' => 2, 'dscentdnc' => 3, 'tipentdnc' => 4, 'kgsentdnc' => 5, 'cntcjsdnc' => 6, 'tmprstdnc' => 7, 'rqsentdnc' => 8, 'fnsentdnc' => 9, 'createdAt' => 10, 'updatedAt' => 11, ),
+        self::TYPE_COLNAME       => array(TblentdncTableMap::COL_IDENTDNC => 0, TblentdncTableMap::COL_IDNENTEMP => 1, TblentdncTableMap::COL_UUID => 2, TblentdncTableMap::COL_DSCENTDNC => 3, TblentdncTableMap::COL_TIPENTDNC => 4, TblentdncTableMap::COL_KGSENTDNC => 5, TblentdncTableMap::COL_CNTCJSDNC => 6, TblentdncTableMap::COL_TMPRSTDNC => 7, TblentdncTableMap::COL_RQSENTDNC => 8, TblentdncTableMap::COL_FNSENTDNC => 9, TblentdncTableMap::COL_CREATED_AT => 10, TblentdncTableMap::COL_UPDATED_AT => 11, ),
+        self::TYPE_FIELDNAME     => array('identdnc' => 0, 'idnentemp' => 1, 'uuid' => 2, 'dscentdnc' => 3, 'tipentdnc' => 4, 'kgsentdnc' => 5, 'cntcjsdnc' => 6, 'tmprstdnc' => 7, 'rqsentdnc' => 8, 'fnsentdnc' => 9, 'created_at' => 10, 'updated_at' => 11, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -178,7 +188,9 @@ class TblentdncTableMap extends TableMap
         $this->addColumn('tipentdnc', 'Tipentdnc', 'VARCHAR', true, 255, null);
         $this->addColumn('kgsentdnc', 'Kgsentdnc', 'DOUBLE', true, null, null);
         $this->addColumn('cntcjsdnc', 'Cntcjsdnc', 'INTEGER', true, null, null);
-        $this->addColumn('tmprstdnc', 'Tmprstdnc', 'INTEGER', true, null, null);
+        $this->addColumn('tmprstdnc', 'Tmprstdnc', 'TIMESTAMP', true, null, 'CURRENT_TIMESTAMP');
+        $this->addColumn('rqsentdnc', 'Rqsentdnc', 'BOOLEAN', true, 1, false);
+        $this->addColumn('fnsentdnc', 'Fnsentdnc', 'BOOLEAN', true, 1, false);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
     } // initialize()
@@ -346,6 +358,8 @@ class TblentdncTableMap extends TableMap
             $criteria->addSelectColumn(TblentdncTableMap::COL_KGSENTDNC);
             $criteria->addSelectColumn(TblentdncTableMap::COL_CNTCJSDNC);
             $criteria->addSelectColumn(TblentdncTableMap::COL_TMPRSTDNC);
+            $criteria->addSelectColumn(TblentdncTableMap::COL_RQSENTDNC);
+            $criteria->addSelectColumn(TblentdncTableMap::COL_FNSENTDNC);
             $criteria->addSelectColumn(TblentdncTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(TblentdncTableMap::COL_UPDATED_AT);
         } else {
@@ -357,6 +371,8 @@ class TblentdncTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.kgsentdnc');
             $criteria->addSelectColumn($alias . '.cntcjsdnc');
             $criteria->addSelectColumn($alias . '.tmprstdnc');
+            $criteria->addSelectColumn($alias . '.rqsentdnc');
+            $criteria->addSelectColumn($alias . '.fnsentdnc');
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
         }

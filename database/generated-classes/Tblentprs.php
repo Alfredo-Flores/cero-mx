@@ -153,6 +153,11 @@ class Tblentprs extends BaseTblentprs
                     $entprs->setUpdatedAt($data['updated_at']);
                 }
             }
+            if(array_key_exists('tipentprs', $data)){
+                if(!is_null($data['tipentprs'])){
+                    $entprs->setTipentprs($data['tipentprs']);
+                }
+            }
             $entprs->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
@@ -342,6 +347,17 @@ if($filidnentusr != 0){
         if(!$entprs) return false;
 
         return $entprs;
+    }
+
+    public static function fnoentusr($idnentprs, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entusr = \TblentprsQuery::create()
+            ->filterByIdnentusr($idnentprs)
+            ->findOne($connection);
+
+        if(!$entusr) return false;
+
+        return $entusr;
     }
 
     public static function fnuentprs($uuid,\Propel\Runtime\Connection\ConnectionInterface $connection = null)

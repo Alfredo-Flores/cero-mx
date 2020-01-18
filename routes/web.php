@@ -11,6 +11,9 @@
 |
 */
 
+use App\ReturnHandler;
+use Illuminate\Support\Facades\Auth;
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/', 'MainController@index')->name("index");
@@ -24,7 +27,18 @@ Route::post('/Users/submit/login', 'UsersController@login')->name("login");
 
 Route::middleware("auth")->group(function () {
     Route::get('/Users/submit/logout', 'UsersController@logout')->name("logout");
-    Route::get('/registeradvanced', function () { return view('auth.registerinstitution'); })->name("registeradvancedview");
+    Route::get('/registeradvanced', function () {
+        $id = Auth::user()->id;
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if ($tipentprs) {
+            return view('welcome');
+        }
+
+        return view('auth.registerinstitution');
+
+    })->name("registeradvancedview");
     Route::post('/postregisteradvanced', 'MainController@registeradvanced')->name("registeradvanced");
 });
 
@@ -59,25 +73,36 @@ Route::post('/Tblentcln/modify', 'TblentclnController@update')->name('Tblentcln.
 Route::post('/Tblentcln/remove', 'TblentclnController@destroy')->name('Tblentcln.remove');
 
 //Tblentdnc Route
-Route::get('/Tblentdnc', 'TblentdncController@index')->name('Tblentdnc.main');
-Route::post('/Tblentdnc/fetch', 'TblentdncController@loadtable')->name('Tblentdnc.fetch');
-Route::post('/Tblentdnc/submit', 'TblentdncController@create')->name('Tblentdnc.submit');
-Route::post('/Tblentdnc/modify', 'TblentdncController@update')->name('Tblentdnc.modify');
-Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/Tblentdnc', 'TblentdncController@index')->name('Tblentdnc.main');
+    Route::post('/Tblentdnc/fetch', 'TblentdncController@loadtable')->name('Tblentdnc.fetch');
+    Route::post('/Tblentdnc/submit', 'TblentdncController@create')->name('Tblentdnc.submit');
+    Route::post('/Tblentdnc/modify', 'TblentdncController@update')->name('Tblentdnc.modify');
+    Route::post('/Tblentdnc/request', 'TblentdncController@request')->name('Tblentdnc.request');
+    Route::post('/Tblentdnc/finish', 'TblentdncController@finish')->name('Tblentdnc.finish');
+    Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
+});
+
 
 //Tblentemp Route
-Route::get('/Tblentemp', 'TblentempController@index')->name('Tblentemp.main');
-Route::post('/Tblentemp/fetch', 'TblentempController@loadtable')->name('Tblentemp.fetch');
-Route::post('/Tblentemp/submit', 'TblentempController@create')->name('Tblentemp.submit');
-Route::post('/Tblentemp/modify', 'TblentempController@update')->name('Tblentemp.modify');
-Route::post('/Tblentemp/remove', 'TblentempController@destroy')->name('Tblentemp.remove');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/Tblentemp', 'TblentempController@index')->name('Tblentemp.main');
+    Route::post('/Tblentemp/submit', 'TblentempController@create')->name('Tblentemp.submit');
+    Route::post('/Tblentemp/fetch', 'TblentempController@loadtable')->name('Tblentemp.fetch');
+    Route::post('/Tblentemp/modify', 'TblentempController@update')->name('Tblentemp.modify');
+    Route::post('/Tblentemp/remove', 'TblentempController@destroy')->name('Tblentemp.remove');
+});
+
 
 //Tblentorg Route
-Route::get('/Tblentorg', 'TblentorgController@index')->name('Tblentorg.main');
-Route::post('/Tblentorg/fetch', 'TblentorgController@loadtable')->name('Tblentorg.fetch');
-Route::post('/Tblentorg/submit', 'TblentorgController@create')->name('Tblentorg.submit');
-Route::post('/Tblentorg/modify', 'TblentorgController@update')->name('Tblentorg.modify');
-Route::post('/Tblentorg/remove', 'TblentorgController@destroy')->name('Tblentorg.remove');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/Tblentorg', 'TblentorgController@index')->name('Tblentorg.main');
+    Route::post('/Tblentorg/fetch', 'TblentorgController@loadtable')->name('Tblentorg.fetch');
+    Route::post('/Tblentorg/submit', 'TblentorgController@create')->name('Tblentorg.submit');
+    Route::post('/Tblentorg/modify', 'TblentorgController@update')->name('Tblentorg.modify');
+    Route::post('/Tblentorg/remove', 'TblentorgController@destroy')->name('Tblentorg.remove');
+});
+
 
 //Tblentprs Route
 Route::get('/Tblentprs', 'TblentprsController@index')->name('Tblentprs.main');

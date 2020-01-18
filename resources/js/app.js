@@ -14,7 +14,8 @@ import Chartist from "chartist";
 import VueRouter from 'vue-router';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
-
+import FullCalendar from "@fullcalendar/vue";
+import Swal from 'sweetalert2'
 
 
 // CSS para el Modulos
@@ -39,10 +40,11 @@ const i18n = new VueInternationalization({
 
 import DashboardPlugin from "./material-dashboard";
 import DashboardLayout from "./components/Layout/DashboardLayout";
+import EmpresasLayout from "./components/Layout/EmpresasLayout";
+import OrganizacionesLayout from "./components/Layout/OrganizacionesLayout";
 
 import PricingCard from "./components/Cards/PricingCard.vue";
 import SignupCard from "./components/Cards/SignupCard.vue";
-import LockCard from "./components/Cards/LockCard.vue";
 import LoginCard from "./components/Cards/LoginCard.vue";
 import StatsCard from "./components/Cards/StatsCard.vue";
 import ChartCard from "./components/Cards/ChartCard.vue";
@@ -58,6 +60,8 @@ import SecondStep from "./components/Wizard/Steps/SecondStep.vue";
 import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
 import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
 import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
+import Modal from "./components/Modal.vue";
+
 
 
 Vue.component("validation-provider", ValidationProvider);
@@ -73,10 +77,15 @@ Vue.component("organizacion-step", OrganizacionStep);
 Vue.component("icon-checkbox", IconCheckbox);
 Vue.component("signup-card", SignupCard);
 Vue.component("dashboard-layout", DashboardLayout);
+Vue.component("empresas-layout", EmpresasLayout);
+Vue.component("organizaciones-layout", OrganizacionesLayout);
+Vue.component("full-calendar", FullCalendar);
+Vue.component("modal", Modal);
 
 Vue.use(DashboardPlugin);
 
-Vue.config.performance = true;
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 // Chartist
 Object.defineProperty(Vue.prototype, "$Chartist", {

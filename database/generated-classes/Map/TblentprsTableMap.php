@@ -59,7 +59,7 @@ class TblentprsTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 22;
+    const NUM_COLUMNS = 23;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class TblentprsTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 22;
+    const NUM_HYDRATE_COLUMNS = 23;
 
     /**
      * the column name for the idnentprs field
@@ -172,6 +172,11 @@ class TblentprsTableMap extends TableMap
     const COL_FOTENTPRS = 'tblentprs.fotentprs';
 
     /**
+     * the column name for the tipentprs field
+     */
+    const COL_TIPENTPRS = 'tblentprs.tipentprs';
+
+    /**
      * the column name for the created_at field
      */
     const COL_CREATED_AT = 'tblentprs.created_at';
@@ -193,11 +198,11 @@ class TblentprsTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Idnentprs', 'Uuid', 'Idnentusr', 'Nomentprs', 'Prmaplprs', 'Sgnaplprs', 'Crpentprs', 'Rfcentprs', 'Emllbrprs', 'Emlprsprs', 'Ncnentprs', 'Pasentprs', 'Ententprs', 'Mncentprs', 'Lclentprs', 'Dmcentprs', 'Cdgpstprs', 'Tlffijprs', 'Tlfmvlprs', 'Fotentprs', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('idnentprs', 'uuid', 'idnentusr', 'nomentprs', 'prmaplprs', 'sgnaplprs', 'crpentprs', 'rfcentprs', 'emllbrprs', 'emlprsprs', 'ncnentprs', 'pasentprs', 'ententprs', 'mncentprs', 'lclentprs', 'dmcentprs', 'cdgpstprs', 'tlffijprs', 'tlfmvlprs', 'fotentprs', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(TblentprsTableMap::COL_IDNENTPRS, TblentprsTableMap::COL_UUID, TblentprsTableMap::COL_IDNENTUSR, TblentprsTableMap::COL_NOMENTPRS, TblentprsTableMap::COL_PRMAPLPRS, TblentprsTableMap::COL_SGNAPLPRS, TblentprsTableMap::COL_CRPENTPRS, TblentprsTableMap::COL_RFCENTPRS, TblentprsTableMap::COL_EMLLBRPRS, TblentprsTableMap::COL_EMLPRSPRS, TblentprsTableMap::COL_NCNENTPRS, TblentprsTableMap::COL_PASENTPRS, TblentprsTableMap::COL_ENTENTPRS, TblentprsTableMap::COL_MNCENTPRS, TblentprsTableMap::COL_LCLENTPRS, TblentprsTableMap::COL_DMCENTPRS, TblentprsTableMap::COL_CDGPSTPRS, TblentprsTableMap::COL_TLFFIJPRS, TblentprsTableMap::COL_TLFMVLPRS, TblentprsTableMap::COL_FOTENTPRS, TblentprsTableMap::COL_CREATED_AT, TblentprsTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('idnentprs', 'uuid', 'idnentusr', 'nomentprs', 'prmaplprs', 'sgnaplprs', 'crpentprs', 'rfcentprs', 'emllbrprs', 'emlprsprs', 'ncnentprs', 'pasentprs', 'ententprs', 'mncentprs', 'lclentprs', 'dmcentprs', 'cdgpstprs', 'tlffijprs', 'tlfmvlprs', 'fotentprs', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
+        self::TYPE_PHPNAME       => array('Idnentprs', 'Uuid', 'Idnentusr', 'Nomentprs', 'Prmaplprs', 'Sgnaplprs', 'Crpentprs', 'Rfcentprs', 'Emllbrprs', 'Emlprsprs', 'Ncnentprs', 'Pasentprs', 'Ententprs', 'Mncentprs', 'Lclentprs', 'Dmcentprs', 'Cdgpstprs', 'Tlffijprs', 'Tlfmvlprs', 'Fotentprs', 'Tipentprs', 'CreatedAt', 'UpdatedAt', ),
+        self::TYPE_CAMELNAME     => array('idnentprs', 'uuid', 'idnentusr', 'nomentprs', 'prmaplprs', 'sgnaplprs', 'crpentprs', 'rfcentprs', 'emllbrprs', 'emlprsprs', 'ncnentprs', 'pasentprs', 'ententprs', 'mncentprs', 'lclentprs', 'dmcentprs', 'cdgpstprs', 'tlffijprs', 'tlfmvlprs', 'fotentprs', 'tipentprs', 'createdAt', 'updatedAt', ),
+        self::TYPE_COLNAME       => array(TblentprsTableMap::COL_IDNENTPRS, TblentprsTableMap::COL_UUID, TblentprsTableMap::COL_IDNENTUSR, TblentprsTableMap::COL_NOMENTPRS, TblentprsTableMap::COL_PRMAPLPRS, TblentprsTableMap::COL_SGNAPLPRS, TblentprsTableMap::COL_CRPENTPRS, TblentprsTableMap::COL_RFCENTPRS, TblentprsTableMap::COL_EMLLBRPRS, TblentprsTableMap::COL_EMLPRSPRS, TblentprsTableMap::COL_NCNENTPRS, TblentprsTableMap::COL_PASENTPRS, TblentprsTableMap::COL_ENTENTPRS, TblentprsTableMap::COL_MNCENTPRS, TblentprsTableMap::COL_LCLENTPRS, TblentprsTableMap::COL_DMCENTPRS, TblentprsTableMap::COL_CDGPSTPRS, TblentprsTableMap::COL_TLFFIJPRS, TblentprsTableMap::COL_TLFMVLPRS, TblentprsTableMap::COL_FOTENTPRS, TblentprsTableMap::COL_TIPENTPRS, TblentprsTableMap::COL_CREATED_AT, TblentprsTableMap::COL_UPDATED_AT, ),
+        self::TYPE_FIELDNAME     => array('idnentprs', 'uuid', 'idnentusr', 'nomentprs', 'prmaplprs', 'sgnaplprs', 'crpentprs', 'rfcentprs', 'emllbrprs', 'emlprsprs', 'ncnentprs', 'pasentprs', 'ententprs', 'mncentprs', 'lclentprs', 'dmcentprs', 'cdgpstprs', 'tlffijprs', 'tlfmvlprs', 'fotentprs', 'tipentprs', 'created_at', 'updated_at', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, )
     );
 
     /**
@@ -207,11 +212,11 @@ class TblentprsTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Idnentprs' => 0, 'Uuid' => 1, 'Idnentusr' => 2, 'Nomentprs' => 3, 'Prmaplprs' => 4, 'Sgnaplprs' => 5, 'Crpentprs' => 6, 'Rfcentprs' => 7, 'Emllbrprs' => 8, 'Emlprsprs' => 9, 'Ncnentprs' => 10, 'Pasentprs' => 11, 'Ententprs' => 12, 'Mncentprs' => 13, 'Lclentprs' => 14, 'Dmcentprs' => 15, 'Cdgpstprs' => 16, 'Tlffijprs' => 17, 'Tlfmvlprs' => 18, 'Fotentprs' => 19, 'CreatedAt' => 20, 'UpdatedAt' => 21, ),
-        self::TYPE_CAMELNAME     => array('idnentprs' => 0, 'uuid' => 1, 'idnentusr' => 2, 'nomentprs' => 3, 'prmaplprs' => 4, 'sgnaplprs' => 5, 'crpentprs' => 6, 'rfcentprs' => 7, 'emllbrprs' => 8, 'emlprsprs' => 9, 'ncnentprs' => 10, 'pasentprs' => 11, 'ententprs' => 12, 'mncentprs' => 13, 'lclentprs' => 14, 'dmcentprs' => 15, 'cdgpstprs' => 16, 'tlffijprs' => 17, 'tlfmvlprs' => 18, 'fotentprs' => 19, 'createdAt' => 20, 'updatedAt' => 21, ),
-        self::TYPE_COLNAME       => array(TblentprsTableMap::COL_IDNENTPRS => 0, TblentprsTableMap::COL_UUID => 1, TblentprsTableMap::COL_IDNENTUSR => 2, TblentprsTableMap::COL_NOMENTPRS => 3, TblentprsTableMap::COL_PRMAPLPRS => 4, TblentprsTableMap::COL_SGNAPLPRS => 5, TblentprsTableMap::COL_CRPENTPRS => 6, TblentprsTableMap::COL_RFCENTPRS => 7, TblentprsTableMap::COL_EMLLBRPRS => 8, TblentprsTableMap::COL_EMLPRSPRS => 9, TblentprsTableMap::COL_NCNENTPRS => 10, TblentprsTableMap::COL_PASENTPRS => 11, TblentprsTableMap::COL_ENTENTPRS => 12, TblentprsTableMap::COL_MNCENTPRS => 13, TblentprsTableMap::COL_LCLENTPRS => 14, TblentprsTableMap::COL_DMCENTPRS => 15, TblentprsTableMap::COL_CDGPSTPRS => 16, TblentprsTableMap::COL_TLFFIJPRS => 17, TblentprsTableMap::COL_TLFMVLPRS => 18, TblentprsTableMap::COL_FOTENTPRS => 19, TblentprsTableMap::COL_CREATED_AT => 20, TblentprsTableMap::COL_UPDATED_AT => 21, ),
-        self::TYPE_FIELDNAME     => array('idnentprs' => 0, 'uuid' => 1, 'idnentusr' => 2, 'nomentprs' => 3, 'prmaplprs' => 4, 'sgnaplprs' => 5, 'crpentprs' => 6, 'rfcentprs' => 7, 'emllbrprs' => 8, 'emlprsprs' => 9, 'ncnentprs' => 10, 'pasentprs' => 11, 'ententprs' => 12, 'mncentprs' => 13, 'lclentprs' => 14, 'dmcentprs' => 15, 'cdgpstprs' => 16, 'tlffijprs' => 17, 'tlfmvlprs' => 18, 'fotentprs' => 19, 'created_at' => 20, 'updated_at' => 21, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, )
+        self::TYPE_PHPNAME       => array('Idnentprs' => 0, 'Uuid' => 1, 'Idnentusr' => 2, 'Nomentprs' => 3, 'Prmaplprs' => 4, 'Sgnaplprs' => 5, 'Crpentprs' => 6, 'Rfcentprs' => 7, 'Emllbrprs' => 8, 'Emlprsprs' => 9, 'Ncnentprs' => 10, 'Pasentprs' => 11, 'Ententprs' => 12, 'Mncentprs' => 13, 'Lclentprs' => 14, 'Dmcentprs' => 15, 'Cdgpstprs' => 16, 'Tlffijprs' => 17, 'Tlfmvlprs' => 18, 'Fotentprs' => 19, 'Tipentprs' => 20, 'CreatedAt' => 21, 'UpdatedAt' => 22, ),
+        self::TYPE_CAMELNAME     => array('idnentprs' => 0, 'uuid' => 1, 'idnentusr' => 2, 'nomentprs' => 3, 'prmaplprs' => 4, 'sgnaplprs' => 5, 'crpentprs' => 6, 'rfcentprs' => 7, 'emllbrprs' => 8, 'emlprsprs' => 9, 'ncnentprs' => 10, 'pasentprs' => 11, 'ententprs' => 12, 'mncentprs' => 13, 'lclentprs' => 14, 'dmcentprs' => 15, 'cdgpstprs' => 16, 'tlffijprs' => 17, 'tlfmvlprs' => 18, 'fotentprs' => 19, 'tipentprs' => 20, 'createdAt' => 21, 'updatedAt' => 22, ),
+        self::TYPE_COLNAME       => array(TblentprsTableMap::COL_IDNENTPRS => 0, TblentprsTableMap::COL_UUID => 1, TblentprsTableMap::COL_IDNENTUSR => 2, TblentprsTableMap::COL_NOMENTPRS => 3, TblentprsTableMap::COL_PRMAPLPRS => 4, TblentprsTableMap::COL_SGNAPLPRS => 5, TblentprsTableMap::COL_CRPENTPRS => 6, TblentprsTableMap::COL_RFCENTPRS => 7, TblentprsTableMap::COL_EMLLBRPRS => 8, TblentprsTableMap::COL_EMLPRSPRS => 9, TblentprsTableMap::COL_NCNENTPRS => 10, TblentprsTableMap::COL_PASENTPRS => 11, TblentprsTableMap::COL_ENTENTPRS => 12, TblentprsTableMap::COL_MNCENTPRS => 13, TblentprsTableMap::COL_LCLENTPRS => 14, TblentprsTableMap::COL_DMCENTPRS => 15, TblentprsTableMap::COL_CDGPSTPRS => 16, TblentprsTableMap::COL_TLFFIJPRS => 17, TblentprsTableMap::COL_TLFMVLPRS => 18, TblentprsTableMap::COL_FOTENTPRS => 19, TblentprsTableMap::COL_TIPENTPRS => 20, TblentprsTableMap::COL_CREATED_AT => 21, TblentprsTableMap::COL_UPDATED_AT => 22, ),
+        self::TYPE_FIELDNAME     => array('idnentprs' => 0, 'uuid' => 1, 'idnentusr' => 2, 'nomentprs' => 3, 'prmaplprs' => 4, 'sgnaplprs' => 5, 'crpentprs' => 6, 'rfcentprs' => 7, 'emllbrprs' => 8, 'emlprsprs' => 9, 'ncnentprs' => 10, 'pasentprs' => 11, 'ententprs' => 12, 'mncentprs' => 13, 'lclentprs' => 14, 'dmcentprs' => 15, 'cdgpstprs' => 16, 'tlffijprs' => 17, 'tlfmvlprs' => 18, 'fotentprs' => 19, 'tipentprs' => 20, 'created_at' => 21, 'updated_at' => 22, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, )
     );
 
     /**
@@ -251,6 +256,7 @@ class TblentprsTableMap extends TableMap
         $this->addColumn('tlffijprs', 'Tlffijprs', 'VARCHAR', true, 12, '');
         $this->addColumn('tlfmvlprs', 'Tlfmvlprs', 'VARCHAR', true, 12, '');
         $this->addColumn('fotentprs', 'Fotentprs', 'VARCHAR', false, 255, null);
+        $this->addColumn('tipentprs', 'Tipentprs', 'VARCHAR', true, 255, '0');
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
     } // initialize()
@@ -444,6 +450,7 @@ class TblentprsTableMap extends TableMap
             $criteria->addSelectColumn(TblentprsTableMap::COL_TLFFIJPRS);
             $criteria->addSelectColumn(TblentprsTableMap::COL_TLFMVLPRS);
             $criteria->addSelectColumn(TblentprsTableMap::COL_FOTENTPRS);
+            $criteria->addSelectColumn(TblentprsTableMap::COL_TIPENTPRS);
             $criteria->addSelectColumn(TblentprsTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(TblentprsTableMap::COL_UPDATED_AT);
         } else {
@@ -467,6 +474,7 @@ class TblentprsTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.tlffijprs');
             $criteria->addSelectColumn($alias . '.tlfmvlprs');
             $criteria->addSelectColumn($alias . '.fotentprs');
+            $criteria->addSelectColumn($alias . '.tipentprs');
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
         }

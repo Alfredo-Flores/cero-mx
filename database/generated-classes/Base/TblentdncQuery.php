@@ -28,6 +28,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdncQuery orderByKgsentdnc($order = Criteria::ASC) Order by the kgsentdnc column
  * @method     ChildTblentdncQuery orderByCntcjsdnc($order = Criteria::ASC) Order by the cntcjsdnc column
  * @method     ChildTblentdncQuery orderByTmprstdnc($order = Criteria::ASC) Order by the tmprstdnc column
+ * @method     ChildTblentdncQuery orderByRqsentdnc($order = Criteria::ASC) Order by the rqsentdnc column
+ * @method     ChildTblentdncQuery orderByFnsentdnc($order = Criteria::ASC) Order by the fnsentdnc column
  * @method     ChildTblentdncQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentdncQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
@@ -39,6 +41,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdncQuery groupByKgsentdnc() Group by the kgsentdnc column
  * @method     ChildTblentdncQuery groupByCntcjsdnc() Group by the cntcjsdnc column
  * @method     ChildTblentdncQuery groupByTmprstdnc() Group by the tmprstdnc column
+ * @method     ChildTblentdncQuery groupByRqsentdnc() Group by the rqsentdnc column
+ * @method     ChildTblentdncQuery groupByFnsentdnc() Group by the fnsentdnc column
  * @method     ChildTblentdncQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentdncQuery groupByUpdatedAt() Group by the updated_at column
  *
@@ -72,7 +76,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc findOneByTipentdnc(string $tipentdnc) Return the first ChildTblentdnc filtered by the tipentdnc column
  * @method     ChildTblentdnc findOneByKgsentdnc(double $kgsentdnc) Return the first ChildTblentdnc filtered by the kgsentdnc column
  * @method     ChildTblentdnc findOneByCntcjsdnc(int $cntcjsdnc) Return the first ChildTblentdnc filtered by the cntcjsdnc column
- * @method     ChildTblentdnc findOneByTmprstdnc(int $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column
+ * @method     ChildTblentdnc findOneByTmprstdnc(string $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column
+ * @method     ChildTblentdnc findOneByRqsentdnc(boolean $rqsentdnc) Return the first ChildTblentdnc filtered by the rqsentdnc column
+ * @method     ChildTblentdnc findOneByFnsentdnc(boolean $fnsentdnc) Return the first ChildTblentdnc filtered by the fnsentdnc column
  * @method     ChildTblentdnc findOneByCreatedAt(string $created_at) Return the first ChildTblentdnc filtered by the created_at column
  * @method     ChildTblentdnc findOneByUpdatedAt(string $updated_at) Return the first ChildTblentdnc filtered by the updated_at column *
 
@@ -86,7 +92,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc requireOneByTipentdnc(string $tipentdnc) Return the first ChildTblentdnc filtered by the tipentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByKgsentdnc(double $kgsentdnc) Return the first ChildTblentdnc filtered by the kgsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByCntcjsdnc(int $cntcjsdnc) Return the first ChildTblentdnc filtered by the cntcjsdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildTblentdnc requireOneByTmprstdnc(int $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentdnc requireOneByTmprstdnc(string $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentdnc requireOneByRqsentdnc(boolean $rqsentdnc) Return the first ChildTblentdnc filtered by the rqsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentdnc requireOneByFnsentdnc(boolean $fnsentdnc) Return the first ChildTblentdnc filtered by the fnsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByCreatedAt(string $created_at) Return the first ChildTblentdnc filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentdnc filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -98,7 +106,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc[]|ObjectCollection findByTipentdnc(string $tipentdnc) Return ChildTblentdnc objects filtered by the tipentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByKgsentdnc(double $kgsentdnc) Return ChildTblentdnc objects filtered by the kgsentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByCntcjsdnc(int $cntcjsdnc) Return ChildTblentdnc objects filtered by the cntcjsdnc column
- * @method     ChildTblentdnc[]|ObjectCollection findByTmprstdnc(int $tmprstdnc) Return ChildTblentdnc objects filtered by the tmprstdnc column
+ * @method     ChildTblentdnc[]|ObjectCollection findByTmprstdnc(string $tmprstdnc) Return ChildTblentdnc objects filtered by the tmprstdnc column
+ * @method     ChildTblentdnc[]|ObjectCollection findByRqsentdnc(boolean $rqsentdnc) Return ChildTblentdnc objects filtered by the rqsentdnc column
+ * @method     ChildTblentdnc[]|ObjectCollection findByFnsentdnc(boolean $fnsentdnc) Return ChildTblentdnc objects filtered by the fnsentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentdnc objects filtered by the created_at column
  * @method     ChildTblentdnc[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentdnc objects filtered by the updated_at column
  * @method     ChildTblentdnc[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -199,7 +209,7 @@ abstract class TblentdncQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT identdnc, idnentemp, uuid, dscentdnc, tipentdnc, kgsentdnc, cntcjsdnc, tmprstdnc, created_at, updated_at FROM tblentdnc WHERE identdnc = :p0';
+        $sql = 'SELECT identdnc, idnentemp, uuid, dscentdnc, tipentdnc, kgsentdnc, cntcjsdnc, tmprstdnc, rqsentdnc, fnsentdnc, created_at, updated_at FROM tblentdnc WHERE identdnc = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -535,12 +545,14 @@ abstract class TblentdncQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByTmprstdnc(1234); // WHERE tmprstdnc = 1234
-     * $query->filterByTmprstdnc(array(12, 34)); // WHERE tmprstdnc IN (12, 34)
-     * $query->filterByTmprstdnc(array('min' => 12)); // WHERE tmprstdnc > 12
+     * $query->filterByTmprstdnc('2011-03-14'); // WHERE tmprstdnc = '2011-03-14'
+     * $query->filterByTmprstdnc('now'); // WHERE tmprstdnc = '2011-03-14'
+     * $query->filterByTmprstdnc(array('max' => 'yesterday')); // WHERE tmprstdnc > '2011-03-13'
      * </code>
      *
      * @param     mixed $tmprstdnc The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -569,6 +581,60 @@ abstract class TblentdncQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentdncTableMap::COL_TMPRSTDNC, $tmprstdnc, $comparison);
+    }
+
+    /**
+     * Filter the query on the rqsentdnc column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByRqsentdnc(true); // WHERE rqsentdnc = true
+     * $query->filterByRqsentdnc('yes'); // WHERE rqsentdnc = true
+     * </code>
+     *
+     * @param     boolean|string $rqsentdnc The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function filterByRqsentdnc($rqsentdnc = null, $comparison = null)
+    {
+        if (is_string($rqsentdnc)) {
+            $rqsentdnc = in_array(strtolower($rqsentdnc), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(TblentdncTableMap::COL_RQSENTDNC, $rqsentdnc, $comparison);
+    }
+
+    /**
+     * Filter the query on the fnsentdnc column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFnsentdnc(true); // WHERE fnsentdnc = true
+     * $query->filterByFnsentdnc('yes'); // WHERE fnsentdnc = true
+     * </code>
+     *
+     * @param     boolean|string $fnsentdnc The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function filterByFnsentdnc($fnsentdnc = null, $comparison = null)
+    {
+        if (is_string($fnsentdnc)) {
+            $fnsentdnc = in_array(strtolower($fnsentdnc), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(TblentdncTableMap::COL_FNSENTDNC, $fnsentdnc, $comparison);
     }
 
     /**

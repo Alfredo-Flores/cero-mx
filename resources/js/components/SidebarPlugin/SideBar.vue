@@ -8,7 +8,7 @@
   >
     <div class="logo">
       <a
-        href="https://www.creative-tim.com"
+        href="/"
         class="simple-text logo-mini"
         target="_blank"
       >
@@ -17,7 +17,7 @@
         </div>
       </a>
       <a
-        href="https://www.creative-tim.com"
+        href="/"
         class="simple-text logo-normal"
         target="_blank"
       >
@@ -66,7 +66,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Vue MD PRO"
+      default: "CERO"
     },
     activeColor: {
       type: String,

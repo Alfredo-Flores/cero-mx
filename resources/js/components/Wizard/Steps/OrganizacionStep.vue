@@ -17,7 +17,7 @@
                                 </div>
                                 <input type="file" @change="onFileChange"/>
                             </div>
-                            <h6 class="description">{{ $t('firststep.logo') }}</h6>
+                            <h6 class="description">Logo de la organización <p style="color: red">*</p></h6>
                         </div>
                     </div>
                     <div class="md-layout-item md-size-50 md-small-size-100">

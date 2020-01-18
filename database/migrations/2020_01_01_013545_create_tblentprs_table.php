@@ -36,6 +36,7 @@ class CreateTblentprsTable extends Migration
             $table->string('tlffijprs', 12)->default('')->comment('TelFijo');
             $table->string('tlfmvlprs',12)->default('')->comment('TelMovil');
             $table->string('fotentprs')->nullable()->comment('Foto');
+            $table->string('tipentprs')->default('0')->comment('TipoInstitucion');
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');
         });

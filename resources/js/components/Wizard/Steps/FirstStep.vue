@@ -7,18 +7,23 @@
                 </h6>
                 <div class="md-layout">
                     <div class="md-layout-item md-size-30 md-small-size-100">
-                        <div class="picture-container">
-                            <div class="picture">
-                                <div v-if="!image">
-                                    <img :src="avatar" class="picture-src" title=""/>
+                        <ValidationProvider
+                            rules="required"
+                            v-slot="{ validate }"
+                        >
+                            <div class="picture-container">
+                                <div class="picture">
+                                    <div v-if="!image">
+                                        <img :src="avatar" class="picture-src" title=""/>
+                                    </div>
+                                        <div v-else>
+                                        <img :src="image"/>
+                                    </div>
+                                    <input type="file" @change="onFileChange" v-on:change="validate"/>
                                 </div>
-                                <div v-else>
-                                    <img :src="image"/>
-                                </div>
-                                <input type="file" @change="onFileChange"/>
+                                <h6 class="description">{{ $t('firststep.logo') }} <p style="color: red">*</p></h6>
                             </div>
-                            <h6 class="description">{{ $t('firststep.logo') }} <p style="color: red">*</p></h6>
-                        </div>
+                        </ValidationProvider>
                     </div>
                     <div class="md-layout-item md-size-70 mt-4 md-small-size-100">
 
@@ -451,6 +456,7 @@
                 telefonomovil: "",
                 foto: "",
                 image: "",
+                fotovalidation: "",
             };
         },
         methods: {
@@ -462,6 +468,7 @@
                 if (!files.length) return;
 
                 this.foto = files[0];
+                this.fotovalidation = true;
 
                 this.createImage(files[0]);
             },

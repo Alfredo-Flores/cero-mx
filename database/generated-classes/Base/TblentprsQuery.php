@@ -40,6 +40,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentprsQuery orderByTlffijprs($order = Criteria::ASC) Order by the tlffijprs column
  * @method     ChildTblentprsQuery orderByTlfmvlprs($order = Criteria::ASC) Order by the tlfmvlprs column
  * @method     ChildTblentprsQuery orderByFotentprs($order = Criteria::ASC) Order by the fotentprs column
+ * @method     ChildTblentprsQuery orderByTipentprs($order = Criteria::ASC) Order by the tipentprs column
  * @method     ChildTblentprsQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentprsQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
@@ -63,6 +64,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentprsQuery groupByTlffijprs() Group by the tlffijprs column
  * @method     ChildTblentprsQuery groupByTlfmvlprs() Group by the tlfmvlprs column
  * @method     ChildTblentprsQuery groupByFotentprs() Group by the fotentprs column
+ * @method     ChildTblentprsQuery groupByTipentprs() Group by the tipentprs column
  * @method     ChildTblentprsQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentprsQuery groupByUpdatedAt() Group by the updated_at column
  *
@@ -129,6 +131,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentprs findOneByTlffijprs(string $tlffijprs) Return the first ChildTblentprs filtered by the tlffijprs column
  * @method     ChildTblentprs findOneByTlfmvlprs(string $tlfmvlprs) Return the first ChildTblentprs filtered by the tlfmvlprs column
  * @method     ChildTblentprs findOneByFotentprs(string $fotentprs) Return the first ChildTblentprs filtered by the fotentprs column
+ * @method     ChildTblentprs findOneByTipentprs(string $tipentprs) Return the first ChildTblentprs filtered by the tipentprs column
  * @method     ChildTblentprs findOneByCreatedAt(string $created_at) Return the first ChildTblentprs filtered by the created_at column
  * @method     ChildTblentprs findOneByUpdatedAt(string $updated_at) Return the first ChildTblentprs filtered by the updated_at column *
 
@@ -155,6 +158,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentprs requireOneByTlffijprs(string $tlffijprs) Return the first ChildTblentprs filtered by the tlffijprs column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentprs requireOneByTlfmvlprs(string $tlfmvlprs) Return the first ChildTblentprs filtered by the tlfmvlprs column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentprs requireOneByFotentprs(string $fotentprs) Return the first ChildTblentprs filtered by the fotentprs column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentprs requireOneByTipentprs(string $tipentprs) Return the first ChildTblentprs filtered by the tipentprs column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentprs requireOneByCreatedAt(string $created_at) Return the first ChildTblentprs filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentprs requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentprs filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -179,6 +183,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentprs[]|ObjectCollection findByTlffijprs(string $tlffijprs) Return ChildTblentprs objects filtered by the tlffijprs column
  * @method     ChildTblentprs[]|ObjectCollection findByTlfmvlprs(string $tlfmvlprs) Return ChildTblentprs objects filtered by the tlfmvlprs column
  * @method     ChildTblentprs[]|ObjectCollection findByFotentprs(string $fotentprs) Return ChildTblentprs objects filtered by the fotentprs column
+ * @method     ChildTblentprs[]|ObjectCollection findByTipentprs(string $tipentprs) Return ChildTblentprs objects filtered by the tipentprs column
  * @method     ChildTblentprs[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentprs objects filtered by the created_at column
  * @method     ChildTblentprs[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentprs objects filtered by the updated_at column
  * @method     ChildTblentprs[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -279,7 +284,7 @@ abstract class TblentprsQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentprs, uuid, idnentusr, nomentprs, prmaplprs, sgnaplprs, crpentprs, rfcentprs, emllbrprs, emlprsprs, ncnentprs, pasentprs, ententprs, mncentprs, lclentprs, dmcentprs, cdgpstprs, tlffijprs, tlfmvlprs, fotentprs, created_at, updated_at FROM tblentprs WHERE idnentprs = :p0';
+        $sql = 'SELECT idnentprs, uuid, idnentusr, nomentprs, prmaplprs, sgnaplprs, crpentprs, rfcentprs, emllbrprs, emlprsprs, ncnentprs, pasentprs, ententprs, mncentprs, lclentprs, dmcentprs, cdgpstprs, tlffijprs, tlfmvlprs, fotentprs, tipentprs, created_at, updated_at FROM tblentprs WHERE idnentprs = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -901,6 +906,31 @@ abstract class TblentprsQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentprsTableMap::COL_FOTENTPRS, $fotentprs, $comparison);
+    }
+
+    /**
+     * Filter the query on the tipentprs column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByTipentprs('fooValue');   // WHERE tipentprs = 'fooValue'
+     * $query->filterByTipentprs('%fooValue%', Criteria::LIKE); // WHERE tipentprs LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $tipentprs The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentprsQuery The current query, for fluid interface
+     */
+    public function filterByTipentprs($tipentprs = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($tipentprs)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentprsTableMap::COL_TIPENTPRS, $tipentprs, $comparison);
     }
 
     /**

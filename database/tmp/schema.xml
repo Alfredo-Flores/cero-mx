@@ -93,7 +93,9 @@
     <column name="tipentdnc" phpName="Tipentdnc" type="VARCHAR" size="255" required="true"/>
     <column name="kgsentdnc" phpName="Kgsentdnc" type="DOUBLE" required="true"/>
     <column name="cntcjsdnc" phpName="Cntcjsdnc" type="INTEGER" required="true"/>
-    <column name="tmprstdnc" phpName="Tmprstdnc" type="INTEGER" required="true"/>
+    <column name="tmprstdnc" phpName="Tmprstdnc" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <column name="rqsentdnc" phpName="Rqsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="fnsentdnc" phpName="Fnsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="tblentemp" name="tblentdnc_idnentemp_foreign">
@@ -128,8 +130,8 @@
     <column name="emlofiemp" phpName="Emlofiemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="desaliemp" phpName="Desaliemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="candonemp" phpName="Candonemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
-    <column name="temconemp" phpName="Temconemp" type="TIMESTAMP"/>
-    <column name="horentemp" phpName="Horentemp" type="TIMESTAMP"/>
+    <column name="temconemp" phpName="Temconemp" type="VARCHAR" size="255"/>
+    <column name="horentemp" phpName="Horentemp" type="VARCHAR" size="255"/>
     <column name="detentemo" phpName="Detentemo" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
@@ -215,6 +217,7 @@
     <column name="tlffijprs" phpName="Tlffijprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
     <column name="tlfmvlprs" phpName="Tlfmvlprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
     <column name="fotentprs" phpName="Fotentprs" type="VARCHAR" size="255"/>
+    <column name="tipentprs" phpName="Tipentprs" type="VARCHAR" size="255" required="true" defaultValue="0"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="users" name="tblentprs_idnentusr_foreign">
@@ -265,7 +268,7 @@
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <column name="remember_token" phpName="RememberToken" type="VARCHAR" size="100"/>
-    <column name="isinstitution" phpName="Isinstitution" type="BOOLEAN" size="1" required="true"/>
+    <column name="isinstitution" phpName="Isinstitution" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <unique name="users_uuid_unique">
       <unique-column name="uuid"/>
     </unique>

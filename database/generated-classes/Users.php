@@ -8,6 +8,7 @@ class Users extends BaseUsers
     public static function crtusers(array $data , ConnectionInterface $connection = null)
     {
         $usr = new \Users();
+
         try{
             if(array_key_exists('uuid', $data)){
                 if(!is_null($data['uuid'])){
@@ -55,6 +56,7 @@ class Users extends BaseUsers
             Illuminate\Support\Facades\Log::debug($e);
             return false;
         }
+
         return $usr;
     }
 

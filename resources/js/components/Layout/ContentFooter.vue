@@ -4,35 +4,34 @@
       <nav>
         <ul>
           <li>
-            <a  href="https://www.creative-tim.com">Creative Tim</a>
-          </li>
-          <li>
-            <a  href="https://creative-tim.com/presentation">
-              About Us
+            <a  href="#">
+                Legal
             </a>
           </li>
           <li>
-            <a  href="http://blog.creative-tim.com">
-              Blog
+            <a  href="#">
+              Terminos y condiciones
             </a>
           </li>
           <li>
-            <a  href="https://www.creative-tim.com/license">
-              Licenses
+            <a  href="#">
+              Condiciones de privacidad
+            </a>
+          </li>
+          <li>
+            <a  href="#">
+              ¿Quienes somos?
             </a>
           </li>
         </ul>
       </nav>
-      <div class="copyright text-center navbar-right">
+      <div class="copyright text-center">
         &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.creative-tim.com/?ref=mdp-vuejs" target="_blank"
-          >Creative Tim</a
-        >, made with <i class="fa fa-heart heart"></i> for a better web
+          Hecho por
+        <a href="#" target="_blank"
+          >Magnimus Software</a
+        >
       </div>
     </div>
   </footer>
 </template>
-<script>
-export default {};
-</script>
-<style></style>

@@ -78,14 +78,14 @@
                                     </md-list-item>
 
                                 @if(Auth::user()->isinstitution)
-                                        <md-list-item href="{{ route("registeradvancedview") }}">
+                                        <md-list-item href="{{ route("Tblentdnc.main") }}">
                                             <md-icon>dashboard</md-icon>
                                             Administración
                                         </md-list-item>
                                     @else
                                         <md-list-item href="{{ route("registeradvancedview") }}">
                                             <md-icon>person_add</md-icon>
-                                            Registro de institución {{ Auth::user()->isinstitution  }}
+                                            Registro de institución
                                         </md-list-item>
                                     @endif
 

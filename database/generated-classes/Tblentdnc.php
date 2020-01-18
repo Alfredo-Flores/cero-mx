@@ -1,6 +1,8 @@
 <?php
 
 use Base\Tblentdnc as BaseTblentdnc;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\Propel;
 
 class Tblentdnc extends BaseTblentdnc
 {
@@ -153,6 +155,32 @@ class Tblentdnc extends BaseTblentdnc
             return $entdnc;
     }
 
+    public static function rqsentdnc(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->filterByUuid($data['uuid'])
+            ->findOne($connection);
+
+        if(!$entdnc) return false;
+
+        try{
+
+            if(array_key_exists('rqsentdnc', $data)){
+                if(!is_null($data['rqsentdnc'])){
+                    $entdnc->setRqsentdnc($data['rqsentdnc']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('rqsentdnc cannot be null');
+                }
+            }
+            $entdnc->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
+            $entdnc->save($connection);
+        } catch (\Propel\Runtime\Exception\PropelException $e) {
+            Illuminate\Support\Facades\Log::debug($e);
+            return false;
+        }
+            return $entdnc;
+    }
+
     public static function dspentdnc($filidnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $allentdnc = \TblentdncQuery::create();
@@ -165,6 +193,42 @@ if($filidnentemp != 0){
         if(!$allentdnc) return false;
 
         return $allentdnc;
+    }
+
+    public static function fndreqdnc($idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->orderByCreatedAt(Criteria::ASC)
+            ->where("rqsentdnc = 1")
+
+            ->findByIdnentemp($idnentemp);
+
+        if(!$entdnc) return false;
+
+        return $entdnc;
+    }
+
+    public static function fndentdnc(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->orderByCreatedAt(Criteria::ASC)
+            ->find($connection);
+
+        if(!$entdnc) return false;
+
+        return $entdnc;
+    }
+
+    public static function fndempdnc(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->orderByCreatedAt(Criteria::ASC)
+            ->where("rqsentdnc != 1")
+            ->find($connection);
+
+        if(!$entdnc) return false;
+
+        return $entdnc;
     }
 
     public static function fnoentdnc($identdnc, \Propel\Runtime\Connection\ConnectionInterface $connection = null)

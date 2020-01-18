@@ -174,7 +174,7 @@ class UsersTableMap extends TableMap
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('remember_token', 'RememberToken', 'VARCHAR', false, 100, null);
-        $this->addColumn('isinstitution', 'Isinstitution', 'BOOLEAN', true, 1, null);
+        $this->addColumn('isinstitution', 'Isinstitution', 'BOOLEAN', true, 1, false);
     } // initialize()
 
     /**

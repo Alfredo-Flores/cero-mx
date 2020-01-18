@@ -125,6 +125,7 @@ abstract class Users implements ActiveRecordInterface
     /**
      * The value for the isinstitution field.
      *
+     * Note: this column has a database default value of: false
      * @var        boolean
      */
     protected $isinstitution;
@@ -150,10 +151,23 @@ abstract class Users implements ActiveRecordInterface
     protected $tblentprssScheduledForDeletion = null;
 
     /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->isinstitution = false;
+    }
+
+    /**
      * Initializes internal state of Base\Users object.
+     * @see applyDefaults()
      */
     public function __construct()
     {
+        $this->applyDefaultValues();
     }
 
     /**
@@ -702,6 +716,10 @@ abstract class Users implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->isinstitution !== false) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -1797,6 +1815,7 @@ abstract class Users implements ActiveRecordInterface
         $this->isinstitution = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

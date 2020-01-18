@@ -20,11 +20,11 @@ class TblentorgController extends Controller
 
     public function index()
     {
-        return view('app.Tblentorg.main');
+        return view('app.Tblentorg.calendar');
     }
 
     // store (C)
-    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4)
+    public function create(Request $request, ConnectionInterface &$trncnn, Uuid $uuid4, int $idnentprs)
     {
         // 1.- Validacion del request
         $rules = [
@@ -126,7 +126,8 @@ class TblentorgController extends Controller
 
         $data = [
             'uuid' => $uuid4,
-			'sgmentorg' => request('OrganizacionSegmentoMercado'),
+            'idnentprs' => $idnentprs,
+            'sgmentorg' => request('OrganizacionSegmentoMercado'),
 			'bnfentorg' => request('OrganizacionBenefSemana'),
 			'nmbentorg' => request('OrganizacionNombre'),
 			'logentorg' => $rutorg,

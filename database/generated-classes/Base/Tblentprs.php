@@ -228,6 +228,14 @@ abstract class Tblentprs implements ActiveRecordInterface
     protected $fotentprs;
 
     /**
+     * The value for the tipentprs field.
+     *
+     * Note: this column has a database default value of: '0'
+     * @var        string
+     */
+    protected $tipentprs;
+
+    /**
      * The value for the created_at field.
      *
      * @var        DateTime
@@ -302,6 +310,7 @@ abstract class Tblentprs implements ActiveRecordInterface
         $this->cdgpstprs = '';
         $this->tlffijprs = '';
         $this->tlfmvlprs = '';
+        $this->tipentprs = '0';
     }
 
     /**
@@ -729,6 +738,16 @@ abstract class Tblentprs implements ActiveRecordInterface
     public function getFotentprs()
     {
         return $this->fotentprs;
+    }
+
+    /**
+     * Get the [tipentprs] column value.
+     *
+     * @return string
+     */
+    public function getTipentprs()
+    {
+        return $this->tipentprs;
     }
 
     /**
@@ -1176,6 +1195,26 @@ abstract class Tblentprs implements ActiveRecordInterface
     } // setFotentprs()
 
     /**
+     * Set the value of [tipentprs] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentprs The current object (for fluent API support)
+     */
+    public function setTipentprs($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->tipentprs !== $v) {
+            $this->tipentprs = $v;
+            $this->modifiedColumns[TblentprsTableMap::COL_TIPENTPRS] = true;
+        }
+
+        return $this;
+    } // setTipentprs()
+
+    /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
@@ -1289,6 +1328,10 @@ abstract class Tblentprs implements ActiveRecordInterface
                 return false;
             }
 
+            if ($this->tipentprs !== '0') {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -1375,13 +1418,16 @@ abstract class Tblentprs implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentprsTableMap::translateFieldName('Fotentprs', TableMap::TYPE_PHPNAME, $indexType)];
             $this->fotentprs = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentprsTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentprsTableMap::translateFieldName('Tipentprs', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->tipentprs = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : TblentprsTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : TblentprsTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : TblentprsTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -1394,7 +1440,7 @@ abstract class Tblentprs implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 22; // 22 = TblentprsTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 23; // 23 = TblentprsTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentprs'), 0, $e);
@@ -1711,6 +1757,9 @@ abstract class Tblentprs implements ActiveRecordInterface
         if ($this->isColumnModified(TblentprsTableMap::COL_FOTENTPRS)) {
             $modifiedColumns[':p' . $index++]  = 'fotentprs';
         }
+        if ($this->isColumnModified(TblentprsTableMap::COL_TIPENTPRS)) {
+            $modifiedColumns[':p' . $index++]  = 'tipentprs';
+        }
         if ($this->isColumnModified(TblentprsTableMap::COL_CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'created_at';
         }
@@ -1787,6 +1836,9 @@ abstract class Tblentprs implements ActiveRecordInterface
                         break;
                     case 'fotentprs':
                         $stmt->bindValue($identifier, $this->fotentprs, PDO::PARAM_STR);
+                        break;
+                    case 'tipentprs':
+                        $stmt->bindValue($identifier, $this->tipentprs, PDO::PARAM_STR);
                         break;
                     case 'created_at':
                         $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
@@ -1917,9 +1969,12 @@ abstract class Tblentprs implements ActiveRecordInterface
                 return $this->getFotentprs();
                 break;
             case 20:
-                return $this->getCreatedAt();
+                return $this->getTipentprs();
                 break;
             case 21:
+                return $this->getCreatedAt();
+                break;
+            case 22:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -1972,15 +2027,16 @@ abstract class Tblentprs implements ActiveRecordInterface
             $keys[17] => $this->getTlffijprs(),
             $keys[18] => $this->getTlfmvlprs(),
             $keys[19] => $this->getFotentprs(),
-            $keys[20] => $this->getCreatedAt(),
-            $keys[21] => $this->getUpdatedAt(),
+            $keys[20] => $this->getTipentprs(),
+            $keys[21] => $this->getCreatedAt(),
+            $keys[22] => $this->getUpdatedAt(),
         );
-        if ($result[$keys[20]] instanceof \DateTimeInterface) {
-            $result[$keys[20]] = $result[$keys[20]]->format('c');
-        }
-
         if ($result[$keys[21]] instanceof \DateTimeInterface) {
             $result[$keys[21]] = $result[$keys[21]]->format('c');
+        }
+
+        if ($result[$keys[22]] instanceof \DateTimeInterface) {
+            $result[$keys[22]] = $result[$keys[22]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -2129,9 +2185,12 @@ abstract class Tblentprs implements ActiveRecordInterface
                 $this->setFotentprs($value);
                 break;
             case 20:
-                $this->setCreatedAt($value);
+                $this->setTipentprs($value);
                 break;
             case 21:
+                $this->setCreatedAt($value);
+                break;
+            case 22:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -2221,10 +2280,13 @@ abstract class Tblentprs implements ActiveRecordInterface
             $this->setFotentprs($arr[$keys[19]]);
         }
         if (array_key_exists($keys[20], $arr)) {
-            $this->setCreatedAt($arr[$keys[20]]);
+            $this->setTipentprs($arr[$keys[20]]);
         }
         if (array_key_exists($keys[21], $arr)) {
-            $this->setUpdatedAt($arr[$keys[21]]);
+            $this->setCreatedAt($arr[$keys[21]]);
+        }
+        if (array_key_exists($keys[22], $arr)) {
+            $this->setUpdatedAt($arr[$keys[22]]);
         }
     }
 
@@ -2326,6 +2388,9 @@ abstract class Tblentprs implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentprsTableMap::COL_FOTENTPRS)) {
             $criteria->add(TblentprsTableMap::COL_FOTENTPRS, $this->fotentprs);
+        }
+        if ($this->isColumnModified(TblentprsTableMap::COL_TIPENTPRS)) {
+            $criteria->add(TblentprsTableMap::COL_TIPENTPRS, $this->tipentprs);
         }
         if ($this->isColumnModified(TblentprsTableMap::COL_CREATED_AT)) {
             $criteria->add(TblentprsTableMap::COL_CREATED_AT, $this->created_at);
@@ -2438,6 +2503,7 @@ abstract class Tblentprs implements ActiveRecordInterface
         $copyObj->setTlffijprs($this->getTlffijprs());
         $copyObj->setTlfmvlprs($this->getTlfmvlprs());
         $copyObj->setFotentprs($this->getFotentprs());
+        $copyObj->setTipentprs($this->getTipentprs());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
 
@@ -3090,6 +3156,7 @@ abstract class Tblentprs implements ActiveRecordInterface
         $this->tlffijprs = null;
         $this->tlfmvlprs = null;
         $this->fotentprs = null;
+        $this->tipentprs = null;
         $this->created_at = null;
         $this->updated_at = null;
         $this->alreadyInSave = false;

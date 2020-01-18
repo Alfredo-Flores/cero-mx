@@ -907,37 +907,19 @@ abstract class TblentempQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByTemconemp('2011-03-14'); // WHERE temconemp = '2011-03-14'
-     * $query->filterByTemconemp('now'); // WHERE temconemp = '2011-03-14'
-     * $query->filterByTemconemp(array('max' => 'yesterday')); // WHERE temconemp > '2011-03-13'
+     * $query->filterByTemconemp('fooValue');   // WHERE temconemp = 'fooValue'
+     * $query->filterByTemconemp('%fooValue%', Criteria::LIKE); // WHERE temconemp LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $temconemp The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $temconemp The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentempQuery The current query, for fluid interface
      */
     public function filterByTemconemp($temconemp = null, $comparison = null)
     {
-        if (is_array($temconemp)) {
-            $useMinMax = false;
-            if (isset($temconemp['min'])) {
-                $this->addUsingAlias(TblentempTableMap::COL_TEMCONEMP, $temconemp['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($temconemp['max'])) {
-                $this->addUsingAlias(TblentempTableMap::COL_TEMCONEMP, $temconemp['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($temconemp)) {
                 $comparison = Criteria::IN;
             }
         }
@@ -950,37 +932,19 @@ abstract class TblentempQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByHorentemp('2011-03-14'); // WHERE horentemp = '2011-03-14'
-     * $query->filterByHorentemp('now'); // WHERE horentemp = '2011-03-14'
-     * $query->filterByHorentemp(array('max' => 'yesterday')); // WHERE horentemp > '2011-03-13'
+     * $query->filterByHorentemp('fooValue');   // WHERE horentemp = 'fooValue'
+     * $query->filterByHorentemp('%fooValue%', Criteria::LIKE); // WHERE horentemp LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $horentemp The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $horentemp The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTblentempQuery The current query, for fluid interface
      */
     public function filterByHorentemp($horentemp = null, $comparison = null)
     {
-        if (is_array($horentemp)) {
-            $useMinMax = false;
-            if (isset($horentemp['min'])) {
-                $this->addUsingAlias(TblentempTableMap::COL_HORENTEMP, $horentemp['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($horentemp['max'])) {
-                $this->addUsingAlias(TblentempTableMap::COL_HORENTEMP, $horentemp['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($horentemp)) {
                 $comparison = Criteria::IN;
             }
         }

@@ -119,9 +119,9 @@
                     this.representantetelefonomovil = telefonomovil;
                     this.representantefoto = foto;
                 },
-                changeEmpresa(nombre, direccion, localidad, municipio, entidad, pais, codigopostal, rfc, giro, telefonooficina, correooficina, descripcionalimentos, cantidaddonacion, tiempoconsumo, horarioentrega, detallesentrega,) {
+                changeEmpresa(nombre, direccion, localidad, municipio, entidad, pais, codigopostal, rfc, giro, telefonooficina, correooficina, descripcionalimentos, cantidaddonacion, tiempoconsumo, horarioentrega, detallesentrega, logo) {
                     this.empresanombre = nombre;
-                    this.empresalogo = nombre;
+                    this.empresalogo = logo;
                     this.empresadireccion = direccion;
                     this.empresalocalidad = localidad;
                     this.empresamunicipio = municipio;

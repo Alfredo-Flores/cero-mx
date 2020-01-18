@@ -17,7 +17,7 @@
                                 </div>
                                 <input type="file" @change="onFileChange"/>
                             </div>
-                            <h6 class="description">Logo de la empresa</h6>
+                            <h6 class="description">Logo de la empresa <p style="color: red">*</p></h6>
                         </div>
                     </div>
 
@@ -492,6 +492,7 @@
                         this.tiempoconsumo,
                         this.horarioentrega,
                         this.detallesentrega,
+                        this.logo
                     );
 
                     return res;

@@ -20,12 +20,36 @@ class TblentprsController extends Controller
 
     public function index()
     {
-        return view('app.Tblentprs.main');
+        $id = Auth::user()->id;
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return view('auth.login');
+        }
+
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            return view('app.Tblentemp.perfil');
+        } elseif ($tipentprs == 2) {
+            return view('app.Tblentorg.perfil');
+        } else {
+            return view('auth.login');
+        }
     }
 
     // store (C)
     public function create(Request $request)
     {
+        $id = Auth::user()->id;
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if ($tipentprs) {
+            return ReturnHandler::rtrerrjsn('Ya existe una institución en esta cuenta, es necesairo crear otra cuenta para otra institución');
+        }
+
         // 1.- Validacion del request
         $rules = [
             'Nombre' => 'required|max:255',
@@ -111,11 +135,12 @@ class TblentprsController extends Controller
             $uuid4 = Uuid::uuid4();
             $fotentprs = request('Foto');
             $fotrutprs = $uuid4 . "/";
+
             Storage::disk('local')->put($fotrutprs, $fotentprs);
         } catch (\Exception $e) {
             Log::debug($e);
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('');
+            return ReturnHandler::rtrerrjsn('Ocurrio un error con el almacenamiento de datos');
         }
 
         // 2.- Peticion a variables
@@ -141,6 +166,7 @@ class TblentprsController extends Controller
             'fotentprs' => $fotrutprs,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
+            'tipentprs' => request('TipoInstitucion'),
         ];
 
         // 3.- Iniciar transaccion
@@ -155,12 +181,13 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn('');
         }
 
+        $idnentprs = $result->getIdnentprs();
         $tipo_institucion = request('TipoInstitucion');
 
         if ($tipo_institucion == 1) {
-            return app(TblentempController::class)->create($request, $trncnn, $uuid4);
+            return app(TblentempController::class)->create($request, $trncnn, $uuid4, $idnentprs);
         } elseif ($tipo_institucion == 2) {
-            return app(TblentorgController::class)->create($request, $trncnn, $uuid4);
+            return app(TblentorgController::class)->create($request, $trncnn, $uuid4, $idnentprs);
         } else {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');

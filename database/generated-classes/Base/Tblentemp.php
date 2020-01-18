@@ -216,14 +216,14 @@ abstract class Tblentemp implements ActiveRecordInterface
     /**
      * The value for the temconemp field.
      *
-     * @var        DateTime
+     * @var        string
      */
     protected $temconemp;
 
     /**
      * The value for the horentemp field.
      *
-     * @var        DateTime
+     * @var        string
      */
     protected $horentemp;
 
@@ -724,43 +724,23 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
-     * Get the [optionally formatted] temporal [temconemp] column value.
+     * Get the [temconemp] column value.
      *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return string
      */
-    public function getTemconemp($format = 'Y-m-d H:i:s')
+    public function getTemconemp()
     {
-        if ($format === null) {
-            return $this->temconemp;
-        } else {
-            return $this->temconemp instanceof \DateTimeInterface ? $this->temconemp->format($format) : null;
-        }
+        return $this->temconemp;
     }
 
     /**
-     * Get the [optionally formatted] temporal [horentemp] column value.
+     * Get the [horentemp] column value.
      *
-     *
-     * @param      string|null $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return string
      */
-    public function getHorentemp($format = 'Y-m-d H:i:s')
+    public function getHorentemp()
     {
-        if ($format === null) {
-            return $this->horentemp;
-        } else {
-            return $this->horentemp instanceof \DateTimeInterface ? $this->horentemp->format($format) : null;
-        }
+        return $this->horentemp;
     }
 
     /**
@@ -1182,41 +1162,41 @@ abstract class Tblentemp implements ActiveRecordInterface
     } // setCandonemp()
 
     /**
-     * Sets the value of [temconemp] column to a normalized version of the date/time value specified.
+     * Set the value of [temconemp] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     * @param string $v new value
      * @return $this|\Tblentemp The current object (for fluent API support)
      */
     public function setTemconemp($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->temconemp !== null || $dt !== null) {
-            if ($this->temconemp === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->temconemp->format("Y-m-d H:i:s.u")) {
-                $this->temconemp = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TblentempTableMap::COL_TEMCONEMP] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->temconemp !== $v) {
+            $this->temconemp = $v;
+            $this->modifiedColumns[TblentempTableMap::COL_TEMCONEMP] = true;
+        }
 
         return $this;
     } // setTemconemp()
 
     /**
-     * Sets the value of [horentemp] column to a normalized version of the date/time value specified.
+     * Set the value of [horentemp] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     * @param string $v new value
      * @return $this|\Tblentemp The current object (for fluent API support)
      */
     public function setHorentemp($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->horentemp !== null || $dt !== null) {
-            if ($this->horentemp === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->horentemp->format("Y-m-d H:i:s.u")) {
-                $this->horentemp = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TblentempTableMap::COL_HORENTEMP] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->horentemp !== $v) {
+            $this->horentemp = $v;
+            $this->modifiedColumns[TblentempTableMap::COL_HORENTEMP] = true;
+        }
 
         return $this;
     } // setHorentemp()
@@ -1432,16 +1412,10 @@ abstract class Tblentemp implements ActiveRecordInterface
             $this->candonemp = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentempTableMap::translateFieldName('Temconemp', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->temconemp = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $this->temconemp = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentempTableMap::translateFieldName('Horentemp', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->horentemp = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $this->horentemp = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentempTableMap::translateFieldName('Detentemo', TableMap::TYPE_PHPNAME, $indexType)];
             $this->detentemo = (null !== $col) ? (string) $col : null;
@@ -1868,10 +1842,10 @@ abstract class Tblentemp implements ActiveRecordInterface
                         $stmt->bindValue($identifier, $this->candonemp, PDO::PARAM_STR);
                         break;
                     case 'temconemp':
-                        $stmt->bindValue($identifier, $this->temconemp ? $this->temconemp->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier, $this->temconemp, PDO::PARAM_STR);
                         break;
                     case 'horentemp':
-                        $stmt->bindValue($identifier, $this->horentemp ? $this->horentemp->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier, $this->horentemp, PDO::PARAM_STR);
                         break;
                     case 'detentemo':
                         $stmt->bindValue($identifier, $this->detentemo, PDO::PARAM_STR);
@@ -2067,14 +2041,6 @@ abstract class Tblentemp implements ActiveRecordInterface
             $keys[21] => $this->getCreatedAt(),
             $keys[22] => $this->getUpdatedAt(),
         );
-        if ($result[$keys[18]] instanceof \DateTimeInterface) {
-            $result[$keys[18]] = $result[$keys[18]]->format('c');
-        }
-
-        if ($result[$keys[19]] instanceof \DateTimeInterface) {
-            $result[$keys[19]] = $result[$keys[19]]->format('c');
-        }
-
         if ($result[$keys[21]] instanceof \DateTimeInterface) {
             $result[$keys[21]] = $result[$keys[21]]->format('c');
         }
