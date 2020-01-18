@@ -63,6 +63,10 @@ import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
 import Modal from "./components/Modal.vue";
 
 
+import TimeLine from "./components/Timeline/TimeLine.vue";
+import TimeLineItem from "./components/Timeline/TimeLineItem.vue";
+import Badge from "./components/Badge.vue";
+//import AnimatedNumber from "./components/AnimatedNumber.vue";
 
 Vue.component("validation-provider", ValidationProvider);
 Vue.component("validation-observer", ValidationObserver);
@@ -81,6 +85,11 @@ Vue.component("empresas-layout", EmpresasLayout);
 Vue.component("organizaciones-layout", OrganizacionesLayout);
 Vue.component("full-calendar", FullCalendar);
 Vue.component("modal", Modal);
+Vue.component("time-line", TimeLine);
+Vue.component("time-line-item", TimeLineItem);
+Vue.component("badge", Badge);
+Vue.component("stats-card", StatsCard);
+//Vue.component("animated-number", AnimatedNumber);
 
 Vue.use(DashboardPlugin);
 

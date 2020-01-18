@@ -2,7 +2,7 @@
 
 return [
 
-    'title' => 'Bienvenido',
-    'subtitle' => 'Se parte de un gran proyecto',
+    'title' => 'Cero Hambre',
+    'subtitle' => 'Luchemos por un futuro en el que no se desperdicie alimento',
 
 ];

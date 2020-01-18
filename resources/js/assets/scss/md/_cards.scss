@@ -449,6 +449,13 @@
     .md-card-header-green .card-text{
         @include shadow-big-color($brand-success);
     }
+    [data-background-color="teal"],
+    .md-tabs.md-success .md-tabs-navigation,
+    .md-card-header-green .card-icon,
+    .md-card-header-green:not(.md-card-header-icon):not(.md-card-header-text),
+    .md-card-header-green .card-text{
+        @include shadow-big-color($teal-600);
+    }
 
     [data-background-color]{
         color: $white-color;
