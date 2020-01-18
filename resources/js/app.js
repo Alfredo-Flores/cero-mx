@@ -3,7 +3,6 @@ import {ValidationObserver, ValidationProvider} from "vee-validate";
 
 require("./bootstrap");
 
-
 window.Vue = require('vue');
 
 // Modulos NPM
@@ -15,7 +14,8 @@ import VueRouter from 'vue-router';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 
-
+import router from './routes/router'
+import App from './App.vue'
 
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
@@ -39,7 +39,6 @@ const i18n = new VueInternationalization({
 
 import DashboardPlugin from "./material-dashboard";
 import DashboardLayout from "./components/Layout/DashboardLayout";
-
 import PricingCard from "./components/Cards/PricingCard.vue";
 import SignupCard from "./components/Cards/SignupCard.vue";
 import LockCard from "./components/Cards/LockCard.vue";
@@ -50,7 +49,6 @@ import TestimonialCard from "./components/Cards/TestimonialCard.vue";
 import GlobalSalesCard from "./components/Cards/GlobalSalesCard.vue";
 import NavTabsCard from "./components/Cards/NavTabsCard.vue";
 import ProductCard from "./components/Cards/ProductCard.vue";
-
 import SimpleWizard from "./components/Wizard/Wizard.vue";
 import WizardTab from "./components/Wizard/WizardTab.vue";
 import FirstStep from "./components/Wizard/Steps/FirstStep.vue";
@@ -58,12 +56,10 @@ import SecondStep from "./components/Wizard/Steps/SecondStep.vue";
 import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
 import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
 import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
-
-import TimeLine from "./components/Timeline/TimeLine.vue";
-import TimeLineItem from "./components/Timeline/TimeLineItem.vue";
-import Badge from "./components/Badge.vue";
 //import AnimatedNumber from "./components/AnimatedNumber.vue";
 
+
+Vue.component('App', App)
 Vue.component("validation-provider", ValidationProvider);
 Vue.component("validation-observer", ValidationObserver);
 Vue.component("pricing-card", PricingCard);
@@ -77,13 +73,10 @@ Vue.component("organizacion-step", OrganizacionStep);
 Vue.component("icon-checkbox", IconCheckbox);
 Vue.component("signup-card", SignupCard);
 Vue.component("dashboard-layout", DashboardLayout);
-Vue.component("time-line", TimeLine);
-Vue.component("time-line-item", TimeLineItem);
-Vue.component("badge", Badge);
 Vue.component("stats-card", StatsCard);
 //Vue.component("animated-number", AnimatedNumber);
-
 Vue.use(DashboardPlugin);
+
 
 
 // Chartist
@@ -94,8 +87,10 @@ Object.defineProperty(Vue.prototype, "$Chartist", {
 });
 
 // Buildear Vue
-const app = new Vue({
-    el: '#app',
-    i18n,
-    mixins: window.pageMix
-});
+new Vue({
+    router,
+    render: h => h(App),
+    mounted() {
+        document.documentElement.classList.remove('has-spinner-active')
+    }
+}).$mount('#app')

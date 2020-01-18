@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import TopNavbar from "./TopNavbar.vue";
+import TopNavbar from "./welcome/topNavBar";
 import ContentFooter from "./ContentFooter.vue";
 import MobileMenu from "./Extra/MobileMenu.vue";
 import UserMenu from "./Extra/UserMenu.vue";

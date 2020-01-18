@@ -13,8 +13,9 @@
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
-Route::get('/', 'MainController@index')->name("index");
-
+Route::get('/', function () {
+    return view('layouts.app');
+});
 // Auth
 Route::get('/register',  function () { return view('auth.register'); })->name("registerview");
 Route::get('/login',  function () { return view('auth.login'); })->name("loginview");
