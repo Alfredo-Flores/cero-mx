@@ -25,7 +25,6 @@
                               <md-icon>house</md-icon>
                               Inicio
                           </md-list-item>
-                          @guest
                           <md-list-item href="/register" >
                               <md-icon>person_add</md-icon>
                               Registro
@@ -34,7 +33,6 @@
                               <md-icon>fingerprint</md-icon>
                               Iniciar Sesión
                           </md-list-item>
-                          @else
                           <md-list-item href="#">
                               <md-icon>dashboard</md-icon>
                               Estadisticas

@@ -31,6 +31,7 @@
         "@fullcalendar/vue": "^4.3.1",
         "buefy": "^0.8.8",
         "chartist": "^0.11.4",
+        "es6-promise": "^4.2.8",
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.10.1",
         "material-components-web": "^4.0.0",

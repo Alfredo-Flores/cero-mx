@@ -24,7 +24,12 @@
 </template>
 
 <script>
+    import LoginCard from "../../components/Cards/LoginCard.vue";
+
     export default {
+        components: {
+            LoginCard
+        },
         data() {
             return {
                 firstname: null,

@@ -1,43 +1,41 @@
-import EmpresasLayout from "/resources/js/components/Layout/EmpresasLayout";
-import OrganizacionesLayout from "/resources/js/components/Layout/OrganizacionesLayout";
-import AuthLayout from "/resources/js/components/Layout/AuthLayout.vue";
+import EmpresasLayout from "../components/Layout/EmpresasLayout";
+import OrganizacionesLayout from "../components/Layout/OrganizacionesLayout";
+import AuthLayout from "../components/Layout/AuthLayout.vue";
+
+import Landing from "../App/Landing.vue";
+import Login from "../App/Users/Login.vue";
+import Register from "../App/Users/Register.vue";
+import RegisterInstitution from "../App/Users/RegisterInstitution.vue";
 
 let authPages = {
-  path: "/",
-  component: AuthLayout,
-  name: "Authentication",
-  children: [
-    {
-      path: "/login",
-      name: "Login",
-      component: Login
-    },
-    {
-      path: "/register",
-      name: "Register",
-      component: Register
-    },
-  ]
+    path: "/",
+    component: AuthLayout,
+    children: [
+        {
+            path: "/",
+            name: "landing",
+            component: Landing
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: Login
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: Register
+        },
+    ]
 };
 
 const routes = [
-  {
-    path: "/",
-    redirect: "/dashboard",
-    name: "Home"
-  },
-  authPages,
-  {
-    path: "/",
-    component: DashboardLayout,
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        components: { default: Dashboard }
-      },
-    ]
-  }
+    {
+        path: "/",
+        redirect: "/login",
+        name: "Home"
+    },
+    authPages,
 ];
 
 export default routes;

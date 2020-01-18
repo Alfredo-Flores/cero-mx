@@ -1,4 +1,4 @@
-import DropDown from "../../../../../Users/Kazuk/Documents/vue-material-dashboard-pro-v1.3.2/src/components/Dropdown.vue";
+import DropDown from "./components/Dropdown.vue";
 import { ValidationProvider } from "vee-validate";
 import { ValidationObserver } from "vee-validate";
 /**
