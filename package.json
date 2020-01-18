@@ -24,13 +24,13 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@tweenjs/tween.js": "17.4.0",
         "@fullcalendar/core": "^4.3.1",
         "@fullcalendar/daygrid": "^4.3.0",
         "@fullcalendar/interaction": "^4.3.0",
         "@fullcalendar/timegrid": "^4.3.0",
         "@fullcalendar/vue": "^4.3.1",
         "@websanova/vue-auth": "^2.21.15-beta",
-        "buefy": "^0.8.8",
         "chartist": "^0.11.4",
         "es6-promise": "^4.2.8",
         "font-awesome": "^4.7.0",

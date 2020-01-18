@@ -1,10 +1,7 @@
 // Boostrap y axios por defecto
 import {ValidationObserver, ValidationProvider} from "vee-validate";
-
 require("./bootstrap");
-
 window.Vue = require('vue');
-
 // Modulos NPM
 import VueToastr from "vue-toastr";
 import VueMaterial from 'vue-material'
@@ -14,6 +11,7 @@ import VueRouter from 'vue-router';
 import DashboardPlugin from "./material-dashboard";
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
+import router from './routes/router'
 import App from './App.vue'
 import routes from "./routes/routes";
 import axios from 'axios'

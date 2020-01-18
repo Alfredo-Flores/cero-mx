@@ -9,7 +9,7 @@
                             </div>
                             <p class="category">Folowers</p>
                             <h3 class="title">
-                                +<div :value="245"></div>
+                                +<animated-number :value="245"></animated-number>
                             </h3>
                         </div>
 
@@ -29,7 +29,7 @@
                             </div>
                             <p class="category">Folowers</p>
                             <h3 class="title">
-                                +<div :value="245"></div>
+                                +<animated-number :value="245"></animated-number>
                             </h3>
                         </div>
 
@@ -49,7 +49,7 @@
                             </div>
                             <p class="category">Folowers</p>
                             <h3 class="title">
-                                +<div :value="245"></div>
+                                +<animated-number :value="245"></animated-number>
                             </h3>
                         </div>
 
@@ -69,7 +69,7 @@
                             </div>
                             <p class="category">Folowers</p>
                             <h3 class="title">
-                                +<div :value="245"></div>
+                                +<animated-number :value="245"></animated-number>
                             </h3>
                         </div>
 
@@ -277,13 +277,14 @@
     </template>
 <script>
     import { ZoomCenterTransition } from "vue2-transitions";
-
-    import StatsCard from "../components/Cards/StatsCard.vue"
+    import StatsCard from "../components/Cards/StatsCard";
+    import AnimatedNumber from "../components/AnimatedNumber";
 
     export default {
         components: {
             ZoomCenterTransition,
-            StatsCard
+            StatsCard,
+            AnimatedNumber
         },
         props: {
                 backgroundColor: {

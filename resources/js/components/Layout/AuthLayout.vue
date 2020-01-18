@@ -3,7 +3,7 @@
       <md-toolbar md-elevation="8" class="md-primary md-toolbar-absolute md-absolute">
           <div class="md-toolbar-row md-offset">
               <div class="md-toolbar-section-start">
-                  <h1 class="md-title">CERO HAMBRE</h1>
+                  <h1 href="#/" @click="linkClick" class="md-title">CERO HAMBRE</h1>
               </div>
               <div class="md-toolbar-section-end">
                   <md-button
