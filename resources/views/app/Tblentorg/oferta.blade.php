@@ -3,22 +3,7 @@
 @section('content')
     <div class="md-layout text-center">
         <div
-            class="md-layout-item md-size-40 md-medium-size-100"
-        >
-            <md-card>
-                <md-card-header class="md-card-header-text md-card-header-primary">
-                    <div class="card-text">
-                        <h4 class="title">Mapa</h4>
-                        <p class="category">Ubique la ubicacion de la empresa</p>
-                    </div>
-                </md-card-header>
-                <md-card-content>
-
-                </md-card-content>
-            </md-card>
-        </div>
-        <div
-            class="md-layout-item md-size-60 md-medium-size-100"
+            class="md-layout-item md-size-100"
         >
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-warning">
@@ -27,6 +12,8 @@
                     </div>
                 </md-card-header>
                 <md-card-content>
+
+
                     @foreach ($ofertas as $key => $oferta)
                             <div>
                                 <md-card style="background-color: rgba(0,0,0,0.11) ">
@@ -37,7 +24,7 @@
                                             >
                                                 <p>Contenido: <span style="color: red;" ref="descripcion">{{ $oferta["Dscentdnc"] }}</span></p>
                                                 <p>Tipo de contenido: <span style="color: red;" ref="tipo">{{ $oferta["Tipentdnc"] }}</span></p>
-                                                <p>Tipo de contenido: <span style="color: red;" ref="tipo">{{ $oferta["Tipentdnc"] }}</span></p>
+                                                <p>Organización: <span style="color: red;" ref="tipo">{{ $oferta["Namentemp"] }}</span></p>
                                             </div>
                                             <div
                                                 class="md-layout-item md-size-35 text-center"

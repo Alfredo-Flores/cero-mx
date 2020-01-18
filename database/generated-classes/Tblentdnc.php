@@ -222,6 +222,13 @@ if($filidnentemp != 0){
     public static function fndempdnc(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entdnc = \TblentdncQuery::create()
+            ->useTblentempQuery()
+                ->withColumn("Namentemp")
+                ->withColumn("Drcentemp")
+                ->withColumn("Lclentemp")
+                ->withColumn("Emlofiemp")
+                ->withColumn("Tlfofiemp")
+            ->endUse()
             ->orderByCreatedAt(Criteria::ASC)
             ->where("rqsentdnc != 1")
             ->find($connection);

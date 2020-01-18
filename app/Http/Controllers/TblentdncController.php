@@ -33,12 +33,29 @@ class TblentdncController extends Controller
             $ofertas = \Tblentdnc::fndentdnc();
             $ofertas = $ofertas->toArray();
 
+            foreach($ofertas as $key => $oferta)
+            {
+                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+
+                if ($diferencia < 1){
+                    unset($ofertas[$key]);
+                } else {
+                    $ofertas[$key]['Tmprstdnc'] = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+                }
+            }
+
             return view('app.Tblentemp.oferta')
                 ->with("ofertas", $ofertas);
         } elseif ($tipentprs == 2) {
 
             $ofertas = \Tblentdnc::fndempdnc();
             $ofertas = $ofertas->toArray();
+
+            foreach($ofertas as $key => $oferta)
+            {
+                $ofertas[$key]['Tmprstdnc'] = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+            }
+
 
             return view('app.Tblentorg.oferta')
                 ->with("ofertas", $ofertas);;
