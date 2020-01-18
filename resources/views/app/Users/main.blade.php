@@ -98,12 +98,11 @@
                                 </md-card-media>
                             </md-card-media-cover>
                         </md-card>
+
                     </div>
                     <div class="md-layout-item md-size-50 md-small-size-100">
-
-
-                        <md-card>
-                            <md-card-header  class="md-elevation-3 md-primary">
+                        <md-card class="md-elevation-10">
+                            <md-card-header>
                                 <div class="md-title">
                                     ¿Qué es Cero?
                                 </div>
@@ -125,8 +124,8 @@
                                 </md-card-content>
                             </md-card-expand-content>
                         </md-card>
-                        <md-card>
-                            <md-card-header class="md-elevation-3">
+                        <md-card class="md-elevation-10">
+                            <md-card-header>
                                 <div class="md-title">
                                     ¿Cómo trabajamos?
                                 </div>
@@ -148,8 +147,8 @@
                                 </md-card-content>
                             </md-card-expand-content>
                         </md-card>
-                        <md-card>
-                            <md-card-header class="md-elevation-3">
+                        <md-card class="md-elevation-24">
+                            <md-card-header>
                                 <div class="md-title">
                                     ¿Qué es Cero?
                                 </div>
@@ -172,11 +171,10 @@
                             </md-card-expand-content>
                         </md-card>
                     </div>
-                    </md-content>
                 </div>
                 <hr>
                 <div class="md-layout md-alignment-center-center">
-                    <div class="md-layout-item md-size-100 text-center">
+                    <div class="md-layout-item md-size-100 text-centerphp artisan serve">
                         <h3>
                             Noticias
                         </h3>

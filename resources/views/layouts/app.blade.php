@@ -27,7 +27,7 @@
 <body>
     <div id="app">
         <div class="full-page" :class="{ 'nav-open': $sidebar.showSidebar }">
-            <md-toolbar md-elevation="0" class="md-transparent md-toolbar-absolute">
+            <md-toolbar md-elevation="8" class="md-primary md-toolbar-absolute md-absolute">
                 <div class="md-toolbar-row md-offset">
                     <div class="md-toolbar-section-start">
                         <h3 class="md-title">{{ config('app.name', 'Laravel') }}</h3>
@@ -53,7 +53,7 @@
                                     {{ __('app.index') }}
                                 </md-list-item>
                                 @guest
-                                <md-list-item href="{{ route('registerview') }}">
+                                <md-list-item @click="loadPageSection('{{route('registerview')}}','contenedor', )" >
                                     <md-icon>person_add</md-icon>
                                     {{ __('app.register') }}
                                 </md-list-item>
@@ -113,7 +113,7 @@
                     :style="setBgImage"
                 >
 
-                    <div class="container md-offset">
+                    <div class="container md-offset" id="contenedor">
                         @yield('content')
                     </div>
 
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="md-layout-item md-size-65 md-xsmall-size-100 mx-auto"
+                                    class="md-layout-item md-size-65 md-xsmall-hide mx-auto"
                                 >
                                     <ul class="h6">
                                         <li><a href="#">Legal</a></li>
@@ -183,7 +183,7 @@
             computed: {
                 setBgImage() {
                     return {
-                        backgroundImage: `url(./img/bg-pricing.jpg)`
+                        backgroundImage: `url(/img/bg-pricing.jpg)`
                     };
                 }
             },
@@ -219,7 +219,23 @@
                     } else {
                         this.responsive = false;
                     }
-                }
+                },
+               loadPageSection(url, selector){
+                    if (typeof url !== 'string') {
+                        throw new Error('Invalid URL: ', url);
+                    } else if (typeof selector !== 'string') {
+                        throw new Error('Invalid selector selector: ', selector);
+                    }
+                    fetch(url)
+                   .then(function (response) {
+                       return response.text()
+                   })
+                   .then(function (body) {
+                        document.querySelector('#'+selector).innerHTML = body;
+                        app.$forceUpdate();
+
+                   })
+               }
             },
             mounted() {
                 this.onResponsiveInverted();

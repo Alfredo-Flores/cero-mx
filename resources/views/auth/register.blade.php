@@ -5,6 +5,7 @@
         <div class="md-layout-item">
             <signup-card>
                 <h3 class="title text-center mt-3" slot="title">Registro de usuario</h3>
+
                 <div
                     class="md-layout-item md-size-50 md-medium-size-50 md-small-size-100 ml-auto"
                     slot="content-left"

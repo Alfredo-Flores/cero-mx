@@ -59,6 +59,10 @@ import EmpresaStep from "./components/Wizard/Steps/EmpresaStep.vue";
 import OrganizacionStep from "./components/Wizard/Steps/OrganizacionStep.vue";
 import IconCheckbox from "./components/Inputs/IconCheckbox.vue";
 
+import TimeLine from "./components/Timeline/TimeLine.vue";
+import TimeLineItem from "./components/Timeline/TimeLineItem.vue";
+import Badge from "./components/Badge.vue";
+//import AnimatedNumber from "./components/AnimatedNumber.vue";
 
 Vue.component("validation-provider", ValidationProvider);
 Vue.component("validation-observer", ValidationObserver);
@@ -73,10 +77,14 @@ Vue.component("organizacion-step", OrganizacionStep);
 Vue.component("icon-checkbox", IconCheckbox);
 Vue.component("signup-card", SignupCard);
 Vue.component("dashboard-layout", DashboardLayout);
+Vue.component("time-line", TimeLine);
+Vue.component("time-line-item", TimeLineItem);
+Vue.component("badge", Badge);
+Vue.component("stats-card", StatsCard);
+//Vue.component("animated-number", AnimatedNumber);
 
 Vue.use(DashboardPlugin);
 
-Vue.config.performance = true;
 
 // Chartist
 Object.defineProperty(Vue.prototype, "$Chartist", {
