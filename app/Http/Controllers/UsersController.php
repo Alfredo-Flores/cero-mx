@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsersController extends Controller
 {
@@ -191,11 +192,18 @@ class UsersController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            return "true";
-        } else {
-            return "false";
+        if (! $token = auth()->attempt($credentials)) {
+            return response([
+                'status' => 'error',
+                'error' => 'invalid.credentials',
+                'msg' => 'Invalid Credentials.'
+            ], 400);
         }
+
+        return response([
+            'status' => 'success'
+        ])
+            ->header('Authorization', $token);
     }
 
     public function logout()

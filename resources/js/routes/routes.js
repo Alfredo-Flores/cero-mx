@@ -2,10 +2,12 @@ import EmpresasLayout from "../components/Layout/EmpresasLayout";
 import OrganizacionesLayout from "../components/Layout/OrganizacionesLayout";
 import AuthLayout from "../components/Layout/AuthLayout.vue";
 
-import Landing from "../App/Landing.vue";
-import Login from "../App/Users/Login.vue";
-import Register from "../App/Users/Register.vue";
-import RegisterInstitution from "../App/Users/RegisterInstitution.vue";
+import Welcome from "../views/Welcome.vue";
+import Login from "../views/Users/Login.vue";
+import Register from "../views/Users/Register.vue";
+import RegisterInstitution from "../views/Users/RegisterInstitution.vue";
+
+import EmpresasOferta from "../views/Tblentemp/Main.vue";
 
 let authPages = {
     path: "/",
@@ -13,28 +15,41 @@ let authPages = {
     children: [
         {
             path: "/",
-            name: "landing",
-            component: Landing
+            name: "Welcome",
+            component: Welcome,
+            meta: {
+                auth: false
+            }
         },
         {
-            path: "/login",
+            path: "login",
             name: "login",
-            component: Login
+            component: Login,
+            meta: {
+                auth: false
+            }
         },
         {
-            path: "/register",
+            path: "register",
             name: "register",
-            component: Register
+            component: Register,
+            meta: {
+                auth: false
+            }
         },
+        {
+            path: "oferta",
+            name: "oferta",
+            component: EmpresasOferta,
+            meta: {
+                auth: true
+            }
+        }
     ]
 };
 
+
 const routes = [
-    {
-        path: "/",
-        redirect: "/login",
-        name: "Home"
-    },
     authPages,
 ];
 

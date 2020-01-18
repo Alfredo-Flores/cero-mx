@@ -4,19 +4,19 @@
             class="md-layout-item md-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
         >
             <login-card header-color="green">
-                <h4 slot="title" class="title">{{ __("login.title") }}</h4>
+                <h4 slot="title" class="title">Iniciar sesión</h4>
                 <md-field class="md-form-group" slot="inputs">
                     <md-icon>email</md-icon>
-                    <label>{{ __("login.email") }}</label>
+                    <label>Correo Electronico</label>
                     <md-input v-model="email" type="email"></md-input>
                 </md-field>
                 <md-field class="md-form-group" slot="inputs">
                     <md-icon>lock_outline</md-icon>
-                    <label>{{ __("login.password") }}</label>
+                    <label>Contraseña</label>
                     <md-input v-model="password" type="password"></md-input>
                 </md-field>
                 <md-button slot="footer" @click="login" class="md-simple md-success md-lg">
-                    {{ __("login.login") }}
+                    Iniciar sesión
                 </md-button>
             </login-card>
         </div>
@@ -44,7 +44,7 @@
         },
         methods: {
             login() {
-                let uri = '/Users/submit/login';
+                let uri = 'auth/login';
 
                 axios.post(uri, {
                     email: this.email,

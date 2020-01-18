@@ -21,17 +21,25 @@
                       :class="{ 'off-canvas-sidebar': responsive }"
                   >
                       <md-list>
-                          <md-list-item href="/">
+                          <md-list-item>
                               <md-icon>house</md-icon>
-                              Inicio
+                              <router-link to="/">Inicio</router-link>
                           </md-list-item>
-                          <md-list-item href="/register" >
+                          <md-list-item>
                               <md-icon>person_add</md-icon>
-                              Registro
+                              <router-link to="/register">Registro</router-link>
                           </md-list-item>
-                          <md-list-item href="/login">
+                          <md-list-item>
                               <md-icon>fingerprint</md-icon>
-                              Iniciar Sesión
+                              <router-link to="/login">Iniciar Sesión</router-link>
+                          </md-list-item>
+                          <md-list-item>
+                              <md-icon>fingerprint</md-icon>
+                              <router-link to="/oferta">Administración</router-link>
+                          </md-list-item>
+                          <md-list-item v-if="$auth.check()" @click.prevent="$auth.logout()">
+                              <md-icon>fingerprint</md-icon>
+                              Salir
                           </md-list-item>
                           <md-list-item href="#">
                               <md-icon>dashboard</md-icon>
@@ -185,6 +193,7 @@ export default {
     }
   },
   mounted() {
+      console.log($auth.check());
     this.onResponsiveInverted();
     window.addEventListener("resize", this.onResponsiveInverted);
   },

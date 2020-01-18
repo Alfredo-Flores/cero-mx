@@ -278,9 +278,12 @@
 <script>
     import { ZoomCenterTransition } from "vue2-transitions";
 
+    import StatsCard from "../components/Cards/StatsCard.vue"
+
     export default {
         components: {
-            ZoomCenterTransition
+            ZoomCenterTransition,
+            StatsCard
         },
         props: {
                 backgroundColor: {

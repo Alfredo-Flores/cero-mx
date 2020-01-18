@@ -59,15 +59,16 @@
       0 => 'Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewerServiceProvider',
     ),
   ),
-  'webpatser/laravel-uuid' => 
+  'tymon/jwt-auth' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Webpatser\\Uuid\\UuidServiceProvider',
-    ),
     'aliases' => 
     array (
-      'Uuid' => 'Webpatser\\Uuid\\Uuid',
+      'JWTAuth' => 'Tymon\\JWTAuth\\Facades\\JWTAuth',
+      'JWTFactory' => 'Tymon\\JWTAuth\\Facades\\JWTFactory',
+    ),
+    'providers' => 
+    array (
+      0 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     ),
   ),
 );
