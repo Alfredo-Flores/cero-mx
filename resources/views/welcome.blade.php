@@ -172,7 +172,6 @@
                             </md-card-expand-content>
                         </md-card>
                     </div>
-                    </md-content>
                 </div>
                 <hr>
                 <div class="md-layout md-alignment-center-center">
