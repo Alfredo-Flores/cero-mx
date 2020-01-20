@@ -178,85 +178,26 @@
                                     Noticias
                                 </h3>
                             </div>
-                            <div class="md-layout-item md-size-30 md-small-size-100 ">
+                            <div class="md-layout-item md-size-30 md-small-size-100 " v-for="notice in notices">
                                 <md-card class="md-elevation-10">
                                     <md-card-area>
                                         <md-card-media>
                                             <img
-                                                src='/img/faces/marc.jpg'
+                                                :src=notice.img
                                                 alt="Thumbnail">
                                         </md-card-media>
                                         <md-card-header>
                                             <div class="md-title">
-                                                Noticia
+                                                <h3 class="md-title">
+                                                    {{notice.title}}
+                                                </h3>
                                             </div>
                                             <div class="md-subhead">
-                                                Subtitulo noticia
+                                                {{notice.subtitle}}
                                             </div>
                                         </md-card-header>
                                         <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                        </md-card-content>
-                                    </md-card-area>
-                                    <md-card-actions>
-                                        <md-button>
-                                            Leer más
-                                        </md-button>
-                                    </md-card-actions>
-                                </md-card>
-                            </div>
-                            <div class="md-layout-item md-size-30 md-small-size-100 ">
-                                <md-card class="md-elevation-10">
-                                    <md-card-area>
-                                        <md-card-media>
-                                            <img
-                                                src='/img/faces/marc.jpg'
-                                                alt="Thumbnail">
-                                        </md-card-media>
-                                        <md-card-header>
-                                            <div class="md-title">
-                                                Noticia
-                                            </div>
-                                            <div class="md-subhead">
-                                                Subtitulo noticia
-                                            </div>
-                                        </md-card-header>
-                                        <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                        </md-card-content>
-                                    </md-card-area>
-                                    <md-card-actions>
-                                        <md-button>
-                                            Leer más
-                                        </md-button>
-                                    </md-card-actions>
-                                </md-card>
-                            </div>
-                            <div class="md-layout-item md-size-50 md-small-size-100 ">
-                                <md-card class="md-elevation-10">
-                                    <md-card-area>
-                                        <md-card-media>
-                                            <img
-                                                src='/img/faces/marc.jpg'
-                                                alt="Thumbnail"
-                                            >
-                                        </md-card-media>
-                                        <md-card-header>
-                                            <div class="md-title">
-                                                Noticia
-                                            </div>
-                                            <div class="md-subhead">
-                                                Subtitulo noticia
-                                            </div>
-                                        </md-card-header>
-                                        <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            {{notice.content}}
                                         </md-card-content>
                                     </md-card-area>
                                     <md-card-actions>
@@ -303,7 +244,27 @@
                 showMenu: false,
                 menuTransitionDuration: 250,
                 pageTransitionDuration: 300,
-                year: new Date().getFullYear()
+                year: new Date().getFullYear(),
+                notices: [
+                     {
+                        title: 'Uno',
+                        img: '/img/faces/marc.jpg',
+                        subtitle: 'Subtitulo',
+                        content: 'placeholder placeholder placeholder placeholder placeholder placeholder '
+                    },
+                     {
+                        title: 'Uno',
+                        img: '/img/faces/marc.jpg',
+                        subtitle: 'Subtitulo',
+                        content: 'Contendido '
+                    },
+                     {
+                        title: 'Uno',
+                        img: '/img/faces/marc.jpg',
+                        subtitle: 'Subtitulo',
+                        content: 'Contendido '
+                    },
+                ]
             };
         },
         computed: {

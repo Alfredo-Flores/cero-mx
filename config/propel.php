@@ -3,9 +3,9 @@ return [
     'propel' => [
         'database' => [
             'connections' => [
-                'cero' => [
+                'cerodb' => [
                     'adapter' => 'mysql',
-                    'dsn' => 'mysql:host=127.0.0.1;dbname=cero',
+                    'dsn' => 'mysql:host=127.0.0.1;dbname=cerodb',
                     'user' => 'root',
                     'password' => '',
                     'settings' => [
@@ -15,12 +15,12 @@ return [
             ]
         ],
         'runtime' => [
-            'defaultConnection' => 'cero',
-            'connections' => ['cero']
+            'defaultConnection' => 'cerodb',
+            'connections' => ['cerodb']
         ],
         'generator' => [
-            'defaultConnection' => 'cero',
-            'connections' => ['cero'],
+            'defaultConnection' => 'cerodb',
+            'connections' => ['cerodb'],
             'dateTime' => [
                 'defaultTimeStampFormat' =>'Y-m-d H:i:s',
                 'defaultTimeFormat' => 'H:i:s',

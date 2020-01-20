@@ -6,6 +6,7 @@ use App\ReturnHandler;
 use App\TransactionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
@@ -55,7 +56,6 @@ class UsersController extends Controller
 
         // 4 & 5 .- Variables a objeto & Regla de negocio TODO *Modificar*
         $result = \Users::crtusers($data, $trncnn);
-
         // 6.- Commit y return
         if(!$result){
             TransactionHandler::rollback($trncnn);

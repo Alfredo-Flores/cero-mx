@@ -1,10 +1,10 @@
 <?php
 $serviceContainer = \Propel\Runtime\Propel::getServiceContainer();
 $serviceContainer->checkVersion('2.0.0-dev');
-$serviceContainer->setAdapterClass('cero', 'mysql');
+$serviceContainer->setAdapterClass('cerodb', 'mysql');
 $manager = new \Propel\Runtime\Connection\ConnectionManagerSingle();
 $manager->setConfiguration(array (
-  'dsn' => 'mysql:host=127.0.0.1;dbname=cero',
+  'dsn' => 'mysql:host=127.0.0.1;dbname=cerodb',
   'user' => 'root',
   'password' => '',
   'settings' =>
@@ -21,6 +21,6 @@ $manager->setConfiguration(array (
     1 => 'vendor',
   ),
 ));
-$manager->setName('cero');
-$serviceContainer->setConnectionManager('cero', $manager);
-$serviceContainer->setDefaultDatasource('cero');
+$manager->setName('cerodb');
+$serviceContainer->setConnectionManager('cerodb', $manager);
+$serviceContainer->setDefaultDatasource('cerodb');

@@ -39,7 +39,7 @@ class TblentempTableMap extends TableMap
     /**
      * The default database name for this class
      */
-    const DATABASE_NAME = 'cero';
+    const DATABASE_NAME = 'cerodb';
 
     /**
      * The table name for this class
@@ -254,8 +254,8 @@ class TblentempTableMap extends TableMap
         $this->addColumn('emlofiemp', 'Emlofiemp', 'VARCHAR', true, 255, '');
         $this->addColumn('desaliemp', 'Desaliemp', 'VARCHAR', true, 255, '');
         $this->addColumn('candonemp', 'Candonemp', 'VARCHAR', true, 255, '');
-        $this->addColumn('temconemp', 'Temconemp', 'TIMESTAMP', false, null, null);
-        $this->addColumn('horentemp', 'Horentemp', 'TIMESTAMP', false, null, null);
+        $this->addColumn('temconemp', 'Temconemp', 'VARCHAR', false, 255, null);
+        $this->addColumn('horentemp', 'Horentemp', 'VARCHAR', false, 255, null);
         $this->addColumn('detentemo', 'Detentemo', 'VARCHAR', true, 255, '');
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);

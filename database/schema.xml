@@ -128,8 +128,8 @@
     <column name="emlofiemp" phpName="Emlofiemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="desaliemp" phpName="Desaliemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="candonemp" phpName="Candonemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
-    <column name="temconemp" phpName="Temconemp" type="TIMESTAMP"/>
-    <column name="horentemp" phpName="Horentemp" type="TIMESTAMP"/>
+    <column name="temconemp" phpName="Temconemp" type="VARCHAR" size="255"/>
+    <column name="horentemp" phpName="Horentemp" type="VARCHAR" size="255"/>
     <column name="detentemo" phpName="Detentemo" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
@@ -265,6 +265,7 @@
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <column name="remember_token" phpName="RememberToken" type="VARCHAR" size="100"/>
+    <column name="isinstitution" phpName="Isinstitution" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <unique name="users_uuid_unique">
       <unique-column name="uuid"/>
     </unique>
