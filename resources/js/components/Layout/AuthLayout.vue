@@ -3,7 +3,7 @@
       <md-toolbar md-elevation="8" class="md-primary md-toolbar-absolute md-absolute">
           <div class="md-toolbar-row md-offset">
               <div class="md-toolbar-section-start">
-                  <h1 href="#/" @click="linkClick" class="md-title">CERO HAMBRE</h1>
+                  <h1 @click="linkClick" class="md-title">CERO HAMBRE</h1>
               </div>
               <div class="md-toolbar-section-end">
                   <md-button
@@ -25,33 +25,41 @@
                               <md-icon>house</md-icon>
                               <router-link to="/">Inicio</router-link>
                           </md-list-item>
-                          <md-list-item>
+                          <md-list-item v-if="!$auth.check()">
                               <md-icon>person_add</md-icon>
                               <router-link to="/register">Registro</router-link>
                           </md-list-item>
-                          <md-list-item>
+                          <md-list-item v-if="!$auth.check()">
                               <md-icon>fingerprint</md-icon>
                               <router-link to="/login">Iniciar Sesión</router-link>
                           </md-list-item>
-                          <md-list-item>
+                          <md-list-item v-if="$auth.check('usuario')">
                               <md-icon>fingerprint</md-icon>
-                              <router-link to="/oferta">Administración</router-link>
+                              <router-link to="/registerinstitution">Registrar Institución</router-link>
                           </md-list-item>
-                          <md-list-item  @click.prevent="$auth.logout()">
+                          <md-list-item v-if="$auth.check('empresa')">
+                              <md-icon>fingerprint</md-icon>
+                              <router-link to="/empresa/oferta">Empresa</router-link>
+                          </md-list-item>
+                          <md-list-item v-if="$auth.check('organización')">
+                              <md-icon>fingerprint</md-icon>
+                              <router-link to="/organizacion/oferta">Organización</router-link>
+                          </md-list-item>
+                          <md-list-item v-if="$auth.check()" @click.prevent="logout">
                               <md-icon>fingerprint</md-icon>
                               Salir
                           </md-list-item>
-                          <md-list-item href="#">
+                          <md-list-item v-if="$auth.check()">
                               <md-icon>dashboard</md-icon>
                               Estadisticas
                           </md-list-item>
 
-                          <md-list-item href="#">
+                          <md-list-item v-if="$auth.check()">
                               <md-icon>ondemand_video</md-icon>
                               Cursos
                           </md-list-item>
 
-                          <md-list-item href="#">
+                          <md-list-item v-if="$auth.check()">
                               <md-icon>person</md-icon>
                               Organizaciones publicas
                           </md-list-item>
@@ -82,32 +90,17 @@
             <nav>
               <ul>
                 <li>
-                  <router-link :to="{ path: '/dashboard' }">Home</router-link>
-                </li>
-                <li>
-                  <a href="#">
-                    Company
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    Portfolio
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    Blog
-                  </a>
+                  <router-link :to="{ path: '/dashboard' }">Legal</router-link>
                 </li>
               </ul>
             </nav>
             <div class="copyright text-center">
               &copy; {{ new Date().getFullYear() }}
               <a
-                href="https://www.creative-tim.com/?ref=mdf-vuejs"
+                href="/"
                 target="_blank"
-                >Creative Tim</a
-              >, made with <i class="fa fa-heart heart"></i> for a better web
+                >Magnimus Software</a
+              >, Hecho en Durango, dgo. México
             </div>
           </div>
         </footer>
@@ -144,14 +137,8 @@ export default {
   },
   computed: {
     setBgImage() {
-      let images = {
-        Welcome: "./img/bg-pricing.jpg",
-        Login: "./img/login.jpg",
-        Register: "./img/register.jpg",
-        Lock: "./img/lock.jpg"
-      };
       return {
-        backgroundImage: `url(${images[this.$route.name]})`
+        backgroundImage: `url(./img/bg-pricing.jpg)`
       };
     },
     setPageClass() {
@@ -190,9 +177,13 @@ export default {
       } else {
         this.responsive = false;
       }
-    }
+    },
+      logout() {
+          this.$auth.logout();
+      }
   },
   mounted() {
+
     this.onResponsiveInverted();
     window.addEventListener("resize", this.onResponsiveInverted);
   },

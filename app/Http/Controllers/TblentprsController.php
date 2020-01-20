@@ -10,12 +10,20 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Foundation\Auth\User;
+
 
 class TblentprsController extends Controller
 {
     public function __construct()
     {
 
+    }
+
+    public function guard() {
+        return Auth::guard('api');
     }
 
     public function index()
@@ -42,7 +50,8 @@ class TblentprsController extends Controller
     // store (C)
     public function create(Request $request)
     {
-        $id = Auth::user()->id;
+
+        $id = $request->get("Id");
 
         $tipentprs = \Tblentprs::fnoentusr($id);
 
@@ -127,7 +136,9 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        if (Auth::user()->isinstitution) {
+        $entprs = \Tblentprs::fnoentusr($id);
+
+        if ($entprs) {
             return ReturnHandler::rtrerrjsn('Ya existe una institución en esta cuenta, es necesairo crear otra cuenta para otra institución');
         }
 
@@ -143,10 +154,11 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn('Ocurrio un error con el almacenamiento de datos');
         }
 
+        Log::debug($id);
         // 2.- Peticion a variables
         $data = [
             'uuid' => $uuid4,
-            'idnentusr' => Auth::user()->id,
+            'idnentusr' => $id,
             'nomentprs' => request('Nombre'),
             'prmaplprs' => request('PrimerApellido'),
             'sgnaplprs' => request('SegundoApellido'),

@@ -39,28 +39,40 @@
                 showMenu: false,
                 menuTransitionDuration: 250,
                 pageTransitionDuration: 300,
-                year: new Date().getFullYear()
+                year: new Date().getFullYear(),
+                error: false
             };
         },
         methods: {
             login() {
                 var app = this;
 
-                console.log(this.$auth.check());
                 this.$auth.login({
                     params: {
                         email: app.email,
                         password: app.password
                     },
-                    success: function () {
-                        console.log("yes");
+                    success: function (response) {
+                        this.$toastr.Add({
+                            title: "Bienvenido", // Toast Title
+                            msg: "Ha iniciado sesión correctamente", // Toast Message
+                            type: "success", // Toast type,
+                            preventDuplicates: true, //Default is false,
+                        });
 
+                        this.$auth.user(JSON.parse(response.data.data));
                     },
                     error: function () {
-                        console.log("nope");
+                        this.$toastr.Add({
+                            title: "Error", // Toast Title
+                            msg: "El usuario y/o contraseña no existe, revise sus credenciales", // Toast Message
+                            type: "error", // Toast type,
+                            preventDuplicates: true, //Default is false,
+                        });
                     },
                     rememberMe: true,
                     redirect: '/',
+                    url: 'auth/login',
                     fetchUser: true,
                 });
             },

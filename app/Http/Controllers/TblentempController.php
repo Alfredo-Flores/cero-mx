@@ -30,7 +30,7 @@ class TblentempController extends Controller
         // 1.- Validacion del request
         $rules = [
 			'EmpresaNombre' => 'required|max:255',
-			'EmpresaLogo' => 'required|max:255',
+			'EmpresaLogo' => 'required',
 			'EmpresaDireccion' => 'required|max:255',
 			'EmpresaLocalidad' => 'required|max:255',
 			'EmpresaMunicipio' => 'required|max:255',
@@ -52,7 +52,6 @@ class TblentempController extends Controller
 			'EmpresaNombre.max' => 'Validacion fallada en Nombre.max',
 			'EmpresaLogo.required' => 'Validacion fallada en Logo.required',
 			'EmpresaLogo.string' => 'Validacion fallada en Logo.string',
-			'EmpresaLogo.max' => 'Validacion fallada en Logo.max',
 			'EmpresaDireccion.required' => 'Validacion fallada en Direccion.required',
 			'EmpresaDireccion.string' => 'Validacion fallada en Direccion.string',
 			'EmpresaDireccion.max' => 'Validacion fallada en Direccion.max',

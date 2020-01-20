@@ -21,6 +21,9 @@ import VueResource from 'vue-resource'
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/vue-material.css'
+import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'font-awesome/css/font-awesome.css'
 
 // Importar a Vue
 Vue.use(VueMaterial);
@@ -31,8 +34,6 @@ Vue.use(SideBar);
 Vue.use(VueInternationalization);
 Vue.use(VueResource);
 
-axios.defaults.baseURL = 'http://localhost:50000/api';
-
 // Internalicionalizacion
 const lang = document.documentElement.lang.substr(0, 2);
 
@@ -41,7 +42,8 @@ const i18n = new VueInternationalization({
     messages: Locale
 });
 
-Vue.http.options.root = 'https://api-demo.websanova.com/api/v1';
+axios.defaults.baseURL = 'http://localhost:50000/api';
+Vue.http.options.root = 'http://localhost:50000/api';
 
 // configure router
 const router = new VueRouter({
@@ -57,13 +59,23 @@ const router = new VueRouter({
     linkExactActiveClass: "nav-item active"
 });
 
+
 Vue.router = router;
 
 
 Vue.use(require('@websanova/vue-auth'), {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
     http: require('@websanova/vue-auth/drivers/http/vue-resource.1.x.js'),
-    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
+    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+    rolesVar: "role",
+    fetchData: {url: 'auth/userdata', method: 'GET', enabled: true},
+    authRedirect: {path: '/'},
+    notFoundRedirect: {path: '/'},
+    logoutData: {url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: true},
+    refreshData: {url: 'auth/userdata', method: 'GET', enabled: true, interval: 30},
+    parseUserData (data) {
+        return data || {}
+    },
 });
 
 App.router = Vue.router;

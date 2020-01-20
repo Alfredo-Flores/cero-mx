@@ -98,7 +98,7 @@ export default {
   },
   computed: {
     baseComponent() {
-      return this.isMenu || this.link.isRoute ? "li" : "li";
+      return this.isMenu || this.link.isRoute ? "li" : "router-link";
     },
     linkPrefix() {
       if (this.link.name) {
@@ -135,6 +135,8 @@ export default {
     elementType(link, isParent = true) {
       if (link.isRoute === false) {
         return isParent ? "li" : "a";
+      } else {
+        return "router-link";
       }
     },
     linkAbbreviation(name) {

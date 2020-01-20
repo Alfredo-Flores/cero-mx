@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h5 class="info-text">{{ $t('secondstep.title') }}</h5>
+        <h5 class="info-text"> ¿Qué tipo de institución es? </h5>
         <div class="md-layout">
             <div class="md-layout-item">
                 <div class="md-layout">
@@ -8,7 +8,7 @@
                         <icon-checkbox
                             v-model="checkone"
                             icon="fas fa-building"
-                            :title="$t('secondstep.bussiness')"
+                            title="Empresa"
                             @click.native="changeCheck(1)"
                         >
                         </icon-checkbox>
@@ -17,7 +17,7 @@
                         <icon-checkbox
                             v-model="checktwo"
                             icon="fas fa-home"
-                            :title=" $t('secondstep.organization') "
+                            title="Organización"
                             @click.native="changeCheck(2)"
                         >
                         </icon-checkbox>
@@ -28,7 +28,12 @@
     </div>
 </template>
 <script>
+    import IconCheckbox from "../../Inputs/IconCheckbox.vue";
+
     export default {
+        components: {
+            IconCheckbox
+        },
         data() {
             return {
                 checkone: true,

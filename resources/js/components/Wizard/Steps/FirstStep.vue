@@ -21,7 +21,7 @@
                                     </div>
                                     <input type="file" @change="onFileChange" v-on:change="validate"/>
                                 </div>
-                                <h6 class="description">{{ $t('firststep.logo') }} <p style="color: red">*</p></h6>
+                                <h6 class="description"> Logo representante <p style="color: red">*</p></h6>
                             </div>
                         </ValidationProvider>
                     </div>

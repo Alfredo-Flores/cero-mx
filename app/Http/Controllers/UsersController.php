@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\ReturnHandler;
 use App\TransactionHandler;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
-use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsersController extends Controller
 {
@@ -193,7 +193,7 @@ class UsersController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (! $token = JWTAuth::attempt($credentials)) {
+        if ( ! $token = $this->guard()->attempt($credentials)) {
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',
@@ -202,37 +202,128 @@ class UsersController extends Controller
         }
 
         return response([
-            'status' => 'success'
+            'status' => 'success',
+            'data' => $this->userdata()
         ])
-            ->header('Authorization', $token);
+            ->header('Authorization', $token)
+                ->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                ->header('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
+                ->header('Access-Control-Expose-Headers', 'Authorization')
+                ->header('Content-Type', 'application/json; charset=utf-8');
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        JWTAuth::invalidate();
 
-        return response([
-            'status' => 'success',
-            'msg' => 'Logged out Successfully.'
-        ], 200);
+    public function userdata()
+    {
+        try {
+            $id = Auth::user()->id;
+        } catch (\Exception $e) {
+            Log::debug($e);
+            return null;
+        }
+
+        $user = \Users::fnousers($id);
+
+        if (!$user) {
+            return null;
+        }
+
+        $user = $user->toArray();
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            $user["role"] = array("usuario");
+
+            $user = json_encode($user);
+
+            return $user;
+
+            return $user;
+        }
+
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            $user["role"] = array("empresa");
+
+            $user = json_encode($user);
+
+            return $user;
+        } elseif ($tipentprs == 2) {
+            $user["role"] = array("organización");
+
+            $user = json_encode($user);
+
+
+            return $user;
+        } else {
+            $user["role"] = array("usuario");
+
+            $user = json_encode($user);
+
+            return $user;
+        }
     }
 
     public function user(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-        return response([
-            'status' => 'success',
-            'data' => $user
-        ]);
+        return response()->json($this->guard()->user());
     }
+
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        $this->guard()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function refresh()
     {
-        return response([
-            'status' => 'success'
+        return $this->respondWithToken($this->guard()->refresh());
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => $this->guard()->factory()->getTTL() * 60
         ]);
     }
 
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard()
+    {
+        return Auth::guard();
+    }
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }

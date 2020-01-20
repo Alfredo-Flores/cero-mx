@@ -8,7 +8,7 @@
   >
     <div class="logo">
       <a
-        href="/"
+        href="https://www.creative-tim.com"
         class="simple-text logo-mini"
         target="_blank"
       >
@@ -17,11 +17,12 @@
         </div>
       </a>
       <a
-        href="/"
+        href="https://www.creative-tim.com"
         class="simple-text logo-normal"
         target="_blank"
       >
-        <template>{{ title }}</template>
+        <template v-if="$route.meta.rtlActive">{{ rtlTitle }}</template>
+        <template v-else>{{ title }}</template>
       </a>
       <div class="navbar-minimize">
         <md-button
@@ -66,7 +67,11 @@ export default {
   props: {
     title: {
       type: String,
-      default: "CERO"
+      default: "Vue MD PRO"
+    },
+    rtlTitle: {
+      type: String,
+      default: "توقيت الإبداعية"
     },
     activeColor: {
       type: String,
