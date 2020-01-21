@@ -17,9 +17,9 @@ class TblentdncController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $id = Auth::user()->id;
+        $id = $request->get("Id");
 
         $tipentprs = \Tblentprs::fnoentusr($id);
 
@@ -104,7 +104,7 @@ class TblentdncController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        $id = Auth::user()->id;
+        $id = $request->get("Id");
 
         $entprs = \Tblentprs::fnoentusr($id);
 
@@ -200,18 +200,15 @@ class TblentdncController extends Controller
     {
         // 1.- Validacion del request TODO *Modificar*
         $rules = [
-			'Uuid' => 'required|uuid|size:36',
+			'Uuid' => 'required',
 			'Descripcion' => 'required|max:255',
 			'TipoAlimento' => 'required|max:255',
-			'Kilogramos' => 'required|numeric|min:0|max:9',
-			'CantCajas' => 'required|integer|min:0|max:9',
-			'TiempoRestante' => 'required|integer|min:0|max:9',
-			'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
+			'Kilogramos' => 'required|numeric',
+			'CantCajas' => 'required|numeric',
+			'TiempoRestante' => 'required',
 		];
 
-        $msgs = [ // TODO *Customizable*
-			'Uuid' => 'required|uuid|size:36',
+        $msgs = [
 			'Descripcion.required' => 'Validacion fallada en Descripcion.required',
 			'Descripcion.string' => 'Validacion fallada en Descripcion.string',
 			'Descripcion.max' => 'Validacion fallada en Descripcion.max',
@@ -220,22 +217,10 @@ class TblentdncController extends Controller
 			'TipoAlimento.max' => 'Validacion fallada en TipoAlimento.max',
 			'Kilogramos.required' => 'Validacion fallada en Kilogramos.required',
 			'Kilogramos.numeric' => 'Validacion fallada en Kilogramos.numeric',
-			'Kilogramos.min' => 'Validacion fallada en Kilogramos.min',
-			'Kilogramos.max' => 'Validacion fallada en Kilogramos.max',
 			'CantCajas.required' => 'Validacion fallada en CantCajas.required',
 			'CantCajas.integer' => 'Validacion fallada en CantCajas.integer',
-			'CantCajas.min' => 'Validacion fallada en CantCajas.min',
-			'CantCajas.max' => 'Validacion fallada en CantCajas.max',
 			'TiempoRestante.required' => 'Validacion fallada en TiempoRestante.required',
 			'TiempoRestante.integer' => 'Validacion fallada en TiempoRestante.integer',
-			'TiempoRestante.min' => 'Validacion fallada en TiempoRestante.min',
-			'TiempoRestante.max' => 'Validacion fallada en TiempoRestante.max',
-			'Creado.required' => 'Validacion fallada en Creado.required',
-			'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-			'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-			'Actualizado.required' => 'Validacion fallada en Actualizado.required',
-			'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
-			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
 
         ];
 
@@ -262,13 +247,13 @@ class TblentdncController extends Controller
         $data = [
 			'identdnc' => $entdnc->getIdentdnc(),
 			'uuid' => $entdnc->getUuid(),
+			'idnentemp' => $entdnc->getIdnentemp(),
 			'dscentdnc' => request('Descripcion'),
 			'tipentdnc' => request('TipoAlimento'),
 			'kgsentdnc' => request('Kilogramos'),
 			'cntcjsdnc' => request('CantCajas'),
 			'tmprstdnc' => request('TiempoRestante'),
-			'created_at' => request('Creado'),
-			'updated_at' => request('Actualizado'),
+			'updated_at' => $timestamp,
         ];
 
         $result = \Tblentdnc::updentdnc($data, $trncnn);
@@ -393,7 +378,73 @@ class TblentdncController extends Controller
     // Show table(D)
     public function table(Request $request)
     {
+        $id = $request->get("Id");
 
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return null;
+        }
+
+        $entprs = $tipentprs;
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentemp = \Tblentemp::fnoentprs($idnentprs)->getIdnentemp();
+
+            $ofertas = \Tblentdnc::fndempdnc($idnentemp);
+            $ofertas = $ofertas->toArray();
+
+
+            foreach($ofertas as $key => $oferta)
+            {
+                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+
+                if ($diferencia < 1){
+                    unset($ofertas[$key]);
+                } else {
+                    $ofertas[$key]['Tmprstdnc'] = $diferencia;
+                }
+            }
+
+            if (empty($ofertas)) {
+                $ofertas = null;
+            }
+
+            return json_encode([
+                'success' => true,
+                'data' => $ofertas
+            ]);
+
+        } elseif ($tipentprs == 2) {
+            $ofertas = \Tblentdnc::fnddncemp();
+            $ofertas = $ofertas->toArray();
+
+
+            foreach($ofertas as $key => $oferta)
+            {
+                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+
+                if ($diferencia < 1){
+                    unset($ofertas[$key]);
+                } else {
+                    $ofertas[$key]['Tmprstdnc'] = $diferencia;
+                }
+            }
+
+            if (empty($ofertas)) {
+                $ofertas = null;
+            }
+
+            return json_encode([
+                'success' => true,
+                'data' => $ofertas
+            ]);
+        } else {
+            return null;
+        }
     }
 
     // Display one(D)

@@ -252,7 +252,7 @@ class UsersController extends Controller
 
             return $user;
         } elseif ($tipentprs == 2) {
-            $user["role"] = array("organización");
+            $user["role"] = array("organizacion");
 
             $user = json_encode($user);
 

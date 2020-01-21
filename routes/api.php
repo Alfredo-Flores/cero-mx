@@ -53,15 +53,13 @@ Route::post('/Tblentcln/modify', 'TblentclnController@update')->name('Tblentcln.
 Route::post('/Tblentcln/remove', 'TblentclnController@destroy')->name('Tblentcln.remove');
 
 //Tblentdnc Route
-Route::middleware(['auth'])->group(function () {
     Route::get('/Tblentdnc', 'TblentdncController@index')->name('Tblentdnc.main');
-    Route::post('/Tblentdnc/fetch', 'TblentdncController@loadtable')->name('Tblentdnc.fetch');
+    Route::post('/Tblentdnc/fetch', 'TblentdncController@table')->name('Tblentdnc.fetch');
     Route::post('/Tblentdnc/submit', 'TblentdncController@create')->name('Tblentdnc.submit');
     Route::post('/Tblentdnc/modify', 'TblentdncController@update')->name('Tblentdnc.modify');
     Route::post('/Tblentdnc/request', 'TblentdncController@request')->name('Tblentdnc.request');
     Route::post('/Tblentdnc/finish', 'TblentdncController@finish')->name('Tblentdnc.finish');
     Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
-});
 
 
 //Tblentemp Route

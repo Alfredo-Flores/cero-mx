@@ -61,10 +61,14 @@ let authPages = {
 let empPages = {
     path: "/empresa",
     component: EmpresasLayout,
+    meta: {
+        auth: ['empresa'],
+        redirect: "/"
+    },
     children: [
         {
             path: "oferta",
-            name: "oferta",
+            name: "empresaOferta",
             component: EmpresasOferta,
             meta: {
                 auth: ['empresa'],
@@ -73,7 +77,7 @@ let empPages = {
         },
         {
             path: "calendario",
-            name: "calendario",
+            name: "empresaCalendario",
             component: EmpresasCalendario,
             meta: {
                 auth: ['empresa'],
@@ -82,7 +86,7 @@ let empPages = {
         },
         {
             path: "perfil",
-            name: "perfil",
+            name: "empresaPerfil",
             component: EmpresasPerfil,
             meta: {
                 auth: ['empresa'],
@@ -93,33 +97,33 @@ let empPages = {
 };
 
 let orgPages = {
-    path: "/oroganizacion",
+    path: "/organizacion",
     component: OrganizacionesLayout,
     children: [
         {
             path: "oferta",
-            name: "oferta",
+            name: "organizacionOferta",
             component: OrganizacionesOferta,
             meta: {
-                auth: true,
+                auth: ['organizacion'],
                 redirect: "/"
             }
         },
         {
             path: "calendario",
-            name: "calendario",
+            name: "organizacionCalendario",
             component: OrganizacionesCalendario,
             meta: {
-                auth: true,
+                auth: ['organizacion'],
                 redirect: "/"
             }
         },
         {
             path: "perfil",
-            name: "perfil",
+            name: "organizacionPerfil",
             component: OrganizacionesPerfil,
             meta: {
-                auth: true,
+                auth: ['organizacion'],
                 redirect: "/"
             }
         }
@@ -128,7 +132,8 @@ let orgPages = {
 
 const routes = [
     authPages,
-    empPages
+    empPages,
+    orgPages
 ];
 
 export default routes;

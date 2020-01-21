@@ -41,7 +41,7 @@
                               <md-icon>fingerprint</md-icon>
                               <router-link to="/empresa/oferta">Empresa</router-link>
                           </md-list-item>
-                          <md-list-item v-if="$auth.check('organización')">
+                          <md-list-item v-if="$auth.check('organizacion')">
                               <md-icon>fingerprint</md-icon>
                               <router-link to="/organizacion/oferta">Organización</router-link>
                           </md-list-item>

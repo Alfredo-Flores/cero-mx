@@ -20,7 +20,6 @@ import VueResource from 'vue-resource'
 
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/vue-material.css'
 import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'font-awesome/css/font-awesome.css'
@@ -62,7 +61,6 @@ const router = new VueRouter({
 
 Vue.router = router;
 
-
 Vue.use(require('@websanova/vue-auth'), {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
     http: require('@websanova/vue-auth/drivers/http/vue-resource.1.x.js'),
@@ -71,9 +69,11 @@ Vue.use(require('@websanova/vue-auth'), {
     fetchData: {url: 'auth/userdata', method: 'GET', enabled: true},
     authRedirect: {path: '/'},
     notFoundRedirect: {path: '/'},
+    forbiddenRedirect: {path: '/'},
     logoutData: {url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: true},
     refreshData: {url: 'auth/userdata', method: 'GET', enabled: true, interval: 30},
     parseUserData (data) {
+
         return data || {}
     },
 });

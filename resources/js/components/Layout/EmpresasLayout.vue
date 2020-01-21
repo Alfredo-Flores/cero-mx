@@ -42,7 +42,8 @@
                 <zoom-center-transition :duration="200" mode="out-in">
                     <!-- your content here -->
                     <router-view></router-view>
-                </zoom-center-transition>            </div>
+                </zoom-center-transition>
+            </div>
 
             <content-footer style=" bottom: 0; z-index: 1;"></content-footer>
         </div>

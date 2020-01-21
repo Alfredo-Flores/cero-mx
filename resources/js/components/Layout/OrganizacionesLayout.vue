@@ -11,33 +11,21 @@
             :data-background-color="sidebarBackgroundColor"
         >
             <template slot="links">
-                <md-list class="nav">
+                <sidebar-item
+                    :link="{ name: 'Buscar ofertas', icon: 'dashboard', path: '/organizacion/oferta' }"
+                >
+                </sidebar-item>
+                <sidebar-item
+                    :link="{ name: 'Calendario', icon: 'date_range', path: '/organizacion/calendario' }"
+                >
+                </sidebar-item>
+                <sidebar-item
+                    :link="{ name: 'Mi Perfil', icon: 'account_box', path: '/organizacion/perfil' }"
+                >
+                </sidebar-item>
+                <md-list class="nav" @click="logout">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Tblentdnc">
-                            <i class="material-icons">format_list_numbered</i>
-                            <p>Buscar ofertas</p>
-                        </a>
-                    </li>
-                </md-list>
-                <md-list class="nav">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="/Tblentcln">
-                            <i class="material-icons">date_range</i>
-                            <p>Calendario</p>
-                        </a>
-                    </li>
-                </md-list>
-                <md-list class="nav">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="/Tblentprs">
-                            <i class="material-icons">account_box</i>
-                            <p>Mi Perfil</p>
-                        </a>
-                    </li>
-                </md-list>
-                <md-list class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Users/submit/logout">
+                        <a class="nav-link" >
                             <i class="material-icons">exit_to_app</i>
                             <p>Salir</p>
                         </a>
@@ -51,7 +39,10 @@
                 @click="toggleSidebar"
                 style="z-index: -1"
             >
-                <slot></slot>
+                <zoom-center-transition :duration="200" mode="out-in">
+                    <!-- your content here -->
+                    <router-view></router-view>
+                </zoom-center-transition>
             </div>
 
             <content-footer style=" bottom: 0; z-index: 1;"></content-footer>
@@ -59,13 +50,15 @@
     </div>
 </template>
 <script>
+    import TopNavbar from "./TopNavbar.vue";
     import ContentFooter from "./ContentFooter.vue";
-    import {ZoomCenterTransition} from "vue2-transitions";
+    import { ZoomCenterTransition } from "vue2-transitions";
 
     export default {
         components: {
             ContentFooter,
-            ZoomCenterTransition
+            ZoomCenterTransition,
+            TopNavbar
         },
         data() {
             return {
@@ -86,6 +79,9 @@
                 if (this.$sidebar) {
                     this.$sidebar.toggleMinimize();
                 }
+            },
+            logout() {
+                this.$auth.logout();
             }
         },
         watch: {

@@ -154,9 +154,6 @@
                             msg: response.data.message, // Toast Message
                             type: "success", // Toast type,
                             preventDuplicates: true, //Default is false,
-                            onClosed: ()=>{
-                                window.location.replace("/");
-                            },
                         });
                     } else {
                         this.$toastr.e(response.data.message, 'Error');

@@ -145,7 +145,6 @@ class Tblentdnc extends BaseTblentdnc
                     throw new \Propel\Runtime\Exception\PropelException('tmprstdnc cannot be null');
                 }
             }
-            $entdnc->setCreatedAt(array_key_exists('created_at', $data) ? $data['created_at'] : null);
             $entdnc->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
             $entdnc->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
@@ -219,18 +218,28 @@ if($filidnentemp != 0){
         return $entdnc;
     }
 
-    public static function fndempdnc(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    public static function fnddncemp(\Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entdnc = \TblentdncQuery::create()
             ->useTblentempQuery()
                 ->withColumn("Namentemp")
-                ->withColumn("Drcentemp")
-                ->withColumn("Lclentemp")
-                ->withColumn("Emlofiemp")
+                ->withColumn("Logentemp")
                 ->withColumn("Tlfofiemp")
+                ->withColumn("Emlofiemp")
+                ->withColumn("Detentemo")
             ->endUse()
             ->orderByCreatedAt(Criteria::ASC)
-            ->where("rqsentdnc != 1")
+            ->find($connection);
+
+        if(!$entdnc) return false;
+
+        return $entdnc;
+    }
+
+    public static function fndempdnc(int $idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->filterByIdnentemp($idnentemp)
             ->find($connection);
 
         if(!$entdnc) return false;
