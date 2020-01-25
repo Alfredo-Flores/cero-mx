@@ -120,8 +120,7 @@
                         preventDuplicates: true, //Default is false
                     });
                     return
-                }
-                if (this.password !== this.passwordconfirmation || this.password == null) {
+                } else if (this.password !== this.passwordconfirmation || this.password == null) {
                     this.$toastr.Add({
                         title: "Revise su contraseña", // Toast Title
                         msg: "Su contraseña no coincide con la contraseña de confirmación", // Toast Message
@@ -129,9 +128,7 @@
                         preventDuplicates: true, //Default is false
                     });
                     return
-                }
-
-                if (this.boolean == false) {
+                } else if (this.boolean == false) {
                     this.$toastr.Add({
                         title: "Acepte terminos y condiciones", // Toast Title
                         msg: "Es necesario que este de acuerdo con los terminos y condiciones", // Toast Message
@@ -139,26 +136,34 @@
                         preventDuplicates: true, //Default is false
                     });
                     return
+                } else {
+                    this.$auth.register({
+                        params: {
+                            email: this.email,
+                            password: this.password,
+                        },
+                        success: function (response) {
+                            this.$toastr.Add({
+                                title: "¡Bien!", // Toast Title
+                                msg: "Se ha registrado correctamente", // Toast Message
+                                type: "success", // Toast type,
+                                preventDuplicates: true, //Default is false
+                            });
+                        },
+                        error: function (response) {
+                            this.$toastr.Add({
+                                title: "Error", // Toast Title
+                                msg: response.data.message, // Toast Message
+                                type: "error", // Toast type,
+                                preventDuplicates: true, //Default is false
+                            });
+                        },
+                        autoLogin: true,
+                        rememberMe: true,
+                        redirect: {path: "/"},
+                        url: 'auth/register'
+                    });
                 }
-
-                let uri = "auth/register";
-
-                axios.post(uri, {
-                        email: this.email,
-                        password: this.password,
-                    }
-                ).then(response => {
-                    if (response.data.success) {
-                        this.$toastr.Add({
-                            title: "Registrado Correctamente", // Toast Title
-                            msg: response.data.message, // Toast Message
-                            type: "success", // Toast type,
-                            preventDuplicates: true, //Default is false,
-                        });
-                    } else {
-                        this.$toastr.e(response.data.message, 'Error');
-                    }
-                });
             }
         }
 

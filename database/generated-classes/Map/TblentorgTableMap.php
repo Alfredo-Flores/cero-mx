@@ -281,6 +281,13 @@ class TblentorgTableMap extends TableMap
     1 => ':idnentorg',
   ),
 ), null, null, 'Tblentclns', false);
+        $this->addRelation('Tblentdnc', '\\Tblentdnc', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':idnentorg',
+    1 => ':idnentorg',
+  ),
+), null, null, 'Tblentdncs', false);
     } // buildRelations()
 
     /**

@@ -38,6 +38,7 @@
         "fullcalendar": "^3.10.1",
         "material-components-web": "^4.0.0",
         "material-design-icons-iconfont": "^5.0.1",
+        "perfect-scrollbar": "^1.5.0",
         "roboto-fontface": "^0.10.0",
         "sweetalert2": "^9.6.0",
         "vee-validate": "^3.2.1",

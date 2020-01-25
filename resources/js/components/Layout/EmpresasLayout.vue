@@ -34,6 +34,7 @@
             </template>
         </side-bar>
         <div class="main-panel">
+            <top-navbar></top-navbar>
 
             <div
                 @click="toggleSidebar"
@@ -50,6 +51,39 @@
     </div>
 </template>
 <script>
+    import PerfectScrollbar from "perfect-scrollbar";
+    import "perfect-scrollbar/css/perfect-scrollbar.css";
+
+    function hasElement(className) {
+        return document.getElementsByClassName(className).length > 0;
+    }
+
+    function initScrollbar(className) {
+        if (hasElement(className)) {
+            new PerfectScrollbar(`.${className}`);
+            document.getElementsByClassName(className)[0].scrollTop = 0;
+        } else {
+            // try to init it later in case this component is loaded async
+            setTimeout(() => {
+                initScrollbar(className);
+            }, 100);
+        }
+    }
+
+    function reinitScrollbar() {
+        let docClasses = document.body.classList;
+        let isWindows = navigator.platform.startsWith("Win");
+        if (isWindows) {
+            // if we are on windows OS we activate the perfectScrollbar function
+            initScrollbar("sidebar");
+            initScrollbar("sidebar-wrapper");
+            initScrollbar("main-panel");
+
+            docClasses.add("perfect-scrollbar-on");
+        } else {
+            docClasses.add("perfect-scrollbar-off");
+        }
+    }
 
     import TopNavbar from "./TopNavbar.vue";
     import ContentFooter from "./ContentFooter.vue";
@@ -84,6 +118,15 @@
             logout() {
                 this.$auth.logout();
             }
+        },
+        updated() {
+            reinitScrollbar();
+        },
+        mounted() {
+            reinitScrollbar();
+        },
+        beforeCreate() {
+            this.$sidebar.toggleMinimize();
         },
         watch: {
             sidebarMini() {

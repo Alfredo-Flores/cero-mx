@@ -8,7 +8,7 @@
   >
     <div class="logo">
       <a
-        href="https://www.creative-tim.com"
+        href="/"
         class="simple-text logo-mini"
         target="_blank"
       >
@@ -17,12 +17,11 @@
         </div>
       </a>
       <a
-        href="https://www.creative-tim.com"
+        href="/"
         class="simple-text logo-normal"
         target="_blank"
       >
-        <template v-if="$route.meta.rtlActive">{{ rtlTitle }}</template>
-        <template v-else>{{ title }}</template>
+        <template>{{ title }}</template>
       </a>
       <div class="navbar-minimize">
         <md-button
@@ -62,16 +61,15 @@
   </div>
 </template>
 <script>
+import logosrc from "./img/Logo.png";
+import sidebarsrc from "./img/Sidebar.jpg";
+
 export default {
   name: "sidebar",
   props: {
     title: {
       type: String,
-      default: "Vue MD PRO"
-    },
-    rtlTitle: {
-      type: String,
-      default: "توقيت الإبداعية"
+      default: "CERO HAMBRE"
     },
     activeColor: {
       type: String,
@@ -91,11 +89,11 @@ export default {
     },
     backgroundImage: {
       type: String,
-      default: "./img/sidebar-2.jpg"
+      default: `url(${sidebarsrc})`
     },
     backgroundColor: {
       type: String,
-      default: "black",
+      default: "",
       validator: value => {
         let acceptedValues = ["", "black", "white", "red"];
         return acceptedValues.indexOf(value) !== -1;
@@ -103,7 +101,7 @@ export default {
     },
     logo: {
       type: String,
-      default: "./img/vue-logo.png"
+        default: logosrc
     },
     sidebarLinks: {
       type: Array,
@@ -129,7 +127,7 @@ export default {
   computed: {
     sidebarStyle() {
       return {
-        backgroundImage: `url(${this.backgroundImage})`
+        backgroundImage: `url(${sidebarsrc})`
       };
     }
   },

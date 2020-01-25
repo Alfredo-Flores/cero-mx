@@ -8,7 +8,39 @@
                     </div>
                 </md-card-header>
                 <md-card-content>
-
+                    <div v-if="ofertas == null">
+                        <h4 class="title">Parece que esta vacio!</h4>
+                    </div>
+                    <div v-else>
+                        <md-table>
+                            <md-table-row>
+                                <md-table-head>Organización</md-table-head>
+                                <md-table-head>Oferta</md-table-head>
+                                <md-table-head>Acciones</md-table-head>
+                            </md-table-row>
+                                <md-table-row v-for="(oferta, i) in ofertas" :key="i" >
+                                    <md-table-cell>{{ oferta.Nmbentorg }}</md-table-cell>
+                                    <md-table-cell>{{ oferta.Dscentdnc }}</md-table-cell>
+                                    <md-table-cell>
+                                        <md-button
+                                            class="md-just-icon md-danger"
+                                            @click="rechazarOrganizacion(oferta)"
+                                        ><md-icon>close</md-icon></md-button
+                                        >
+                                        <md-button
+                                            class="md-just-icon md-primary"
+                                            @click="aceptarOrganizacion(oferta)"
+                                        ><md-icon>done</md-icon></md-button
+                                        >
+                                        <md-button
+                                            class="md-just-icon md-info"
+                                            @click="informacionOrganizacion(oferta)"
+                                        ><md-icon>info</md-icon></md-button
+                                        >
+                                    </md-table-cell>
+                                </md-table-row>
+                        </md-table>
+                    </div>
                 </md-card-content>
             </md-card>
         </div>
@@ -21,16 +53,153 @@
                         locale="esLocale"
                         :plugins="calendarPlugins"
                         :events="events"
-                        :selectable="true"
-                        @dateClick="dateClick"
+                        @dateClick="modalCalendarizarOrganizacion"
+                        @eventClick="modificarEvento"
                         :header="header"
                         :buttonIcons="buttonIcons"
-                        :selectHelper="true"
                         :editable="true"
+                        :weekends="false"
+                        :valid-range="function(nowDate) {
+                            return {
+                              start: nowDate
+                            };
+                          }"
                     />
                 </md-card-content>
             </md-card>
         </div>
+
+
+        <modal v-if="seleccionbandera" @close="cerrarModalSeleccionar" style="z-index: 3">
+            <template slot="header">
+                <div class="m-4">
+                    <h4 class="modal-title">Calendarización</h4>
+                    <md-button
+                        class="md-simple md-just-icon md-round modal-default-button"
+                        @click="cerrarModalSeleccionar"
+                    >
+                        <md-icon>clear</md-icon>
+                    </md-button>
+                </div>
+            </template>
+
+            <template slot="body">
+                            <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
+
+                            <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
+
+                            <p>Día selecciónado: {{ dia }}</p>
+
+                        <md-field style="z-index: 4">
+                            <label>Periodicidad de entrega</label>
+                            <md-select v-model="periodicidad" name="periodicidad" id="periodicidad">
+                                <md-option value="1">Mensual</md-option>
+                                <md-option value="2">Quincenal</md-option>
+                                <md-option value="3">Semanal</md-option>
+                                <md-option value="4">Diario</md-option>
+                                <md-option value="5">Unico</md-option>
+                            </md-select>
+                        </md-field>
+                        <md-field>
+                            <label>Horario de entrega de alimentos</label>
+                            <md-select v-model="horario">
+                                <md-option value="00:00">0:00 AM</md-option>
+                                <md-option value="01:00">1:00 AM</md-option>
+                                <md-option value="02:00">2:00 AM</md-option>
+                                <md-option value="03:00">3:00 AM</md-option>
+                                <md-option value="04:00">4:00 AM</md-option>
+                                <md-option value="05:00">5:00 AM</md-option>
+                                <md-option value="06:00">6:00 AM</md-option>
+                                <md-option value="07:00">7:00 AM</md-option>
+                                <md-option value="08:00">8:00 AM</md-option>
+                                <md-option value="09:00">9:00 AM</md-option>
+                                <md-option value="10:00">10:00 AM</md-option>
+                                <md-option value="11:00">11:00 AM</md-option>
+                                <md-option value="12:00">12:00 AM</md-option>
+                                <md-option value="13:00">1:00 PM</md-option>
+                                <md-option value="14:00">2:00 PM</md-option>
+                                <md-option value="15:00">3:00 PM</md-option>
+                                <md-option value="16:00">4:00 PM</md-option>
+                                <md-option value="17:00">5:00 PM</md-option>
+                                <md-option value="18:00">6:00 PM</md-option>
+                                <md-option value="19:00">7:00 PM</md-option>
+                                <md-option value="20:00">8:00 PM</md-option>
+                                <md-option value="21:00">9:00 PM</md-option>
+                                <md-option value="22:00">10:00 PM</md-option>
+                                <md-option value="23:00">11:00 PM</md-option>
+                            </md-select>
+                        </md-field>
+            </template>
+
+            <template slot="footer">
+
+                <div v-if="modificarbandera">
+                    <md-button class="md-simple m-2" @click="cerrarModalSeleccionar">Cancelar</md-button>
+                    <md-button
+                        class="md-danger m-2"
+                        @click="eliminarOrganizacion"
+                    >Eliminar</md-button
+                    >
+                    <md-button
+                        class="md-warning m-2"
+                        @click="modificarOrganizacion"
+                    >Modificar</md-button
+                    >
+                </div>
+
+                <div v-else>
+                    <md-button class="md-simple m-2" @click="cerrarModalSeleccionar">Cancelar</md-button>
+                    <md-button
+                        class="md-success m-2"
+                        @click="calendarizarOrganizacion"
+                    >Calendarizar</md-button
+                    >
+                </div>
+
+            </template>
+        </modal>
+
+
+        <modal v-if="infobandera" @close="cerrarModalInfo" style="z-index: 3">
+            <template slot="header">
+                <div class="m-4">
+                    <h4 class="modal-title">Información</h4>
+                    <md-button
+                        class="md-simple md-just-icon md-round modal-default-button"
+                        @click="cerrarModalInfo"
+                    >
+                        <md-icon>clear</md-icon>
+                    </md-button>
+                </div>
+            </template>
+
+            <template slot="body">
+                        <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
+
+                        <p>Domicilio de la organización: {{ ofertatemporal.Dmcentorg }}</p>
+
+                        <p>Localidad de la organización: {{ ofertatemporal.Lclentorg }}</p>
+
+                        <p>Telefono de la organización: {{ ofertatemporal.Tlffcnorg }}</p>
+
+                        <p>Localidad de la organización: {{ ofertatemporal.Emlfcnorg }}</p>
+
+                        <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
+
+                        <p>Tipo de alimento: {{ ofertatemporal.Tipentdnc }}</p>
+
+                        <p>Kilos: {{ ofertatemporal.Kgsentdnc }}</p>
+
+                        <p>Cajas: {{ ofertatemporal.Cntcjsdnc }}</p>
+
+            </template>
+
+            <template slot="footer">
+                    <md-button class="md-simple m-2" @click="cerrarModalInfo">Cerrar</md-button>
+            </template>
+        </modal>
+
+
     </div>
 </template>
 
@@ -42,6 +211,8 @@
     import timeGridPlugin from "@fullcalendar/timegrid";
     import esLocale from '@fullcalendar/core/locales/es';
     import Swal from "sweetalert2";
+    import Modal from "../../components/Modal.vue";
+
 
     var today = new Date();
     var y = today.getFullYear();
@@ -50,7 +221,8 @@
 
     export default {
         components: {
-            FullCalendar
+            FullCalendar,
+            Modal
         },
         data() {
             return {
@@ -63,97 +235,347 @@
                     close: "fa-times",
                     prev: "left-single-arrow",
                     next: "right-single-arrow",
-                    prevYear: "fa-angle-double-left",
-                    nextYear: "fa-angle-double-right"
                 },
-                events: [
-                    {
-                        title: "All Day Event",
-                        start: new Date(y, m, 1),
-                        className: "event-default"
-                    },
-                    {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: new Date(y, m, d - 4, 6, 0),
-                        allDay: false,
-                        className: "event-rose"
-                    },
-                    {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: new Date(y, m, d + 3, 6, 0),
-                        allDay: false,
-                        className: "event-rose"
-                    },
-                    {
-                        title: "Meeting",
-                        start: new Date(y, m, d - 1, 10, 30),
-                        allDay: false,
-                        className: "event-green"
-                    },
-                    {
-                        title: "Lunch",
-                        start: new Date(y, m, d + 7, 12, 0),
-                        end: new Date(y, m, d + 7, 14, 0),
-                        allDay: false,
-                        className: "event-red"
-                    },
-                    {
-                        title: "Md-pro Launch",
-                        start: new Date(y, m, d - 2, 12, 0),
-                        allDay: true,
-                        className: "event-azure"
-                    },
-                    {
-                        title: "Birthday Party",
-                        start: new Date(y, m, d + 1, 19, 0),
-                        end: new Date(y, m, d + 1, 22, 30),
-                        allDay: false,
-                        className: "event-azure"
-                    },
-                    {
-                        title: "Click for Creative Tim",
-                        start: new Date(y, m, 21),
-                        end: new Date(y, m, 22),
-                        url: "http://www.creative-tim.com/",
-                        className: "event-orange"
-                    },
-                    {
-                        title: "Click for Google",
-                        start: new Date(y, m, 21),
-                        end: new Date(y, m, 22),
-                        url: "http://www.creative-tim.com/",
-                        className: "event-orange"
-                    }
-                ]
+                ofertas: null,
+                ofertastemporales: null,
+                eventostemporales: null,
+                ofertatemporal: null,
+                eventotemporal: null,
+                infotemporal: null,
+                ofertasubida: null,
+                seleccionbandera: false,
+                modificarbandera: false,
+                infobandera: false,
+                dia: null,
+                fechainicial: null,
+                periodicidad: null,
+                horario: null,
+                events: []
             };
         },
         methods: {
-            dateClick: function(info) {
-                // on select we show the Sweet Alert modal with an input
+            rechazarOrganizacion(oferta) {
                 Swal.fire({
-                    title: "Create an Event",
-                    html: `<div class="md-field md-theme-default">
-          <input type="text" id="md-input" class="md-input">
-          </div>`,
+                    title: '¿Seguro que quieres rechazar a esta organización?',
+                    text: "Quizas podrias contactarles y quedar de acuerdo en algo",
+                    icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonClass: "md-button md-success",
-                    cancelButtonClass: "md-button md-danger",
-                    buttonsStyling: false
-                }).then(() => {
-                    var eventTitle = document.getElementById("md-input").value;
-                    if (eventTitle) {
-                        let calendarApi = this.$refs.calendar.getApi();
-                        calendarApi.addEvent({
-                            title: eventTitle,
-                            start: info.dateStr,
-                            allDay: true
+                    confirmButtonText: 'Rechazar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+
+                        let uri = "Tblentdnc/refuse";
+
+                        axios.post(uri, {
+                            Uuid: oferta.Uuid,
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$toastr.Add({
+                                    title: "Correcto", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "success", // Toast type,
+                                });
+
+                                this.refrescarTabla();
+                            } else {
+                                this.$toastr.Add({
+                                    title: "Ocurrio un error", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "error", // Toast type,
+                                });
+                            }
                         });
                     }
                 });
+            },
+            aceptarOrganizacion(oferta) {
+                this.modificarbandera = false;
+                Swal.fire({
+                    title: '¿Seguro que quieres aceptar a esta organización?',
+                    text: "Se te preguntara en que fecha calendarizar su rutina, se recomienda contactar a la organización posteriormente",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        this.ofertatemporal = oferta;
+
+                        this.$toastr.Add({
+                            title: "Correcto", // Toast Title
+                            msg: "¡Elija algun día para su rutina dentro del calendario!", // Toast Message
+                            type: "success", // Toast type,
+                        });
+                    }
+                });
+            },
+            informacionOrganizacion(oferta) {
+                this.ofertatemporal = oferta;
+                this.abrirModalInfo();
+            },
+            modalCalendarizarOrganizacion(info) {
+                if (this.ofertatemporal != null && this.ofertatemporal !== this.ofertasubida ) {
+                    const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+                    let d = new Date(info.dateStr);
+                    this.fechainicial = d;
+                    this.dia = days[d.getDay()];
+
+                    this.abrirModalSeleccionar();
+                } else {
+                    this.$toastr.Add({
+                        title: "Error", // Toast Title
+                        msg: "Por favor, seleccione una oferta de la lista para calendarizar", // Toast Message
+                        type: "error", // Toast type,
+                    });
+                }
+            },
+            calendarizarOrganizacion() {
+                Swal.fire({
+                    title: '¿Confirmar Rutina?',
+                    text: "Despues puede modificar esta rutina o eliminarla",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+
+                        let uri = "Tblentcln/submit";
+
+                        let date = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+
+                        axios.post(uri, {
+                            UuidOferta: this.ofertatemporal.Uuid,
+                            Idnentusr: this.$auth.user().Id,
+                            Idnentorg: this.ofertatemporal.Idnentorg,
+                            Periodicidad: this.periodicidad,
+                            FechaInicio: date,
+                            Horario: this.horario,
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$toastr.Add({
+                                    title: "Correcto", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "success", // Toast type,
+                                });
+
+                                uri = "Tblentdnc/finish";
+
+                                axios.post(uri, {
+                                    Uuid: this.ofertatemporal.Uuid
+                                }).then(response => {
+                                    if (response.data.success) {
+                                        this.$toastr.Add({
+                                            title: "Correcto", // Toast Title
+                                            msg: response.data.message, // Toast Message
+                                            type: "success", // Toast type,
+                                        });
+                                        this.refrescarTabla();
+                                        this.refrescarCalendario();
+                                    } else {
+                                        this.$toastr.Add({
+                                            title: "Ocurrio un error", // Toast Title
+                                            msg: response.data.message, // Toast Message
+                                            type: "error", // Toast type,
+                                        });
+                                    }
+                                });
+
+
+                            } else {
+                                this.$toastr.Add({
+                                    title: "Ocurrio un error", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "error", // Toast type,
+                                });
+                            }
+                        });
+
+
+                    }
+                });
+            },
+            modificarOrganizacion() {
+                Swal.fire({
+                    title: '¿Modificar Rutina?',
+                    text: "Despues puede modificar esta rutina o eliminarla",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Modificar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+
+                        let uri = "Tblentcln/modify";
+
+                        let date = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+
+                        axios.post(uri, {
+                            Idnentusr: this.$auth.user().Id,
+                            Uuid: this.eventotemporal.Uuid,
+                            Periodicidad: this.periodicidad,
+                            FechaInicio: date,
+                            Horario: this.horario,
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$toastr.Add({
+                                    title: "Correcto", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "success", // Toast type,
+                                });
+
+                                uri = "Tblentdnc/finish";
+
+                                axios.post(uri, {
+                                    Uuid: this.ofertatemporal.Uuid
+                                }).then(response => {
+                                    if (response.data.success) {
+                                        this.$toastr.Add({
+                                            title: "Correcto", // Toast Title
+                                            msg: response.data.message, // Toast Message
+                                            type: "success", // Toast type,
+                                        });
+
+                                        this.refrescarTabla();
+                                        this.refrescarCalendario();
+                                        this.modificarbandera = false;
+
+                                    } else {
+                                        this.$toastr.Add({
+                                            title: "Ocurrio un error", // Toast Title
+                                            msg: response.data.message, // Toast Message
+                                            type: "error", // Toast type,
+                                        });
+                                    }
+                                });
+
+                            } else {
+                                this.$toastr.Add({
+                                    title: "Ocurrio un error", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "error", // Toast type,
+                                });
+                            }
+                        });
+
+
+                    }
+                });
+            },
+            eliminarOrganizacion() {
+                Swal.fire({
+                    title: '¿Eliminar Rutina?',
+                    text: "Despues puede modificar esta rutina o eliminarla",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Cancelar',
+                    cancelButtonText: 'Eliminar'
+                }).then((result) => {
+                    if (!result.value) {
+                        let uri = "Tblentcln/remove";
+
+                        axios.post(uri, {
+                            Uuid: this.eventotemporal.Uuid,
+                            UuidOferta: this.ofertatemporal.Uuid,
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$toastr.Add({
+                                    title: "Correcto", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "success", // Toast type,
+                                });
+                                this.refrescarTabla();
+                                this.refrescarCalendario();
+                                this.modificarbandera = false;
+                            } else {
+                                this.$toastr.Add({
+                                    title: "Ocurrio un error", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "error", // Toast type,
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+            modificarEvento(info) {
+                let uuid = info.event.extendedProps.uuid;
+
+                for (let i = 0; i < this.ofertastemporales.length; i++) {
+                    if (this.ofertastemporales[i]["Uuid"] == uuid) {
+                        this.ofertatemporal = this.ofertastemporales[i];
+                    }
+                }
+
+                for (let i = 0; i < this.eventostemporales.length; i++) {
+                    if (this.eventostemporales[i]["Uuid"] == uuid) {
+                        this.eventotemporal = this.eventostemporales[i];
+                    }
+                }
+
+
+                this.modificarbandera = true;
+                this.periodicidad = this.eventotemporal.Prdentcln;
+                const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', ];
+                let d = new Date(this.eventotemporal.Fchinccln);
+                this.fechainicial = d;
+                this.dia = days[d.getDay()];
+                this.modificarbandera = true;
+                this.infotemporal = info;
+
+                this.abrirModalSeleccionar();
+
+            },
+            refrescarTabla(){
+                if (this.$auth.ready()) {
+                    let uri = 'Tblentdnc/list';
+
+                    axios.post(uri, {
+                        Id: this.$auth.user().Id,
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.ofertas = response.data.data;
+                        } else {
+                            this.ofertas = null;
+                        }
+                    });
+                }
+            },
+            refrescarCalendario(){
+                if (this.$auth.ready()) {
+                    let uri = 'Tblentcln/fetch';
+
+                    axios.post(uri, {
+                        Id: this.$auth.user().Id,
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.events = response.data.data;
+                            this.ofertastemporales = response.data.ofertas;
+                            this.eventostemporales = response.data.eventos;
+                        } else {
+                            this.events = null;
+                        }
+                    });
+                }
+            },
+            abrirModalSeleccionar() {
+                this.seleccionbandera = true;
+            },
+            cerrarModalSeleccionar() {
+                this.seleccionbandera = false;
+            },
+            abrirModalInfo() {
+                this.infobandera = true;
+            },
+            cerrarModalInfo() {
+                this.infobandera = false;
             }
-        }
+        },
+        created() {
+            this.refrescarTabla();
+            this.refrescarCalendario();
+        },
     };
 </script>
 <style lang="scss" scoped>

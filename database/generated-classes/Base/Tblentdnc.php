@@ -5,6 +5,8 @@ namespace Base;
 use \TblentdncQuery as ChildTblentdncQuery;
 use \Tblentemp as ChildTblentemp;
 use \TblentempQuery as ChildTblentempQuery;
+use \Tblentorg as ChildTblentorg;
+use \TblentorgQuery as ChildTblentorgQuery;
 use \DateTime;
 use \Exception;
 use \PDO;
@@ -121,12 +123,27 @@ abstract class Tblentdnc implements ActiveRecordInterface
     protected $tmprstdnc;
 
     /**
+     * The value for the idnentorg field.
+     *
+     * @var        string
+     */
+    protected $idnentorg;
+
+    /**
      * The value for the rqsentdnc field.
      *
      * Note: this column has a database default value of: false
      * @var        boolean
      */
     protected $rqsentdnc;
+
+    /**
+     * The value for the clnentdnc field.
+     *
+     * Note: this column has a database default value of: false
+     * @var        boolean
+     */
+    protected $clnentdnc;
 
     /**
      * The value for the fnsentdnc field.
@@ -156,6 +173,11 @@ abstract class Tblentdnc implements ActiveRecordInterface
     protected $aTblentemp;
 
     /**
+     * @var        ChildTblentorg
+     */
+    protected $aTblentorg;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -172,6 +194,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
     public function applyDefaultValues()
     {
         $this->rqsentdnc = false;
+        $this->clnentdnc = false;
         $this->fnsentdnc = false;
     }
 
@@ -493,6 +516,16 @@ abstract class Tblentdnc implements ActiveRecordInterface
     }
 
     /**
+     * Get the [idnentorg] column value.
+     *
+     * @return string
+     */
+    public function getIdnentorg()
+    {
+        return $this->idnentorg;
+    }
+
+    /**
      * Get the [rqsentdnc] column value.
      *
      * @return boolean
@@ -510,6 +543,26 @@ abstract class Tblentdnc implements ActiveRecordInterface
     public function isRqsentdnc()
     {
         return $this->getRqsentdnc();
+    }
+
+    /**
+     * Get the [clnentdnc] column value.
+     *
+     * @return boolean
+     */
+    public function getClnentdnc()
+    {
+        return $this->clnentdnc;
+    }
+
+    /**
+     * Get the [clnentdnc] column value.
+     *
+     * @return boolean
+     */
+    public function isClnentdnc()
+    {
+        return $this->getClnentdnc();
     }
 
     /**
@@ -737,6 +790,30 @@ abstract class Tblentdnc implements ActiveRecordInterface
     } // setTmprstdnc()
 
     /**
+     * Set the value of [idnentorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentdnc The current object (for fluent API support)
+     */
+    public function setIdnentorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->idnentorg !== $v) {
+            $this->idnentorg = $v;
+            $this->modifiedColumns[TblentdncTableMap::COL_IDNENTORG] = true;
+        }
+
+        if ($this->aTblentorg !== null && $this->aTblentorg->getIdnentorg() !== $v) {
+            $this->aTblentorg = null;
+        }
+
+        return $this;
+    } // setIdnentorg()
+
+    /**
      * Sets the value of the [rqsentdnc] column.
      * Non-boolean arguments are converted using the following rules:
      *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
@@ -763,6 +840,34 @@ abstract class Tblentdnc implements ActiveRecordInterface
 
         return $this;
     } // setRqsentdnc()
+
+    /**
+     * Sets the value of the [clnentdnc] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     *
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Tblentdnc The current object (for fluent API support)
+     */
+    public function setClnentdnc($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->clnentdnc !== $v) {
+            $this->clnentdnc = $v;
+            $this->modifiedColumns[TblentdncTableMap::COL_CLNENTDNC] = true;
+        }
+
+        return $this;
+    } // setClnentdnc()
 
     /**
      * Sets the value of the [fnsentdnc] column.
@@ -846,6 +951,10 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 return false;
             }
 
+            if ($this->clnentdnc !== false) {
+                return false;
+            }
+
             if ($this->fnsentdnc !== false) {
                 return false;
             }
@@ -903,19 +1012,25 @@ abstract class Tblentdnc implements ActiveRecordInterface
             }
             $this->tmprstdnc = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentdncTableMap::translateFieldName('Rqsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentdncTableMap::translateFieldName('Idnentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->idnentorg = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentdncTableMap::translateFieldName('Rqsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
             $this->rqsentdnc = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentdncTableMap::translateFieldName('Fnsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentdncTableMap::translateFieldName('Clnentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->clnentdnc = (null !== $col) ? (boolean) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentdncTableMap::translateFieldName('Fnsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
             $this->fnsentdnc = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentdncTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentdncTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentdncTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentdncTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -928,7 +1043,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 12; // 12 = TblentdncTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 14; // 14 = TblentdncTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentdnc'), 0, $e);
@@ -952,6 +1067,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
     {
         if ($this->aTblentemp !== null && $this->idnentemp !== $this->aTblentemp->getIdnentemp()) {
             $this->aTblentemp = null;
+        }
+        if ($this->aTblentorg !== null && $this->idnentorg !== $this->aTblentorg->getIdnentorg()) {
+            $this->aTblentorg = null;
         }
     } // ensureConsistency
 
@@ -993,6 +1111,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aTblentemp = null;
+            $this->aTblentorg = null;
         } // if (deep)
     }
 
@@ -1108,6 +1227,13 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 $this->setTblentemp($this->aTblentemp);
             }
 
+            if ($this->aTblentorg !== null) {
+                if ($this->aTblentorg->isModified() || $this->aTblentorg->isNew()) {
+                    $affectedRows += $this->aTblentorg->save($con);
+                }
+                $this->setTblentorg($this->aTblentorg);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -1169,8 +1295,14 @@ abstract class Tblentdnc implements ActiveRecordInterface
         if ($this->isColumnModified(TblentdncTableMap::COL_TMPRSTDNC)) {
             $modifiedColumns[':p' . $index++]  = 'tmprstdnc';
         }
+        if ($this->isColumnModified(TblentdncTableMap::COL_IDNENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'idnentorg';
+        }
         if ($this->isColumnModified(TblentdncTableMap::COL_RQSENTDNC)) {
             $modifiedColumns[':p' . $index++]  = 'rqsentdnc';
+        }
+        if ($this->isColumnModified(TblentdncTableMap::COL_CLNENTDNC)) {
+            $modifiedColumns[':p' . $index++]  = 'clnentdnc';
         }
         if ($this->isColumnModified(TblentdncTableMap::COL_FNSENTDNC)) {
             $modifiedColumns[':p' . $index++]  = 'fnsentdnc';
@@ -1216,8 +1348,14 @@ abstract class Tblentdnc implements ActiveRecordInterface
                     case 'tmprstdnc':
                         $stmt->bindValue($identifier, $this->tmprstdnc ? $this->tmprstdnc->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
                         break;
+                    case 'idnentorg':
+                        $stmt->bindValue($identifier, $this->idnentorg, PDO::PARAM_INT);
+                        break;
                     case 'rqsentdnc':
                         $stmt->bindValue($identifier, (int) $this->rqsentdnc, PDO::PARAM_INT);
+                        break;
+                    case 'clnentdnc':
+                        $stmt->bindValue($identifier, (int) $this->clnentdnc, PDO::PARAM_INT);
                         break;
                     case 'fnsentdnc':
                         $stmt->bindValue($identifier, (int) $this->fnsentdnc, PDO::PARAM_INT);
@@ -1315,15 +1453,21 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 return $this->getTmprstdnc();
                 break;
             case 8:
-                return $this->getRqsentdnc();
+                return $this->getIdnentorg();
                 break;
             case 9:
-                return $this->getFnsentdnc();
+                return $this->getRqsentdnc();
                 break;
             case 10:
-                return $this->getCreatedAt();
+                return $this->getClnentdnc();
                 break;
             case 11:
+                return $this->getFnsentdnc();
+                break;
+            case 12:
+                return $this->getCreatedAt();
+                break;
+            case 13:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -1364,21 +1508,23 @@ abstract class Tblentdnc implements ActiveRecordInterface
             $keys[5] => $this->getKgsentdnc(),
             $keys[6] => $this->getCntcjsdnc(),
             $keys[7] => $this->getTmprstdnc(),
-            $keys[8] => $this->getRqsentdnc(),
-            $keys[9] => $this->getFnsentdnc(),
-            $keys[10] => $this->getCreatedAt(),
-            $keys[11] => $this->getUpdatedAt(),
+            $keys[8] => $this->getIdnentorg(),
+            $keys[9] => $this->getRqsentdnc(),
+            $keys[10] => $this->getClnentdnc(),
+            $keys[11] => $this->getFnsentdnc(),
+            $keys[12] => $this->getCreatedAt(),
+            $keys[13] => $this->getUpdatedAt(),
         );
         if ($result[$keys[7]] instanceof \DateTimeInterface) {
             $result[$keys[7]] = $result[$keys[7]]->format('c');
         }
 
-        if ($result[$keys[10]] instanceof \DateTimeInterface) {
-            $result[$keys[10]] = $result[$keys[10]]->format('c');
+        if ($result[$keys[12]] instanceof \DateTimeInterface) {
+            $result[$keys[12]] = $result[$keys[12]]->format('c');
         }
 
-        if ($result[$keys[11]] instanceof \DateTimeInterface) {
-            $result[$keys[11]] = $result[$keys[11]]->format('c');
+        if ($result[$keys[13]] instanceof \DateTimeInterface) {
+            $result[$keys[13]] = $result[$keys[13]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1401,6 +1547,21 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->aTblentemp->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aTblentorg) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'tblentorg';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'tblentorg';
+                        break;
+                    default:
+                        $key = 'Tblentorg';
+                }
+
+                $result[$key] = $this->aTblentorg->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -1461,15 +1622,21 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 $this->setTmprstdnc($value);
                 break;
             case 8:
-                $this->setRqsentdnc($value);
+                $this->setIdnentorg($value);
                 break;
             case 9:
-                $this->setFnsentdnc($value);
+                $this->setRqsentdnc($value);
                 break;
             case 10:
-                $this->setCreatedAt($value);
+                $this->setClnentdnc($value);
                 break;
             case 11:
+                $this->setFnsentdnc($value);
+                break;
+            case 12:
+                $this->setCreatedAt($value);
+                break;
+            case 13:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -1523,16 +1690,22 @@ abstract class Tblentdnc implements ActiveRecordInterface
             $this->setTmprstdnc($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setRqsentdnc($arr[$keys[8]]);
+            $this->setIdnentorg($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setFnsentdnc($arr[$keys[9]]);
+            $this->setRqsentdnc($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setCreatedAt($arr[$keys[10]]);
+            $this->setClnentdnc($arr[$keys[10]]);
         }
         if (array_key_exists($keys[11], $arr)) {
-            $this->setUpdatedAt($arr[$keys[11]]);
+            $this->setFnsentdnc($arr[$keys[11]]);
+        }
+        if (array_key_exists($keys[12], $arr)) {
+            $this->setCreatedAt($arr[$keys[12]]);
+        }
+        if (array_key_exists($keys[13], $arr)) {
+            $this->setUpdatedAt($arr[$keys[13]]);
         }
     }
 
@@ -1599,8 +1772,14 @@ abstract class Tblentdnc implements ActiveRecordInterface
         if ($this->isColumnModified(TblentdncTableMap::COL_TMPRSTDNC)) {
             $criteria->add(TblentdncTableMap::COL_TMPRSTDNC, $this->tmprstdnc);
         }
+        if ($this->isColumnModified(TblentdncTableMap::COL_IDNENTORG)) {
+            $criteria->add(TblentdncTableMap::COL_IDNENTORG, $this->idnentorg);
+        }
         if ($this->isColumnModified(TblentdncTableMap::COL_RQSENTDNC)) {
             $criteria->add(TblentdncTableMap::COL_RQSENTDNC, $this->rqsentdnc);
+        }
+        if ($this->isColumnModified(TblentdncTableMap::COL_CLNENTDNC)) {
+            $criteria->add(TblentdncTableMap::COL_CLNENTDNC, $this->clnentdnc);
         }
         if ($this->isColumnModified(TblentdncTableMap::COL_FNSENTDNC)) {
             $criteria->add(TblentdncTableMap::COL_FNSENTDNC, $this->fnsentdnc);
@@ -1704,7 +1883,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
         $copyObj->setKgsentdnc($this->getKgsentdnc());
         $copyObj->setCntcjsdnc($this->getCntcjsdnc());
         $copyObj->setTmprstdnc($this->getTmprstdnc());
+        $copyObj->setIdnentorg($this->getIdnentorg());
         $copyObj->setRqsentdnc($this->getRqsentdnc());
+        $copyObj->setClnentdnc($this->getClnentdnc());
         $copyObj->setFnsentdnc($this->getFnsentdnc());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
@@ -1788,6 +1969,57 @@ abstract class Tblentdnc implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildTblentorg object.
+     *
+     * @param  ChildTblentorg $v
+     * @return $this|\Tblentdnc The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setTblentorg(ChildTblentorg $v = null)
+    {
+        if ($v === null) {
+            $this->setIdnentorg(NULL);
+        } else {
+            $this->setIdnentorg($v->getIdnentorg());
+        }
+
+        $this->aTblentorg = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildTblentorg object, it will not be re-added.
+        if ($v !== null) {
+            $v->addTblentdnc($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildTblentorg object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildTblentorg The associated ChildTblentorg object.
+     * @throws PropelException
+     */
+    public function getTblentorg(ConnectionInterface $con = null)
+    {
+        if ($this->aTblentorg === null && (($this->idnentorg !== "" && $this->idnentorg !== null))) {
+            $this->aTblentorg = ChildTblentorgQuery::create()->findPk($this->idnentorg, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aTblentorg->addTblentdncs($this);
+             */
+        }
+
+        return $this->aTblentorg;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -1797,6 +2029,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
         if (null !== $this->aTblentemp) {
             $this->aTblentemp->removeTblentdnc($this);
         }
+        if (null !== $this->aTblentorg) {
+            $this->aTblentorg->removeTblentdnc($this);
+        }
         $this->identdnc = null;
         $this->idnentemp = null;
         $this->uuid = null;
@@ -1805,7 +2040,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
         $this->kgsentdnc = null;
         $this->cntcjsdnc = null;
         $this->tmprstdnc = null;
+        $this->idnentorg = null;
         $this->rqsentdnc = null;
+        $this->clnentdnc = null;
         $this->fnsentdnc = null;
         $this->created_at = null;
         $this->updated_at = null;
@@ -1831,6 +2068,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
         } // if ($deep)
 
         $this->aTblentemp = null;
+        $this->aTblentorg = null;
     }
 
     /**

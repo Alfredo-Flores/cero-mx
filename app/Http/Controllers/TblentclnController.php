@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class TblentclnController extends Controller
 {
@@ -59,30 +60,23 @@ class TblentclnController extends Controller
     {
         // 1.- Validacion del request TODO *Modificar*
         $rules = [
-			'Uuid' => 'required|uuid|size:36',
+			'UuidOferta' => 'required',
+			'Idnentusr' => 'required|integer',
+			'Idnentorg' => 'required|integer',
 			'Periodicidad' => 'required|integer|min:0|max:9',
-			'FechaInicio' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'FechaFinal' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
+			'FechaInicio' => 'date_format:"Y-m-d H:i:s"',
 		];
 
-        $msgs = [ // TODO *Customizable*
-			'Uuid.required' => 'Validacion fallada en Uuid.required',
-			'Uuid.uuid' => 'Uuid no válido',
-			'Uuid.size' => 'Uuid no válido',
+        $msgs = [
+            'Idnentusr.required' => 'Validacion fallada en Idnentusr.required',
+            'Idnentusr.integer' => 'Validacion fallada en Idnentusr.integer',
+            'Idnentorg.required' => 'Validacion fallada en Idnentorg.required',
+            'Idnentorg.integer' => 'Validacion fallada en Idnentorg.integer',
+
 			'Periodicidad.required' => 'Validacion fallada en Periodicidad.required',
 			'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
-			'Periodicidad.min' => 'Validacion fallada en Periodicidad.min',
-			'Periodicidad.max' => 'Validacion fallada en Periodicidad.max',
 			'FechaInicio.nullable' => 'Validacion fallada en FechaInicio.nullable',
 			'FechaInicio.date_format' => 'Validacion fallada en FechaInicio.date_format',
-			'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
-			'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
-			'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-			'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
-			'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
 		];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -91,14 +85,30 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        // 2.- Peticion a variables TODO *Modificar*
+
+        $uuid4 = $request->get("UuidOferta");
+        $id = $request->get("Idnentusr");
+
+        $entprs = \Tblentprs::fnoentusr($id);
+
+        if (!$entprs) {
+            return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
+        }
+
+        $idnentprs = $entprs->getIdnentprs();
+        $entemp = \Tblentemp::fnoentprs($idnentprs);
+        $idnentemp = $entemp->getIdnentemp();
+
+
+        // 2.- Peticion a variables
         $data = [
-			'uuid' => request('Uuid'),
-			'prdentcln' => request('Periodicidad'),
-			'fchinccln' => request('FechaInicio'),
-			'fchfnlcln' => request('FechaFinal'),
-			'created_at' => request('Creado'),
-			'updated_at' => request('Actualizado'),
+			'uuid' => $uuid4,
+			'idnentemp' => $idnentemp,
+            'idnentorg' => request('Idnentorg'),
+            'prdentcln' => request('Periodicidad'),
+            'fchinccln' => request('FechaInicio'),
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
         ];
 
         // 3.- Iniciar transaccion
@@ -110,7 +120,7 @@ class TblentclnController extends Controller
         // 6.- Commit y return
         if(!$result){
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('');
+            return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
 
         TransactionHandler::commit($trncnn);
@@ -123,6 +133,7 @@ class TblentclnController extends Controller
         // 1.- Validacion del request
         $rules = [
             'Uuid' => 'required|uuid|size:36',
+            'UuidOferta' => 'required|uuid|size:36',
         ];
 
         $msgs = [ // TODO *Customizable*
@@ -139,6 +150,7 @@ class TblentclnController extends Controller
 
         // 2.- Request a variables
         $uuid = request('Uuid');
+        $uuiddnc = request('UuidOferta');
 
         // 3.- Iniciar Transaccion
         $trncnn = TransactionHandler::begin();
@@ -150,10 +162,19 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
 
+        $entdnc = \Tblentdnc::fnuentdnc($uuiddnc, $trncnn);
+        if(!$entcln instanceof \Tblentcln){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('$entcln false');
+        }
+
         $result = \Tblentcln::rmventcln($entcln->getIdnentcln(), $trncnn);
+        $resultdnc = \Tblentdnc::rmventdnc($entdnc->getIdentdnc(), $trncnn);
 
         // 6.- Commit & return
-        if(!$result){
+        if(!$result || !$resultdnc){
+            Log::debug($result);
+            Log::debug($resultdnc);
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
@@ -166,17 +187,15 @@ class TblentclnController extends Controller
     // update (U)
     public function update(Request $request)
     {
-        // 1.- Validacion del request TODO *Modificar*
+        // 1.- Validacion del request
         $rules = [
 			'Uuid' => 'required|uuid|size:36',
 			'Periodicidad' => 'required|integer|min:0|max:9',
-			'FechaInicio' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'FechaFinal' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-			'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
+			'FechaInicio' => 'nullable|date_format:"Y-m-d H:i:s"',
+			'FechaFinal' => 'nullable|date_format:"Y-m-d H:i:s"',
 		];
 
-        $msgs = [ // TODO *Customizable*
+        $msgs = [
 			'Uuid' => 'required|uuid|size:36',
 			'Periodicidad.required' => 'Validacion fallada en Periodicidad.required',
 			'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
@@ -188,12 +207,6 @@ class TblentclnController extends Controller
 			'FechaFinal.required' => 'Validacion fallada en FechaFinal.required',
 			'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
 			'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
-			'Creado.required' => 'Validacion fallada en Creado.required',
-			'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-			'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-			'Actualizado.required' => 'Validacion fallada en Actualizado.required',
-			'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
-			'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
 
         ];
 
@@ -212,6 +225,7 @@ class TblentclnController extends Controller
 
         // 4 & 5 .- Variables a objeto & Regla de negocio
         $entcln = \Tblentcln::fnuentcln($udxentcln, $trncnn);
+
         if(!$entcln instanceof \Tblentcln){
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('$entcln false');
@@ -222,9 +236,7 @@ class TblentclnController extends Controller
 			'uuid' => $entcln->getUuid(),
 			'prdentcln' => request('Periodicidad'),
 			'fchinccln' => request('FechaInicio'),
-			'fchfnlcln' => request('FechaFinal'),
-			'created_at' => request('Creado'),
-			'updated_at' => request('Actualizado'),
+            'updated_at' => date("Y-m-d H:i:s"),
         ];
 
         $result = \Tblentcln::updentcln($data, $trncnn);
@@ -239,12 +251,285 @@ class TblentclnController extends Controller
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
 
-// Views
-
-    // Show table(D)
-    public function table(Request $request)
+    public function loadtable(Request $request)
     {
+        $id = $request->get("Id");
 
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return null;
+        }
+
+        $entprs = $tipentprs;
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentorg = \Tblentemp::fnoentprs($idnentprs)->getIdnentemp();
+
+            $eventos = \Tblentcln::fndentemp($idnentorg);
+            $eventos = $eventos->toArray();
+
+            $ofertas = \Tblentdnc::fndempcln($idnentorg);
+            $ofertas = $ofertas->toArray();
+
+            $json = [];
+
+            foreach($eventos as $key => $evento)
+            {
+                if ($evento["Prdentcln"] == 1) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 12; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Nmbentorg"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-orange",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 month'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 2) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 25; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Nmbentorg"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-red",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 15 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 3) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 53; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Nmbentorg"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-green",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 week'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 4) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 30; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Nmbentorg"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-rose",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 5) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    $array = [
+                        "id" => $evento["Idnentcln"],
+                        "title" => $evento["Nmbentorg"],
+                        "start" => $fecha,
+                        "allDay" => false,
+                        "className" => "event-azure",
+                        "extendedProps" => [
+                            "uuid" => $evento["Uuid"]
+                        ],
+                    ];
+
+                    array_push($json, $array);
+                }
+
+
+            }
+
+            if (empty($eventos)) {
+                $eventos = null;
+            }
+
+            return json_encode([
+                'success' => true,
+                'data' => $json,
+                'ofertas' => $ofertas,
+                'eventos' => $eventos
+            ]);
+
+        } elseif ($tipentprs == 2) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
+
+            $eventos = \Tblentcln::fndentorg($idnentorg);
+            $eventos = $eventos->toArray();
+
+            $ofertas = \Tblentdnc::fndorgcln($idnentorg);
+            $ofertas = $ofertas->toArray();
+
+            $json = [];
+
+            foreach($eventos as $key => $evento)
+            {
+                if ($evento["Prdentcln"] == 1) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 12; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-orange",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 month'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 2) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 25; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-red",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 15 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 3) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 53; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-green",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 week'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 4) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    for ($i = 1; $i <= 30; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-rose",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 5) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    $array = [
+                        "id" => $evento["Idnentcln"],
+                        "title" => $evento["Namentemp"],
+                        "start" => $fecha,
+                        "allDay" => false,
+                        "className" => "event-azure",
+                        "extendedProps" => [
+                            "uuid" => $evento["Uuid"]
+                        ],
+                    ];
+
+                    array_push($json, $array);
+                }
+
+
+            }
+
+            if (empty($eventos)) {
+                $eventos = null;
+            }
+
+
+
+            return json_encode([
+                'success' => true,
+                'data' => $json,
+                'ofertas' => $ofertas,
+                'eventos' => $eventos
+            ]);
+        } else {
+            return null;
+        }
     }
 
     // Display one(D)

@@ -73,7 +73,6 @@
     <div class="wrapper wrapper-full-page" @click="toggleSidebarPage">
       <div
         class="page-header header-filter"
-        :class="setPageClass"
         filter-color="black"
         :style="setBgImage"
       >
@@ -87,13 +86,6 @@
         </div>
         <footer class="footer">
           <div class="container md-offset">
-            <nav>
-              <ul>
-                <li>
-                  <router-link :to="{ path: '/dashboard' }">Legal</router-link>
-                </li>
-              </ul>
-            </nav>
             <div class="copyright text-center">
               &copy; {{ new Date().getFullYear() }}
               <a
@@ -138,11 +130,10 @@ export default {
   computed: {
     setBgImage() {
       return {
-        backgroundImage: `url(./img/bg-pricing.jpg)`
+        backgroundImage: `url(./img/background.jpg)`,
+          backgroundRepeat:" no-repeat",
+        backgroundAttachment: "fixed",
       };
-    },
-    setPageClass() {
-      return `${this.$route.name}-page`.toLowerCase();
     }
   },
   methods: {

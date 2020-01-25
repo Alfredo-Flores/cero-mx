@@ -28,7 +28,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdncQuery orderByKgsentdnc($order = Criteria::ASC) Order by the kgsentdnc column
  * @method     ChildTblentdncQuery orderByCntcjsdnc($order = Criteria::ASC) Order by the cntcjsdnc column
  * @method     ChildTblentdncQuery orderByTmprstdnc($order = Criteria::ASC) Order by the tmprstdnc column
+ * @method     ChildTblentdncQuery orderByIdnentorg($order = Criteria::ASC) Order by the idnentorg column
  * @method     ChildTblentdncQuery orderByRqsentdnc($order = Criteria::ASC) Order by the rqsentdnc column
+ * @method     ChildTblentdncQuery orderByClnentdnc($order = Criteria::ASC) Order by the clnentdnc column
  * @method     ChildTblentdncQuery orderByFnsentdnc($order = Criteria::ASC) Order by the fnsentdnc column
  * @method     ChildTblentdncQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentdncQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
@@ -41,7 +43,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdncQuery groupByKgsentdnc() Group by the kgsentdnc column
  * @method     ChildTblentdncQuery groupByCntcjsdnc() Group by the cntcjsdnc column
  * @method     ChildTblentdncQuery groupByTmprstdnc() Group by the tmprstdnc column
+ * @method     ChildTblentdncQuery groupByIdnentorg() Group by the idnentorg column
  * @method     ChildTblentdncQuery groupByRqsentdnc() Group by the rqsentdnc column
+ * @method     ChildTblentdncQuery groupByClnentdnc() Group by the clnentdnc column
  * @method     ChildTblentdncQuery groupByFnsentdnc() Group by the fnsentdnc column
  * @method     ChildTblentdncQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentdncQuery groupByUpdatedAt() Group by the updated_at column
@@ -64,7 +68,17 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdncQuery rightJoinWithTblentemp() Adds a RIGHT JOIN clause and with to the query using the Tblentemp relation
  * @method     ChildTblentdncQuery innerJoinWithTblentemp() Adds a INNER JOIN clause and with to the query using the Tblentemp relation
  *
- * @method     \TblentempQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildTblentdncQuery leftJoinTblentorg($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentorg relation
+ * @method     ChildTblentdncQuery rightJoinTblentorg($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentorg relation
+ * @method     ChildTblentdncQuery innerJoinTblentorg($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentorg relation
+ *
+ * @method     ChildTblentdncQuery joinWithTblentorg($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentorg relation
+ *
+ * @method     ChildTblentdncQuery leftJoinWithTblentorg() Adds a LEFT JOIN clause and with to the query using the Tblentorg relation
+ * @method     ChildTblentdncQuery rightJoinWithTblentorg() Adds a RIGHT JOIN clause and with to the query using the Tblentorg relation
+ * @method     ChildTblentdncQuery innerJoinWithTblentorg() Adds a INNER JOIN clause and with to the query using the Tblentorg relation
+ *
+ * @method     \TblentempQuery|\TblentorgQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildTblentdnc findOne(ConnectionInterface $con = null) Return the first ChildTblentdnc matching the query
  * @method     ChildTblentdnc findOneOrCreate(ConnectionInterface $con = null) Return the first ChildTblentdnc matching the query, or a new ChildTblentdnc object populated from the query conditions when no match is found
@@ -77,7 +91,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc findOneByKgsentdnc(double $kgsentdnc) Return the first ChildTblentdnc filtered by the kgsentdnc column
  * @method     ChildTblentdnc findOneByCntcjsdnc(int $cntcjsdnc) Return the first ChildTblentdnc filtered by the cntcjsdnc column
  * @method     ChildTblentdnc findOneByTmprstdnc(string $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column
+ * @method     ChildTblentdnc findOneByIdnentorg(string $idnentorg) Return the first ChildTblentdnc filtered by the idnentorg column
  * @method     ChildTblentdnc findOneByRqsentdnc(boolean $rqsentdnc) Return the first ChildTblentdnc filtered by the rqsentdnc column
+ * @method     ChildTblentdnc findOneByClnentdnc(boolean $clnentdnc) Return the first ChildTblentdnc filtered by the clnentdnc column
  * @method     ChildTblentdnc findOneByFnsentdnc(boolean $fnsentdnc) Return the first ChildTblentdnc filtered by the fnsentdnc column
  * @method     ChildTblentdnc findOneByCreatedAt(string $created_at) Return the first ChildTblentdnc filtered by the created_at column
  * @method     ChildTblentdnc findOneByUpdatedAt(string $updated_at) Return the first ChildTblentdnc filtered by the updated_at column *
@@ -93,7 +109,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc requireOneByKgsentdnc(double $kgsentdnc) Return the first ChildTblentdnc filtered by the kgsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByCntcjsdnc(int $cntcjsdnc) Return the first ChildTblentdnc filtered by the cntcjsdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByTmprstdnc(string $tmprstdnc) Return the first ChildTblentdnc filtered by the tmprstdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentdnc requireOneByIdnentorg(string $idnentorg) Return the first ChildTblentdnc filtered by the idnentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByRqsentdnc(boolean $rqsentdnc) Return the first ChildTblentdnc filtered by the rqsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentdnc requireOneByClnentdnc(boolean $clnentdnc) Return the first ChildTblentdnc filtered by the clnentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByFnsentdnc(boolean $fnsentdnc) Return the first ChildTblentdnc filtered by the fnsentdnc column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByCreatedAt(string $created_at) Return the first ChildTblentdnc filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentdnc requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentdnc filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -107,7 +125,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentdnc[]|ObjectCollection findByKgsentdnc(double $kgsentdnc) Return ChildTblentdnc objects filtered by the kgsentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByCntcjsdnc(int $cntcjsdnc) Return ChildTblentdnc objects filtered by the cntcjsdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByTmprstdnc(string $tmprstdnc) Return ChildTblentdnc objects filtered by the tmprstdnc column
+ * @method     ChildTblentdnc[]|ObjectCollection findByIdnentorg(string $idnentorg) Return ChildTblentdnc objects filtered by the idnentorg column
  * @method     ChildTblentdnc[]|ObjectCollection findByRqsentdnc(boolean $rqsentdnc) Return ChildTblentdnc objects filtered by the rqsentdnc column
+ * @method     ChildTblentdnc[]|ObjectCollection findByClnentdnc(boolean $clnentdnc) Return ChildTblentdnc objects filtered by the clnentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByFnsentdnc(boolean $fnsentdnc) Return ChildTblentdnc objects filtered by the fnsentdnc column
  * @method     ChildTblentdnc[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentdnc objects filtered by the created_at column
  * @method     ChildTblentdnc[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentdnc objects filtered by the updated_at column
@@ -209,7 +229,7 @@ abstract class TblentdncQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT identdnc, idnentemp, uuid, dscentdnc, tipentdnc, kgsentdnc, cntcjsdnc, tmprstdnc, rqsentdnc, fnsentdnc, created_at, updated_at FROM tblentdnc WHERE identdnc = :p0';
+        $sql = 'SELECT identdnc, idnentemp, uuid, dscentdnc, tipentdnc, kgsentdnc, cntcjsdnc, tmprstdnc, idnentorg, rqsentdnc, clnentdnc, fnsentdnc, created_at, updated_at FROM tblentdnc WHERE identdnc = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -584,6 +604,49 @@ abstract class TblentdncQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the idnentorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdnentorg(1234); // WHERE idnentorg = 1234
+     * $query->filterByIdnentorg(array(12, 34)); // WHERE idnentorg IN (12, 34)
+     * $query->filterByIdnentorg(array('min' => 12)); // WHERE idnentorg > 12
+     * </code>
+     *
+     * @see       filterByTblentorg()
+     *
+     * @param     mixed $idnentorg The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function filterByIdnentorg($idnentorg = null, $comparison = null)
+    {
+        if (is_array($idnentorg)) {
+            $useMinMax = false;
+            if (isset($idnentorg['min'])) {
+                $this->addUsingAlias(TblentdncTableMap::COL_IDNENTORG, $idnentorg['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($idnentorg['max'])) {
+                $this->addUsingAlias(TblentdncTableMap::COL_IDNENTORG, $idnentorg['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentdncTableMap::COL_IDNENTORG, $idnentorg, $comparison);
+    }
+
+    /**
      * Filter the query on the rqsentdnc column
      *
      * Example usage:
@@ -608,6 +671,33 @@ abstract class TblentdncQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentdncTableMap::COL_RQSENTDNC, $rqsentdnc, $comparison);
+    }
+
+    /**
+     * Filter the query on the clnentdnc column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByClnentdnc(true); // WHERE clnentdnc = true
+     * $query->filterByClnentdnc('yes'); // WHERE clnentdnc = true
+     * </code>
+     *
+     * @param     boolean|string $clnentdnc The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function filterByClnentdnc($clnentdnc = null, $comparison = null)
+    {
+        if (is_string($clnentdnc)) {
+            $clnentdnc = in_array(strtolower($clnentdnc), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(TblentdncTableMap::COL_CLNENTDNC, $clnentdnc, $comparison);
     }
 
     /**
@@ -798,6 +888,83 @@ abstract class TblentdncQuery extends ModelCriteria
         return $this
             ->joinTblentemp($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Tblentemp', '\TblentempQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tblentorg object
+     *
+     * @param \Tblentorg|ObjectCollection $tblentorg The related object(s) to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function filterByTblentorg($tblentorg, $comparison = null)
+    {
+        if ($tblentorg instanceof \Tblentorg) {
+            return $this
+                ->addUsingAlias(TblentdncTableMap::COL_IDNENTORG, $tblentorg->getIdnentorg(), $comparison);
+        } elseif ($tblentorg instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(TblentdncTableMap::COL_IDNENTORG, $tblentorg->toKeyValue('PrimaryKey', 'Idnentorg'), $comparison);
+        } else {
+            throw new PropelException('filterByTblentorg() only accepts arguments of type \Tblentorg or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Tblentorg relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildTblentdncQuery The current query, for fluid interface
+     */
+    public function joinTblentorg($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Tblentorg');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Tblentorg');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Tblentorg relation Tblentorg object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \TblentorgQuery A secondary query class using the current class as primary query
+     */
+    public function useTblentorgQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinTblentorg($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Tblentorg', '\TblentorgQuery');
     }
 
     /**

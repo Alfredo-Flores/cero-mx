@@ -1,6 +1,18 @@
 <template>
     <div class="md-layout">
-        <div class="md-layout-item md-size-100 mx-auto">
+        <div class="md-layout-item md-size-40 mx-auto">
+            <md-card>
+                <md-card-header class="md-card-header-text md-card-header-primary">
+                    <div class="card-text">
+                        <h4 class="title">Información</h4>
+                    </div>
+                </md-card-header>
+                <md-card-content>
+                    <p>Haz click en los eventos que las empresas te hayan asignado, si existe alguna inconformidad, </p>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div class="md-layout-item md-size-60 mx-auto">
             <md-card class="md-card-calendar">
                 <md-card-content>
                     <fullCalendar
@@ -9,16 +21,63 @@
                         locale="esLocale"
                         :plugins="calendarPlugins"
                         :events="events"
-                        :selectable="true"
-                        @dateClick="dateClick"
+                        @eventClick="verEvento"
                         :header="header"
                         :buttonIcons="buttonIcons"
-                        :selectHelper="true"
                         :editable="true"
+                        :weekends="false"
+                        :valid-range="function(nowDate) {
+                            return {
+                              start: nowDate
+                            };
+                          }"
                     />
                 </md-card-content>
             </md-card>
         </div>
+
+        <modal v-if="infobandera" @close="cerrarModalInfo" style="z-index: 3">
+            <template slot="header">
+                <div class="m-4">
+                    <h4 class="modal-title">Información</h4>
+                    <md-button
+                        class="md-simple md-just-icon md-round modal-default-button"
+                        @click="cerrarModalInfo"
+                    >
+                        <md-icon>clear</md-icon>
+                    </md-button>
+                </div>
+            </template>
+
+            <template slot="body">
+                <p>Nombre de la empresa: {{ ofertatemporal.Namentemp }}</p>
+
+                <p>Domicilio de la empresa: {{ ofertatemporal.Drcentemp }}</p>
+
+                <p>Localidad de la empresa: {{ ofertatemporal.Lclentemp }}</p>
+
+                <p>Telefono de la empresa: {{ ofertatemporal.Tlfofiemp }}</p>
+
+                <p>Localidad de la empresa: {{ ofertatemporal.Emlofiemp }}</p>
+
+                <p>Oferta: {{ ofertatemporal.Dscentdnc }}</p>
+
+                <p>Tipo de alimento: {{ ofertatemporal.Tipentdnc }}</p>
+
+                <p>Kilos: {{ ofertatemporal.Kgsentdnc }}</p>
+
+                <p>Cajas: {{ ofertatemporal.Cntcjsdnc }}</p>
+
+                <p>Horario: 7:00 am</p>
+
+            </template>
+
+            <template slot="footer">
+                <md-button class="md-simple m-2" @click="cerrarModalInfo">Cerrar</md-button>
+            </template>
+        </modal>
+
+
     </div>
 </template>
 
@@ -30,6 +89,8 @@
     import timeGridPlugin from "@fullcalendar/timegrid";
     import esLocale from '@fullcalendar/core/locales/es';
     import Swal from "sweetalert2";
+    import Modal from "../../components/Modal.vue";
+
 
     var today = new Date();
     var y = today.getFullYear();
@@ -38,7 +99,8 @@
 
     export default {
         components: {
-            FullCalendar
+            FullCalendar,
+            Modal
         },
         data() {
             return {
@@ -51,97 +113,70 @@
                     close: "fa-times",
                     prev: "left-single-arrow",
                     next: "right-single-arrow",
-                    prevYear: "fa-angle-double-left",
-                    nextYear: "fa-angle-double-right"
                 },
-                events: [
-                    {
-                        title: "All Day Event",
-                        start: new Date(y, m, 1),
-                        className: "event-default"
-                    },
-                    {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: new Date(y, m, d - 4, 6, 0),
-                        allDay: false,
-                        className: "event-rose"
-                    },
-                    {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: new Date(y, m, d + 3, 6, 0),
-                        allDay: false,
-                        className: "event-rose"
-                    },
-                    {
-                        title: "Meeting",
-                        start: new Date(y, m, d - 1, 10, 30),
-                        allDay: false,
-                        className: "event-green"
-                    },
-                    {
-                        title: "Lunch",
-                        start: new Date(y, m, d + 7, 12, 0),
-                        end: new Date(y, m, d + 7, 14, 0),
-                        allDay: false,
-                        className: "event-red"
-                    },
-                    {
-                        title: "Md-pro Launch",
-                        start: new Date(y, m, d - 2, 12, 0),
-                        allDay: true,
-                        className: "event-azure"
-                    },
-                    {
-                        title: "Birthday Party",
-                        start: new Date(y, m, d + 1, 19, 0),
-                        end: new Date(y, m, d + 1, 22, 30),
-                        allDay: false,
-                        className: "event-azure"
-                    },
-                    {
-                        title: "Click for Creative Tim",
-                        start: new Date(y, m, 21),
-                        end: new Date(y, m, 22),
-                        url: "http://www.creative-tim.com/",
-                        className: "event-orange"
-                    },
-                    {
-                        title: "Click for Google",
-                        start: new Date(y, m, 21),
-                        end: new Date(y, m, 22),
-                        url: "http://www.creative-tim.com/",
-                        className: "event-orange"
-                    }
-                ]
+
+                infobandera: false,
+                dia: null,
+                fechainicial: null,
+                periodicidad: null,
+                horario: null,
+                infotemporal: null,
+                events: []
             };
         },
         methods: {
-            dateClick: function(info) {
-                // on select we show the Sweet Alert modal with an input
-                Swal.fire({
-                    title: "Create an Event",
-                    html: `<div class="md-field md-theme-default">
-          <input type="text" id="md-input" class="md-input">
-          </div>`,
-                    showCancelButton: true,
-                    confirmButtonClass: "md-button md-success",
-                    cancelButtonClass: "md-button md-danger",
-                    buttonsStyling: false
-                }).then(() => {
-                    var eventTitle = document.getElementById("md-input").value;
-                    if (eventTitle) {
-                        let calendarApi = this.$refs.calendar.getApi();
-                        calendarApi.addEvent({
-                            title: eventTitle,
-                            start: info.dateStr,
-                            allDay: true
-                        });
+            verEvento(info) {
+
+                let uuid = info.event.extendedProps.uuid;
+
+                for (let i = 0; i < this.ofertastemporales.length; i++) {
+                    if (this.ofertastemporales[i]["Uuid"] == uuid) {
+                        this.ofertatemporal = this.ofertastemporales[i];
                     }
-                });
+                }
+
+                for (let i = 0; i < this.eventostemporales.length; i++) {
+                    if (this.eventostemporales[i]["Uuid"] == uuid) {
+                        this.eventotemporal = this.eventostemporales[i];
+                    }
+                }
+
+                this.periodicidad = this.eventotemporal.Prdentcln;
+                const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', ];
+                let d = new Date(this.eventotemporal.Fchinccln);
+                this.fechainicial = d;
+                this.dia = days[d.getDay()];
+                this.infotemporal = info;
+
+                this.abrirModalInfo();
+            },
+            refrescarCalendario(){
+                if (this.$auth.ready()) {
+                    let uri = 'Tblentcln/fetch';
+
+                    axios.post(uri, {
+                        Id: this.$auth.user().Id,
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.events = response.data.data;
+                            this.ofertastemporales = response.data.ofertas;
+                            this.eventostemporales = response.data.eventos;
+                        } else {
+                            this.events = null;
+                        }
+                    });
+                }
+            },
+            abrirModalInfo() {
+                this.infobandera = true;
+            },
+            cerrarModalInfo() {
+                this.infobandera = false;
             }
-        }
+        },
+        created() {
+            this.refrescarCalendario();
+        },
     };
 </script>
 <style lang="scss" scoped>

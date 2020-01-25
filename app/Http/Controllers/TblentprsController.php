@@ -75,8 +75,8 @@ class TblentprsController extends Controller
             'Localidad' => 'required|max:255',
             'Domicilio' => 'required|max:255',
             'Codigo' => 'required',
-            'TelFijo' => 'required|max:12',
-            'TelMovil' => 'required|max:12',
+            'TelFijo' => 'required',
+            'TelMovil' => 'required',
             'Foto' => 'required'
         ];
 
@@ -124,10 +124,8 @@ class TblentprsController extends Controller
             'Codigo.string' => 'Validacion fallada en Codigo.string',
             'TelFijo.required' => 'Validacion fallada en TelFijo.required',
             'TelFijo.string' => 'Validacion fallada en TelFijo.string',
-            'TelFijo.max' => 'Validacion fallada en TelFijo.max',
             'TelMovil.required' => 'Validacion fallada en TelMovil.required',
             'TelMovil.string' => 'Validacion fallada en TelMovil.string',
-            'TelMovil.max' => 'Validacion fallada en TelMovil.max',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();

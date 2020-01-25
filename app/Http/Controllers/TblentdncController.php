@@ -273,10 +273,12 @@ class TblentdncController extends Controller
         // 1.- Validacion del request TODO *Modificar*
         $rules = [
 			'Uuid' => 'required',
+			'Id' => 'required',
 		];
 
-        $msgs = [ // TODO *Customizable*
-            'Uuid.required' => 'Validacion fallada en Descripcion.required',
+        $msgs = [
+            'Uuid.required' => 'Validacion fallada en Uuid.required',
+            'Id.required' => 'Validacion fallada en Id.required',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -287,40 +289,39 @@ class TblentdncController extends Controller
 
         // 2.- Peticion a variables TODO *Modificar*
         $udxentdnc = request('Uuid');
+        $id = request('Id');
 		$timestamp = date(DATE_ISO8601);
 
         // 3.- Iniciar Transaccion
         $trncnn = TransactionHandler::begin();
 
-        // 4 & 5 .- Variables a objeto & Regla de negocio
-        $entdnc = \Tblentdnc::fnuentdnc($udxentdnc, $trncnn);
-        if(!$entdnc instanceof \Tblentdnc){
-            TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('$entdnc false');
+        $entprs = \Tblentprs::fnoentusr($id);
+
+        if (!$entprs) {
+            return null;
         }
 
-        $uidentemp = $entdnc->getIdnentemp();
-        $entemp = \Tblentemp::fnoentemp($uidentemp, $trncnn);
-        if(!$entemp instanceof \Tblentemp){
+        $idnentprs = $entprs->getIdnentprs();
+
+        $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
+
+        $data = [
+            'uuid' => $udxentdnc,
+            'idnentorg' => $idnentorg,
+            'rqsentdnc' => true,
+            'updated_at' => $timestamp,
+        ];
+
+        $result = \Tblentdnc::rqsentdnc($data, $trncnn);
+
+        // 6.- Commit & return
+        if(!$result){
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('$entdnc false');
+            return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
 
         TransactionHandler::commit($trncnn);
-
-
-        $nomentemp = $entemp->getNamentemp();
-        $ententemp = $entemp->getEntentemp();
-        $mncentemp = $entemp->getMncentemp();
-        $lclentemp = $entemp->getLclentemp();
-
-        return json_encode($return =  array(
-            'success' => true,
-            'nombre' => $nomentemp,
-            'entidad' => $ententemp,
-            'municipio' => $mncentemp,
-            'localidad' => $lclentemp,
-        ));
+        return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
 
     public function finish(Request $request)
@@ -357,6 +358,58 @@ class TblentdncController extends Controller
         $data = [
 			'uuid' => $entdnc->getUuid(),
 			'rqsentdnc' => true,
+			'clnentdnc' => true,
+			'updated_at' => $timestamp,
+        ];
+
+        $result = \Tblentdnc::clnentdnc($data, $trncnn);
+
+        // 6.- Commit & return
+        if(!$result){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
+        }
+
+        TransactionHandler::commit($trncnn);
+        return ReturnHandler::rtrsccjsn('Se ha actualizado correctamente');
+
+    }
+
+    public function refuse(Request $request)
+    {
+        // 1.- Validacion del request
+        $rules = [
+			'Uuid' => 'required',
+		];
+
+        $msgs = [
+            'Uuid.required' => 'Validacion fallada en Descripcion.required',
+        ];
+
+        $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
+
+        if(!empty($validator)){
+            return ReturnHandler::rtrerrjsn($validator[0]);
+        }
+
+        // 2.- Peticion a variables
+        $udxentdnc = request('Uuid');
+		$timestamp = date(DATE_ISO8601);
+
+        // 3.- Iniciar Transaccion
+        $trncnn = TransactionHandler::begin();
+
+        // 4 & 5 .- Variables a objeto & Regla de negocio
+        $entdnc = \Tblentdnc::fnuentdnc($udxentdnc, $trncnn);
+
+        if(!$entdnc instanceof \Tblentdnc){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
+        }
+
+        $data = [
+			'uuid' => $entdnc->getUuid(),
+            'rqsentdnc' => false,
 			'updated_at' => $timestamp,
         ];
 
@@ -369,13 +422,10 @@ class TblentdncController extends Controller
         }
 
         TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Se ha notificado a la empresa, por favor este atento a su calendario y correo');
+        return ReturnHandler::rtrsccjsn('Se ha rechazado la organización');
 
     }
 
-// Views
-
-    // Show table(D)
     public function table(Request $request)
     {
         $id = $request->get("Id");
@@ -397,15 +447,19 @@ class TblentdncController extends Controller
             $ofertas = \Tblentdnc::fndempdnc($idnentemp);
             $ofertas = $ofertas->toArray();
 
-
             foreach($ofertas as $key => $oferta)
             {
-                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+                $future = strtotime($oferta["Tmprstdnc"]);
+                $today = strtotime(date("Y-m-d 06:00:00"));
 
-                if ($diferencia < 1){
+                $diferencia = $future - $today;
+
+                $days = floor($diferencia / (60*60*24));
+
+                if ($days < 0){
                     unset($ofertas[$key]);
                 } else {
-                    $ofertas[$key]['Tmprstdnc'] = $diferencia;
+                    $ofertas[$key]['Tmprstdnc'] = $days;
                 }
             }
 
@@ -422,6 +476,76 @@ class TblentdncController extends Controller
             $ofertas = \Tblentdnc::fnddncemp();
             $ofertas = $ofertas->toArray();
 
+
+            foreach($ofertas as $key => $oferta)
+            {
+                $future = strtotime($oferta["Tmprstdnc"]);
+                $today = strtotime(date("Y-m-d 06:00:00"));
+
+                $diferencia = $future - $today;
+
+                $days = floor($diferencia / (60*60*24));
+
+                if ($days < 1){
+                    unset($ofertas[$key]);
+                } else {
+                    $ofertas[$key]['Tmprstdnc'] = $days;
+                }
+            }
+
+            if (empty($ofertas)) {
+                $ofertas = null;
+            }
+
+
+
+            return json_encode([
+                'success' => true,
+                'data' => $ofertas
+            ]);
+        } else {
+            return null;
+        }
+    }
+
+    public function list(Request $request)
+    {
+        $id = $request->get("Id");
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return null;
+        }
+
+        $entprs = $tipentprs;
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentemp = \Tblentemp::fnoentprs($idnentprs)->getIdnentemp();
+
+            $ofertas = \Tblentdnc::fndempreq($idnentemp);
+            $ofertas = $ofertas->toArray();
+
+            if (empty($ofertas)) {
+                $ofertas = null;
+            }
+
+
+            return json_encode([
+                'success' => true,
+                'data' => $ofertas
+            ]);
+
+        } elseif ($tipentprs == 2) {
+            // hmm
+            $ofertas = \Tblentdnc::fnddncemp();
+            $ofertas = $ofertas->toArray();
+
+
+            Log::debug($ofertas);
 
             foreach($ofertas as $key => $oferta)
             {
@@ -445,12 +569,6 @@ class TblentdncController extends Controller
         } else {
             return null;
         }
-    }
-
-    // Display one(D)
-    public function edit(Request $request)
-    {
-
     }
 
 

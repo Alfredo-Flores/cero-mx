@@ -74,6 +74,7 @@
                                 <md-table-cell>{{ oferta.Kgsentdnc }}</md-table-cell>
                                 <md-table-cell>{{ oferta.Cntcjsdnc }}</md-table-cell>
                                 <md-table-cell>{{ oferta.Tmprstdnc }} días</md-table-cell>
+
                                 <md-table-cell v-if="oferta.Rqsentdnc">
                                     <md-button
                                         class="md-just-icon"
@@ -81,6 +82,7 @@
                                     ><md-icon>notifications</md-icon></md-button
                                     >
                                 </md-table-cell>
+
                                 <md-table-cell v-else>
                                     <md-button
                                         class="md-just-icon md-danger"

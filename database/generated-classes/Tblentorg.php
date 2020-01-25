@@ -352,5 +352,16 @@ if($filidngirorg != 0){
         return $entorg;
     }
 
+    public static function fnoentprs($idnentprs, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entprs = \TblentorgQuery::create()
+            ->filterByIdnentprs($idnentprs)
+            ->findOne($connection);
+
+        if(!$entprs) return false;
+
+        return $entprs;
+    }
+
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }

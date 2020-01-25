@@ -68,7 +68,7 @@ let empPages = {
     children: [
         {
             path: "oferta",
-            name: "empresaOferta",
+            name: "Ofertas Empresariales",
             component: EmpresasOferta,
             meta: {
                 auth: ['empresa'],
@@ -77,7 +77,7 @@ let empPages = {
         },
         {
             path: "calendario",
-            name: "empresaCalendario",
+            name: "Calendario Empresarial",
             component: EmpresasCalendario,
             meta: {
                 auth: ['empresa'],
@@ -86,7 +86,7 @@ let empPages = {
         },
         {
             path: "perfil",
-            name: "empresaPerfil",
+            name: "Perfil Empresarial",
             component: EmpresasPerfil,
             meta: {
                 auth: ['empresa'],
@@ -102,7 +102,7 @@ let orgPages = {
     children: [
         {
             path: "oferta",
-            name: "organizacionOferta",
+            name: "Ofertas publicas",
             component: OrganizacionesOferta,
             meta: {
                 auth: ['organizacion'],
@@ -111,7 +111,16 @@ let orgPages = {
         },
         {
             path: "calendario",
-            name: "organizacionCalendario",
+            name: "Calendario de la organización",
+            component: OrganizacionesCalendario,
+            meta: {
+                auth: ['organizacion'],
+                redirect: "/"
+            }
+        },
+        {
+            path: "recepcion",
+            name: "Recepción de la organización",
             component: OrganizacionesCalendario,
             meta: {
                 auth: ['organizacion'],
@@ -120,7 +129,7 @@ let orgPages = {
         },
         {
             path: "perfil",
-            name: "organizacionPerfil",
+            name: "Perfil de la organización",
             component: OrganizacionesPerfil,
             meta: {
                 auth: ['organizacion'],

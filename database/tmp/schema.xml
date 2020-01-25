@@ -94,15 +94,23 @@
     <column name="kgsentdnc" phpName="Kgsentdnc" type="DOUBLE" required="true"/>
     <column name="cntcjsdnc" phpName="Cntcjsdnc" type="INTEGER" required="true"/>
     <column name="tmprstdnc" phpName="Tmprstdnc" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <column name="idnentorg" phpName="Idnentorg" type="BIGINT" sqlType="bigint(20) unsigned"/>
     <column name="rqsentdnc" phpName="Rqsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="clnentdnc" phpName="Clnentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="fnsentdnc" phpName="Fnsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="tblentemp" name="tblentdnc_idnentemp_foreign">
       <reference local="idnentemp" foreign="idnentemp"/>
     </foreign-key>
+    <foreign-key foreignTable="tblentorg" name="tblentdnc_idnentorg_foreign">
+      <reference local="idnentorg" foreign="idnentorg"/>
+    </foreign-key>
     <index name="tblentdnc_idnentemp_foreign">
       <index-column name="idnentemp"/>
+    </index>
+    <index name="tblentdnc_idnentorg_foreign">
+      <index-column name="idnentorg"/>
     </index>
     <unique name="tblentdnc_uuid_unique">
       <unique-column name="uuid"/>

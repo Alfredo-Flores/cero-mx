@@ -6,6 +6,8 @@ use \Catgirorg as ChildCatgirorg;
 use \CatgirorgQuery as ChildCatgirorgQuery;
 use \Tblentcln as ChildTblentcln;
 use \TblentclnQuery as ChildTblentclnQuery;
+use \Tblentdnc as ChildTblentdnc;
+use \TblentdncQuery as ChildTblentdncQuery;
 use \Tblentorg as ChildTblentorg;
 use \TblentorgQuery as ChildTblentorgQuery;
 use \Tblentprs as ChildTblentprs;
@@ -14,6 +16,7 @@ use \DateTime;
 use \Exception;
 use \PDO;
 use Map\TblentclnTableMap;
+use Map\TblentdncTableMap;
 use Map\TblentorgTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -257,6 +260,12 @@ abstract class Tblentorg implements ActiveRecordInterface
     protected $collTblentclnsPartial;
 
     /**
+     * @var        ObjectCollection|ChildTblentdnc[] Collection to store aggregation of ChildTblentdnc objects.
+     */
+    protected $collTblentdncs;
+    protected $collTblentdncsPartial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -269,6 +278,12 @@ abstract class Tblentorg implements ActiveRecordInterface
      * @var ObjectCollection|ChildTblentcln[]
      */
     protected $tblentclnsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildTblentdnc[]
+     */
+    protected $tblentdncsScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -1461,6 +1476,8 @@ abstract class Tblentorg implements ActiveRecordInterface
             $this->aCatgirorg = null;
             $this->collTblentclns = null;
 
+            $this->collTblentdncs = null;
+
         } // if (deep)
     }
 
@@ -1606,6 +1623,24 @@ abstract class Tblentorg implements ActiveRecordInterface
 
             if ($this->collTblentclns !== null) {
                 foreach ($this->collTblentclns as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->tblentdncsScheduledForDeletion !== null) {
+                if (!$this->tblentdncsScheduledForDeletion->isEmpty()) {
+                    foreach ($this->tblentdncsScheduledForDeletion as $tblentdnc) {
+                        // need to save related object because we set the relation to null
+                        $tblentdnc->save($con);
+                    }
+                    $this->tblentdncsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collTblentdncs !== null) {
+                foreach ($this->collTblentdncs as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -2020,6 +2055,21 @@ abstract class Tblentorg implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collTblentclns->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collTblentdncs) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'tblentdncs';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'tblentdncs';
+                        break;
+                    default:
+                        $key = 'Tblentdncs';
+                }
+
+                $result[$key] = $this->collTblentdncs->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -2439,6 +2489,12 @@ abstract class Tblentorg implements ActiveRecordInterface
                 }
             }
 
+            foreach ($this->getTblentdncs() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addTblentdnc($relObj->copy($deepCopy));
+                }
+            }
+
         } // if ($deepCopy)
 
         if ($makeNew) {
@@ -2584,6 +2640,10 @@ abstract class Tblentorg implements ActiveRecordInterface
     {
         if ('Tblentcln' == $relationName) {
             $this->initTblentclns();
+            return;
+        }
+        if ('Tblentdnc' == $relationName) {
+            $this->initTblentdncs();
             return;
         }
     }
@@ -2839,6 +2899,256 @@ abstract class Tblentorg implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collTblentdncs collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addTblentdncs()
+     */
+    public function clearTblentdncs()
+    {
+        $this->collTblentdncs = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collTblentdncs collection loaded partially.
+     */
+    public function resetPartialTblentdncs($v = true)
+    {
+        $this->collTblentdncsPartial = $v;
+    }
+
+    /**
+     * Initializes the collTblentdncs collection.
+     *
+     * By default this just sets the collTblentdncs collection to an empty array (like clearcollTblentdncs());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initTblentdncs($overrideExisting = true)
+    {
+        if (null !== $this->collTblentdncs && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = TblentdncTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collTblentdncs = new $collectionClassName;
+        $this->collTblentdncs->setModel('\Tblentdnc');
+    }
+
+    /**
+     * Gets an array of ChildTblentdnc objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildTblentorg is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildTblentdnc[] List of ChildTblentdnc objects
+     * @throws PropelException
+     */
+    public function getTblentdncs(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentdncsPartial && !$this->isNew();
+        if (null === $this->collTblentdncs || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collTblentdncs) {
+                // return empty collection
+                $this->initTblentdncs();
+            } else {
+                $collTblentdncs = ChildTblentdncQuery::create(null, $criteria)
+                    ->filterByTblentorg($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collTblentdncsPartial && count($collTblentdncs)) {
+                        $this->initTblentdncs(false);
+
+                        foreach ($collTblentdncs as $obj) {
+                            if (false == $this->collTblentdncs->contains($obj)) {
+                                $this->collTblentdncs->append($obj);
+                            }
+                        }
+
+                        $this->collTblentdncsPartial = true;
+                    }
+
+                    return $collTblentdncs;
+                }
+
+                if ($partial && $this->collTblentdncs) {
+                    foreach ($this->collTblentdncs as $obj) {
+                        if ($obj->isNew()) {
+                            $collTblentdncs[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collTblentdncs = $collTblentdncs;
+                $this->collTblentdncsPartial = false;
+            }
+        }
+
+        return $this->collTblentdncs;
+    }
+
+    /**
+     * Sets a collection of ChildTblentdnc objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $tblentdncs A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildTblentorg The current object (for fluent API support)
+     */
+    public function setTblentdncs(Collection $tblentdncs, ConnectionInterface $con = null)
+    {
+        /** @var ChildTblentdnc[] $tblentdncsToDelete */
+        $tblentdncsToDelete = $this->getTblentdncs(new Criteria(), $con)->diff($tblentdncs);
+
+
+        $this->tblentdncsScheduledForDeletion = $tblentdncsToDelete;
+
+        foreach ($tblentdncsToDelete as $tblentdncRemoved) {
+            $tblentdncRemoved->setTblentorg(null);
+        }
+
+        $this->collTblentdncs = null;
+        foreach ($tblentdncs as $tblentdnc) {
+            $this->addTblentdnc($tblentdnc);
+        }
+
+        $this->collTblentdncs = $tblentdncs;
+        $this->collTblentdncsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Tblentdnc objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Tblentdnc objects.
+     * @throws PropelException
+     */
+    public function countTblentdncs(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collTblentdncsPartial && !$this->isNew();
+        if (null === $this->collTblentdncs || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collTblentdncs) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getTblentdncs());
+            }
+
+            $query = ChildTblentdncQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByTblentorg($this)
+                ->count($con);
+        }
+
+        return count($this->collTblentdncs);
+    }
+
+    /**
+     * Method called to associate a ChildTblentdnc object to this object
+     * through the ChildTblentdnc foreign key attribute.
+     *
+     * @param  ChildTblentdnc $l ChildTblentdnc
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function addTblentdnc(ChildTblentdnc $l)
+    {
+        if ($this->collTblentdncs === null) {
+            $this->initTblentdncs();
+            $this->collTblentdncsPartial = true;
+        }
+
+        if (!$this->collTblentdncs->contains($l)) {
+            $this->doAddTblentdnc($l);
+
+            if ($this->tblentdncsScheduledForDeletion and $this->tblentdncsScheduledForDeletion->contains($l)) {
+                $this->tblentdncsScheduledForDeletion->remove($this->tblentdncsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildTblentdnc $tblentdnc The ChildTblentdnc object to add.
+     */
+    protected function doAddTblentdnc(ChildTblentdnc $tblentdnc)
+    {
+        $this->collTblentdncs[]= $tblentdnc;
+        $tblentdnc->setTblentorg($this);
+    }
+
+    /**
+     * @param  ChildTblentdnc $tblentdnc The ChildTblentdnc object to remove.
+     * @return $this|ChildTblentorg The current object (for fluent API support)
+     */
+    public function removeTblentdnc(ChildTblentdnc $tblentdnc)
+    {
+        if ($this->getTblentdncs()->contains($tblentdnc)) {
+            $pos = $this->collTblentdncs->search($tblentdnc);
+            $this->collTblentdncs->remove($pos);
+            if (null === $this->tblentdncsScheduledForDeletion) {
+                $this->tblentdncsScheduledForDeletion = clone $this->collTblentdncs;
+                $this->tblentdncsScheduledForDeletion->clear();
+            }
+            $this->tblentdncsScheduledForDeletion[]= $tblentdnc;
+            $tblentdnc->setTblentorg(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Tblentorg is new, it will return
+     * an empty collection; or if this Tblentorg has previously
+     * been saved, it will retrieve related Tblentdncs from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Tblentorg.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildTblentdnc[] List of ChildTblentdnc objects
+     */
+    public function getTblentdncsJoinTblentemp(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildTblentdncQuery::create(null, $criteria);
+        $query->joinWith('Tblentemp', $joinBehavior);
+
+        return $this->getTblentdncs($query, $con);
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -2897,9 +3207,15 @@ abstract class Tblentorg implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collTblentdncs) {
+                foreach ($this->collTblentdncs as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
         $this->collTblentclns = null;
+        $this->collTblentdncs = null;
         $this->aTblentprs = null;
         $this->aCatgirorg = null;
     }

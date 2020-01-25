@@ -45,13 +45,25 @@ class UsersController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
+        $email = trim($request->get('email'));
+
+        $entusr = \Users::fneusers($email);
+
+        if($entusr){
+            return response([
+                'status' => 'error',
+                'message' => 'Este correo ya fue registrado'
+            ], 400);
+        }
+
         $data = [
             'uuid' => trim(Uuid::uuid3(Uuid::NAMESPACE_DNS, $request->get('email'))),
-            'email' => trim($request->get('email')),
+            'email' => $email,
             'password' => bcrypt(trim($request->get('password'))),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ];
+
 
         // 3.- Iniciar transaccion
         $trncnn = TransactionHandler::begin();
@@ -59,18 +71,39 @@ class UsersController extends Controller
         // 4 & 5 .- Variables a objeto & Regla de negocio TODO *Modificar*
         $result = \Users::crtusers($data, $trncnn);
 
+        Log::debug($result);
+
         // 6.- Commit y return
         if(!$result){
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('Este correo ya fue registrado');
+            return response([
+                'status' => 'error',
+                'message' => 'Ocurrio un error inesperado'
+            ], 400);
         }
 
-        // Login
-        $credentials = $request->only('email', 'password');
-        Auth::attempt($credentials);
+        if(!$entusr){
+            TransactionHandler::commit($trncnn);
 
-        TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Registrado correctamente');
+            // Login
+            $credentials = $request->only('email', 'password');
+
+            if ( ! $token = $this->guard()->attempt($credentials) && !$entusr) {
+                return response([
+                    'status' => 'error',
+                    'message' => 'Ocurrio un error inesperado'
+                ], 400);
+            }
+
+            return ReturnHandler::rtrsccjsn('Se ha registrado correctamente');
+
+        } else {
+            TransactionHandler::rollback($trncnn);
+            return response([
+                'status' => 'error',
+                'message' => 'Ocurrio un error inesperado'
+            ], 400);
+        }
     }
 
     // destroy (R)
@@ -212,7 +245,6 @@ class UsersController extends Controller
                 ->header('Access-Control-Expose-Headers', 'Authorization')
                 ->header('Content-Type', 'application/json; charset=utf-8');
     }
-
 
     public function userdata()
     {

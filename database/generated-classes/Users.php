@@ -153,5 +153,16 @@ class Users extends BaseUsers
         return $usr;
     }
 
+    public static function fneusers($email, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $usr = \UsersQuery::create()
+            ->filterByEmail($email)
+            ->findOne($connection);
+
+        if(!$usr) return false;
+
+        return $usr;
+    }
+
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
 }

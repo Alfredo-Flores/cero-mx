@@ -90,10 +90,13 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.value) {
-                        let uri = 'Tblentdnc/remove';
+                        let uri = 'Tblentdnc/request';
+
+                        console.log(this.$auth.user().Id);
 
                         axios.post(uri, {
                             Uuid: oferta.Uuid,
+                            Id: this.$auth.user().Id,
                         }).then(response => {
                             if (response.data.success) {
                                 this.refrescarTabla();
@@ -103,8 +106,6 @@
                                     msg: response.data.message, // Toast Message
                                     type: "error", // Toast type,
                                 });
-
-                                this.refrescarTabla();
                             }
                         });
                     }

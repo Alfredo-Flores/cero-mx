@@ -55,9 +55,11 @@ Route::post('/Tblentcln/remove', 'TblentclnController@destroy')->name('Tblentcln
 //Tblentdnc Route
     Route::get('/Tblentdnc', 'TblentdncController@index')->name('Tblentdnc.main');
     Route::post('/Tblentdnc/fetch', 'TblentdncController@table')->name('Tblentdnc.fetch');
+    Route::post('/Tblentdnc/list', 'TblentdncController@list')->name('Tblentdnc.list');
     Route::post('/Tblentdnc/submit', 'TblentdncController@create')->name('Tblentdnc.submit');
     Route::post('/Tblentdnc/modify', 'TblentdncController@update')->name('Tblentdnc.modify');
     Route::post('/Tblentdnc/request', 'TblentdncController@request')->name('Tblentdnc.request');
+    Route::post('/Tblentdnc/refuse', 'TblentdncController@refuse')->name('Tblentdnc.refuse');
     Route::post('/Tblentdnc/finish', 'TblentdncController@finish')->name('Tblentdnc.finish');
     Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
 

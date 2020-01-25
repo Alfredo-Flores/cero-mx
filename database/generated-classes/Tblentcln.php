@@ -87,8 +87,6 @@ class Tblentcln extends BaseTblentcln
         if(!$entcln) return false;
 
         try{
-            $entcln->setIdnentemp(array_key_exists('idnentemp', $data) ? $data['idnentemp'] : null);
-            $entcln->setIdnentorg(array_key_exists('idnentorg', $data) ? $data['idnentorg'] : null);
             if(array_key_exists('uuid', $data)){
                 if(!is_null($data['uuid'])){
                     $entcln->setUuid($data['uuid']);
@@ -105,7 +103,6 @@ class Tblentcln extends BaseTblentcln
             }
             $entcln->setFchinccln(array_key_exists('fchinccln', $data) ? $data['fchinccln'] : null);
             $entcln->setFchfnlcln(array_key_exists('fchfnlcln', $data) ? $data['fchfnlcln'] : null);
-            $entcln->setCreatedAt(array_key_exists('created_at', $data) ? $data['created_at'] : null);
             $entcln->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
             $entcln->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
@@ -137,6 +134,38 @@ if($filidnentorg != 0){
         $entcln = \TblentclnQuery::create()
             ->filterByIdnentcln($idnentcln)
             ->findOne($connection);
+
+        if(!$entcln) return false;
+
+        return $entcln;
+    }
+
+    public static function fndentemp($idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entcln = \TblentclnQuery::create()
+            ->useTblentorgQuery()
+                ->withColumn("Nmbentorg")
+            ->endUse()
+            ->filterByIdnentemp($idnentemp)
+            ->find($connection);
+
+        if(!$entcln) return false;
+
+        return $entcln;
+    }
+
+    public static function fndentorg($idnentorg, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entcln = \TblentclnQuery::create()
+            ->useTblentempQuery()
+                ->withColumn("Namentemp")
+                ->withColumn("Drcentemp")
+                ->withColumn("Lclentemp")
+                ->withColumn("Tlfofiemp")
+                ->withColumn("Emlofiemp")
+            ->endUse()
+            ->filterByIdnentemp($idnentorg)
+            ->find($connection);
 
         if(!$entcln) return false;
 
