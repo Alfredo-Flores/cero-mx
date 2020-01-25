@@ -100,9 +100,8 @@
                                 <md-icon>gps_fixed</md-icon>
                                 <label>Municipio</label>
                                 <p style="color: red">*</p>
-                                <md-select v-model="municipio" class="ml-1">
-                                    <md-option value="Durango">Durango</md-option>
-                                </md-select>                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-input v-model="municipio" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
 

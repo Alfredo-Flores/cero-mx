@@ -59,7 +59,7 @@ class TblentclnTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 9;
+    const NUM_COLUMNS = 10;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class TblentclnTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 9;
+    const NUM_HYDRATE_COLUMNS = 10;
 
     /**
      * the column name for the idnentcln field
@@ -107,6 +107,11 @@ class TblentclnTableMap extends TableMap
     const COL_FCHFNLCLN = 'tblentcln.fchfnlcln';
 
     /**
+     * the column name for the fnsentcln field
+     */
+    const COL_FNSENTCLN = 'tblentcln.fnsentcln';
+
+    /**
      * the column name for the created_at field
      */
     const COL_CREATED_AT = 'tblentcln.created_at';
@@ -128,11 +133,11 @@ class TblentclnTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Idnentcln', 'Idnentemp', 'Idnentorg', 'Uuid', 'Prdentcln', 'Fchinccln', 'Fchfnlcln', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('idnentcln', 'idnentemp', 'idnentorg', 'uuid', 'prdentcln', 'fchinccln', 'fchfnlcln', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(TblentclnTableMap::COL_IDNENTCLN, TblentclnTableMap::COL_IDNENTEMP, TblentclnTableMap::COL_IDNENTORG, TblentclnTableMap::COL_UUID, TblentclnTableMap::COL_PRDENTCLN, TblentclnTableMap::COL_FCHINCCLN, TblentclnTableMap::COL_FCHFNLCLN, TblentclnTableMap::COL_CREATED_AT, TblentclnTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('idnentcln', 'idnentemp', 'idnentorg', 'uuid', 'prdentcln', 'fchinccln', 'fchfnlcln', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Idnentcln', 'Idnentemp', 'Idnentorg', 'Uuid', 'Prdentcln', 'Fchinccln', 'Fchfnlcln', 'Fnsentcln', 'CreatedAt', 'UpdatedAt', ),
+        self::TYPE_CAMELNAME     => array('idnentcln', 'idnentemp', 'idnentorg', 'uuid', 'prdentcln', 'fchinccln', 'fchfnlcln', 'fnsentcln', 'createdAt', 'updatedAt', ),
+        self::TYPE_COLNAME       => array(TblentclnTableMap::COL_IDNENTCLN, TblentclnTableMap::COL_IDNENTEMP, TblentclnTableMap::COL_IDNENTORG, TblentclnTableMap::COL_UUID, TblentclnTableMap::COL_PRDENTCLN, TblentclnTableMap::COL_FCHINCCLN, TblentclnTableMap::COL_FCHFNLCLN, TblentclnTableMap::COL_FNSENTCLN, TblentclnTableMap::COL_CREATED_AT, TblentclnTableMap::COL_UPDATED_AT, ),
+        self::TYPE_FIELDNAME     => array('idnentcln', 'idnentemp', 'idnentorg', 'uuid', 'prdentcln', 'fchinccln', 'fchfnlcln', 'fnsentcln', 'created_at', 'updated_at', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -142,11 +147,11 @@ class TblentclnTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Idnentcln' => 0, 'Idnentemp' => 1, 'Idnentorg' => 2, 'Uuid' => 3, 'Prdentcln' => 4, 'Fchinccln' => 5, 'Fchfnlcln' => 6, 'CreatedAt' => 7, 'UpdatedAt' => 8, ),
-        self::TYPE_CAMELNAME     => array('idnentcln' => 0, 'idnentemp' => 1, 'idnentorg' => 2, 'uuid' => 3, 'prdentcln' => 4, 'fchinccln' => 5, 'fchfnlcln' => 6, 'createdAt' => 7, 'updatedAt' => 8, ),
-        self::TYPE_COLNAME       => array(TblentclnTableMap::COL_IDNENTCLN => 0, TblentclnTableMap::COL_IDNENTEMP => 1, TblentclnTableMap::COL_IDNENTORG => 2, TblentclnTableMap::COL_UUID => 3, TblentclnTableMap::COL_PRDENTCLN => 4, TblentclnTableMap::COL_FCHINCCLN => 5, TblentclnTableMap::COL_FCHFNLCLN => 6, TblentclnTableMap::COL_CREATED_AT => 7, TblentclnTableMap::COL_UPDATED_AT => 8, ),
-        self::TYPE_FIELDNAME     => array('idnentcln' => 0, 'idnentemp' => 1, 'idnentorg' => 2, 'uuid' => 3, 'prdentcln' => 4, 'fchinccln' => 5, 'fchfnlcln' => 6, 'created_at' => 7, 'updated_at' => 8, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Idnentcln' => 0, 'Idnentemp' => 1, 'Idnentorg' => 2, 'Uuid' => 3, 'Prdentcln' => 4, 'Fchinccln' => 5, 'Fchfnlcln' => 6, 'Fnsentcln' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
+        self::TYPE_CAMELNAME     => array('idnentcln' => 0, 'idnentemp' => 1, 'idnentorg' => 2, 'uuid' => 3, 'prdentcln' => 4, 'fchinccln' => 5, 'fchfnlcln' => 6, 'fnsentcln' => 7, 'createdAt' => 8, 'updatedAt' => 9, ),
+        self::TYPE_COLNAME       => array(TblentclnTableMap::COL_IDNENTCLN => 0, TblentclnTableMap::COL_IDNENTEMP => 1, TblentclnTableMap::COL_IDNENTORG => 2, TblentclnTableMap::COL_UUID => 3, TblentclnTableMap::COL_PRDENTCLN => 4, TblentclnTableMap::COL_FCHINCCLN => 5, TblentclnTableMap::COL_FCHFNLCLN => 6, TblentclnTableMap::COL_FNSENTCLN => 7, TblentclnTableMap::COL_CREATED_AT => 8, TblentclnTableMap::COL_UPDATED_AT => 9, ),
+        self::TYPE_FIELDNAME     => array('idnentcln' => 0, 'idnentemp' => 1, 'idnentorg' => 2, 'uuid' => 3, 'prdentcln' => 4, 'fchinccln' => 5, 'fchfnlcln' => 6, 'fnsentcln' => 7, 'created_at' => 8, 'updated_at' => 9, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -173,6 +178,7 @@ class TblentclnTableMap extends TableMap
         $this->addColumn('prdentcln', 'Prdentcln', 'INTEGER', true, null, 0);
         $this->addColumn('fchinccln', 'Fchinccln', 'TIMESTAMP', false, null, null);
         $this->addColumn('fchfnlcln', 'Fchfnlcln', 'TIMESTAMP', false, null, null);
+        $this->addColumn('fnsentcln', 'Fnsentcln', 'BOOLEAN', true, 1, false);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
     } // initialize()
@@ -346,6 +352,7 @@ class TblentclnTableMap extends TableMap
             $criteria->addSelectColumn(TblentclnTableMap::COL_PRDENTCLN);
             $criteria->addSelectColumn(TblentclnTableMap::COL_FCHINCCLN);
             $criteria->addSelectColumn(TblentclnTableMap::COL_FCHFNLCLN);
+            $criteria->addSelectColumn(TblentclnTableMap::COL_FNSENTCLN);
             $criteria->addSelectColumn(TblentclnTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(TblentclnTableMap::COL_UPDATED_AT);
         } else {
@@ -356,6 +363,7 @@ class TblentclnTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.prdentcln');
             $criteria->addSelectColumn($alias . '.fchinccln');
             $criteria->addSelectColumn($alias . '.fchfnlcln');
+            $criteria->addSelectColumn($alias . '.fnsentcln');
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
         }

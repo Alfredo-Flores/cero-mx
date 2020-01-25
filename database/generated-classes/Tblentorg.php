@@ -20,11 +20,6 @@ class Tblentorg extends BaseTblentorg
                     $entorg->setIdnentprs($data['idnentprs']);
                 }
             }
-            if(array_key_exists('idngirorg', $data)){
-                if(!is_null($data['idngirorg'])){
-                    $entorg->setIdngirorg($data['idngirorg']);
-                }
-            }
             if(array_key_exists('sgmentorg', $data)){
                 if(!is_null($data['sgmentorg'])){
                     $entorg->setSgmentorg($data['sgmentorg']);

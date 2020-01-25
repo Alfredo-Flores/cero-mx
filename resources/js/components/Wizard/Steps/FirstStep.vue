@@ -21,7 +21,7 @@
                                     </div>
                                     <input type="file" @change="onFileChange" v-on:change="validate"/>
                                 </div>
-                                <h6 class="description"> Logo representante <p style="color: red">*</p></h6>
+                                <h6 class="description"> Foto de representante <p style="color: red">*</p></h6>
                             </div>
                         </ValidationProvider>
                     </div>
@@ -159,9 +159,70 @@
                                 <p style="color: red">*</p>
                                 <md-select v-model="pais" class="ml-1">
                                     <md-option value="Mexico">México</md-option>
-                                    <md-option value="Estados Unidos Americanos">Estados Unidos Americanos</md-option>
-                                    <md-option value="Canada">Canada</md-option>
                                 </md-select>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="nacionalidad"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>emoji_flags</md-icon>
+                                <label>Nacionalidad</label>
+                                <p style="color: red">*</p>
+                                <md-select v-model="nacionalidad" class="ml-1">
+                                    <md-option value="Mexicano">Mexicano</md-option>
+                                </md-select>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="entidadfederativa"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>gps_fixed</md-icon>
+                                <label>Entidad Federativa</label>
+                                <p style="color: red">*</p>
+                                <md-select v-model="entidadfederativa" class="ml-1">
+                                    <md-option value="Durango">Durango</md-option>
+                                </md-select>
+                            </md-field>
+                        </ValidationProvider>
+
+                        <ValidationProvider
+                            name="Municipio"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>gps_fixed</md-icon>
+                                <label>Municipio</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="municipio" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
 
@@ -181,6 +242,31 @@
                                 <label>Lugar donde se ubica</label>
                                 <p style="color: red">*</p>
                                 <md-input v-model="lugarnacio" type="text"></md-input>
+                                <md-icon class="error" v-show="failed">close</md-icon>
+                                <md-icon class="success" v-show="passed">done</md-icon>
+                            </md-field>
+                        </ValidationProvider>
+
+                    </div>
+
+                    <div class="md-layout-item md-size-50 ml-auto md-small-size-100">
+
+                        <ValidationProvider
+                            name="codigo"
+                            rules="required"
+                            v-slot="{ passed, failed }"
+                        >
+                            <md-field
+                                :class="[
+                  { 'md-error': failed },
+                  { 'md-valid': passed },
+                  { 'md-form-group': true }
+                ]"
+                            >
+                                <md-icon>info</md-icon>
+                                <label>Codigo Postal</label>
+                                <p style="color: red">*</p>
+                                <md-input v-model="codigo" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
@@ -229,52 +315,6 @@
                         </ValidationProvider>
 
                         <ValidationProvider
-                            name="Municipio"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>gps_fixed</md-icon>
-                                <label>Municipio</label>
-                                <p style="color: red">*</p>
-                                <md-select v-model="municipio" class="ml-1">
-                                    <md-option value="Durango">Durango</md-option>
-                                </md-select>
-                            </md-field>
-                        </ValidationProvider>
-
-                    </div>
-
-                    <div class="md-layout-item md-size-50 ml-auto md-small-size-100">
-
-                        <ValidationProvider
-                            name="nacionalidad"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>emoji_flags</md-icon>
-                                <label>Nacionalidad</label>
-                                <p style="color: red">*</p>
-                                <md-select v-model="nacionalidad" class="ml-1">
-                                    <md-option value="Mexicano">Mexicano</md-option>
-                                </md-select>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
                             name="correolaboral"
                             rules="required|email"
                             v-slot="{ passed, failed }"
@@ -311,48 +351,6 @@
                                 <label>Correo Personal</label>
                                 <p style="color: red">*</p>
                                 <md-input v-model="correopersonal" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="entidadfederativa"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>gps_fixed</md-icon>
-                                <label>Entidad Federativa</label>
-                                <p style="color: red">*</p>
-                                <md-select v-model="entidadfederativa" class="ml-1">
-                                    <md-option value="Durango">Durango</md-option>
-                                </md-select>
-                            </md-field>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                            name="codigo"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>info</md-icon>
-                                <label>Codigo Postal</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="codigo" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>

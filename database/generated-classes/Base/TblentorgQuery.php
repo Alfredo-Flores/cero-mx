@@ -42,6 +42,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorgQuery orderByCnsdntorg($order = Criteria::ASC) Order by the cnsdntorg column
  * @method     ChildTblentorgQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentorgQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method     ChildTblentorgQuery orderByHstentorg($order = Criteria::ASC) Order by the hstentorg column
  *
  * @method     ChildTblentorgQuery groupByIdnentorg() Group by the idnentorg column
  * @method     ChildTblentorgQuery groupByUuid() Group by the uuid column
@@ -65,6 +66,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorgQuery groupByCnsdntorg() Group by the cnsdntorg column
  * @method     ChildTblentorgQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentorgQuery groupByUpdatedAt() Group by the updated_at column
+ * @method     ChildTblentorgQuery groupByHstentorg() Group by the hstentorg column
  *
  * @method     ChildTblentorgQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildTblentorgQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -140,7 +142,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorg findOneByActcnsorg(string $actcnsorg) Return the first ChildTblentorg filtered by the actcnsorg column
  * @method     ChildTblentorg findOneByCnsdntorg(string $cnsdntorg) Return the first ChildTblentorg filtered by the cnsdntorg column
  * @method     ChildTblentorg findOneByCreatedAt(string $created_at) Return the first ChildTblentorg filtered by the created_at column
- * @method     ChildTblentorg findOneByUpdatedAt(string $updated_at) Return the first ChildTblentorg filtered by the updated_at column *
+ * @method     ChildTblentorg findOneByUpdatedAt(string $updated_at) Return the first ChildTblentorg filtered by the updated_at column
+ * @method     ChildTblentorg findOneByHstentorg(string $hstentorg) Return the first ChildTblentorg filtered by the hstentorg column *
 
  * @method     ChildTblentorg requirePk($key, ConnectionInterface $con = null) Return the ChildTblentorg by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOne(ConnectionInterface $con = null) Return the first ChildTblentorg matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -167,6 +170,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorg requireOneByCnsdntorg(string $cnsdntorg) Return the first ChildTblentorg filtered by the cnsdntorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneByCreatedAt(string $created_at) Return the first ChildTblentorg filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentorg requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentorg filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentorg requireOneByHstentorg(string $hstentorg) Return the first ChildTblentorg filtered by the hstentorg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildTblentorg[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildTblentorg objects based on current ModelCriteria
  * @method     ChildTblentorg[]|ObjectCollection findByIdnentorg(string $idnentorg) Return ChildTblentorg objects filtered by the idnentorg column
@@ -191,6 +195,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentorg[]|ObjectCollection findByCnsdntorg(string $cnsdntorg) Return ChildTblentorg objects filtered by the cnsdntorg column
  * @method     ChildTblentorg[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentorg objects filtered by the created_at column
  * @method     ChildTblentorg[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentorg objects filtered by the updated_at column
+ * @method     ChildTblentorg[]|ObjectCollection findByHstentorg(string $hstentorg) Return ChildTblentorg objects filtered by the hstentorg column
  * @method     ChildTblentorg[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -289,7 +294,7 @@ abstract class TblentorgQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentorg, uuid, idnentprs, idngirorg, sgmentorg, bnfentorg, nmbentorg, logentorg, rfcentorg, dmcentorg, lclentorg, mncentorg, etdentorg, pasentorg, cdgpstorg, tlffcnorg, emlfcnorg, plntrborg, actcnsorg, cnsdntorg, created_at, updated_at FROM tblentorg WHERE idnentorg = :p0';
+        $sql = 'SELECT idnentorg, uuid, idnentprs, idngirorg, sgmentorg, bnfentorg, nmbentorg, logentorg, rfcentorg, dmcentorg, lclentorg, mncentorg, etdentorg, pasentorg, cdgpstorg, tlffcnorg, emlfcnorg, plntrborg, actcnsorg, cnsdntorg, created_at, updated_at, hstentorg FROM tblentorg WHERE idnentorg = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -1015,6 +1020,31 @@ abstract class TblentorgQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentorgTableMap::COL_UPDATED_AT, $updatedAt, $comparison);
+    }
+
+    /**
+     * Filter the query on the hstentorg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByHstentorg('fooValue');   // WHERE hstentorg = 'fooValue'
+     * $query->filterByHstentorg('%fooValue%', Criteria::LIKE); // WHERE hstentorg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $hstentorg The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentorgQuery The current query, for fluid interface
+     */
+    public function filterByHstentorg($hstentorg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($hstentorg)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentorgTableMap::COL_HSTENTORG, $hstentorg, $comparison);
     }
 
     /**

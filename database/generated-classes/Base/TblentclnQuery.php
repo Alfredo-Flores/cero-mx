@@ -27,6 +27,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentclnQuery orderByPrdentcln($order = Criteria::ASC) Order by the prdentcln column
  * @method     ChildTblentclnQuery orderByFchinccln($order = Criteria::ASC) Order by the fchinccln column
  * @method     ChildTblentclnQuery orderByFchfnlcln($order = Criteria::ASC) Order by the fchfnlcln column
+ * @method     ChildTblentclnQuery orderByFnsentcln($order = Criteria::ASC) Order by the fnsentcln column
  * @method     ChildTblentclnQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentclnQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
@@ -37,6 +38,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentclnQuery groupByPrdentcln() Group by the prdentcln column
  * @method     ChildTblentclnQuery groupByFchinccln() Group by the fchinccln column
  * @method     ChildTblentclnQuery groupByFchfnlcln() Group by the fchfnlcln column
+ * @method     ChildTblentclnQuery groupByFnsentcln() Group by the fnsentcln column
  * @method     ChildTblentclnQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentclnQuery groupByUpdatedAt() Group by the updated_at column
  *
@@ -80,6 +82,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentcln findOneByPrdentcln(int $prdentcln) Return the first ChildTblentcln filtered by the prdentcln column
  * @method     ChildTblentcln findOneByFchinccln(string $fchinccln) Return the first ChildTblentcln filtered by the fchinccln column
  * @method     ChildTblentcln findOneByFchfnlcln(string $fchfnlcln) Return the first ChildTblentcln filtered by the fchfnlcln column
+ * @method     ChildTblentcln findOneByFnsentcln(boolean $fnsentcln) Return the first ChildTblentcln filtered by the fnsentcln column
  * @method     ChildTblentcln findOneByCreatedAt(string $created_at) Return the first ChildTblentcln filtered by the created_at column
  * @method     ChildTblentcln findOneByUpdatedAt(string $updated_at) Return the first ChildTblentcln filtered by the updated_at column *
 
@@ -93,6 +96,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentcln requireOneByPrdentcln(int $prdentcln) Return the first ChildTblentcln filtered by the prdentcln column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentcln requireOneByFchinccln(string $fchinccln) Return the first ChildTblentcln filtered by the fchinccln column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentcln requireOneByFchfnlcln(string $fchfnlcln) Return the first ChildTblentcln filtered by the fchfnlcln column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentcln requireOneByFnsentcln(boolean $fnsentcln) Return the first ChildTblentcln filtered by the fnsentcln column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentcln requireOneByCreatedAt(string $created_at) Return the first ChildTblentcln filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentcln requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentcln filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -104,6 +108,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentcln[]|ObjectCollection findByPrdentcln(int $prdentcln) Return ChildTblentcln objects filtered by the prdentcln column
  * @method     ChildTblentcln[]|ObjectCollection findByFchinccln(string $fchinccln) Return ChildTblentcln objects filtered by the fchinccln column
  * @method     ChildTblentcln[]|ObjectCollection findByFchfnlcln(string $fchfnlcln) Return ChildTblentcln objects filtered by the fchfnlcln column
+ * @method     ChildTblentcln[]|ObjectCollection findByFnsentcln(boolean $fnsentcln) Return ChildTblentcln objects filtered by the fnsentcln column
  * @method     ChildTblentcln[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentcln objects filtered by the created_at column
  * @method     ChildTblentcln[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentcln objects filtered by the updated_at column
  * @method     ChildTblentcln[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -204,7 +209,7 @@ abstract class TblentclnQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentcln, idnentemp, idnentorg, uuid, prdentcln, fchinccln, fchfnlcln, created_at, updated_at FROM tblentcln WHERE idnentcln = :p0';
+        $sql = 'SELECT idnentcln, idnentemp, idnentorg, uuid, prdentcln, fchinccln, fchfnlcln, fnsentcln, created_at, updated_at FROM tblentcln WHERE idnentcln = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -571,6 +576,33 @@ abstract class TblentclnQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentclnTableMap::COL_FCHFNLCLN, $fchfnlcln, $comparison);
+    }
+
+    /**
+     * Filter the query on the fnsentcln column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFnsentcln(true); // WHERE fnsentcln = true
+     * $query->filterByFnsentcln('yes'); // WHERE fnsentcln = true
+     * </code>
+     *
+     * @param     boolean|string $fnsentcln The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentclnQuery The current query, for fluid interface
+     */
+    public function filterByFnsentcln($fnsentcln = null, $comparison = null)
+    {
+        if (is_string($fnsentcln)) {
+            $fnsentcln = in_array(strtolower($fnsentcln), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(TblentclnTableMap::COL_FNSENTCLN, $fnsentcln, $comparison);
     }
 
     /**

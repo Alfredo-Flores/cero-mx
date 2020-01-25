@@ -27,6 +27,8 @@ class CreateTblentdncTable extends Migration
 
             $table->unsignedBigInteger('idnentorg')->nullable()->comment('Internal');
             $table->foreign('idnentorg')->references('idnentorg')->on('tblentorg');
+
+            $table->boolean('ntrentdnc')->default(false)->comment('BanderaInteresado');
             $table->boolean('rqsentdnc')->default(false)->comment('BanderaPedido');
             $table->boolean('clnentdnc')->default(false)->comment('BanderaCalendarizado');
             $table->boolean('fnsentdnc')->default(false)->comment('BanderaTerminado');

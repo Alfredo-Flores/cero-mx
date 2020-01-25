@@ -152,7 +152,6 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn('Ocurrio un error con el almacenamiento de datos');
         }
 
-        Log::debug($id);
         // 2.- Peticion a variables
         $data = [
             'uuid' => $uuid4,

@@ -116,6 +116,14 @@ abstract class Tblentcln implements ActiveRecordInterface
     protected $fchfnlcln;
 
     /**
+     * The value for the fnsentcln field.
+     *
+     * Note: this column has a database default value of: false
+     * @var        boolean
+     */
+    protected $fnsentcln;
+
+    /**
      * The value for the created_at field.
      *
      * @var        DateTime
@@ -156,6 +164,7 @@ abstract class Tblentcln implements ActiveRecordInterface
     public function applyDefaultValues()
     {
         $this->prdentcln = 0;
+        $this->fnsentcln = false;
     }
 
     /**
@@ -476,6 +485,26 @@ abstract class Tblentcln implements ActiveRecordInterface
     }
 
     /**
+     * Get the [fnsentcln] column value.
+     *
+     * @return boolean
+     */
+    public function getFnsentcln()
+    {
+        return $this->fnsentcln;
+    }
+
+    /**
+     * Get the [fnsentcln] column value.
+     *
+     * @return boolean
+     */
+    public function isFnsentcln()
+    {
+        return $this->getFnsentcln();
+    }
+
+    /**
      * Get the [optionally formatted] temporal [created_at] column value.
      *
      *
@@ -664,6 +693,34 @@ abstract class Tblentcln implements ActiveRecordInterface
     } // setFchfnlcln()
 
     /**
+     * Sets the value of the [fnsentcln] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     *
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Tblentcln The current object (for fluent API support)
+     */
+    public function setFnsentcln($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->fnsentcln !== $v) {
+            $this->fnsentcln = $v;
+            $this->modifiedColumns[TblentclnTableMap::COL_FNSENTCLN] = true;
+        }
+
+        return $this;
+    } // setFnsentcln()
+
+    /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
@@ -714,6 +771,10 @@ abstract class Tblentcln implements ActiveRecordInterface
     public function hasOnlyDefaultValues()
     {
             if ($this->prdentcln !== 0) {
+                return false;
+            }
+
+            if ($this->fnsentcln !== false) {
                 return false;
             }
 
@@ -770,13 +831,16 @@ abstract class Tblentcln implements ActiveRecordInterface
             }
             $this->fchfnlcln = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentclnTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentclnTableMap::translateFieldName('Fnsentcln', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->fnsentcln = (null !== $col) ? (boolean) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentclnTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentclnTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentclnTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -789,7 +853,7 @@ abstract class Tblentcln implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 9; // 9 = TblentclnTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 10; // 10 = TblentclnTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentcln'), 0, $e);
@@ -1038,6 +1102,9 @@ abstract class Tblentcln implements ActiveRecordInterface
         if ($this->isColumnModified(TblentclnTableMap::COL_FCHFNLCLN)) {
             $modifiedColumns[':p' . $index++]  = 'fchfnlcln';
         }
+        if ($this->isColumnModified(TblentclnTableMap::COL_FNSENTCLN)) {
+            $modifiedColumns[':p' . $index++]  = 'fnsentcln';
+        }
         if ($this->isColumnModified(TblentclnTableMap::COL_CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'created_at';
         }
@@ -1075,6 +1142,9 @@ abstract class Tblentcln implements ActiveRecordInterface
                         break;
                     case 'fchfnlcln':
                         $stmt->bindValue($identifier, $this->fchfnlcln ? $this->fchfnlcln->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        break;
+                    case 'fnsentcln':
+                        $stmt->bindValue($identifier, (int) $this->fnsentcln, PDO::PARAM_INT);
                         break;
                     case 'created_at':
                         $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
@@ -1166,9 +1236,12 @@ abstract class Tblentcln implements ActiveRecordInterface
                 return $this->getFchfnlcln();
                 break;
             case 7:
-                return $this->getCreatedAt();
+                return $this->getFnsentcln();
                 break;
             case 8:
+                return $this->getCreatedAt();
+                break;
+            case 9:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -1208,8 +1281,9 @@ abstract class Tblentcln implements ActiveRecordInterface
             $keys[4] => $this->getPrdentcln(),
             $keys[5] => $this->getFchinccln(),
             $keys[6] => $this->getFchfnlcln(),
-            $keys[7] => $this->getCreatedAt(),
-            $keys[8] => $this->getUpdatedAt(),
+            $keys[7] => $this->getFnsentcln(),
+            $keys[8] => $this->getCreatedAt(),
+            $keys[9] => $this->getUpdatedAt(),
         );
         if ($result[$keys[5]] instanceof \DateTimeInterface) {
             $result[$keys[5]] = $result[$keys[5]]->format('c');
@@ -1219,12 +1293,12 @@ abstract class Tblentcln implements ActiveRecordInterface
             $result[$keys[6]] = $result[$keys[6]]->format('c');
         }
 
-        if ($result[$keys[7]] instanceof \DateTimeInterface) {
-            $result[$keys[7]] = $result[$keys[7]]->format('c');
-        }
-
         if ($result[$keys[8]] instanceof \DateTimeInterface) {
             $result[$keys[8]] = $result[$keys[8]]->format('c');
+        }
+
+        if ($result[$keys[9]] instanceof \DateTimeInterface) {
+            $result[$keys[9]] = $result[$keys[9]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1319,9 +1393,12 @@ abstract class Tblentcln implements ActiveRecordInterface
                 $this->setFchfnlcln($value);
                 break;
             case 7:
-                $this->setCreatedAt($value);
+                $this->setFnsentcln($value);
                 break;
             case 8:
+                $this->setCreatedAt($value);
+                break;
+            case 9:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -1372,10 +1449,13 @@ abstract class Tblentcln implements ActiveRecordInterface
             $this->setFchfnlcln($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setCreatedAt($arr[$keys[7]]);
+            $this->setFnsentcln($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setUpdatedAt($arr[$keys[8]]);
+            $this->setCreatedAt($arr[$keys[8]]);
+        }
+        if (array_key_exists($keys[9], $arr)) {
+            $this->setUpdatedAt($arr[$keys[9]]);
         }
     }
 
@@ -1438,6 +1518,9 @@ abstract class Tblentcln implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentclnTableMap::COL_FCHFNLCLN)) {
             $criteria->add(TblentclnTableMap::COL_FCHFNLCLN, $this->fchfnlcln);
+        }
+        if ($this->isColumnModified(TblentclnTableMap::COL_FNSENTCLN)) {
+            $criteria->add(TblentclnTableMap::COL_FNSENTCLN, $this->fnsentcln);
         }
         if ($this->isColumnModified(TblentclnTableMap::COL_CREATED_AT)) {
             $criteria->add(TblentclnTableMap::COL_CREATED_AT, $this->created_at);
@@ -1537,6 +1620,7 @@ abstract class Tblentcln implements ActiveRecordInterface
         $copyObj->setPrdentcln($this->getPrdentcln());
         $copyObj->setFchinccln($this->getFchinccln());
         $copyObj->setFchfnlcln($this->getFchfnlcln());
+        $copyObj->setFnsentcln($this->getFnsentcln());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
         if ($makeNew) {
@@ -1689,6 +1773,7 @@ abstract class Tblentcln implements ActiveRecordInterface
         $this->prdentcln = null;
         $this->fchinccln = null;
         $this->fchfnlcln = null;
+        $this->fnsentcln = null;
         $this->created_at = null;
         $this->updated_at = null;
         $this->alreadyInSave = false;

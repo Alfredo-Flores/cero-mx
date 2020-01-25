@@ -22,7 +22,7 @@ import VueResource from 'vue-resource'
 import 'vue-material/dist/vue-material.min.css'
 import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import 'font-awesome/css/font-awesome.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 // Importar a Vue
 Vue.use(VueMaterial);

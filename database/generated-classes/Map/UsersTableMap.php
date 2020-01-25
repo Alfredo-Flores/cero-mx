@@ -59,7 +59,7 @@ class UsersTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 9;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class UsersTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 9;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
@@ -112,11 +112,6 @@ class UsersTableMap extends TableMap
     const COL_REMEMBER_TOKEN = 'users.remember_token';
 
     /**
-     * the column name for the isinstitution field
-     */
-    const COL_ISINSTITUTION = 'users.isinstitution';
-
-    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -128,11 +123,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'RememberToken', 'Isinstitution', ),
-        self::TYPE_CAMELNAME     => array('id', 'uuid', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'rememberToken', 'isinstitution', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_REMEMBER_TOKEN, UsersTableMap::COL_ISINSTITUTION, ),
-        self::TYPE_FIELDNAME     => array('id', 'uuid', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'remember_token', 'isinstitution', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id', 'Uuid', 'Email', 'EmailVerifiedAt', 'Password', 'CreatedAt', 'UpdatedAt', 'RememberToken', ),
+        self::TYPE_CAMELNAME     => array('id', 'uuid', 'email', 'emailVerifiedAt', 'password', 'createdAt', 'updatedAt', 'rememberToken', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_UUID, UsersTableMap::COL_EMAIL, UsersTableMap::COL_EMAIL_VERIFIED_AT, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_REMEMBER_TOKEN, ),
+        self::TYPE_FIELDNAME     => array('id', 'uuid', 'email', 'email_verified_at', 'password', 'created_at', 'updated_at', 'remember_token', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -142,11 +137,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Email' => 2, 'EmailVerifiedAt' => 3, 'Password' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'RememberToken' => 7, 'Isinstitution' => 8, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'emailVerifiedAt' => 3, 'password' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'rememberToken' => 7, 'isinstitution' => 8, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_EMAIL => 2, UsersTableMap::COL_EMAIL_VERIFIED_AT => 3, UsersTableMap::COL_PASSWORD => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_REMEMBER_TOKEN => 7, UsersTableMap::COL_ISINSTITUTION => 8, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'email_verified_at' => 3, 'password' => 4, 'created_at' => 5, 'updated_at' => 6, 'remember_token' => 7, 'isinstitution' => 8, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Uuid' => 1, 'Email' => 2, 'EmailVerifiedAt' => 3, 'Password' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'RememberToken' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'emailVerifiedAt' => 3, 'password' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'rememberToken' => 7, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_UUID => 1, UsersTableMap::COL_EMAIL => 2, UsersTableMap::COL_EMAIL_VERIFIED_AT => 3, UsersTableMap::COL_PASSWORD => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_REMEMBER_TOKEN => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'uuid' => 1, 'email' => 2, 'email_verified_at' => 3, 'password' => 4, 'created_at' => 5, 'updated_at' => 6, 'remember_token' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -174,7 +169,6 @@ class UsersTableMap extends TableMap
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('remember_token', 'RememberToken', 'VARCHAR', false, 100, null);
-        $this->addColumn('isinstitution', 'Isinstitution', 'BOOLEAN', true, 1, false);
     } // initialize()
 
     /**
@@ -340,7 +334,6 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn(UsersTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_UPDATED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_REMEMBER_TOKEN);
-            $criteria->addSelectColumn(UsersTableMap::COL_ISINSTITUTION);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.uuid');
@@ -350,7 +343,6 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
             $criteria->addSelectColumn($alias . '.remember_token');
-            $criteria->addSelectColumn($alias . '.isinstitution');
         }
     }
 

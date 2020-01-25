@@ -20,11 +20,6 @@ class Tblentemp extends BaseTblentemp
                     $entemp->setIdnentprs($data['idnentprs']);
                 }
             }
-            if(array_key_exists('idngirorg', $data)){
-                if(!is_null($data['idngirorg'])){
-                    $entemp->setIdngirorg($data['idngirorg']);
-                }
-            }
             if(array_key_exists('namentemp', $data)){
                 if(!is_null($data['namentemp'])){
                     $entemp->setNamentemp($data['namentemp']);

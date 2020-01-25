@@ -130,6 +130,14 @@ abstract class Tblentdnc implements ActiveRecordInterface
     protected $idnentorg;
 
     /**
+     * The value for the ntrentdnc field.
+     *
+     * Note: this column has a database default value of: false
+     * @var        boolean
+     */
+    protected $ntrentdnc;
+
+    /**
      * The value for the rqsentdnc field.
      *
      * Note: this column has a database default value of: false
@@ -193,6 +201,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
      */
     public function applyDefaultValues()
     {
+        $this->ntrentdnc = false;
         $this->rqsentdnc = false;
         $this->clnentdnc = false;
         $this->fnsentdnc = false;
@@ -526,6 +535,26 @@ abstract class Tblentdnc implements ActiveRecordInterface
     }
 
     /**
+     * Get the [ntrentdnc] column value.
+     *
+     * @return boolean
+     */
+    public function getNtrentdnc()
+    {
+        return $this->ntrentdnc;
+    }
+
+    /**
+     * Get the [ntrentdnc] column value.
+     *
+     * @return boolean
+     */
+    public function isNtrentdnc()
+    {
+        return $this->getNtrentdnc();
+    }
+
+    /**
      * Get the [rqsentdnc] column value.
      *
      * @return boolean
@@ -814,6 +843,34 @@ abstract class Tblentdnc implements ActiveRecordInterface
     } // setIdnentorg()
 
     /**
+     * Sets the value of the [ntrentdnc] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     *
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Tblentdnc The current object (for fluent API support)
+     */
+    public function setNtrentdnc($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->ntrentdnc !== $v) {
+            $this->ntrentdnc = $v;
+            $this->modifiedColumns[TblentdncTableMap::COL_NTRENTDNC] = true;
+        }
+
+        return $this;
+    } // setNtrentdnc()
+
+    /**
      * Sets the value of the [rqsentdnc] column.
      * Non-boolean arguments are converted using the following rules:
      *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
@@ -947,6 +1004,10 @@ abstract class Tblentdnc implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->ntrentdnc !== false) {
+                return false;
+            }
+
             if ($this->rqsentdnc !== false) {
                 return false;
             }
@@ -1015,22 +1076,25 @@ abstract class Tblentdnc implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentdncTableMap::translateFieldName('Idnentorg', TableMap::TYPE_PHPNAME, $indexType)];
             $this->idnentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentdncTableMap::translateFieldName('Rqsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentdncTableMap::translateFieldName('Ntrentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->ntrentdnc = (null !== $col) ? (boolean) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentdncTableMap::translateFieldName('Rqsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
             $this->rqsentdnc = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentdncTableMap::translateFieldName('Clnentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentdncTableMap::translateFieldName('Clnentdnc', TableMap::TYPE_PHPNAME, $indexType)];
             $this->clnentdnc = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentdncTableMap::translateFieldName('Fnsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentdncTableMap::translateFieldName('Fnsentdnc', TableMap::TYPE_PHPNAME, $indexType)];
             $this->fnsentdnc = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentdncTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentdncTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentdncTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentdncTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -1043,7 +1107,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 14; // 14 = TblentdncTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 15; // 15 = TblentdncTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentdnc'), 0, $e);
@@ -1298,6 +1362,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
         if ($this->isColumnModified(TblentdncTableMap::COL_IDNENTORG)) {
             $modifiedColumns[':p' . $index++]  = 'idnentorg';
         }
+        if ($this->isColumnModified(TblentdncTableMap::COL_NTRENTDNC)) {
+            $modifiedColumns[':p' . $index++]  = 'ntrentdnc';
+        }
         if ($this->isColumnModified(TblentdncTableMap::COL_RQSENTDNC)) {
             $modifiedColumns[':p' . $index++]  = 'rqsentdnc';
         }
@@ -1350,6 +1417,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
                         break;
                     case 'idnentorg':
                         $stmt->bindValue($identifier, $this->idnentorg, PDO::PARAM_INT);
+                        break;
+                    case 'ntrentdnc':
+                        $stmt->bindValue($identifier, (int) $this->ntrentdnc, PDO::PARAM_INT);
                         break;
                     case 'rqsentdnc':
                         $stmt->bindValue($identifier, (int) $this->rqsentdnc, PDO::PARAM_INT);
@@ -1456,18 +1526,21 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 return $this->getIdnentorg();
                 break;
             case 9:
-                return $this->getRqsentdnc();
+                return $this->getNtrentdnc();
                 break;
             case 10:
-                return $this->getClnentdnc();
+                return $this->getRqsentdnc();
                 break;
             case 11:
-                return $this->getFnsentdnc();
+                return $this->getClnentdnc();
                 break;
             case 12:
-                return $this->getCreatedAt();
+                return $this->getFnsentdnc();
                 break;
             case 13:
+                return $this->getCreatedAt();
+                break;
+            case 14:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -1509,22 +1582,23 @@ abstract class Tblentdnc implements ActiveRecordInterface
             $keys[6] => $this->getCntcjsdnc(),
             $keys[7] => $this->getTmprstdnc(),
             $keys[8] => $this->getIdnentorg(),
-            $keys[9] => $this->getRqsentdnc(),
-            $keys[10] => $this->getClnentdnc(),
-            $keys[11] => $this->getFnsentdnc(),
-            $keys[12] => $this->getCreatedAt(),
-            $keys[13] => $this->getUpdatedAt(),
+            $keys[9] => $this->getNtrentdnc(),
+            $keys[10] => $this->getRqsentdnc(),
+            $keys[11] => $this->getClnentdnc(),
+            $keys[12] => $this->getFnsentdnc(),
+            $keys[13] => $this->getCreatedAt(),
+            $keys[14] => $this->getUpdatedAt(),
         );
         if ($result[$keys[7]] instanceof \DateTimeInterface) {
             $result[$keys[7]] = $result[$keys[7]]->format('c');
         }
 
-        if ($result[$keys[12]] instanceof \DateTimeInterface) {
-            $result[$keys[12]] = $result[$keys[12]]->format('c');
-        }
-
         if ($result[$keys[13]] instanceof \DateTimeInterface) {
             $result[$keys[13]] = $result[$keys[13]]->format('c');
+        }
+
+        if ($result[$keys[14]] instanceof \DateTimeInterface) {
+            $result[$keys[14]] = $result[$keys[14]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1625,18 +1699,21 @@ abstract class Tblentdnc implements ActiveRecordInterface
                 $this->setIdnentorg($value);
                 break;
             case 9:
-                $this->setRqsentdnc($value);
+                $this->setNtrentdnc($value);
                 break;
             case 10:
-                $this->setClnentdnc($value);
+                $this->setRqsentdnc($value);
                 break;
             case 11:
-                $this->setFnsentdnc($value);
+                $this->setClnentdnc($value);
                 break;
             case 12:
-                $this->setCreatedAt($value);
+                $this->setFnsentdnc($value);
                 break;
             case 13:
+                $this->setCreatedAt($value);
+                break;
+            case 14:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -1693,19 +1770,22 @@ abstract class Tblentdnc implements ActiveRecordInterface
             $this->setIdnentorg($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setRqsentdnc($arr[$keys[9]]);
+            $this->setNtrentdnc($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setClnentdnc($arr[$keys[10]]);
+            $this->setRqsentdnc($arr[$keys[10]]);
         }
         if (array_key_exists($keys[11], $arr)) {
-            $this->setFnsentdnc($arr[$keys[11]]);
+            $this->setClnentdnc($arr[$keys[11]]);
         }
         if (array_key_exists($keys[12], $arr)) {
-            $this->setCreatedAt($arr[$keys[12]]);
+            $this->setFnsentdnc($arr[$keys[12]]);
         }
         if (array_key_exists($keys[13], $arr)) {
-            $this->setUpdatedAt($arr[$keys[13]]);
+            $this->setCreatedAt($arr[$keys[13]]);
+        }
+        if (array_key_exists($keys[14], $arr)) {
+            $this->setUpdatedAt($arr[$keys[14]]);
         }
     }
 
@@ -1774,6 +1854,9 @@ abstract class Tblentdnc implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentdncTableMap::COL_IDNENTORG)) {
             $criteria->add(TblentdncTableMap::COL_IDNENTORG, $this->idnentorg);
+        }
+        if ($this->isColumnModified(TblentdncTableMap::COL_NTRENTDNC)) {
+            $criteria->add(TblentdncTableMap::COL_NTRENTDNC, $this->ntrentdnc);
         }
         if ($this->isColumnModified(TblentdncTableMap::COL_RQSENTDNC)) {
             $criteria->add(TblentdncTableMap::COL_RQSENTDNC, $this->rqsentdnc);
@@ -1884,6 +1967,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
         $copyObj->setCntcjsdnc($this->getCntcjsdnc());
         $copyObj->setTmprstdnc($this->getTmprstdnc());
         $copyObj->setIdnentorg($this->getIdnentorg());
+        $copyObj->setNtrentdnc($this->getNtrentdnc());
         $copyObj->setRqsentdnc($this->getRqsentdnc());
         $copyObj->setClnentdnc($this->getClnentdnc());
         $copyObj->setFnsentdnc($this->getFnsentdnc());
@@ -2041,6 +2125,7 @@ abstract class Tblentdnc implements ActiveRecordInterface
         $this->cntcjsdnc = null;
         $this->tmprstdnc = null;
         $this->idnentorg = null;
+        $this->ntrentdnc = null;
         $this->rqsentdnc = null;
         $this->clnentdnc = null;
         $this->fnsentdnc = null;

@@ -1,7 +1,7 @@
 <template>
     <div class="md-layout">
         <div class="md-layout-item md-size-75 md-xsmall-size-80 mx-auto">
-            <simple-wizard title="Registro" next-button-text="Siguiente" prev-button-text="Anterior" finish-button-text="Registrar">
+            <simple-wizard title="Registro de Institución" next-button-text="Siguiente" prev-button-text="Anterior" finish-button-text="Registrar">
             <wizard-tab :before-change="() => validateStep('step1')">
                 <template slot="label">
                     Representante
@@ -172,7 +172,6 @@
                 formData.append("Foto", this.representantefoto);
 
                 formData.append("TipoInstitucion", this.type);
-                console.log(this.$auth.user().Id);
                 formData.append("Id", this.$auth.user().Id);
 
                 formData.append("EmpresaNombre", this.empresanombre);
@@ -257,7 +256,6 @@
                 formData.append("Foto", this.representantefoto);
 
                 formData.append("TipoInstitucion", this.type);
-                console.log(this.$auth.user().Id);
                 formData.append("Id", this.$auth.user().Id);
 
                 formData.append("OrganizacionNombre", this.organizacionnombre);

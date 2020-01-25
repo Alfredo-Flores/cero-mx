@@ -43,6 +43,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentempQuery orderByDetentemo($order = Criteria::ASC) Order by the detentemo column
  * @method     ChildTblentempQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildTblentempQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method     ChildTblentempQuery orderByHstentemp($order = Criteria::ASC) Order by the hstentemp column
  *
  * @method     ChildTblentempQuery groupByIdnentemp() Group by the idnentemp column
  * @method     ChildTblentempQuery groupByUuid() Group by the uuid column
@@ -67,6 +68,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentempQuery groupByDetentemo() Group by the detentemo column
  * @method     ChildTblentempQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildTblentempQuery groupByUpdatedAt() Group by the updated_at column
+ * @method     ChildTblentempQuery groupByHstentemp() Group by the hstentemp column
  *
  * @method     ChildTblentempQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildTblentempQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -143,7 +145,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentemp findOneByHorentemp(string $horentemp) Return the first ChildTblentemp filtered by the horentemp column
  * @method     ChildTblentemp findOneByDetentemo(string $detentemo) Return the first ChildTblentemp filtered by the detentemo column
  * @method     ChildTblentemp findOneByCreatedAt(string $created_at) Return the first ChildTblentemp filtered by the created_at column
- * @method     ChildTblentemp findOneByUpdatedAt(string $updated_at) Return the first ChildTblentemp filtered by the updated_at column *
+ * @method     ChildTblentemp findOneByUpdatedAt(string $updated_at) Return the first ChildTblentemp filtered by the updated_at column
+ * @method     ChildTblentemp findOneByHstentemp(string $hstentemp) Return the first ChildTblentemp filtered by the hstentemp column *
 
  * @method     ChildTblentemp requirePk($key, ConnectionInterface $con = null) Return the ChildTblentemp by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentemp requireOne(ConnectionInterface $con = null) Return the first ChildTblentemp matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -171,6 +174,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentemp requireOneByDetentemo(string $detentemo) Return the first ChildTblentemp filtered by the detentemo column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentemp requireOneByCreatedAt(string $created_at) Return the first ChildTblentemp filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTblentemp requireOneByUpdatedAt(string $updated_at) Return the first ChildTblentemp filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildTblentemp requireOneByHstentemp(string $hstentemp) Return the first ChildTblentemp filtered by the hstentemp column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildTblentemp[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildTblentemp objects based on current ModelCriteria
  * @method     ChildTblentemp[]|ObjectCollection findByIdnentemp(string $idnentemp) Return ChildTblentemp objects filtered by the idnentemp column
@@ -196,6 +200,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentemp[]|ObjectCollection findByDetentemo(string $detentemo) Return ChildTblentemp objects filtered by the detentemo column
  * @method     ChildTblentemp[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildTblentemp objects filtered by the created_at column
  * @method     ChildTblentemp[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildTblentemp objects filtered by the updated_at column
+ * @method     ChildTblentemp[]|ObjectCollection findByHstentemp(string $hstentemp) Return ChildTblentemp objects filtered by the hstentemp column
  * @method     ChildTblentemp[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -294,7 +299,7 @@ abstract class TblentempQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT idnentemp, uuid, idnentprs, idngirorg, namentemp, logentemp, drcentemp, lclentemp, mncentemp, ententemp, pasentorg, cdgpstemp, cdgtrbemp, girentemp, tlfofiemp, emlofiemp, desaliemp, candonemp, temconemp, horentemp, detentemo, created_at, updated_at FROM tblentemp WHERE idnentemp = :p0';
+        $sql = 'SELECT idnentemp, uuid, idnentprs, idngirorg, namentemp, logentemp, drcentemp, lclentemp, mncentemp, ententemp, pasentorg, cdgpstemp, cdgtrbemp, girentemp, tlfofiemp, emlofiemp, desaliemp, candonemp, temconemp, horentemp, detentemo, created_at, updated_at, hstentemp FROM tblentemp WHERE idnentemp = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -1061,6 +1066,31 @@ abstract class TblentempQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(TblentempTableMap::COL_UPDATED_AT, $updatedAt, $comparison);
+    }
+
+    /**
+     * Filter the query on the hstentemp column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByHstentemp('fooValue');   // WHERE hstentemp = 'fooValue'
+     * $query->filterByHstentemp('%fooValue%', Criteria::LIKE); // WHERE hstentemp LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $hstentemp The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildTblentempQuery The current query, for fluid interface
+     */
+    public function filterByHstentemp($hstentemp = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($hstentemp)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(TblentempTableMap::COL_HSTENTEMP, $hstentemp, $comparison);
     }
 
     /**

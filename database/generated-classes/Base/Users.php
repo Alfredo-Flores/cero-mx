@@ -123,14 +123,6 @@ abstract class Users implements ActiveRecordInterface
     protected $remember_token;
 
     /**
-     * The value for the isinstitution field.
-     *
-     * Note: this column has a database default value of: false
-     * @var        boolean
-     */
-    protected $isinstitution;
-
-    /**
      * @var        ObjectCollection|ChildTblentprs[] Collection to store aggregation of ChildTblentprs objects.
      */
     protected $collTblentprss;
@@ -151,23 +143,10 @@ abstract class Users implements ActiveRecordInterface
     protected $tblentprssScheduledForDeletion = null;
 
     /**
-     * Applies default values to this object.
-     * This method should be called from the object's constructor (or
-     * equivalent initialization method).
-     * @see __construct()
-     */
-    public function applyDefaultValues()
-    {
-        $this->isinstitution = false;
-    }
-
-    /**
      * Initializes internal state of Base\Users object.
-     * @see applyDefaults()
      */
     public function __construct()
     {
-        $this->applyDefaultValues();
     }
 
     /**
@@ -499,26 +478,6 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [isinstitution] column value.
-     *
-     * @return boolean
-     */
-    public function getIsinstitution()
-    {
-        return $this->isinstitution;
-    }
-
-    /**
-     * Get the [isinstitution] column value.
-     *
-     * @return boolean
-     */
-    public function isIsinstitution()
-    {
-        return $this->getIsinstitution();
-    }
-
-    /**
      * Set the value of [id] column.
      *
      * @param string $v new value
@@ -679,34 +638,6 @@ abstract class Users implements ActiveRecordInterface
     } // setRememberToken()
 
     /**
-     * Sets the value of the [isinstitution] column.
-     * Non-boolean arguments are converted using the following rules:
-     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     *
-     * @param  boolean|integer|string $v The new value
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setIsinstitution($v)
-    {
-        if ($v !== null) {
-            if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-            } else {
-                $v = (boolean) $v;
-            }
-        }
-
-        if ($this->isinstitution !== $v) {
-            $this->isinstitution = $v;
-            $this->modifiedColumns[UsersTableMap::COL_ISINSTITUTION] = true;
-        }
-
-        return $this;
-    } // setIsinstitution()
-
-    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -716,10 +647,6 @@ abstract class Users implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
-            if ($this->isinstitution !== false) {
-                return false;
-            }
-
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -778,9 +705,6 @@ abstract class Users implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('RememberToken', TableMap::TYPE_PHPNAME, $indexType)];
             $this->remember_token = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('Isinstitution', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->isinstitution = (null !== $col) ? (boolean) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -789,7 +713,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 9; // 9 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = UsersTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Users'), 0, $e);
@@ -1034,9 +958,6 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_REMEMBER_TOKEN)) {
             $modifiedColumns[':p' . $index++]  = 'remember_token';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_ISINSTITUTION)) {
-            $modifiedColumns[':p' . $index++]  = 'isinstitution';
-        }
 
         $sql = sprintf(
             'INSERT INTO users (%s) VALUES (%s)',
@@ -1071,9 +992,6 @@ abstract class Users implements ActiveRecordInterface
                         break;
                     case 'remember_token':
                         $stmt->bindValue($identifier, $this->remember_token, PDO::PARAM_STR);
-                        break;
-                    case 'isinstitution':
-                        $stmt->bindValue($identifier, (int) $this->isinstitution, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1161,9 +1079,6 @@ abstract class Users implements ActiveRecordInterface
             case 7:
                 return $this->getRememberToken();
                 break;
-            case 8:
-                return $this->getIsinstitution();
-                break;
             default:
                 return null;
                 break;
@@ -1202,7 +1117,6 @@ abstract class Users implements ActiveRecordInterface
             $keys[5] => $this->getCreatedAt(),
             $keys[6] => $this->getUpdatedAt(),
             $keys[7] => $this->getRememberToken(),
-            $keys[8] => $this->getIsinstitution(),
         );
         if ($result[$keys[3]] instanceof \DateTimeInterface) {
             $result[$keys[3]] = $result[$keys[3]]->format('c');
@@ -1295,9 +1209,6 @@ abstract class Users implements ActiveRecordInterface
             case 7:
                 $this->setRememberToken($value);
                 break;
-            case 8:
-                $this->setIsinstitution($value);
-                break;
         } // switch()
 
         return $this;
@@ -1347,9 +1258,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if (array_key_exists($keys[7], $arr)) {
             $this->setRememberToken($arr[$keys[7]]);
-        }
-        if (array_key_exists($keys[8], $arr)) {
-            $this->setIsinstitution($arr[$keys[8]]);
         }
     }
 
@@ -1415,9 +1323,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_REMEMBER_TOKEN)) {
             $criteria->add(UsersTableMap::COL_REMEMBER_TOKEN, $this->remember_token);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_ISINSTITUTION)) {
-            $criteria->add(UsersTableMap::COL_ISINSTITUTION, $this->isinstitution);
         }
 
         return $criteria;
@@ -1512,7 +1417,6 @@ abstract class Users implements ActiveRecordInterface
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
         $copyObj->setRememberToken($this->getRememberToken());
-        $copyObj->setIsinstitution($this->getIsinstitution());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1812,10 +1716,8 @@ abstract class Users implements ActiveRecordInterface
         $this->created_at = null;
         $this->updated_at = null;
         $this->remember_token = null;
-        $this->isinstitution = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
-        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

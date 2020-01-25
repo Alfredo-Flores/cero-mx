@@ -21,7 +21,11 @@ class CreateTblentclnTable extends Migration
             $table->foreign('idnentorg')->references('idnentorg')->on('tblentorg');
             $table->uuid('uuid')->unique()->comment('Uuid');
             $table->integer('prdentcln')->default('0')->comment('Periodicidad');
+
             $table->timestampTz('fchinccln')->nullable()->comment('FechaInicio');
+            $table->timestampTz('fchfnlcln')->nullable()->comment('FechaFinal');
+
+            $table->boolean('fnsentcln')->default(false)->comment('BanderaTerminado');
 
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');

@@ -250,6 +250,13 @@ abstract class Tblentemp implements ActiveRecordInterface
     protected $updated_at;
 
     /**
+     * The value for the hstentemp field.
+     *
+     * @var        string
+     */
+    protected $hstentemp;
+
+    /**
      * @var        ChildTblentprs
      */
     protected $aTblentprs;
@@ -794,6 +801,16 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
+     * Get the [hstentemp] column value.
+     *
+     * @return string
+     */
+    public function getHstentemp()
+    {
+        return $this->hstentemp;
+    }
+
+    /**
      * Set the value of [idnentemp] column.
      *
      * @param string $v new value
@@ -1262,6 +1279,26 @@ abstract class Tblentemp implements ActiveRecordInterface
     } // setUpdatedAt()
 
     /**
+     * Set the value of [hstentemp] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentemp The current object (for fluent API support)
+     */
+    public function setHstentemp($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->hstentemp !== $v) {
+            $this->hstentemp = $v;
+            $this->modifiedColumns[TblentempTableMap::COL_HSTENTEMP] = true;
+        }
+
+        return $this;
+    } // setHstentemp()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -1431,6 +1468,9 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $col = null;
             }
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 23 + $startcol : TblentempTableMap::translateFieldName('Hstentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->hstentemp = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1439,7 +1479,7 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 23; // 23 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 24; // 24 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentemp'), 0, $e);
@@ -1776,6 +1816,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($this->isColumnModified(TblentempTableMap::COL_UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'updated_at';
         }
+        if ($this->isColumnModified(TblentempTableMap::COL_HSTENTEMP)) {
+            $modifiedColumns[':p' . $index++]  = 'hstentemp';
+        }
 
         $sql = sprintf(
             'INSERT INTO tblentemp (%s) VALUES (%s)',
@@ -1855,6 +1898,9 @@ abstract class Tblentemp implements ActiveRecordInterface
                         break;
                     case 'updated_at':
                         $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        break;
+                    case 'hstentemp':
+                        $stmt->bindValue($identifier, $this->hstentemp, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1987,6 +2033,9 @@ abstract class Tblentemp implements ActiveRecordInterface
             case 22:
                 return $this->getUpdatedAt();
                 break;
+            case 23:
+                return $this->getHstentemp();
+                break;
             default:
                 return null;
                 break;
@@ -2040,6 +2089,7 @@ abstract class Tblentemp implements ActiveRecordInterface
             $keys[20] => $this->getDetentemo(),
             $keys[21] => $this->getCreatedAt(),
             $keys[22] => $this->getUpdatedAt(),
+            $keys[23] => $this->getHstentemp(),
         );
         if ($result[$keys[21]] instanceof \DateTimeInterface) {
             $result[$keys[21]] = $result[$keys[21]]->format('c');
@@ -2218,6 +2268,9 @@ abstract class Tblentemp implements ActiveRecordInterface
             case 22:
                 $this->setUpdatedAt($value);
                 break;
+            case 23:
+                $this->setHstentemp($value);
+                break;
         } // switch()
 
         return $this;
@@ -2312,6 +2365,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         }
         if (array_key_exists($keys[22], $arr)) {
             $this->setUpdatedAt($arr[$keys[22]]);
+        }
+        if (array_key_exists($keys[23], $arr)) {
+            $this->setHstentemp($arr[$keys[23]]);
         }
     }
 
@@ -2423,6 +2479,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($this->isColumnModified(TblentempTableMap::COL_UPDATED_AT)) {
             $criteria->add(TblentempTableMap::COL_UPDATED_AT, $this->updated_at);
         }
+        if ($this->isColumnModified(TblentempTableMap::COL_HSTENTEMP)) {
+            $criteria->add(TblentempTableMap::COL_HSTENTEMP, $this->hstentemp);
+        }
 
         return $criteria;
     }
@@ -2531,6 +2590,7 @@ abstract class Tblentemp implements ActiveRecordInterface
         $copyObj->setDetentemo($this->getDetentemo());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
+        $copyObj->setHstentemp($this->getHstentemp());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -3238,6 +3298,7 @@ abstract class Tblentemp implements ActiveRecordInterface
         $this->detentemo = null;
         $this->created_at = null;
         $this->updated_at = null;
+        $this->hstentemp = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->applyDefaultValues();

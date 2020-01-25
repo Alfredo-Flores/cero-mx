@@ -64,6 +64,7 @@
     <column name="prdentcln" phpName="Prdentcln" type="INTEGER" required="true" defaultValue="0"/>
     <column name="fchinccln" phpName="Fchinccln" type="TIMESTAMP"/>
     <column name="fchfnlcln" phpName="Fchfnlcln" type="TIMESTAMP"/>
+    <column name="fnsentcln" phpName="Fnsentcln" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="tblentemp" name="tblentcln_idnentemp_foreign">
@@ -95,6 +96,7 @@
     <column name="cntcjsdnc" phpName="Cntcjsdnc" type="INTEGER" required="true"/>
     <column name="tmprstdnc" phpName="Tmprstdnc" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
     <column name="idnentorg" phpName="Idnentorg" type="BIGINT" sqlType="bigint(20) unsigned"/>
+    <column name="ntrentdnc" phpName="Ntrentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="rqsentdnc" phpName="Rqsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="clnentdnc" phpName="Clnentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="fnsentdnc" phpName="Fnsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
@@ -143,6 +145,7 @@
     <column name="detentemo" phpName="Detentemo" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
+    <column name="hstentemp" phpName="Hstentemp" type="CLOB" required="true"/>
     <foreign-key foreignTable="tblentprs" name="tblentemp_idnentprs_foreign">
       <reference local="idnentprs" foreign="idnentprs"/>
     </foreign-key>
@@ -185,6 +188,7 @@
     <column name="cnsdntorg" phpName="Cnsdntorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
+    <column name="hstentorg" phpName="Hstentorg" type="CLOB" required="true"/>
     <foreign-key foreignTable="tblentprs" name="tblentorg_idnentprs_foreign">
       <reference local="idnentprs" foreign="idnentprs"/>
     </foreign-key>
@@ -276,7 +280,6 @@
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <column name="remember_token" phpName="RememberToken" type="VARCHAR" size="100"/>
-    <column name="isinstitution" phpName="Isinstitution" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <unique name="users_uuid_unique">
       <unique-column name="uuid"/>
     </unique>

@@ -18,8 +18,6 @@ class CreateTblentorgTable extends Migration
             $table->uuid('uuid')->unique()->comment('Uuid');
             $table->unsignedBigInteger('idnentprs')->nullable()->comment('Internal');
             $table->foreign('idnentprs')->references('idnentprs')->on('tblentprs');
-            $table->unsignedBigInteger('idngirorg')->nullable()->comment('Internal');
-            $table->foreign('idngirorg')->references('idngirorg')->on('catgirorg');
             $table->string('sgmentorg')->default('')->comment('SegmentoMercado');
             $table->string('bnfentorg')->default('')->comment('BenefSemana');
             $table->string('nmbentorg')->default('')->comment('Nombre');
@@ -38,6 +36,8 @@ class CreateTblentorgTable extends Migration
             $table->string('cnsdntorg')->default('')->comment('ConstanciaDonataria');
             $table->timestampTz('created_at')->nullable()->comment('Creado');
             $table->timestampTz('updated_at')->nullable()->comment('Actualizado');
+
+            $table->json('hstentorg')->nullable()->comment('Historial');
         });
     }
 

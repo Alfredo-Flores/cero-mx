@@ -244,6 +244,13 @@ abstract class Tblentorg implements ActiveRecordInterface
     protected $updated_at;
 
     /**
+     * The value for the hstentorg field.
+     *
+     * @var        string
+     */
+    protected $hstentorg;
+
+    /**
      * @var        ChildTblentprs
      */
     protected $aTblentprs;
@@ -779,6 +786,16 @@ abstract class Tblentorg implements ActiveRecordInterface
     }
 
     /**
+     * Get the [hstentorg] column value.
+     *
+     * @return string
+     */
+    public function getHstentorg()
+    {
+        return $this->hstentorg;
+    }
+
+    /**
      * Set the value of [idnentorg] column.
      *
      * @param string $v new value
@@ -1227,6 +1244,26 @@ abstract class Tblentorg implements ActiveRecordInterface
     } // setUpdatedAt()
 
     /**
+     * Set the value of [hstentorg] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tblentorg The current object (for fluent API support)
+     */
+    public function setHstentorg($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->hstentorg !== $v) {
+            $this->hstentorg = $v;
+            $this->modifiedColumns[TblentorgTableMap::COL_HSTENTORG] = true;
+        }
+
+        return $this;
+    } // setHstentorg()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -1397,6 +1434,9 @@ abstract class Tblentorg implements ActiveRecordInterface
                 $col = null;
             }
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : TblentorgTableMap::translateFieldName('Hstentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->hstentorg = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1405,7 +1445,7 @@ abstract class Tblentorg implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 22; // 22 = TblentorgTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 23; // 23 = TblentorgTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentorg'), 0, $e);
@@ -1739,6 +1779,9 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'updated_at';
         }
+        if ($this->isColumnModified(TblentorgTableMap::COL_HSTENTORG)) {
+            $modifiedColumns[':p' . $index++]  = 'hstentorg';
+        }
 
         $sql = sprintf(
             'INSERT INTO tblentorg (%s) VALUES (%s)',
@@ -1815,6 +1858,9 @@ abstract class Tblentorg implements ActiveRecordInterface
                         break;
                     case 'updated_at':
                         $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                        break;
+                    case 'hstentorg':
+                        $stmt->bindValue($identifier, $this->hstentorg, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1944,6 +1990,9 @@ abstract class Tblentorg implements ActiveRecordInterface
             case 21:
                 return $this->getUpdatedAt();
                 break;
+            case 22:
+                return $this->getHstentorg();
+                break;
             default:
                 return null;
                 break;
@@ -1996,6 +2045,7 @@ abstract class Tblentorg implements ActiveRecordInterface
             $keys[19] => $this->getCnsdntorg(),
             $keys[20] => $this->getCreatedAt(),
             $keys[21] => $this->getUpdatedAt(),
+            $keys[22] => $this->getHstentorg(),
         );
         if ($result[$keys[20]] instanceof \DateTimeInterface) {
             $result[$keys[20]] = $result[$keys[20]]->format('c');
@@ -2171,6 +2221,9 @@ abstract class Tblentorg implements ActiveRecordInterface
             case 21:
                 $this->setUpdatedAt($value);
                 break;
+            case 22:
+                $this->setHstentorg($value);
+                break;
         } // switch()
 
         return $this;
@@ -2262,6 +2315,9 @@ abstract class Tblentorg implements ActiveRecordInterface
         }
         if (array_key_exists($keys[21], $arr)) {
             $this->setUpdatedAt($arr[$keys[21]]);
+        }
+        if (array_key_exists($keys[22], $arr)) {
+            $this->setHstentorg($arr[$keys[22]]);
         }
     }
 
@@ -2370,6 +2426,9 @@ abstract class Tblentorg implements ActiveRecordInterface
         if ($this->isColumnModified(TblentorgTableMap::COL_UPDATED_AT)) {
             $criteria->add(TblentorgTableMap::COL_UPDATED_AT, $this->updated_at);
         }
+        if ($this->isColumnModified(TblentorgTableMap::COL_HSTENTORG)) {
+            $criteria->add(TblentorgTableMap::COL_HSTENTORG, $this->hstentorg);
+        }
 
         return $criteria;
     }
@@ -2477,6 +2536,7 @@ abstract class Tblentorg implements ActiveRecordInterface
         $copyObj->setCnsdntorg($this->getCnsdntorg());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
+        $copyObj->setHstentorg($this->getHstentorg());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -3183,6 +3243,7 @@ abstract class Tblentorg implements ActiveRecordInterface
         $this->cnsdntorg = null;
         $this->created_at = null;
         $this->updated_at = null;
+        $this->hstentorg = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->applyDefaultValues();
