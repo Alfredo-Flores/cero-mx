@@ -21,47 +21,41 @@
                       :class="{ 'off-canvas-sidebar': responsive }"
                   >
                       <md-list>
-                          <md-list-item>
-                              <md-icon>house</md-icon>
-                              <router-link to="/">Inicio</router-link>
+                          <md-list-item to="/">
+                              <md-icon >house</md-icon>Inicio
                           </md-list-item>
-                          <md-list-item v-if="!$auth.check()">
-                              <md-icon>person_add</md-icon>
-                              <router-link to="/register">Registro</router-link>
+                          <md-list-item v-if="!$auth.check()" to="/register">
+                              <md-icon>person_add</md-icon>Registro
                           </md-list-item>
-                          <md-list-item v-if="!$auth.check()">
-                              <md-icon>fingerprint</md-icon>
-                              <router-link to="/login">Iniciar Sesión</router-link>
+                          <md-list-item v-if="!$auth.check()" to="/login">
+                              <md-icon>fingerprint</md-icon>Iniciar Sesión
                           </md-list-item>
-                          <md-list-item v-if="$auth.check('usuario')">
-                              <md-icon>fingerprint</md-icon>
-                              <router-link to="/registerinstitution">Registrar Institución</router-link>
+                          <md-list-item v-if="$auth.check('usuario')" to="/registerinstitution">
+                              <md-icon>fingerprint</md-icon>Registrar Institución
                           </md-list-item>
-                          <md-list-item v-if="$auth.check('empresa')">
-                              <md-icon>fingerprint</md-icon>
-                              <router-link to="/empresa/oferta">Empresa</router-link>
+                          <md-list-item v-if="$auth.check('empresa')" to="/empresa/oferta">
+                              <md-icon>fingerprint</md-icon>Empresa
                           </md-list-item>
-                          <md-list-item v-if="$auth.check('organizacion')">
-                              <md-icon>fingerprint</md-icon>
-                              <router-link to="/organizacion/oferta">Organización</router-link>
+                          <md-list-item v-if="$auth.check('organizacion')" to="/organizacion/oferta">
+                              <md-icon>fingerprint</md-icon>Organización
                           </md-list-item>
-                          <md-list-item v-if="$auth.check()" @click.prevent="logout">
-                              <md-icon>fingerprint</md-icon>
-                              Salir
-                          </md-list-item>
-                          <md-list-item v-if="$auth.check()">
+                          <md-list-item v-if="$auth.check()" to="/estadisticas">
                               <md-icon>dashboard</md-icon>
                               Estadisticas
                           </md-list-item>
 
-                          <md-list-item v-if="$auth.check()">
+                          <md-list-item v-if="$auth.check()" to="/cursos">
                               <md-icon>ondemand_video</md-icon>
                               Cursos
                           </md-list-item>
 
-                          <md-list-item v-if="$auth.check()">
+                          <md-list-item v-if="$auth.check()" to="/organizaciones">
                               <md-icon>person</md-icon>
                               Organizaciones publicas
+                          </md-list-item>
+                          <md-list-item v-if="$auth.check()" @click.prevent="logout">
+                              <md-icon>exit_to_app</md-icon>
+                              Salir
                           </md-list-item>
 
                       </md-list>

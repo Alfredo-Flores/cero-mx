@@ -2,10 +2,12 @@ import EmpresasLayout from "../components/Layout/EmpresasLayout";
 import OrganizacionesLayout from "../components/Layout/OrganizacionesLayout";
 import AuthLayout from "../components/Layout/AuthLayout.vue";
 
-import Welcome from "../views/Welcome.vue";
+import Welcome from "../views/welcome.vue";
 import Login from "../views/Users/Login.vue";
 import Register from "../views/Users/Register.vue";
 import RegisterInstitution from "../views/Users/RegisterInstitution.vue";
+import Cursos from "../views/Users/Cursos";
+import OrganizacionesLista from "../views/Users/Organizaciones";
 
 import EmpresasOferta from "../views/Tblentemp/Main.vue";
 import EmpresasCalendario from "../views/Tblentemp/Calendario.vue";
@@ -14,6 +16,8 @@ import EmpresasPerfil from "../views/Tblentemp/Perfil.vue";
 import OrganizacionesOferta from "../views/Tblentorg/Main.vue";
 import OrganizacionesCalendario from "../views/Tblentorg/Calendario.vue";
 import OrganizacionesPerfil from "../views/Tblentorg/Perfil.vue";
+import Organizaciones from "../views/Users/Organizaciones";
+import Estadisticas from "../views/Users/Estadisticas";
 
 let authPages = {
     path: "/",
@@ -54,7 +58,43 @@ let authPages = {
                 auth: true,
                 redirect: "/"
             }
-        }
+        },
+        {
+            path: "cursos",
+            name: "cursos",
+            component: Cursos,
+            meta: {
+                auth: true,
+                redirect: "/"
+            }
+        },
+        {
+            path: "listadeorganizaciones",
+            name: "listadeorganizaciones",
+            component: OrganizacionesLista,
+            meta: {
+                auth: true,
+                redirect: "/"
+            }
+        },
+        {
+            path: "organizaciones",
+            name: "organizaciones",
+            component: Organizaciones,
+            meta: {
+                auth: true,
+                redirect: "/"
+            }
+        },
+        {
+            path: "estadisticas",
+            name: "estadisticas",
+            component: Estadisticas,
+            meta: {
+                auth: true,
+                redirect: "/"
+            }
+        },
     ]
 };
 

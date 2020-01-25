@@ -1,5 +1,5 @@
 <template>
-        <div class="container md-offset">
+        <div class="container md-offset" v-if="!$auth.check()" >
             <div class="md-layout">
                 <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
                     <stats-card header-color="green">
@@ -7,7 +7,7 @@
                             <div class="card-icon">
                                 <i class="fab fa-twitter"></i>
                             </div>
-                            <p class="category">Folowers</p>
+                            <p class="category">Organizaciones registradas</p>
                             <h3 class="title">
                                 +<animated-number :value="245"></animated-number>
                             </h3>
@@ -27,7 +27,7 @@
                             <div class="card-icon">
                                 <i class="fab fa-twitter"></i>
                             </div>
-                            <p class="category">Folowers</p>
+                            <p class="category">Empresas registradas</p>
                             <h3 class="title">
                                 +<animated-number :value="245"></animated-number>
                             </h3>
@@ -47,7 +47,7 @@
                             <div class="card-icon">
                                 <i class="fab fa-twitter"></i>
                             </div>
-                            <p class="category">Folowers</p>
+                            <p class="category">Kilos de Alimento</p>
                             <h3 class="title">
                                 +<animated-number :value="245"></animated-number>
                             </h3>
@@ -67,7 +67,7 @@
                             <div class="card-icon">
                                 <i class="fab fa-twitter"></i>
                             </div>
-                            <p class="category">Folowers</p>
+                            <p class="category">CO2 evitado</p>
                             <h3 class="title">
                                 +<animated-number :value="245"></animated-number>
                             </h3>
@@ -178,85 +178,201 @@
                                     Noticias
                                 </h3>
                             </div>
-                            <div class="md-layout-item md-size-30 md-small-size-100 ">
+                            <div class="md-layout md-alignment-center-center" v-if="Array.isArray(notices) && notices.length">
+                                <div class="md-layout-item md-size-100 text-center" >
+                                    <h3>
+                                        Noticias
+                                    </h3>
+                                </div>
+                                <div class="md-layout-item md-size-30 md-small-size-100 " v-for="notice in notices">
+                                    <md-card class="md-elevation-10">
+                                        <md-card-area>
+                                            <md-card-media>
+                                                <img
+                                                    :src=notice.img
+                                                    alt="Thumbnail">
+                                            </md-card-media>
+                                            <md-card-header>
+                                                <div class="md-title">
+                                                    <h3 class="md-title">
+                                                        {{notice.title}}
+                                                    </h3>
+                                                </div>
+                                                <div class="md-subhead">
+                                                    {{notice.subtitle}}
+                                                </div>
+                                            </md-card-header>
+                                            <md-card-content>
+                                                {{notice.content}}
+                                            </md-card-content>
+                                        </md-card-area>
+                                        <md-card-actions>
+                                            <md-button>
+                                                Leer más
+                                            </md-button>
+                                        </md-card-actions>
+                                    </md-card>
+                                </div>
+                            </div>
+                            <div class="md-layout md-alignment-center-center" v-else>
+                                <md-empty-state
+                                    md-icon="collections_bookmark"
+                                    md-label="No hay noticias disponibles">
+                                </md-empty-state>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+        </div>
+        <div class="container md-offset" v-else-if="$auth.check()">
+            <div class="md-layout">
+                <md-card class="">
+                    <md-card-content>
+                        <div class="md-layout">
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+                                <md-card class="md-elevation-10">
+
+                                    <md-card-media md-ratio="16/9">
+                                        <img src="/img/placeholder.jpg" alt="People">
+                                    </md-card-media>
+
+                                    <md-card-header>
+                                        <div class="md-title">Presta servicio como empleado probono</div>
+                                        <div class="md-subhead">Ayudanos a hacer un mejor mundo</div>
+                                    </md-card-header>
+
+                                    <md-card-content>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+                                    </md-card-content>
+                                </md-card>
+
+                            </div>
+                            <div class="md-layout-item md-size-50 md-small-size-100">
+
+
+                                <md-card>
+                                    <md-card-header  class="md-elevation-3 md-primary">
+                                        <div class="md-title">
+                                            ¿Qué es Cero?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                                <md-card>
+                                    <md-card-header class="md-elevation-3">
+                                        <div class="md-title">
+                                            ¿Cómo trabajamos?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                                <md-card>
+                                    <md-card-header class="md-elevation-3">
+                                        <div class="md-title">
+                                            ¿Qué es Cero?
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                                <md-card>
+                                    <md-card-header class="md-elevation-3">
+                                        <div class="md-title">
+                                            ¡Apoya a una asociación!
+                                        </div>
+                                    </md-card-header>
+
+                                    <md-card-expand>
+                                        <md-card-expand-trigger>
+                                            <md-button class="md-icon-button">
+                                                <md-icon>keyboard_arrow_down</md-icon>
+                                            </md-button>
+                                        </md-card-expand-trigger>
+                                    </md-card-expand>
+
+                                    <md-card-expand-content>
+                                        <md-card-content>
+                                            fdsafdsafdsafaaaaaaaa
+                                            fsdafsdafdsafsdfsdafdsa
+                                            fdsafdsafdsafa
+                                        </md-card-content>
+                                    </md-card-expand-content>
+                                </md-card>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="md-layout md-alignment-center-center" v-if="Array.isArray(notices) && notices.length">
+                            <div class="md-layout-item md-size-100 text-center" >
+                                <h3>
+                                    Noticias
+                                </h3>
+                            </div>
+                            <div class="md-layout-item md-size-30 md-small-size-100 " v-for="notice in notices">
                                 <md-card class="md-elevation-10">
                                     <md-card-area>
                                         <md-card-media>
                                             <img
-                                                src='/img/faces/marc.jpg'
+                                                :src=notice.img
                                                 alt="Thumbnail">
                                         </md-card-media>
                                         <md-card-header>
                                             <div class="md-title">
-                                                Noticia
+                                                <h3 class="md-title">
+                                                    {{notice.title}}
+                                                </h3>
                                             </div>
                                             <div class="md-subhead">
-                                                Subtitulo noticia
+                                                {{notice.subtitle}}
                                             </div>
                                         </md-card-header>
                                         <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                        </md-card-content>
-                                    </md-card-area>
-                                    <md-card-actions>
-                                        <md-button>
-                                            Leer más
-                                        </md-button>
-                                    </md-card-actions>
-                                </md-card>
-                            </div>
-                            <div class="md-layout-item md-size-30 md-small-size-100 ">
-                                <md-card class="md-elevation-10">
-                                    <md-card-area>
-                                        <md-card-media>
-                                            <img
-                                                src='/img/faces/marc.jpg'
-                                                alt="Thumbnail">
-                                        </md-card-media>
-                                        <md-card-header>
-                                            <div class="md-title">
-                                                Noticia
-                                            </div>
-                                            <div class="md-subhead">
-                                                Subtitulo noticia
-                                            </div>
-                                        </md-card-header>
-                                        <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                        </md-card-content>
-                                    </md-card-area>
-                                    <md-card-actions>
-                                        <md-button>
-                                            Leer más
-                                        </md-button>
-                                    </md-card-actions>
-                                </md-card>
-                            </div>
-                            <div class="md-layout-item md-size-50 md-small-size-100 ">
-                                <md-card class="md-elevation-10">
-                                    <md-card-area>
-                                        <md-card-media>
-                                            <img
-                                                src='/img/faces/marc.jpg'
-                                                alt="Thumbnail"
-                                            >
-                                        </md-card-media>
-                                        <md-card-header>
-                                            <div class="md-title">
-                                                Noticia
-                                            </div>
-                                            <div class="md-subhead">
-                                                Subtitulo noticia
-                                            </div>
-                                        </md-card-header>
-                                        <md-card-content>
-                                            loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
-                                            loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum
+                                            {{notice.content}}
                                         </md-card-content>
                                     </md-card-area>
                                     <md-card-actions>
@@ -267,6 +383,12 @@
                                 </md-card>
                             </div>
                         </div>
+                        <div class="md-layout md-alignment-center-center" v-else>
+                            <md-empty-state
+                                md-icon="collections_bookmark"
+                                md-label="No hay noticias disponibles">
+                            </md-empty-state>
+                        </div>
                     </md-card-content>
                 </md-card>
             </div>
@@ -276,9 +398,9 @@
 
     </template>
 <script>
-    import ZoomCenterTransition from "vue2-transitions";
-    import StatsCard from "../components/Cards/StatsCard.vue";
-    import AnimatedNumber from "../components/AnimatedNumber.vue";
+    import { ZoomCenterTransition } from "vue2-transitions";
+    import StatsCard from "../components/Cards/StatsCard";
+    import AnimatedNumber from "../components/AnimatedNumber";
 
     export default {
         components: {
@@ -303,7 +425,8 @@
                 showMenu: false,
                 menuTransitionDuration: 250,
                 pageTransitionDuration: 300,
-                year: new Date().getFullYear()
+                year: new Date().getFullYear(),
+                notices: []
             };
         },
         computed: {

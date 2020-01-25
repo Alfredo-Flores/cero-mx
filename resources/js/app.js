@@ -41,8 +41,8 @@ const i18n = new VueInternationalization({
     messages: Locale
 });
 
-axios.defaults.baseURL = 'http://localhost:50000/api';
-Vue.http.options.root = 'http://localhost:50000/api';
+axios.defaults.baseURL = '/api';
+Vue.http.options.root = '/api';
 
 // configure router
 const router = new VueRouter({
