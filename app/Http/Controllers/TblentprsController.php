@@ -147,7 +147,6 @@ class TblentprsController extends Controller
 
             Storage::disk('local')->put($fotrutprs, $fotentprs);
         } catch (\Exception $e) {
-            Log::debug($e);
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrio un error con el almacenamiento de datos');
         }

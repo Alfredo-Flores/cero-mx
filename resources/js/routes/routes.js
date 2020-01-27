@@ -11,10 +11,12 @@ import OrganizacionesLista from "../views/Users/Organizaciones";
 
 import EmpresasOferta from "../views/Tblentemp/Main.vue";
 import EmpresasCalendario from "../views/Tblentemp/Calendario.vue";
+import EmpresasHistorial from "../views/Tblentemp/Historial.vue";
 import EmpresasPerfil from "../views/Tblentemp/Perfil.vue";
 
 import OrganizacionesOferta from "../views/Tblentorg/Main.vue";
 import OrganizacionesCalendario from "../views/Tblentorg/Calendario.vue";
+import OrganizacionesRecepcion from "../views/Tblentorg/Recepcion.vue";
 import OrganizacionesPerfil from "../views/Tblentorg/Perfil.vue";
 import Organizaciones from "../views/Users/Organizaciones";
 import Estadisticas from "../views/Users/Estadisticas";
@@ -125,6 +127,15 @@ let empPages = {
             }
         },
         {
+            path: "historial",
+            name: "Historial de ofertas",
+            component: EmpresasHistorial,
+            meta: {
+                auth: ['empresa'],
+                redirect: "/"
+            }
+        },
+        {
             path: "perfil",
             name: "Perfil Empresarial",
             component: EmpresasPerfil,
@@ -161,7 +172,7 @@ let orgPages = {
         {
             path: "recepcion",
             name: "Recepción de la organización",
-            component: OrganizacionesCalendario,
+            component: OrganizacionesRecepcion,
             meta: {
                 auth: ['organizacion'],
                 redirect: "/"

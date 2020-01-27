@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\ReturnHandler;
 use App\TransactionHandler;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use function Psy\debug;
 
 class TblentclnController extends Controller
 {
@@ -65,6 +67,7 @@ class TblentclnController extends Controller
 			'Idnentorg' => 'required|integer',
 			'Periodicidad' => 'required|integer|min:0|max:9',
 			'FechaInicio' => 'date_format:"Y-m-d H:i:s"',
+			'FechaFinal' => 'date_format:"Y-m-d H:i:s"',
 		];
 
         $msgs = [
@@ -77,6 +80,8 @@ class TblentclnController extends Controller
 			'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
 			'FechaInicio.nullable' => 'Validacion fallada en FechaInicio.nullable',
 			'FechaInicio.date_format' => 'Validacion fallada en FechaInicio.date_format',
+            'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
+            'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
 		];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -107,6 +112,7 @@ class TblentclnController extends Controller
             'idnentorg' => request('Idnentorg'),
             'prdentcln' => request('Periodicidad'),
             'fchinccln' => request('FechaInicio'),
+            'fchfnlcln' => request('FechaFinal'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ];
@@ -123,8 +129,9 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
 
-        TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Guardado correctamente');
+        $data["idnentcln"] = $result->getIdnentcln();
+
+        return app(TblentrcpController::class)->create($data, $trncnn);
     }
 
     // destroy (R)
@@ -168,20 +175,21 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
 
-        $result = \Tblentcln::rmventcln($entcln->getIdnentcln(), $trncnn);
+        $idnentcln = $entcln->getIdnentcln();
+        $today = date("Y-m-d H:i:s");
+
+        $resultrcp = \Tblentrcp::dltupdcln($idnentcln, $today, $trncnn);
+        $result = \Tblentcln::rmventcln($idnentcln, $trncnn);
         $resultdnc = \Tblentdnc::rmventdnc($entdnc->getIdentdnc(), $trncnn);
 
         // 6.- Commit & return
-        if(!$result || !$resultdnc){
-            Log::debug($result);
-            Log::debug($resultdnc);
+        if(!$result || !$resultdnc || !$resultrcp){
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
 
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Eliminado correctamente');
-
     }
 
     // update (U)
@@ -207,7 +215,6 @@ class TblentclnController extends Controller
 			'FechaFinal.required' => 'Validacion fallada en FechaFinal.required',
 			'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
 			'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
-
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -231,12 +238,17 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
 
+
         $data = [
 			'idnentcln' => $entcln->getIdnentcln(),
-			'uuid' => $entcln->getUuid(),
+            'idnentemp' => $entcln->getIdnentemp(),
+            'idnentorg' => $entcln->getIdnentorg(),
+			'uuid' => $udxentcln,
 			'prdentcln' => request('Periodicidad'),
 			'fchinccln' => request('FechaInicio'),
+			'fchfnlcln' => request('FechaFinal'),
             'updated_at' => date("Y-m-d H:i:s"),
+            'created_at' => date("Y-m-d H:i:s"),
         ];
 
         $result = \Tblentcln::updentcln($data, $trncnn);
@@ -247,8 +259,7 @@ class TblentclnController extends Controller
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
 
-        TransactionHandler::commit($trncnn);
-        return ReturnHandler::rtrsccjsn('Actualizado correctamente');
+        return app(TblentrcpController::class)->update($data, $trncnn);
     }
 
     public function loadtable(Request $request)
@@ -277,13 +288,20 @@ class TblentclnController extends Controller
 
             $json = [];
 
+
             foreach($eventos as $key => $evento)
             {
                 if ($evento["Prdentcln"] == 1) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 12; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->m + 1; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -303,8 +321,16 @@ class TblentclnController extends Controller
                 } else if ($evento["Prdentcln"] == 2) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 25; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $quincenas = floor($interval->days/15) + 1;
+
+                    for ($i = 1; $i <= $quincenas; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -324,8 +350,16 @@ class TblentclnController extends Controller
                 } else if ($evento["Prdentcln"] == 3) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 53; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $semanas = floor($interval->days/7) + 1;
+;
+                    for ($i = 1; $i <= $semanas; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -346,7 +380,15 @@ class TblentclnController extends Controller
 
                     $fecha = $evento["Fchinccln"];
 
-                    for ($i = 1; $i <= 30; $i++) {
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->d + 1; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -380,8 +422,6 @@ class TblentclnController extends Controller
 
                     array_push($json, $array);
                 }
-
-
             }
 
             if (empty($eventos)) {
@@ -413,8 +453,14 @@ class TblentclnController extends Controller
                 if ($evento["Prdentcln"] == 1) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 12; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->m + 1; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -434,8 +480,16 @@ class TblentclnController extends Controller
                 } else if ($evento["Prdentcln"] == 2) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 25; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $quincenas = floor($interval->days/15) + 1;
+
+                    for ($i = 1; $i <= $quincenas; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -455,8 +509,16 @@ class TblentclnController extends Controller
                 } else if ($evento["Prdentcln"] == 3) {
 
                     $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
 
-                    for ($i = 1; $i <= 53; $i++) {
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $semanas = floor($interval->days/7) + 1;
+                    ;
+                    for ($i = 1; $i <= $semanas; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -477,7 +539,15 @@ class TblentclnController extends Controller
 
                     $fecha = $evento["Fchinccln"];
 
-                    for ($i = 1; $i <= 30; $i++) {
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->d + 1; $i++) {
 
                         $array = [
                             "id" => $evento["Idnentcln"],
@@ -511,8 +581,6 @@ class TblentclnController extends Controller
 
                     array_push($json, $array);
                 }
-
-
             }
 
             if (empty($eventos)) {

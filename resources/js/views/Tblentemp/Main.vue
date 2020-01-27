@@ -1,5 +1,5 @@
 <template>
-    <div class="md-layout text-center">
+    <div class="md-layout">
         <div
             class="md-layout-item md-size-30 md-medium-size-100"
         >
@@ -44,10 +44,10 @@
             </md-card>
         </div>
         <div
-            class="md-layout-item md-size-70 md-medium-size-100"
+            class="md-layout-item md-size-70 md-medium-size-100 mx-auto"
         >
             <md-card>
-                <md-card-header class="md-card-header-text md-card-header-warning">
+                <md-card-header class="md-card-header-text md-card-header-primary">
                     <div class="card-text">
                         <h4 class="title">Ofertas publicadas</h4>
                     </div>
@@ -118,9 +118,10 @@
                 cajas: "",
                 tiempo: Number(now),
                 disabledDates: date => {
-                    const day = date.getDay()
+                    const today = new Date();
+                    const day = date.getDay();
 
-                    return day === 6 || day === 0
+                    return day === 6 || day === 0 || date <= today
                 },
                 ofertas: null,
                 modificarBoton: false,
@@ -272,6 +273,18 @@
         },
         created() {
             this.refrescarTabla();
+            this.$material.locale = {
+                startYear: 1960,
+                endYear: 2025,
+                dateFormat: 'yyyy-MM-dd',
+                days: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                shortDays: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                shorterDays: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic'],
+                shorterMonths: ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+                firstDayOfAWeek: 0
+            };
         },
     }
 </script>

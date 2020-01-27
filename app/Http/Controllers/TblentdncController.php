@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ReturnHandler;
 use App\TransactionHandler;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -120,6 +121,8 @@ class TblentdncController extends Controller
 
         $uuid4 = Uuid::uuid4();
         $idnentemp = $entemp->getIdnentemp();
+        $tmprstdnc = date ("Y-m-d 00:00:00", strtotime( request('TiempoRestante')));
+
         // 2.- Peticion a variables TODO *Modificar*
         $data = [
 			'uuid' => $uuid4,
@@ -128,7 +131,7 @@ class TblentdncController extends Controller
 			'tipentdnc' => request('TipoAlimento'),
 			'kgsentdnc' => request('Kilogramos'),
 			'cntcjsdnc' => request('CantCajas'),
-			'tmprstdnc' => request('TiempoRestante'),
+			'tmprstdnc' => $tmprstdnc,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ];
@@ -268,7 +271,7 @@ class TblentdncController extends Controller
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
     }
 
-    public function request(Request $request)
+    public function interest(Request $request)
     {
         // 1.- Validacion del request TODO *Modificar*
         $rules = [
@@ -322,6 +325,64 @@ class TblentdncController extends Controller
 
         TransactionHandler::commit($trncnn);
         return ReturnHandler::rtrsccjsn('Actualizado correctamente');
+    }
+
+    public function request(Request $request)
+    {
+        // 1.- Validacion del request TODO *Modificar*
+        $rules = [
+			'Uuid' => 'required',
+			'Id' => 'required',
+		];
+
+        $msgs = [
+            'Uuid.required' => 'Validacion fallada en Uuid.required',
+            'Id.required' => 'Validacion fallada en Id.required',
+        ];
+
+        $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
+
+        if(!empty($validator)){
+            return ReturnHandler::rtrerrjsn($validator[0]);
+        }
+
+        // 2.- Peticion a variables TODO *Modificar*
+        $udxentdnc = request('Uuid');
+        $id = request('Id');
+		$timestamp = date(DATE_ISO8601);
+
+        // 3.- Iniciar Transaccion
+        $trncnn = TransactionHandler::begin();
+
+        $entprs = \Tblentprs::fnoentusr($id);
+
+        if (!$entprs) {
+            return null;
+        }
+
+        $idnentprs = $entprs->getIdnentprs();
+
+        $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
+
+        $entdnc = \Tblentdnc::fnuentdnc($udxentdnc);
+
+        $data = [
+            'uuid' => $udxentdnc,
+            'idnentorg' => $idnentorg,
+            'rqsentdnc' => true,
+            'updated_at' => $timestamp,
+        ];
+
+        $result = \Tblentdnc::rqsentdnc($data, $trncnn);
+
+        // 6.- Commit & return
+        if(!$result){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
+        }
+
+        TransactionHandler::commit($trncnn);
+        return ReturnHandler::rtrsccjsn('Actualizado correctamente :D');
     }
 
     public function finish(Request $request)
@@ -476,15 +537,16 @@ class TblentdncController extends Controller
             $ofertas = \Tblentdnc::fnddncemp();
             $ofertas = $ofertas->toArray();
 
-
             foreach($ofertas as $key => $oferta)
             {
-                $future = strtotime($oferta["Tmprstdnc"]);
-                $today = strtotime(date("Y-m-d 06:00:00"));
+                $fecha = $oferta["Tmprstdnc"];
 
-                $diferencia = $future - $today;
+                $date1 = new DateTime($fecha);
+                $date2 = new DateTime(date("Y-m-d 06:00:00"));
 
-                $days = floor($diferencia / (60*60*24));
+                $interval = $date1->diff($date2);
+
+                $days = $interval->d;
 
                 if ($days < 1){
                     unset($ofertas[$key]);
@@ -496,8 +558,6 @@ class TblentdncController extends Controller
             if (empty($ofertas)) {
                 $ofertas = null;
             }
-
-
 
             return json_encode([
                 'success' => true,
@@ -544,9 +604,6 @@ class TblentdncController extends Controller
             $ofertas = \Tblentdnc::fnddncemp();
             $ofertas = $ofertas->toArray();
 
-
-            Log::debug($ofertas);
-
             foreach($ofertas as $key => $oferta)
             {
                 $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
@@ -571,6 +628,200 @@ class TblentdncController extends Controller
         }
     }
 
+    public function loadhist(Request $request)
+    {
+        $id = $request->get("Id");
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return null;
+        }
+
+        $entprs = $tipentprs;
+        $tipentprs = $tipentprs->getTipentprs();
+
+        if ($tipentprs == 1) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentorg = \Tblentemp::fnoentprs($idnentprs)->getIdnentemp();
+
+            $ofertas = \Tblentdnc::fndempfns($idnentorg);
+            $ofertas = $ofertas->toArray();
+
+            if (empty($eventos)) {
+                $eventos = null;
+            }
+
+            return json_encode([
+                'success' => true,
+                'data' => $ofertas,
+            ]);
+
+        } elseif ($tipentprs == 2) {
+            $idnentprs = $entprs->getIdnentprs();
+
+            $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
+
+            $eventos = \Tblentcln::fndentorg($idnentorg);
+            $eventos = $eventos->toArray();
+
+            $ofertas = \Tblentdnc::fndorgcln($idnentorg);
+            $ofertas = $ofertas->toArray();
+
+            $json = [];
+
+            foreach($eventos as $key => $evento)
+            {
+                if ($evento["Prdentcln"] == 1) {
+
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->m + 1; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-orange",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 month'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 2) {
+
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $quincenas = floor($interval->days/15) + 1;
+
+                    for ($i = 1; $i <= $quincenas; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-red",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 15 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 3) {
+
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    $semanas = floor($interval->days/7) + 1;
+                    ;
+                    for ($i = 1; $i <= $semanas; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-green",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 week'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 4) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    $fecha = $evento["Fchinccln"];
+                    $fechaFinal = $evento["Fchfnlcln"];
+
+                    $date1 = new DateTime($fecha);
+                    $date2 = new DateTime($fechaFinal);
+
+                    $interval = $date1->diff($date2);
+
+                    for ($i = 1; $i <= $interval->d; $i++) {
+
+                        $array = [
+                            "id" => $evento["Idnentcln"],
+                            "title" => $evento["Namentemp"],
+                            "start" => $fecha,
+                            "allDay" => false,
+                            "className" => "event-rose",
+                            "extendedProps" => [
+                                "uuid" => $evento["Uuid"]
+                            ],
+                        ];
+
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 day'));
+
+                        array_push($json, $array);
+                    }
+                } else if ($evento["Prdentcln"] == 5) {
+
+                    $fecha = $evento["Fchinccln"];
+
+                    $array = [
+                        "id" => $evento["Idnentcln"],
+                        "title" => $evento["Namentemp"],
+                        "start" => $fecha,
+                        "allDay" => false,
+                        "className" => "event-azure",
+                        "extendedProps" => [
+                            "uuid" => $evento["Uuid"]
+                        ],
+                    ];
+
+                    array_push($json, $array);
+                }
+            }
+
+            if (empty($eventos)) {
+                $eventos = null;
+            }
+
+
+
+            return json_encode([
+                'success' => true,
+                'data' => $json,
+                'ofertas' => $ofertas,
+                'eventos' => $eventos
+            ]);
+        } else {
+            return null;
+        }
+    }
 
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)

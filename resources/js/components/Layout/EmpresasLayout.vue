@@ -20,6 +20,10 @@
                 >
                 </sidebar-item>
                 <sidebar-item
+                        :link="{ name: 'Historial', icon: 'history', path: '/empresa/historial' }"
+                >
+                </sidebar-item>
+                <sidebar-item
                         :link="{ name: 'Mi Perfil', icon: 'account_box', path: '/empresa/perfil' }"
                 >
                 </sidebar-item>

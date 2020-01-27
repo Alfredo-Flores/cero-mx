@@ -109,7 +109,6 @@ class TblentempController extends Controller
 
             Storage::disk('local')->put($logrutemp, $logentemp);
         } catch (\Exception $e) {
-            Log::debug($e);
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }

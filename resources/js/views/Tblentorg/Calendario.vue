@@ -1,6 +1,6 @@
 <template>
     <div class="md-layout">
-        <div class="md-layout-item md-size-40 mx-auto">
+        <div class="md-layout-item md-size-40 md-small-hide mx-auto">
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-primary">
                     <div class="card-text">
@@ -8,11 +8,11 @@
                     </div>
                 </md-card-header>
                 <md-card-content>
-                    <p>Haz click en los eventos que las empresas te hayan asignado, si existe alguna inconformidad, </p>
+                    <p>Haz click en los eventos que las empresas te hayan asignado, si existe alguna inconformidad, contacte con la empresa que haya aceptado a la organización para que efectuen cambios</p>
                 </md-card-content>
             </md-card>
         </div>
-        <div class="md-layout-item md-size-60 mx-auto">
+        <div class="md-layout-item md-size-60 md-small-size-100 mx-auto">
             <md-card class="md-card-calendar">
                 <md-card-content>
                     <fullCalendar
@@ -68,7 +68,7 @@
 
                 <p>Cajas: {{ ofertatemporal.Cntcjsdnc }}</p>
 
-                <p>Horario: 7:00 am</p>
+                <p>Horario: {{ new Date(eventotemporal.Fchinccln).getHours() }}:00 {{ ((new Date(eventotemporal.Fchinccln).getHours()) < 12 ? "AM" : "PM") }}</p>
 
             </template>
 

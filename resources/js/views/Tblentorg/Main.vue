@@ -92,13 +92,17 @@
                     if (result.value) {
                         let uri = 'Tblentdnc/request';
 
-                        console.log(this.$auth.user().Id);
-
                         axios.post(uri, {
                             Uuid: oferta.Uuid,
                             Id: this.$auth.user().Id,
                         }).then(response => {
                             if (response.data.success) {
+                                this.$toastr.Add({
+                                    title: "Correcto", // Toast Title
+                                    msg: response.data.message, // Toast Message
+                                    type: "success", // Toast type,
+                                });
+
                                 this.refrescarTabla();
                             } else {
                                 this.$toastr.Add({

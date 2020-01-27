@@ -202,6 +202,13 @@ class TblentclnTableMap extends TableMap
     1 => ':idnentorg',
   ),
 ), null, null, null, false);
+        $this->addRelation('Tblentrcp', '\\Tblentrcp', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':idnentcln',
+    1 => ':idnentcln',
+  ),
+), null, null, 'Tblentrcps', false);
     } // buildRelations()
 
     /**

@@ -69,12 +69,12 @@ class Tblentcln extends BaseTblentcln
         if(!$entcln) return false;
 
         try {
-            $entcln->delete($connection);
+            $entcln->setFnsentcln(true)
+                ->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
             return false;
         }
-
         return true;
     }
 
@@ -133,6 +133,7 @@ if($filidnentorg != 0){
     {
         $entcln = \TblentclnQuery::create()
             ->filterByIdnentcln($idnentcln)
+            ->where("fnsentcln != true")
             ->findOne($connection);
 
         if(!$entcln) return false;
@@ -147,6 +148,7 @@ if($filidnentorg != 0){
                 ->withColumn("Nmbentorg")
             ->endUse()
             ->filterByIdnentemp($idnentemp)
+            ->where("fnsentcln != true")
             ->find($connection);
 
         if(!$entcln) return false;
@@ -165,6 +167,7 @@ if($filidnentorg != 0){
                 ->withColumn("Emlofiemp")
             ->endUse()
             ->filterByIdnentemp($idnentorg)
+            ->where("fnsentcln != true")
             ->find($connection);
 
         if(!$entcln) return false;

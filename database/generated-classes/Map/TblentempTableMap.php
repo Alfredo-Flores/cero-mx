@@ -59,7 +59,7 @@ class TblentempTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 24;
+    const NUM_COLUMNS = 23;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class TblentempTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 24;
+    const NUM_HYDRATE_COLUMNS = 23;
 
     /**
      * the column name for the idnentemp field
@@ -85,11 +85,6 @@ class TblentempTableMap extends TableMap
      * the column name for the idnentprs field
      */
     const COL_IDNENTPRS = 'tblentemp.idnentprs';
-
-    /**
-     * the column name for the idngirorg field
-     */
-    const COL_IDNGIRORG = 'tblentemp.idngirorg';
 
     /**
      * the column name for the namentemp field
@@ -203,11 +198,11 @@ class TblentempTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Idnentemp', 'Uuid', 'Idnentprs', 'Idngirorg', 'Namentemp', 'Logentemp', 'Drcentemp', 'Lclentemp', 'Mncentemp', 'Ententemp', 'Pasentorg', 'Cdgpstemp', 'Cdgtrbemp', 'Girentemp', 'Tlfofiemp', 'Emlofiemp', 'Desaliemp', 'Candonemp', 'Temconemp', 'Horentemp', 'Detentemo', 'CreatedAt', 'UpdatedAt', 'Hstentemp', ),
-        self::TYPE_CAMELNAME     => array('idnentemp', 'uuid', 'idnentprs', 'idngirorg', 'namentemp', 'logentemp', 'drcentemp', 'lclentemp', 'mncentemp', 'ententemp', 'pasentorg', 'cdgpstemp', 'cdgtrbemp', 'girentemp', 'tlfofiemp', 'emlofiemp', 'desaliemp', 'candonemp', 'temconemp', 'horentemp', 'detentemo', 'createdAt', 'updatedAt', 'hstentemp', ),
-        self::TYPE_COLNAME       => array(TblentempTableMap::COL_IDNENTEMP, TblentempTableMap::COL_UUID, TblentempTableMap::COL_IDNENTPRS, TblentempTableMap::COL_IDNGIRORG, TblentempTableMap::COL_NAMENTEMP, TblentempTableMap::COL_LOGENTEMP, TblentempTableMap::COL_DRCENTEMP, TblentempTableMap::COL_LCLENTEMP, TblentempTableMap::COL_MNCENTEMP, TblentempTableMap::COL_ENTENTEMP, TblentempTableMap::COL_PASENTORG, TblentempTableMap::COL_CDGPSTEMP, TblentempTableMap::COL_CDGTRBEMP, TblentempTableMap::COL_GIRENTEMP, TblentempTableMap::COL_TLFOFIEMP, TblentempTableMap::COL_EMLOFIEMP, TblentempTableMap::COL_DESALIEMP, TblentempTableMap::COL_CANDONEMP, TblentempTableMap::COL_TEMCONEMP, TblentempTableMap::COL_HORENTEMP, TblentempTableMap::COL_DETENTEMO, TblentempTableMap::COL_CREATED_AT, TblentempTableMap::COL_UPDATED_AT, TblentempTableMap::COL_HSTENTEMP, ),
-        self::TYPE_FIELDNAME     => array('idnentemp', 'uuid', 'idnentprs', 'idngirorg', 'namentemp', 'logentemp', 'drcentemp', 'lclentemp', 'mncentemp', 'ententemp', 'pasentorg', 'cdgpstemp', 'cdgtrbemp', 'girentemp', 'tlfofiemp', 'emlofiemp', 'desaliemp', 'candonemp', 'temconemp', 'horentemp', 'detentemo', 'created_at', 'updated_at', 'hstentemp', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, )
+        self::TYPE_PHPNAME       => array('Idnentemp', 'Uuid', 'Idnentprs', 'Namentemp', 'Logentemp', 'Drcentemp', 'Lclentemp', 'Mncentemp', 'Ententemp', 'Pasentorg', 'Cdgpstemp', 'Cdgtrbemp', 'Girentemp', 'Tlfofiemp', 'Emlofiemp', 'Desaliemp', 'Candonemp', 'Temconemp', 'Horentemp', 'Detentemo', 'CreatedAt', 'UpdatedAt', 'Hstentemp', ),
+        self::TYPE_CAMELNAME     => array('idnentemp', 'uuid', 'idnentprs', 'namentemp', 'logentemp', 'drcentemp', 'lclentemp', 'mncentemp', 'ententemp', 'pasentorg', 'cdgpstemp', 'cdgtrbemp', 'girentemp', 'tlfofiemp', 'emlofiemp', 'desaliemp', 'candonemp', 'temconemp', 'horentemp', 'detentemo', 'createdAt', 'updatedAt', 'hstentemp', ),
+        self::TYPE_COLNAME       => array(TblentempTableMap::COL_IDNENTEMP, TblentempTableMap::COL_UUID, TblentempTableMap::COL_IDNENTPRS, TblentempTableMap::COL_NAMENTEMP, TblentempTableMap::COL_LOGENTEMP, TblentempTableMap::COL_DRCENTEMP, TblentempTableMap::COL_LCLENTEMP, TblentempTableMap::COL_MNCENTEMP, TblentempTableMap::COL_ENTENTEMP, TblentempTableMap::COL_PASENTORG, TblentempTableMap::COL_CDGPSTEMP, TblentempTableMap::COL_CDGTRBEMP, TblentempTableMap::COL_GIRENTEMP, TblentempTableMap::COL_TLFOFIEMP, TblentempTableMap::COL_EMLOFIEMP, TblentempTableMap::COL_DESALIEMP, TblentempTableMap::COL_CANDONEMP, TblentempTableMap::COL_TEMCONEMP, TblentempTableMap::COL_HORENTEMP, TblentempTableMap::COL_DETENTEMO, TblentempTableMap::COL_CREATED_AT, TblentempTableMap::COL_UPDATED_AT, TblentempTableMap::COL_HSTENTEMP, ),
+        self::TYPE_FIELDNAME     => array('idnentemp', 'uuid', 'idnentprs', 'namentemp', 'logentemp', 'drcentemp', 'lclentemp', 'mncentemp', 'ententemp', 'pasentorg', 'cdgpstemp', 'cdgtrbemp', 'girentemp', 'tlfofiemp', 'emlofiemp', 'desaliemp', 'candonemp', 'temconemp', 'horentemp', 'detentemo', 'created_at', 'updated_at', 'hstentemp', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, )
     );
 
     /**
@@ -217,11 +212,11 @@ class TblentempTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Idnentemp' => 0, 'Uuid' => 1, 'Idnentprs' => 2, 'Idngirorg' => 3, 'Namentemp' => 4, 'Logentemp' => 5, 'Drcentemp' => 6, 'Lclentemp' => 7, 'Mncentemp' => 8, 'Ententemp' => 9, 'Pasentorg' => 10, 'Cdgpstemp' => 11, 'Cdgtrbemp' => 12, 'Girentemp' => 13, 'Tlfofiemp' => 14, 'Emlofiemp' => 15, 'Desaliemp' => 16, 'Candonemp' => 17, 'Temconemp' => 18, 'Horentemp' => 19, 'Detentemo' => 20, 'CreatedAt' => 21, 'UpdatedAt' => 22, 'Hstentemp' => 23, ),
-        self::TYPE_CAMELNAME     => array('idnentemp' => 0, 'uuid' => 1, 'idnentprs' => 2, 'idngirorg' => 3, 'namentemp' => 4, 'logentemp' => 5, 'drcentemp' => 6, 'lclentemp' => 7, 'mncentemp' => 8, 'ententemp' => 9, 'pasentorg' => 10, 'cdgpstemp' => 11, 'cdgtrbemp' => 12, 'girentemp' => 13, 'tlfofiemp' => 14, 'emlofiemp' => 15, 'desaliemp' => 16, 'candonemp' => 17, 'temconemp' => 18, 'horentemp' => 19, 'detentemo' => 20, 'createdAt' => 21, 'updatedAt' => 22, 'hstentemp' => 23, ),
-        self::TYPE_COLNAME       => array(TblentempTableMap::COL_IDNENTEMP => 0, TblentempTableMap::COL_UUID => 1, TblentempTableMap::COL_IDNENTPRS => 2, TblentempTableMap::COL_IDNGIRORG => 3, TblentempTableMap::COL_NAMENTEMP => 4, TblentempTableMap::COL_LOGENTEMP => 5, TblentempTableMap::COL_DRCENTEMP => 6, TblentempTableMap::COL_LCLENTEMP => 7, TblentempTableMap::COL_MNCENTEMP => 8, TblentempTableMap::COL_ENTENTEMP => 9, TblentempTableMap::COL_PASENTORG => 10, TblentempTableMap::COL_CDGPSTEMP => 11, TblentempTableMap::COL_CDGTRBEMP => 12, TblentempTableMap::COL_GIRENTEMP => 13, TblentempTableMap::COL_TLFOFIEMP => 14, TblentempTableMap::COL_EMLOFIEMP => 15, TblentempTableMap::COL_DESALIEMP => 16, TblentempTableMap::COL_CANDONEMP => 17, TblentempTableMap::COL_TEMCONEMP => 18, TblentempTableMap::COL_HORENTEMP => 19, TblentempTableMap::COL_DETENTEMO => 20, TblentempTableMap::COL_CREATED_AT => 21, TblentempTableMap::COL_UPDATED_AT => 22, TblentempTableMap::COL_HSTENTEMP => 23, ),
-        self::TYPE_FIELDNAME     => array('idnentemp' => 0, 'uuid' => 1, 'idnentprs' => 2, 'idngirorg' => 3, 'namentemp' => 4, 'logentemp' => 5, 'drcentemp' => 6, 'lclentemp' => 7, 'mncentemp' => 8, 'ententemp' => 9, 'pasentorg' => 10, 'cdgpstemp' => 11, 'cdgtrbemp' => 12, 'girentemp' => 13, 'tlfofiemp' => 14, 'emlofiemp' => 15, 'desaliemp' => 16, 'candonemp' => 17, 'temconemp' => 18, 'horentemp' => 19, 'detentemo' => 20, 'created_at' => 21, 'updated_at' => 22, 'hstentemp' => 23, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, )
+        self::TYPE_PHPNAME       => array('Idnentemp' => 0, 'Uuid' => 1, 'Idnentprs' => 2, 'Namentemp' => 3, 'Logentemp' => 4, 'Drcentemp' => 5, 'Lclentemp' => 6, 'Mncentemp' => 7, 'Ententemp' => 8, 'Pasentorg' => 9, 'Cdgpstemp' => 10, 'Cdgtrbemp' => 11, 'Girentemp' => 12, 'Tlfofiemp' => 13, 'Emlofiemp' => 14, 'Desaliemp' => 15, 'Candonemp' => 16, 'Temconemp' => 17, 'Horentemp' => 18, 'Detentemo' => 19, 'CreatedAt' => 20, 'UpdatedAt' => 21, 'Hstentemp' => 22, ),
+        self::TYPE_CAMELNAME     => array('idnentemp' => 0, 'uuid' => 1, 'idnentprs' => 2, 'namentemp' => 3, 'logentemp' => 4, 'drcentemp' => 5, 'lclentemp' => 6, 'mncentemp' => 7, 'ententemp' => 8, 'pasentorg' => 9, 'cdgpstemp' => 10, 'cdgtrbemp' => 11, 'girentemp' => 12, 'tlfofiemp' => 13, 'emlofiemp' => 14, 'desaliemp' => 15, 'candonemp' => 16, 'temconemp' => 17, 'horentemp' => 18, 'detentemo' => 19, 'createdAt' => 20, 'updatedAt' => 21, 'hstentemp' => 22, ),
+        self::TYPE_COLNAME       => array(TblentempTableMap::COL_IDNENTEMP => 0, TblentempTableMap::COL_UUID => 1, TblentempTableMap::COL_IDNENTPRS => 2, TblentempTableMap::COL_NAMENTEMP => 3, TblentempTableMap::COL_LOGENTEMP => 4, TblentempTableMap::COL_DRCENTEMP => 5, TblentempTableMap::COL_LCLENTEMP => 6, TblentempTableMap::COL_MNCENTEMP => 7, TblentempTableMap::COL_ENTENTEMP => 8, TblentempTableMap::COL_PASENTORG => 9, TblentempTableMap::COL_CDGPSTEMP => 10, TblentempTableMap::COL_CDGTRBEMP => 11, TblentempTableMap::COL_GIRENTEMP => 12, TblentempTableMap::COL_TLFOFIEMP => 13, TblentempTableMap::COL_EMLOFIEMP => 14, TblentempTableMap::COL_DESALIEMP => 15, TblentempTableMap::COL_CANDONEMP => 16, TblentempTableMap::COL_TEMCONEMP => 17, TblentempTableMap::COL_HORENTEMP => 18, TblentempTableMap::COL_DETENTEMO => 19, TblentempTableMap::COL_CREATED_AT => 20, TblentempTableMap::COL_UPDATED_AT => 21, TblentempTableMap::COL_HSTENTEMP => 22, ),
+        self::TYPE_FIELDNAME     => array('idnentemp' => 0, 'uuid' => 1, 'idnentprs' => 2, 'namentemp' => 3, 'logentemp' => 4, 'drcentemp' => 5, 'lclentemp' => 6, 'mncentemp' => 7, 'ententemp' => 8, 'pasentorg' => 9, 'cdgpstemp' => 10, 'cdgtrbemp' => 11, 'girentemp' => 12, 'tlfofiemp' => 13, 'emlofiemp' => 14, 'desaliemp' => 15, 'candonemp' => 16, 'temconemp' => 17, 'horentemp' => 18, 'detentemo' => 19, 'created_at' => 20, 'updated_at' => 21, 'hstentemp' => 22, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, )
     );
 
     /**
@@ -244,7 +239,6 @@ class TblentempTableMap extends TableMap
         $this->addPrimaryKey('idnentemp', 'Idnentemp', 'BIGINT', true, null, null);
         $this->addColumn('uuid', 'Uuid', 'CHAR', true, 36, null);
         $this->addForeignKey('idnentprs', 'Idnentprs', 'BIGINT', 'tblentprs', 'idnentprs', false, null, null);
-        $this->addForeignKey('idngirorg', 'Idngirorg', 'BIGINT', 'catgirorg', 'idngirorg', false, null, null);
         $this->addColumn('namentemp', 'Namentemp', 'VARCHAR', true, 255, '');
         $this->addColumn('logentemp', 'Logentemp', 'VARCHAR', true, 255, '');
         $this->addColumn('drcentemp', 'Drcentemp', 'VARCHAR', true, 255, '');
@@ -264,7 +258,7 @@ class TblentempTableMap extends TableMap
         $this->addColumn('detentemo', 'Detentemo', 'VARCHAR', true, 255, '');
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
-        $this->addColumn('hstentemp', 'Hstentemp', 'CLOB', true, null, null);
+        $this->addColumn('hstentemp', 'Hstentemp', 'CLOB', false, null, null);
     } // initialize()
 
     /**
@@ -277,13 +271,6 @@ class TblentempTableMap extends TableMap
   array (
     0 => ':idnentprs',
     1 => ':idnentprs',
-  ),
-), null, null, null, false);
-        $this->addRelation('Catgirorg', '\\Catgirorg', RelationMap::MANY_TO_ONE, array (
-  0 =>
-  array (
-    0 => ':idngirorg',
-    1 => ':idngirorg',
   ),
 ), null, null, null, false);
         $this->addRelation('Tblentcln', '\\Tblentcln', RelationMap::ONE_TO_MANY, array (
@@ -300,6 +287,13 @@ class TblentempTableMap extends TableMap
     1 => ':idnentemp',
   ),
 ), null, null, 'Tblentdncs', false);
+        $this->addRelation('Tblentrcp', '\\Tblentrcp', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':idnentemp',
+    1 => ':idnentemp',
+  ),
+), null, null, 'Tblentrcps', false);
     } // buildRelations()
 
     /**
@@ -446,7 +440,6 @@ class TblentempTableMap extends TableMap
             $criteria->addSelectColumn(TblentempTableMap::COL_IDNENTEMP);
             $criteria->addSelectColumn(TblentempTableMap::COL_UUID);
             $criteria->addSelectColumn(TblentempTableMap::COL_IDNENTPRS);
-            $criteria->addSelectColumn(TblentempTableMap::COL_IDNGIRORG);
             $criteria->addSelectColumn(TblentempTableMap::COL_NAMENTEMP);
             $criteria->addSelectColumn(TblentempTableMap::COL_LOGENTEMP);
             $criteria->addSelectColumn(TblentempTableMap::COL_DRCENTEMP);
@@ -471,7 +464,6 @@ class TblentempTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.idnentemp');
             $criteria->addSelectColumn($alias . '.uuid');
             $criteria->addSelectColumn($alias . '.idnentprs');
-            $criteria->addSelectColumn($alias . '.idngirorg');
             $criteria->addSelectColumn($alias . '.namentemp');
             $criteria->addSelectColumn($alias . '.logentemp');
             $criteria->addSelectColumn($alias . '.drcentemp');

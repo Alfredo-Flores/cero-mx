@@ -84,7 +84,8 @@ class Tblentdnc extends BaseTblentdnc
         if(!$entdnc) return false;
 
         try {
-            $entdnc->delete($connection);
+            $entdnc->setFnsentdnc(true)
+                ->save($connection);
         } catch (\Propel\Runtime\Exception\PropelException $e) {
             Illuminate\Support\Facades\Log::debug($e);
             return false;
@@ -154,6 +155,39 @@ class Tblentdnc extends BaseTblentdnc
             return $entdnc;
     }
 
+    public static function ntrentdnc(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->filterByUuid($data['uuid'])
+            ->findOne($connection);
+
+        if(!$entdnc) return false;
+
+        try{
+            if(array_key_exists('ntrentdnc', $data)){
+                if(!is_null($data['ntrentdnc'])){
+                    $entdnc->setNtrentdnc($data['ntrentdnc']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('ntrentdnc cannot be null');
+                }
+            }
+            if(array_key_exists('idnentorg', $data)){
+                if(!is_null($data['idnentorg'])){
+                    $entdnc->setIdnentorg($data['idnentorg']);
+                }else{
+                    throw new \Propel\Runtime\Exception\PropelException('idnentorg cannot be null');
+                }
+            }
+            $entdnc->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
+            $entdnc->save($connection);
+
+        } catch (\Propel\Runtime\Exception\PropelException $e) {
+            Illuminate\Support\Facades\Log::debug($e);
+            return false;
+        }
+            return $entdnc;
+    }
+
     public static function rqsentdnc(array $data , \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entdnc = \TblentdncQuery::create()
@@ -177,7 +211,6 @@ class Tblentdnc extends BaseTblentdnc
                     throw new \Propel\Runtime\Exception\PropelException('idnentorg cannot be null');
                 }
             }
-            $entdnc->setUpdatedAt(array_key_exists('updated_at', $data) ? $data['updated_at'] : null);
             $entdnc->save($connection);
 
         } catch (\Propel\Runtime\Exception\PropelException $e) {
@@ -245,8 +278,7 @@ if($filidnentemp != 0){
     {
         $entdnc = \TblentdncQuery::create()
             ->orderByCreatedAt(Criteria::ASC)
-            ->where("rqsentdnc = 1")
-
+            ->where("rqsentdnc = 1 && fnsentdnc != true")
             ->findByIdnentemp($idnentemp);
 
         if(!$entdnc) return false;
@@ -258,6 +290,7 @@ if($filidnentemp != 0){
     {
         $entdnc = \TblentdncQuery::create()
             ->orderByCreatedAt(Criteria::ASC)
+            ->where("fnsentdnc != true")
             ->find($connection);
 
         if(!$entdnc) return false;
@@ -275,7 +308,7 @@ if($filidnentemp != 0){
                 ->withColumn("Emlofiemp")
                 ->withColumn("Detentemo")
             ->endUse()
-            ->where("rqsentdnc != 1")
+            ->where("rqsentdnc != 1 && fnsentdnc != true")
             ->orderByCreatedAt(Criteria::ASC)
             ->find($connection);
 
@@ -288,13 +321,14 @@ if($filidnentemp != 0){
     {
         $entdnc = \TblentdncQuery::create()
             ->useTblentorgQuery()
-            ->withColumn("Nmbentorg")
-            ->withColumn("Dmcentorg")
-            ->withColumn("Lclentorg")
-            ->withColumn("Tlffcnorg")
-            ->withColumn("Emlfcnorg")
+                ->withColumn("Nmbentorg")
+                ->withColumn("Dmcentorg")
+                ->withColumn("Lclentorg")
+                ->withColumn("Tlffcnorg")
+                ->withColumn("Emlfcnorg")
             ->endUse()
             ->filterByIdnentemp($idnentemp)
+            ->where("clnentdnc != true && fnsentdnc != true")
             ->find($connection);
 
         if(!$entdnc) return false;
@@ -334,6 +368,25 @@ if($filidnentemp != 0){
             ->endUse()
             ->filterByIdnentemp($idnentemp)
             ->where("rqsentdnc = 1 && clnentdnc = 1")
+            ->find($connection);
+
+        if(!$entdnc) return false;
+
+        return $entdnc;
+    }
+
+    public static function fndempfns(int $idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entdnc = \TblentdncQuery::create()
+            ->useTblentorgQuery()
+                ->withColumn("Nmbentorg")
+                ->withColumn("Dmcentorg")
+                ->withColumn("Lclentorg")
+                ->withColumn("Tlffcnorg")
+                ->withColumn("Emlfcnorg")
+            ->endUse()
+            ->filterByIdnentemp($idnentemp)
+            ->where("clnentdnc = 1 || fnsentdnc = 1")
             ->find($connection);
 
         if(!$entdnc) return false;

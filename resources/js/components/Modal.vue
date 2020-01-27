@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container" v-click-outside="closeModal">
+        <div class="modal-container">
           <div class="modal-header">
             <slot name="header"></slot>
           </div>

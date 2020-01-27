@@ -23,7 +23,7 @@ class CreateTblentdncTable extends Migration
             $table->string('tipentdnc')->comment('TipoAlimento');
             $table->double('kgsentdnc')->comment('Kilogramos');
             $table->integer('cntcjsdnc')->comment('CantCajas');
-            $table->timestampTz('tmprstdnc')->comment('TiempoRestante');
+            $table->timestampTz('tmprstdnc')->nullable()->comment('TiempoRestante');
 
             $table->unsignedBigInteger('idnentorg')->nullable()->comment('Internal');
             $table->foreign('idnentorg')->references('idnentorg')->on('tblentorg');

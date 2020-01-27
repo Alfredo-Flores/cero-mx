@@ -4,18 +4,12 @@ namespace Base;
 
 use \Catgirorg as ChildCatgirorg;
 use \CatgirorgQuery as ChildCatgirorgQuery;
-use \Tblentemp as ChildTblentemp;
-use \TblentempQuery as ChildTblentempQuery;
-use \Tblentorg as ChildTblentorg;
-use \TblentorgQuery as ChildTblentorgQuery;
 use \Tblentsrv as ChildTblentsrv;
 use \TblentsrvQuery as ChildTblentsrvQuery;
 use \DateTime;
 use \Exception;
 use \PDO;
 use Map\CatgirorgTableMap;
-use Map\TblentempTableMap;
-use Map\TblentorgTableMap;
 use Map\TblentsrvTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -108,18 +102,6 @@ abstract class Catgirorg implements ActiveRecordInterface
     protected $updated_at;
 
     /**
-     * @var        ObjectCollection|ChildTblentemp[] Collection to store aggregation of ChildTblentemp objects.
-     */
-    protected $collTblentemps;
-    protected $collTblentempsPartial;
-
-    /**
-     * @var        ObjectCollection|ChildTblentorg[] Collection to store aggregation of ChildTblentorg objects.
-     */
-    protected $collTblentorgs;
-    protected $collTblentorgsPartial;
-
-    /**
      * @var        ObjectCollection|ChildTblentsrv[] Collection to store aggregation of ChildTblentsrv objects.
      */
     protected $collTblentsrvs;
@@ -132,18 +114,6 @@ abstract class Catgirorg implements ActiveRecordInterface
      * @var boolean
      */
     protected $alreadyInSave = false;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildTblentemp[]
-     */
-    protected $tblentempsScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildTblentorg[]
-     */
-    protected $tblentorgsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -671,10 +641,6 @@ abstract class Catgirorg implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collTblentemps = null;
-
-            $this->collTblentorgs = null;
-
             $this->collTblentsrvs = null;
 
         } // if (deep)
@@ -789,42 +755,6 @@ abstract class Catgirorg implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
-            }
-
-            if ($this->tblentempsScheduledForDeletion !== null) {
-                if (!$this->tblentempsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->tblentempsScheduledForDeletion as $tblentemp) {
-                        // need to save related object because we set the relation to null
-                        $tblentemp->save($con);
-                    }
-                    $this->tblentempsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collTblentemps !== null) {
-                foreach ($this->collTblentemps as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
-            if ($this->tblentorgsScheduledForDeletion !== null) {
-                if (!$this->tblentorgsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->tblentorgsScheduledForDeletion as $tblentorg) {
-                        // need to save related object because we set the relation to null
-                        $tblentorg->save($con);
-                    }
-                    $this->tblentorgsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collTblentorgs !== null) {
-                foreach ($this->collTblentorgs as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             if ($this->tblentsrvsScheduledForDeletion !== null) {
@@ -1039,36 +969,6 @@ abstract class Catgirorg implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collTblentemps) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'tblentemps';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'tblentemps';
-                        break;
-                    default:
-                        $key = 'Tblentemps';
-                }
-
-                $result[$key] = $this->collTblentemps->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collTblentorgs) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'tblentorgs';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'tblentorgs';
-                        break;
-                    default:
-                        $key = 'Tblentorgs';
-                }
-
-                $result[$key] = $this->collTblentorgs->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
             if (null !== $this->collTblentsrvs) {
 
                 switch ($keyType) {
@@ -1326,18 +1226,6 @@ abstract class Catgirorg implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
-            foreach ($this->getTblentemps() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addTblentemp($relObj->copy($deepCopy));
-                }
-            }
-
-            foreach ($this->getTblentorgs() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addTblentorg($relObj->copy($deepCopy));
-                }
-            }
-
             foreach ($this->getTblentsrvs() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addTblentsrv($relObj->copy($deepCopy));
@@ -1385,518 +1273,10 @@ abstract class Catgirorg implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
-        if ('Tblentemp' == $relationName) {
-            $this->initTblentemps();
-            return;
-        }
-        if ('Tblentorg' == $relationName) {
-            $this->initTblentorgs();
-            return;
-        }
         if ('Tblentsrv' == $relationName) {
             $this->initTblentsrvs();
             return;
         }
-    }
-
-    /**
-     * Clears out the collTblentemps collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addTblentemps()
-     */
-    public function clearTblentemps()
-    {
-        $this->collTblentemps = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collTblentemps collection loaded partially.
-     */
-    public function resetPartialTblentemps($v = true)
-    {
-        $this->collTblentempsPartial = $v;
-    }
-
-    /**
-     * Initializes the collTblentemps collection.
-     *
-     * By default this just sets the collTblentemps collection to an empty array (like clearcollTblentemps());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initTblentemps($overrideExisting = true)
-    {
-        if (null !== $this->collTblentemps && !$overrideExisting) {
-            return;
-        }
-
-        $collectionClassName = TblentempTableMap::getTableMap()->getCollectionClassName();
-
-        $this->collTblentemps = new $collectionClassName;
-        $this->collTblentemps->setModel('\Tblentemp');
-    }
-
-    /**
-     * Gets an array of ChildTblentemp objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildCatgirorg is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildTblentemp[] List of ChildTblentemp objects
-     * @throws PropelException
-     */
-    public function getTblentemps(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentempsPartial && !$this->isNew();
-        if (null === $this->collTblentemps || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collTblentemps) {
-                // return empty collection
-                $this->initTblentemps();
-            } else {
-                $collTblentemps = ChildTblentempQuery::create(null, $criteria)
-                    ->filterByCatgirorg($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collTblentempsPartial && count($collTblentemps)) {
-                        $this->initTblentemps(false);
-
-                        foreach ($collTblentemps as $obj) {
-                            if (false == $this->collTblentemps->contains($obj)) {
-                                $this->collTblentemps->append($obj);
-                            }
-                        }
-
-                        $this->collTblentempsPartial = true;
-                    }
-
-                    return $collTblentemps;
-                }
-
-                if ($partial && $this->collTblentemps) {
-                    foreach ($this->collTblentemps as $obj) {
-                        if ($obj->isNew()) {
-                            $collTblentemps[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collTblentemps = $collTblentemps;
-                $this->collTblentempsPartial = false;
-            }
-        }
-
-        return $this->collTblentemps;
-    }
-
-    /**
-     * Sets a collection of ChildTblentemp objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $tblentemps A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildCatgirorg The current object (for fluent API support)
-     */
-    public function setTblentemps(Collection $tblentemps, ConnectionInterface $con = null)
-    {
-        /** @var ChildTblentemp[] $tblentempsToDelete */
-        $tblentempsToDelete = $this->getTblentemps(new Criteria(), $con)->diff($tblentemps);
-
-
-        $this->tblentempsScheduledForDeletion = $tblentempsToDelete;
-
-        foreach ($tblentempsToDelete as $tblentempRemoved) {
-            $tblentempRemoved->setCatgirorg(null);
-        }
-
-        $this->collTblentemps = null;
-        foreach ($tblentemps as $tblentemp) {
-            $this->addTblentemp($tblentemp);
-        }
-
-        $this->collTblentemps = $tblentemps;
-        $this->collTblentempsPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Tblentemp objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related Tblentemp objects.
-     * @throws PropelException
-     */
-    public function countTblentemps(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentempsPartial && !$this->isNew();
-        if (null === $this->collTblentemps || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collTblentemps) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getTblentemps());
-            }
-
-            $query = ChildTblentempQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByCatgirorg($this)
-                ->count($con);
-        }
-
-        return count($this->collTblentemps);
-    }
-
-    /**
-     * Method called to associate a ChildTblentemp object to this object
-     * through the ChildTblentemp foreign key attribute.
-     *
-     * @param  ChildTblentemp $l ChildTblentemp
-     * @return $this|\Catgirorg The current object (for fluent API support)
-     */
-    public function addTblentemp(ChildTblentemp $l)
-    {
-        if ($this->collTblentemps === null) {
-            $this->initTblentemps();
-            $this->collTblentempsPartial = true;
-        }
-
-        if (!$this->collTblentemps->contains($l)) {
-            $this->doAddTblentemp($l);
-
-            if ($this->tblentempsScheduledForDeletion and $this->tblentempsScheduledForDeletion->contains($l)) {
-                $this->tblentempsScheduledForDeletion->remove($this->tblentempsScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildTblentemp $tblentemp The ChildTblentemp object to add.
-     */
-    protected function doAddTblentemp(ChildTblentemp $tblentemp)
-    {
-        $this->collTblentemps[]= $tblentemp;
-        $tblentemp->setCatgirorg($this);
-    }
-
-    /**
-     * @param  ChildTblentemp $tblentemp The ChildTblentemp object to remove.
-     * @return $this|ChildCatgirorg The current object (for fluent API support)
-     */
-    public function removeTblentemp(ChildTblentemp $tblentemp)
-    {
-        if ($this->getTblentemps()->contains($tblentemp)) {
-            $pos = $this->collTblentemps->search($tblentemp);
-            $this->collTblentemps->remove($pos);
-            if (null === $this->tblentempsScheduledForDeletion) {
-                $this->tblentempsScheduledForDeletion = clone $this->collTblentemps;
-                $this->tblentempsScheduledForDeletion->clear();
-            }
-            $this->tblentempsScheduledForDeletion[]= $tblentemp;
-            $tblentemp->setCatgirorg(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Catgirorg is new, it will return
-     * an empty collection; or if this Catgirorg has previously
-     * been saved, it will retrieve related Tblentemps from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Catgirorg.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildTblentemp[] List of ChildTblentemp objects
-     */
-    public function getTblentempsJoinTblentprs(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
-    {
-        $query = ChildTblentempQuery::create(null, $criteria);
-        $query->joinWith('Tblentprs', $joinBehavior);
-
-        return $this->getTblentemps($query, $con);
-    }
-
-    /**
-     * Clears out the collTblentorgs collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addTblentorgs()
-     */
-    public function clearTblentorgs()
-    {
-        $this->collTblentorgs = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collTblentorgs collection loaded partially.
-     */
-    public function resetPartialTblentorgs($v = true)
-    {
-        $this->collTblentorgsPartial = $v;
-    }
-
-    /**
-     * Initializes the collTblentorgs collection.
-     *
-     * By default this just sets the collTblentorgs collection to an empty array (like clearcollTblentorgs());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initTblentorgs($overrideExisting = true)
-    {
-        if (null !== $this->collTblentorgs && !$overrideExisting) {
-            return;
-        }
-
-        $collectionClassName = TblentorgTableMap::getTableMap()->getCollectionClassName();
-
-        $this->collTblentorgs = new $collectionClassName;
-        $this->collTblentorgs->setModel('\Tblentorg');
-    }
-
-    /**
-     * Gets an array of ChildTblentorg objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildCatgirorg is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildTblentorg[] List of ChildTblentorg objects
-     * @throws PropelException
-     */
-    public function getTblentorgs(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentorgsPartial && !$this->isNew();
-        if (null === $this->collTblentorgs || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collTblentorgs) {
-                // return empty collection
-                $this->initTblentorgs();
-            } else {
-                $collTblentorgs = ChildTblentorgQuery::create(null, $criteria)
-                    ->filterByCatgirorg($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collTblentorgsPartial && count($collTblentorgs)) {
-                        $this->initTblentorgs(false);
-
-                        foreach ($collTblentorgs as $obj) {
-                            if (false == $this->collTblentorgs->contains($obj)) {
-                                $this->collTblentorgs->append($obj);
-                            }
-                        }
-
-                        $this->collTblentorgsPartial = true;
-                    }
-
-                    return $collTblentorgs;
-                }
-
-                if ($partial && $this->collTblentorgs) {
-                    foreach ($this->collTblentorgs as $obj) {
-                        if ($obj->isNew()) {
-                            $collTblentorgs[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collTblentorgs = $collTblentorgs;
-                $this->collTblentorgsPartial = false;
-            }
-        }
-
-        return $this->collTblentorgs;
-    }
-
-    /**
-     * Sets a collection of ChildTblentorg objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $tblentorgs A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildCatgirorg The current object (for fluent API support)
-     */
-    public function setTblentorgs(Collection $tblentorgs, ConnectionInterface $con = null)
-    {
-        /** @var ChildTblentorg[] $tblentorgsToDelete */
-        $tblentorgsToDelete = $this->getTblentorgs(new Criteria(), $con)->diff($tblentorgs);
-
-
-        $this->tblentorgsScheduledForDeletion = $tblentorgsToDelete;
-
-        foreach ($tblentorgsToDelete as $tblentorgRemoved) {
-            $tblentorgRemoved->setCatgirorg(null);
-        }
-
-        $this->collTblentorgs = null;
-        foreach ($tblentorgs as $tblentorg) {
-            $this->addTblentorg($tblentorg);
-        }
-
-        $this->collTblentorgs = $tblentorgs;
-        $this->collTblentorgsPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Tblentorg objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related Tblentorg objects.
-     * @throws PropelException
-     */
-    public function countTblentorgs(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collTblentorgsPartial && !$this->isNew();
-        if (null === $this->collTblentorgs || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collTblentorgs) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getTblentorgs());
-            }
-
-            $query = ChildTblentorgQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByCatgirorg($this)
-                ->count($con);
-        }
-
-        return count($this->collTblentorgs);
-    }
-
-    /**
-     * Method called to associate a ChildTblentorg object to this object
-     * through the ChildTblentorg foreign key attribute.
-     *
-     * @param  ChildTblentorg $l ChildTblentorg
-     * @return $this|\Catgirorg The current object (for fluent API support)
-     */
-    public function addTblentorg(ChildTblentorg $l)
-    {
-        if ($this->collTblentorgs === null) {
-            $this->initTblentorgs();
-            $this->collTblentorgsPartial = true;
-        }
-
-        if (!$this->collTblentorgs->contains($l)) {
-            $this->doAddTblentorg($l);
-
-            if ($this->tblentorgsScheduledForDeletion and $this->tblentorgsScheduledForDeletion->contains($l)) {
-                $this->tblentorgsScheduledForDeletion->remove($this->tblentorgsScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildTblentorg $tblentorg The ChildTblentorg object to add.
-     */
-    protected function doAddTblentorg(ChildTblentorg $tblentorg)
-    {
-        $this->collTblentorgs[]= $tblentorg;
-        $tblentorg->setCatgirorg($this);
-    }
-
-    /**
-     * @param  ChildTblentorg $tblentorg The ChildTblentorg object to remove.
-     * @return $this|ChildCatgirorg The current object (for fluent API support)
-     */
-    public function removeTblentorg(ChildTblentorg $tblentorg)
-    {
-        if ($this->getTblentorgs()->contains($tblentorg)) {
-            $pos = $this->collTblentorgs->search($tblentorg);
-            $this->collTblentorgs->remove($pos);
-            if (null === $this->tblentorgsScheduledForDeletion) {
-                $this->tblentorgsScheduledForDeletion = clone $this->collTblentorgs;
-                $this->tblentorgsScheduledForDeletion->clear();
-            }
-            $this->tblentorgsScheduledForDeletion[]= $tblentorg;
-            $tblentorg->setCatgirorg(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Catgirorg is new, it will return
-     * an empty collection; or if this Catgirorg has previously
-     * been saved, it will retrieve related Tblentorgs from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Catgirorg.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildTblentorg[] List of ChildTblentorg objects
-     */
-    public function getTblentorgsJoinTblentprs(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
-    {
-        $query = ChildTblentorgQuery::create(null, $criteria);
-        $query->joinWith('Tblentprs', $joinBehavior);
-
-        return $this->getTblentorgs($query, $con);
     }
 
     /**
@@ -2179,16 +1559,6 @@ abstract class Catgirorg implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collTblentemps) {
-                foreach ($this->collTblentemps as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
-            if ($this->collTblentorgs) {
-                foreach ($this->collTblentorgs as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
             if ($this->collTblentsrvs) {
                 foreach ($this->collTblentsrvs as $o) {
                     $o->clearAllReferences($deep);
@@ -2196,8 +1566,6 @@ abstract class Catgirorg implements ActiveRecordInterface
             }
         } // if ($deep)
 
-        $this->collTblentemps = null;
-        $this->collTblentorgs = null;
         $this->collTblentsrvs = null;
     }
 

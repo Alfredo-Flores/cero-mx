@@ -18,27 +18,33 @@
                                 <md-table-head>Oferta</md-table-head>
                                 <md-table-head>Acciones</md-table-head>
                             </md-table-row>
-                                <md-table-row v-for="(oferta, i) in ofertas" :key="i" >
-                                    <md-table-cell>{{ oferta.Nmbentorg }}</md-table-cell>
-                                    <md-table-cell>{{ oferta.Dscentdnc }}</md-table-cell>
-                                    <md-table-cell>
-                                        <md-button
-                                            class="md-just-icon md-danger"
-                                            @click="rechazarOrganizacion(oferta)"
-                                        ><md-icon>close</md-icon></md-button
-                                        >
-                                        <md-button
-                                            class="md-just-icon md-primary"
-                                            @click="aceptarOrganizacion(oferta)"
-                                        ><md-icon>done</md-icon></md-button
-                                        >
-                                        <md-button
-                                            class="md-just-icon md-info"
-                                            @click="informacionOrganizacion(oferta)"
-                                        ><md-icon>info</md-icon></md-button
-                                        >
-                                    </md-table-cell>
-                                </md-table-row>
+                            <md-table-row v-for="(oferta, i) in ofertas" :key="i">
+                                <md-table-cell>{{ oferta.Nmbentorg }}</md-table-cell>
+                                <md-table-cell>{{ oferta.Dscentdnc }}</md-table-cell>
+                                <md-table-cell>
+                                    <md-button
+                                        class="md-just-icon md-danger"
+                                        @click="rechazarOrganizacion(oferta)"
+                                    >
+                                        <md-icon>close</md-icon>
+                                    </md-button
+                                    >
+                                    <md-button
+                                        class="md-just-icon md-primary"
+                                        @click="aceptarOrganizacion(oferta)"
+                                    >
+                                        <md-icon>done</md-icon>
+                                    </md-button
+                                    >
+                                    <md-button
+                                        class="md-just-icon md-info"
+                                        @click="informacionOrganizacion(oferta)"
+                                    >
+                                        <md-icon>info</md-icon>
+                                    </md-button
+                                    >
+                                </md-table-cell>
+                            </md-table-row>
                         </md-table>
                     </div>
                 </md-card-content>
@@ -84,51 +90,54 @@
             </template>
 
             <template slot="body">
-                            <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
+                <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
 
-                            <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
+                <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
 
-                            <p>Día selecciónado: {{ dia }}</p>
+                <p>Día selecciónado: {{ dia }}</p>
 
-                        <md-field style="z-index: 4">
-                            <label>Periodicidad de entrega</label>
-                            <md-select v-model="periodicidad" name="periodicidad" id="periodicidad">
-                                <md-option value="1">Mensual</md-option>
-                                <md-option value="2">Quincenal</md-option>
-                                <md-option value="3">Semanal</md-option>
-                                <md-option value="4">Diario</md-option>
-                                <md-option value="5">Unico</md-option>
-                            </md-select>
-                        </md-field>
-                        <md-field>
-                            <label>Horario de entrega de alimentos</label>
-                            <md-select v-model="horario">
-                                <md-option value="00:00">0:00 AM</md-option>
-                                <md-option value="01:00">1:00 AM</md-option>
-                                <md-option value="02:00">2:00 AM</md-option>
-                                <md-option value="03:00">3:00 AM</md-option>
-                                <md-option value="04:00">4:00 AM</md-option>
-                                <md-option value="05:00">5:00 AM</md-option>
-                                <md-option value="06:00">6:00 AM</md-option>
-                                <md-option value="07:00">7:00 AM</md-option>
-                                <md-option value="08:00">8:00 AM</md-option>
-                                <md-option value="09:00">9:00 AM</md-option>
-                                <md-option value="10:00">10:00 AM</md-option>
-                                <md-option value="11:00">11:00 AM</md-option>
-                                <md-option value="12:00">12:00 AM</md-option>
-                                <md-option value="13:00">1:00 PM</md-option>
-                                <md-option value="14:00">2:00 PM</md-option>
-                                <md-option value="15:00">3:00 PM</md-option>
-                                <md-option value="16:00">4:00 PM</md-option>
-                                <md-option value="17:00">5:00 PM</md-option>
-                                <md-option value="18:00">6:00 PM</md-option>
-                                <md-option value="19:00">7:00 PM</md-option>
-                                <md-option value="20:00">8:00 PM</md-option>
-                                <md-option value="21:00">9:00 PM</md-option>
-                                <md-option value="22:00">10:00 PM</md-option>
-                                <md-option value="23:00">11:00 PM</md-option>
-                            </md-select>
-                        </md-field>
+                <md-field style="z-index: 4">
+                    <label>Periodicidad de entrega</label>
+                    <md-select v-model="periodicidad" name="periodicidad" id="periodicidad">
+                        <md-option value="1">Mensual</md-option>
+                        <md-option value="2">Quincenal</md-option>
+                        <md-option value="3">Semanal</md-option>
+                        <md-option value="4">Diario</md-option>
+                        <md-option value="5">Unico</md-option>
+                    </md-select>
+                </md-field>
+                <md-field>
+                    <label>Horario de entrega de alimentos</label>
+                    <md-select v-model="hora">
+                        <md-option value="5">5:00 AM</md-option>
+                        <md-option value="6">6:00 AM</md-option>
+                        <md-option value="7">7:00 AM</md-option>
+                        <md-option value="8">8:00 AM</md-option>
+                        <md-option value="9">9:00 AM</md-option>
+                        <md-option value="10">10:00 AM</md-option>
+                        <md-option value="11">11:00 AM</md-option>
+                        <md-option value="12">12:00 AM</md-option>
+                        <md-option value="13">1:00 PM</md-option>
+                        <md-option value="14">2:00 PM</md-option>
+                        <md-option value="15">3:00 PM</md-option>
+                        <md-option value="16">4:00 PM</md-option>
+                        <md-option value="17">5:00 PM</md-option>
+                        <md-option value="18">6:00 PM</md-option>
+                        <md-option value="19">7:00 PM</md-option>
+                        <md-option value="20">8:00 PM</md-option>
+                        <md-option value="21">9:00 PM</md-option>
+                        <md-option value="22">10:00 PM</md-option>
+                        <md-option value="23">11:00 PM</md-option>
+                        <md-option value="0">0:00 AM</md-option>
+                        <md-option value="1">1:00 AM</md-option>
+                        <md-option value="2">2:00 AM</md-option>
+                        <md-option value="3">3:00 AM</md-option>
+                        <md-option value="4">4:00 AM</md-option>
+                    </md-select>
+                </md-field>
+                <md-datepicker v-model="fechafinal" md-immediately :md-disabled-dates="disabledDates" v-if="periodicidad != 5">
+                    <label>Fecha limite para rutina</label>
+                </md-datepicker>
             </template>
 
             <template slot="footer">
@@ -138,12 +147,14 @@
                     <md-button
                         class="md-danger m-2"
                         @click="eliminarOrganizacion"
-                    >Eliminar</md-button
+                    >Eliminar
+                    </md-button
                     >
                     <md-button
                         class="md-warning m-2"
                         @click="modificarOrganizacion"
-                    >Modificar</md-button
+                    >Modificar
+                    </md-button
                     >
                 </div>
 
@@ -152,7 +163,8 @@
                     <md-button
                         class="md-success m-2"
                         @click="calendarizarOrganizacion"
-                    >Calendarizar</md-button
+                    >Calendarizar
+                    </md-button
                     >
                 </div>
 
@@ -174,28 +186,28 @@
             </template>
 
             <template slot="body">
-                        <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
+                <p>Nombre de la organización: {{ ofertatemporal.Nmbentorg }}</p>
 
-                        <p>Domicilio de la organización: {{ ofertatemporal.Dmcentorg }}</p>
+                <p>Domicilio de la organización: {{ ofertatemporal.Dmcentorg }}</p>
 
-                        <p>Localidad de la organización: {{ ofertatemporal.Lclentorg }}</p>
+                <p>Localidad de la organización: {{ ofertatemporal.Lclentorg }}</p>
 
-                        <p>Telefono de la organización: {{ ofertatemporal.Tlffcnorg }}</p>
+                <p>Telefono de la organización: {{ ofertatemporal.Tlffcnorg }}</p>
 
-                        <p>Localidad de la organización: {{ ofertatemporal.Emlfcnorg }}</p>
+                <p>Localidad de la organización: {{ ofertatemporal.Emlfcnorg }}</p>
 
-                        <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
+                <p>Oferta interesada: {{ ofertatemporal.Dscentdnc }}</p>
 
-                        <p>Tipo de alimento: {{ ofertatemporal.Tipentdnc }}</p>
+                <p>Tipo de alimento: {{ ofertatemporal.Tipentdnc }}</p>
 
-                        <p>Kilos: {{ ofertatemporal.Kgsentdnc }}</p>
+                <p>Kilos: {{ ofertatemporal.Kgsentdnc }}</p>
 
-                        <p>Cajas: {{ ofertatemporal.Cntcjsdnc }}</p>
+                <p>Cajas: {{ ofertatemporal.Cntcjsdnc }}</p>
 
             </template>
 
             <template slot="footer">
-                    <md-button class="md-simple m-2" @click="cerrarModalInfo">Cerrar</md-button>
+                <md-button class="md-simple m-2" @click="cerrarModalInfo">Cerrar</md-button>
             </template>
         </modal>
 
@@ -236,6 +248,12 @@
                     prev: "left-single-arrow",
                     next: "right-single-arrow",
                 },
+                disabledDates: date => {
+                    const today = new Date();
+                    const day = date.getDay();
+
+                    return day === 6 || day === 0 || date <= today
+                },
                 ofertas: null,
                 ofertastemporales: null,
                 eventostemporales: null,
@@ -248,8 +266,9 @@
                 infobandera: false,
                 dia: null,
                 fechainicial: null,
+                fechafinal: null,
                 periodicidad: null,
-                horario: null,
+                hora: 0,
                 events: []
             };
         },
@@ -315,11 +334,18 @@
                 this.abrirModalInfo();
             },
             modalCalendarizarOrganizacion(info) {
-                if (this.ofertatemporal != null && this.ofertatemporal !== this.ofertasubida ) {
+                if (this.ofertatemporal != null && this.ofertatemporal !== this.ofertasubida) {
                     const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
                     let d = new Date(info.dateStr);
                     this.fechainicial = d;
                     this.dia = days[d.getDay()];
+
+                    this.disabledDates = date => {
+                        const today = d;
+                        const day = date.getDay();
+
+                        return day === 6 || day === 0 || date <= today
+                    };
 
                     this.abrirModalSeleccionar();
                 } else {
@@ -331,70 +357,90 @@
                 }
             },
             calendarizarOrganizacion() {
-                Swal.fire({
-                    title: '¿Confirmar Rutina?',
-                    text: "Despues puede modificar esta rutina o eliminarla",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Confirmar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.value) {
+                if (this.hora == null){
+                    this.$toastr.Add({
+                        title: "Ocurrio un error", // Toast Title
+                        msg: "Por favor, escoja una hora ", // Toast Message
+                        type: "error", // Toast type,
+                    });
+                } else if (this.fechainicial == null){
+                    this.$toastr.Add({
+                        title: "Ocurrio un error", // Toast Title
+                        msg: "Recarge la pagina por favor", // Toast Message
+                        type: "error", // Toast type,
+                    });
+                } else {
+                    Swal.fire({
+                        title: '¿Confirmar Rutina?',
+                        text: "Despues puede modificar esta rutina o eliminarla",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.value) {
 
-                        let uri = "Tblentcln/submit";
+                            let uri = "Tblentcln/submit";
 
-                        let date = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+                            this.fechainicial = new Date(this.fechainicial);
+                            this.fechafinal = new Date(this.fechafinal);
 
-                        axios.post(uri, {
-                            UuidOferta: this.ofertatemporal.Uuid,
-                            Idnentusr: this.$auth.user().Id,
-                            Idnentorg: this.ofertatemporal.Idnentorg,
-                            Periodicidad: this.periodicidad,
-                            FechaInicio: date,
-                            Horario: this.horario,
-                        }).then(response => {
-                            if (response.data.success) {
-                                this.$toastr.Add({
-                                    title: "Correcto", // Toast Title
-                                    msg: response.data.message, // Toast Message
-                                    type: "success", // Toast type,
-                                });
+                            this.fechainicial = this.fechainicial.setHours(this.hora - 6,0,0);
+                            this.fechafinal = this.fechafinal.setHours(this.hora - 6,0,0);
 
-                                uri = "Tblentdnc/finish";
+                            this.fechainicial = new Date(this.fechainicial);
+                            this.fechafinal = new Date(this.fechafinal);
 
-                                axios.post(uri, {
-                                    Uuid: this.ofertatemporal.Uuid
-                                }).then(response => {
-                                    if (response.data.success) {
-                                        this.$toastr.Add({
-                                            title: "Correcto", // Toast Title
-                                            msg: response.data.message, // Toast Message
-                                            type: "success", // Toast type,
-                                        });
-                                        this.refrescarTabla();
-                                        this.refrescarCalendario();
-                                    } else {
-                                        this.$toastr.Add({
-                                            title: "Ocurrio un error", // Toast Title
-                                            msg: response.data.message, // Toast Message
-                                            type: "error", // Toast type,
-                                        });
-                                    }
-                                });
+                            let dateinicial = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+                            let datefinal = this.fechafinal.toISOString().slice(0, 19).replace('T', ' ');
 
+                            axios.post(uri, {
+                                UuidOferta: this.ofertatemporal.Uuid,
+                                Idnentusr: this.$auth.user().Id,
+                                Idnentorg: this.ofertatemporal.Idnentorg,
+                                Periodicidad: this.periodicidad,
+                                FechaInicio: dateinicial,
+                                FechaFinal: datefinal,
+                            }).then(response => {
+                                if (response.data.success) {
+                                    uri = "Tblentdnc/finish";
 
-                            } else {
-                                this.$toastr.Add({
-                                    title: "Ocurrio un error", // Toast Title
-                                    msg: response.data.message, // Toast Message
-                                    type: "error", // Toast type,
-                                });
-                            }
-                        });
+                                    axios.post(uri, {
+                                        Uuid: this.ofertatemporal.Uuid
+                                    }).then(response => {
+                                        if (response.data.success) {
+                                            this.$toastr.Add({
+                                                title: "Correcto", // Toast Title
+                                                msg: response.data.message, // Toast Message
+                                                type: "success", // Toast type,
+                                            });
+                                            this.ofertatemporal = null;
+                                            this.refrescarTabla();
+                                            this.refrescarCalendario();
+                                            this.cerrarModalSeleccionar();
+                                        } else {
+                                            this.$toastr.Add({
+                                                title: "Ocurrio un error", // Toast Title
+                                                msg: response.data.message, // Toast Message
+                                                type: "error", // Toast type,
+                                            });
+                                        }
+                                    });
 
 
-                    }
-                });
+                                } else {
+                                    this.$toastr.Add({
+                                        title: "Ocurrio un error", // Toast Title
+                                        msg: response.data.message, // Toast Message
+                                        type: "error", // Toast type,
+                                    });
+                                }
+                            });
+
+
+                        }
+                    });
+                }
             },
             modificarOrganizacion() {
                 Swal.fire({
@@ -409,22 +455,25 @@
 
                         let uri = "Tblentcln/modify";
 
-                        let date = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+                        this.fechainicial = new Date(this.fechainicial);
+                        this.fechafinal = new Date(this.fechafinal);
+
+                        this.fechainicial = this.fechainicial.setHours(this.hora - 6,0,0);
+                        this.fechafinal = this.fechafinal.setHours(this.hora - 6,0,0);
+
+                        this.fechainicial = new Date(this.fechainicial);
+                        this.fechafinal = new Date(this.fechafinal);
+
+                        let dateinicial = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
+                        let datefinal = this.fechafinal.toISOString().slice(0, 19).replace('T', ' ');
 
                         axios.post(uri, {
-                            Idnentusr: this.$auth.user().Id,
                             Uuid: this.eventotemporal.Uuid,
                             Periodicidad: this.periodicidad,
-                            FechaInicio: date,
-                            Horario: this.horario,
+                            FechaInicio: dateinicial,
+                            FechaFinal: datefinal,
                         }).then(response => {
                             if (response.data.success) {
-                                this.$toastr.Add({
-                                    title: "Correcto", // Toast Title
-                                    msg: response.data.message, // Toast Message
-                                    type: "success", // Toast type,
-                                });
-
                                 uri = "Tblentdnc/finish";
 
                                 axios.post(uri, {
@@ -437,10 +486,11 @@
                                             type: "success", // Toast type,
                                         });
 
+                                        this.ofertatemporal = null;
                                         this.refrescarTabla();
                                         this.refrescarCalendario();
                                         this.modificarbandera = false;
-
+                                        this.cerrarModalSeleccionar();
                                     } else {
                                         this.$toastr.Add({
                                             title: "Ocurrio un error", // Toast Title
@@ -487,6 +537,7 @@
                                 });
                                 this.refrescarTabla();
                                 this.refrescarCalendario();
+                                this.cerrarModalSeleccionar();
                                 this.modificarbandera = false;
                             } else {
                                 this.$toastr.Add({
@@ -517,17 +568,24 @@
 
                 this.modificarbandera = true;
                 this.periodicidad = this.eventotemporal.Prdentcln;
-                const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', ];
+                const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado',];
                 let d = new Date(this.eventotemporal.Fchinccln);
                 this.fechainicial = d;
                 this.dia = days[d.getDay()];
                 this.modificarbandera = true;
                 this.infotemporal = info;
 
+                this.disabledDates = date => {
+                    const today = d;
+                    const day = date.getDay();
+
+                    return day === 6 || day === 0 || date <= today
+                };
+
                 this.abrirModalSeleccionar();
 
             },
-            refrescarTabla(){
+            refrescarTabla() {
                 if (this.$auth.ready()) {
                     let uri = 'Tblentdnc/list';
 
@@ -542,7 +600,7 @@
                     });
                 }
             },
-            refrescarCalendario(){
+            refrescarCalendario() {
                 if (this.$auth.ready()) {
                     let uri = 'Tblentcln/fetch';
 

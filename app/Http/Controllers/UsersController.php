@@ -71,8 +71,6 @@ class UsersController extends Controller
         // 4 & 5 .- Variables a objeto & Regla de negocio TODO *Modificar*
         $result = \Users::crtusers($data, $trncnn);
 
-        Log::debug($result);
-
         // 6.- Commit y return
         if(!$result){
             TransactionHandler::rollback($trncnn);
@@ -251,7 +249,6 @@ class UsersController extends Controller
         try {
             $id = Auth::user()->id;
         } catch (\Exception $e) {
-            Log::debug($e);
             return null;
         }
 

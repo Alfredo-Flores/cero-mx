@@ -70,7 +70,17 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTblentclnQuery rightJoinWithTblentorg() Adds a RIGHT JOIN clause and with to the query using the Tblentorg relation
  * @method     ChildTblentclnQuery innerJoinWithTblentorg() Adds a INNER JOIN clause and with to the query using the Tblentorg relation
  *
- * @method     \TblentempQuery|\TblentorgQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildTblentclnQuery leftJoinTblentrcp($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentrcp relation
+ * @method     ChildTblentclnQuery rightJoinTblentrcp($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentrcp relation
+ * @method     ChildTblentclnQuery innerJoinTblentrcp($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentrcp relation
+ *
+ * @method     ChildTblentclnQuery joinWithTblentrcp($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentrcp relation
+ *
+ * @method     ChildTblentclnQuery leftJoinWithTblentrcp() Adds a LEFT JOIN clause and with to the query using the Tblentrcp relation
+ * @method     ChildTblentclnQuery rightJoinWithTblentrcp() Adds a RIGHT JOIN clause and with to the query using the Tblentrcp relation
+ * @method     ChildTblentclnQuery innerJoinWithTblentrcp() Adds a INNER JOIN clause and with to the query using the Tblentrcp relation
+ *
+ * @method     \TblentempQuery|\TblentorgQuery|\TblentrcpQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildTblentcln findOne(ConnectionInterface $con = null) Return the first ChildTblentcln matching the query
  * @method     ChildTblentcln findOneOrCreate(ConnectionInterface $con = null) Return the first ChildTblentcln matching the query, or a new ChildTblentcln object populated from the query conditions when no match is found
@@ -843,6 +853,79 @@ abstract class TblentclnQuery extends ModelCriteria
         return $this
             ->joinTblentorg($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Tblentorg', '\TblentorgQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tblentrcp object
+     *
+     * @param \Tblentrcp|ObjectCollection $tblentrcp the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildTblentclnQuery The current query, for fluid interface
+     */
+    public function filterByTblentrcp($tblentrcp, $comparison = null)
+    {
+        if ($tblentrcp instanceof \Tblentrcp) {
+            return $this
+                ->addUsingAlias(TblentclnTableMap::COL_IDNENTCLN, $tblentrcp->getIdnentcln(), $comparison);
+        } elseif ($tblentrcp instanceof ObjectCollection) {
+            return $this
+                ->useTblentrcpQuery()
+                ->filterByPrimaryKeys($tblentrcp->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByTblentrcp() only accepts arguments of type \Tblentrcp or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Tblentrcp relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildTblentclnQuery The current query, for fluid interface
+     */
+    public function joinTblentrcp($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Tblentrcp');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Tblentrcp');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Tblentrcp relation Tblentrcp object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \TblentrcpQuery A secondary query class using the current class as primary query
+     */
+    public function useTblentrcpQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinTblentrcp($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Tblentrcp', '\TblentrcpQuery');
     }
 
     /**

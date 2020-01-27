@@ -40,26 +40,6 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCatgirorgQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildCatgirorgQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildCatgirorgQuery leftJoinTblentemp($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentemp relation
- * @method     ChildCatgirorgQuery rightJoinTblentemp($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentemp relation
- * @method     ChildCatgirorgQuery innerJoinTblentemp($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentemp relation
- *
- * @method     ChildCatgirorgQuery joinWithTblentemp($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentemp relation
- *
- * @method     ChildCatgirorgQuery leftJoinWithTblentemp() Adds a LEFT JOIN clause and with to the query using the Tblentemp relation
- * @method     ChildCatgirorgQuery rightJoinWithTblentemp() Adds a RIGHT JOIN clause and with to the query using the Tblentemp relation
- * @method     ChildCatgirorgQuery innerJoinWithTblentemp() Adds a INNER JOIN clause and with to the query using the Tblentemp relation
- *
- * @method     ChildCatgirorgQuery leftJoinTblentorg($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentorg relation
- * @method     ChildCatgirorgQuery rightJoinTblentorg($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentorg relation
- * @method     ChildCatgirorgQuery innerJoinTblentorg($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentorg relation
- *
- * @method     ChildCatgirorgQuery joinWithTblentorg($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Tblentorg relation
- *
- * @method     ChildCatgirorgQuery leftJoinWithTblentorg() Adds a LEFT JOIN clause and with to the query using the Tblentorg relation
- * @method     ChildCatgirorgQuery rightJoinWithTblentorg() Adds a RIGHT JOIN clause and with to the query using the Tblentorg relation
- * @method     ChildCatgirorgQuery innerJoinWithTblentorg() Adds a INNER JOIN clause and with to the query using the Tblentorg relation
- *
  * @method     ChildCatgirorgQuery leftJoinTblentsrv($relationAlias = null) Adds a LEFT JOIN clause to the query using the Tblentsrv relation
  * @method     ChildCatgirorgQuery rightJoinTblentsrv($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Tblentsrv relation
  * @method     ChildCatgirorgQuery innerJoinTblentsrv($relationAlias = null) Adds a INNER JOIN clause to the query using the Tblentsrv relation
@@ -70,7 +50,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCatgirorgQuery rightJoinWithTblentsrv() Adds a RIGHT JOIN clause and with to the query using the Tblentsrv relation
  * @method     ChildCatgirorgQuery innerJoinWithTblentsrv() Adds a INNER JOIN clause and with to the query using the Tblentsrv relation
  *
- * @method     \TblentempQuery|\TblentorgQuery|\TblentsrvQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \TblentsrvQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildCatgirorg findOne(ConnectionInterface $con = null) Return the first ChildCatgirorg matching the query
  * @method     ChildCatgirorg findOneOrCreate(ConnectionInterface $con = null) Return the first ChildCatgirorg matching the query, or a new ChildCatgirorg object populated from the query conditions when no match is found
@@ -459,152 +439,6 @@ abstract class CatgirorgQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(CatgirorgTableMap::COL_UPDATED_AT, $updatedAt, $comparison);
-    }
-
-    /**
-     * Filter the query by a related \Tblentemp object
-     *
-     * @param \Tblentemp|ObjectCollection $tblentemp the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildCatgirorgQuery The current query, for fluid interface
-     */
-    public function filterByTblentemp($tblentemp, $comparison = null)
-    {
-        if ($tblentemp instanceof \Tblentemp) {
-            return $this
-                ->addUsingAlias(CatgirorgTableMap::COL_IDNGIRORG, $tblentemp->getIdngirorg(), $comparison);
-        } elseif ($tblentemp instanceof ObjectCollection) {
-            return $this
-                ->useTblentempQuery()
-                ->filterByPrimaryKeys($tblentemp->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByTblentemp() only accepts arguments of type \Tblentemp or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Tblentemp relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildCatgirorgQuery The current query, for fluid interface
-     */
-    public function joinTblentemp($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentemp');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Tblentemp');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Tblentemp relation Tblentemp object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \TblentempQuery A secondary query class using the current class as primary query
-     */
-    public function useTblentempQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        return $this
-            ->joinTblentemp($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentemp', '\TblentempQuery');
-    }
-
-    /**
-     * Filter the query by a related \Tblentorg object
-     *
-     * @param \Tblentorg|ObjectCollection $tblentorg the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildCatgirorgQuery The current query, for fluid interface
-     */
-    public function filterByTblentorg($tblentorg, $comparison = null)
-    {
-        if ($tblentorg instanceof \Tblentorg) {
-            return $this
-                ->addUsingAlias(CatgirorgTableMap::COL_IDNGIRORG, $tblentorg->getIdngirorg(), $comparison);
-        } elseif ($tblentorg instanceof ObjectCollection) {
-            return $this
-                ->useTblentorgQuery()
-                ->filterByPrimaryKeys($tblentorg->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByTblentorg() only accepts arguments of type \Tblentorg or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Tblentorg relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildCatgirorgQuery The current query, for fluid interface
-     */
-    public function joinTblentorg($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Tblentorg');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Tblentorg');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Tblentorg relation Tblentorg object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \TblentorgQuery A secondary query class using the current class as primary query
-     */
-    public function useTblentorgQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-    {
-        return $this
-            ->joinTblentorg($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Tblentorg', '\TblentorgQuery');
     }
 
     /**

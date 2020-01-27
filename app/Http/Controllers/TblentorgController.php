@@ -119,7 +119,6 @@ class TblentorgController extends Controller
             Storage::disk('local')->put($rutorg, $actcnsorg);
             Storage::disk('local')->put($rutorg, $cnsdntorg);
         } catch (\Exception $e) {
-            Log::debug($e);
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('');
         }
