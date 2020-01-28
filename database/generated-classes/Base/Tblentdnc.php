@@ -117,7 +117,6 @@ abstract class Tblentdnc implements ActiveRecordInterface
     /**
      * The value for the tmprstdnc field.
      *
-     * Note: this column has a database default value of: (expression) CURRENT_TIMESTAMP
      * @var        DateTime
      */
     protected $tmprstdnc;

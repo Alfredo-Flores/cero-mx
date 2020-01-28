@@ -363,4 +363,6 @@ class TblentorgController extends Controller
 
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
+
+
 }

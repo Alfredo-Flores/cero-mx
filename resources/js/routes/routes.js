@@ -16,6 +16,8 @@ import EmpresasPerfil from "../views/Tblentemp/Perfil.vue";
 import OrganizacionesOferta from "../views/Tblentorg/Main.vue";
 import OrganizacionesCalendario from "../views/Tblentorg/Calendario.vue";
 import OrganizacionesPerfil from "../views/Tblentorg/Perfil.vue";
+
+
 import Organizaciones from "../views/Users/Organizaciones";
 import Estadisticas from "../views/Users/Estadisticas";
 

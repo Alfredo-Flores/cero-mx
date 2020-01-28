@@ -412,4 +412,11 @@ class TblentprsController extends Controller
 
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
+
+    public function profile(Request $request){
+        Log::debug($request);
+    }
+
+
+
 }

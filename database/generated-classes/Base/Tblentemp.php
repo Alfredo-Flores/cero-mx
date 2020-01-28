@@ -2,8 +2,6 @@
 
 namespace Base;
 
-use \Catgirorg as ChildCatgirorg;
-use \CatgirorgQuery as ChildCatgirorgQuery;
 use \Tblentcln as ChildTblentcln;
 use \TblentclnQuery as ChildTblentclnQuery;
 use \Tblentdnc as ChildTblentdnc;
@@ -93,13 +91,6 @@ abstract class Tblentemp implements ActiveRecordInterface
      * @var        string
      */
     protected $idnentprs;
-
-    /**
-     * The value for the idngirorg field.
-     *
-     * @var        string
-     */
-    protected $idngirorg;
 
     /**
      * The value for the namentemp field.
@@ -260,11 +251,6 @@ abstract class Tblentemp implements ActiveRecordInterface
      * @var        ChildTblentprs
      */
     protected $aTblentprs;
-
-    /**
-     * @var        ChildCatgirorg
-     */
-    protected $aCatgirorg;
 
     /**
      * @var        ObjectCollection|ChildTblentcln[] Collection to store aggregation of ChildTblentcln objects.
@@ -581,16 +567,6 @@ abstract class Tblentemp implements ActiveRecordInterface
     }
 
     /**
-     * Get the [idngirorg] column value.
-     *
-     * @return string
-     */
-    public function getIdngirorg()
-    {
-        return $this->idngirorg;
-    }
-
-    /**
      * Get the [namentemp] column value.
      *
      * @return string
@@ -873,30 +849,6 @@ abstract class Tblentemp implements ActiveRecordInterface
 
         return $this;
     } // setIdnentprs()
-
-    /**
-     * Set the value of [idngirorg] column.
-     *
-     * @param string $v new value
-     * @return $this|\Tblentemp The current object (for fluent API support)
-     */
-    public function setIdngirorg($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->idngirorg !== $v) {
-            $this->idngirorg = $v;
-            $this->modifiedColumns[TblentempTableMap::COL_IDNGIRORG] = true;
-        }
-
-        if ($this->aCatgirorg !== null && $this->aCatgirorg->getIdngirorg() !== $v) {
-            $this->aCatgirorg = null;
-        }
-
-        return $this;
-    } // setIdngirorg()
 
     /**
      * Set the value of [namentemp] column.
@@ -1403,73 +1355,70 @@ abstract class Tblentemp implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TblentempTableMap::translateFieldName('Idnentprs', TableMap::TYPE_PHPNAME, $indexType)];
             $this->idnentprs = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentempTableMap::translateFieldName('Idngirorg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->idngirorg = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentempTableMap::translateFieldName('Namentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TblentempTableMap::translateFieldName('Namentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->namentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentempTableMap::translateFieldName('Logentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TblentempTableMap::translateFieldName('Logentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->logentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentempTableMap::translateFieldName('Drcentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : TblentempTableMap::translateFieldName('Drcentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->drcentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentempTableMap::translateFieldName('Lclentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : TblentempTableMap::translateFieldName('Lclentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->lclentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentempTableMap::translateFieldName('Mncentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : TblentempTableMap::translateFieldName('Mncentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->mncentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentempTableMap::translateFieldName('Ententemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : TblentempTableMap::translateFieldName('Ententemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->ententemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentempTableMap::translateFieldName('Pasentorg', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : TblentempTableMap::translateFieldName('Pasentorg', TableMap::TYPE_PHPNAME, $indexType)];
             $this->pasentorg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentempTableMap::translateFieldName('Cdgpstemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : TblentempTableMap::translateFieldName('Cdgpstemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cdgpstemp = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentempTableMap::translateFieldName('Cdgtrbemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : TblentempTableMap::translateFieldName('Cdgtrbemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cdgtrbemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentempTableMap::translateFieldName('Girentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : TblentempTableMap::translateFieldName('Girentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->girentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentempTableMap::translateFieldName('Tlfofiemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : TblentempTableMap::translateFieldName('Tlfofiemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->tlfofiemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : TblentempTableMap::translateFieldName('Emlofiemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : TblentempTableMap::translateFieldName('Emlofiemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->emlofiemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : TblentempTableMap::translateFieldName('Desaliemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : TblentempTableMap::translateFieldName('Desaliemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->desaliemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : TblentempTableMap::translateFieldName('Candonemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : TblentempTableMap::translateFieldName('Candonemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->candonemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentempTableMap::translateFieldName('Temconemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : TblentempTableMap::translateFieldName('Temconemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->temconemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentempTableMap::translateFieldName('Horentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : TblentempTableMap::translateFieldName('Horentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->horentemp = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentempTableMap::translateFieldName('Detentemo', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : TblentempTableMap::translateFieldName('Detentemo', TableMap::TYPE_PHPNAME, $indexType)];
             $this->detentemo = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : TblentempTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : TblentempTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : TblentempTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : TblentempTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 23 + $startcol : TblentempTableMap::translateFieldName('Hstentemp', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : TblentempTableMap::translateFieldName('Hstentemp', TableMap::TYPE_PHPNAME, $indexType)];
             $this->hstentemp = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
@@ -1479,7 +1428,7 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 24; // 24 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 23; // 23 = TblentempTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tblentemp'), 0, $e);
@@ -1503,9 +1452,6 @@ abstract class Tblentemp implements ActiveRecordInterface
     {
         if ($this->aTblentprs !== null && $this->idnentprs !== $this->aTblentprs->getIdnentprs()) {
             $this->aTblentprs = null;
-        }
-        if ($this->aCatgirorg !== null && $this->idngirorg !== $this->aCatgirorg->getIdngirorg()) {
-            $this->aCatgirorg = null;
         }
     } // ensureConsistency
 
@@ -1547,7 +1493,6 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aTblentprs = null;
-            $this->aCatgirorg = null;
             $this->collTblentclns = null;
 
             $this->collTblentdncs = null;
@@ -1667,13 +1612,6 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->setTblentprs($this->aTblentprs);
             }
 
-            if ($this->aCatgirorg !== null) {
-                if ($this->aCatgirorg->isModified() || $this->aCatgirorg->isNew()) {
-                    $affectedRows += $this->aCatgirorg->save($con);
-                }
-                $this->setCatgirorg($this->aCatgirorg);
-            }
-
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -1756,9 +1694,6 @@ abstract class Tblentemp implements ActiveRecordInterface
         if ($this->isColumnModified(TblentempTableMap::COL_IDNENTPRS)) {
             $modifiedColumns[':p' . $index++]  = 'idnentprs';
         }
-        if ($this->isColumnModified(TblentempTableMap::COL_IDNGIRORG)) {
-            $modifiedColumns[':p' . $index++]  = 'idngirorg';
-        }
         if ($this->isColumnModified(TblentempTableMap::COL_NAMENTEMP)) {
             $modifiedColumns[':p' . $index++]  = 'namentemp';
         }
@@ -1838,9 +1773,6 @@ abstract class Tblentemp implements ActiveRecordInterface
                         break;
                     case 'idnentprs':
                         $stmt->bindValue($identifier, $this->idnentprs, PDO::PARAM_INT);
-                        break;
-                    case 'idngirorg':
-                        $stmt->bindValue($identifier, $this->idngirorg, PDO::PARAM_INT);
                         break;
                     case 'namentemp':
                         $stmt->bindValue($identifier, $this->namentemp, PDO::PARAM_STR);
@@ -1974,66 +1906,63 @@ abstract class Tblentemp implements ActiveRecordInterface
                 return $this->getIdnentprs();
                 break;
             case 3:
-                return $this->getIdngirorg();
-                break;
-            case 4:
                 return $this->getNamentemp();
                 break;
-            case 5:
+            case 4:
                 return $this->getLogentemp();
                 break;
-            case 6:
+            case 5:
                 return $this->getDrcentemp();
                 break;
-            case 7:
+            case 6:
                 return $this->getLclentemp();
                 break;
-            case 8:
+            case 7:
                 return $this->getMncentemp();
                 break;
-            case 9:
+            case 8:
                 return $this->getEntentemp();
                 break;
-            case 10:
+            case 9:
                 return $this->getPasentorg();
                 break;
-            case 11:
+            case 10:
                 return $this->getCdgpstemp();
                 break;
-            case 12:
+            case 11:
                 return $this->getCdgtrbemp();
                 break;
-            case 13:
+            case 12:
                 return $this->getGirentemp();
                 break;
-            case 14:
+            case 13:
                 return $this->getTlfofiemp();
                 break;
-            case 15:
+            case 14:
                 return $this->getEmlofiemp();
                 break;
-            case 16:
+            case 15:
                 return $this->getDesaliemp();
                 break;
-            case 17:
+            case 16:
                 return $this->getCandonemp();
                 break;
-            case 18:
+            case 17:
                 return $this->getTemconemp();
                 break;
-            case 19:
+            case 18:
                 return $this->getHorentemp();
                 break;
-            case 20:
+            case 19:
                 return $this->getDetentemo();
                 break;
-            case 21:
+            case 20:
                 return $this->getCreatedAt();
                 break;
-            case 22:
+            case 21:
                 return $this->getUpdatedAt();
                 break;
-            case 23:
+            case 22:
                 return $this->getHstentemp();
                 break;
             default:
@@ -2069,34 +1998,33 @@ abstract class Tblentemp implements ActiveRecordInterface
             $keys[0] => $this->getIdnentemp(),
             $keys[1] => $this->getUuid(),
             $keys[2] => $this->getIdnentprs(),
-            $keys[3] => $this->getIdngirorg(),
-            $keys[4] => $this->getNamentemp(),
-            $keys[5] => $this->getLogentemp(),
-            $keys[6] => $this->getDrcentemp(),
-            $keys[7] => $this->getLclentemp(),
-            $keys[8] => $this->getMncentemp(),
-            $keys[9] => $this->getEntentemp(),
-            $keys[10] => $this->getPasentorg(),
-            $keys[11] => $this->getCdgpstemp(),
-            $keys[12] => $this->getCdgtrbemp(),
-            $keys[13] => $this->getGirentemp(),
-            $keys[14] => $this->getTlfofiemp(),
-            $keys[15] => $this->getEmlofiemp(),
-            $keys[16] => $this->getDesaliemp(),
-            $keys[17] => $this->getCandonemp(),
-            $keys[18] => $this->getTemconemp(),
-            $keys[19] => $this->getHorentemp(),
-            $keys[20] => $this->getDetentemo(),
-            $keys[21] => $this->getCreatedAt(),
-            $keys[22] => $this->getUpdatedAt(),
-            $keys[23] => $this->getHstentemp(),
+            $keys[3] => $this->getNamentemp(),
+            $keys[4] => $this->getLogentemp(),
+            $keys[5] => $this->getDrcentemp(),
+            $keys[6] => $this->getLclentemp(),
+            $keys[7] => $this->getMncentemp(),
+            $keys[8] => $this->getEntentemp(),
+            $keys[9] => $this->getPasentorg(),
+            $keys[10] => $this->getCdgpstemp(),
+            $keys[11] => $this->getCdgtrbemp(),
+            $keys[12] => $this->getGirentemp(),
+            $keys[13] => $this->getTlfofiemp(),
+            $keys[14] => $this->getEmlofiemp(),
+            $keys[15] => $this->getDesaliemp(),
+            $keys[16] => $this->getCandonemp(),
+            $keys[17] => $this->getTemconemp(),
+            $keys[18] => $this->getHorentemp(),
+            $keys[19] => $this->getDetentemo(),
+            $keys[20] => $this->getCreatedAt(),
+            $keys[21] => $this->getUpdatedAt(),
+            $keys[22] => $this->getHstentemp(),
         );
-        if ($result[$keys[21]] instanceof \DateTimeInterface) {
-            $result[$keys[21]] = $result[$keys[21]]->format('c');
+        if ($result[$keys[20]] instanceof \DateTimeInterface) {
+            $result[$keys[20]] = $result[$keys[20]]->format('c');
         }
 
-        if ($result[$keys[22]] instanceof \DateTimeInterface) {
-            $result[$keys[22]] = $result[$keys[22]]->format('c');
+        if ($result[$keys[21]] instanceof \DateTimeInterface) {
+            $result[$keys[21]] = $result[$keys[21]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -2119,21 +2047,6 @@ abstract class Tblentemp implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->aTblentprs->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
-            if (null !== $this->aCatgirorg) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'catgirorg';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'catgirorg';
-                        break;
-                    default:
-                        $key = 'Catgirorg';
-                }
-
-                $result[$key] = $this->aCatgirorg->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->collTblentclns) {
 
@@ -2209,66 +2122,63 @@ abstract class Tblentemp implements ActiveRecordInterface
                 $this->setIdnentprs($value);
                 break;
             case 3:
-                $this->setIdngirorg($value);
-                break;
-            case 4:
                 $this->setNamentemp($value);
                 break;
-            case 5:
+            case 4:
                 $this->setLogentemp($value);
                 break;
-            case 6:
+            case 5:
                 $this->setDrcentemp($value);
                 break;
-            case 7:
+            case 6:
                 $this->setLclentemp($value);
                 break;
-            case 8:
+            case 7:
                 $this->setMncentemp($value);
                 break;
-            case 9:
+            case 8:
                 $this->setEntentemp($value);
                 break;
-            case 10:
+            case 9:
                 $this->setPasentorg($value);
                 break;
-            case 11:
+            case 10:
                 $this->setCdgpstemp($value);
                 break;
-            case 12:
+            case 11:
                 $this->setCdgtrbemp($value);
                 break;
-            case 13:
+            case 12:
                 $this->setGirentemp($value);
                 break;
-            case 14:
+            case 13:
                 $this->setTlfofiemp($value);
                 break;
-            case 15:
+            case 14:
                 $this->setEmlofiemp($value);
                 break;
-            case 16:
+            case 15:
                 $this->setDesaliemp($value);
                 break;
-            case 17:
+            case 16:
                 $this->setCandonemp($value);
                 break;
-            case 18:
+            case 17:
                 $this->setTemconemp($value);
                 break;
-            case 19:
+            case 18:
                 $this->setHorentemp($value);
                 break;
-            case 20:
+            case 19:
                 $this->setDetentemo($value);
                 break;
-            case 21:
+            case 20:
                 $this->setCreatedAt($value);
                 break;
-            case 22:
+            case 21:
                 $this->setUpdatedAt($value);
                 break;
-            case 23:
+            case 22:
                 $this->setHstentemp($value);
                 break;
         } // switch()
@@ -2307,67 +2217,64 @@ abstract class Tblentemp implements ActiveRecordInterface
             $this->setIdnentprs($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setIdngirorg($arr[$keys[3]]);
+            $this->setNamentemp($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setNamentemp($arr[$keys[4]]);
+            $this->setLogentemp($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setLogentemp($arr[$keys[5]]);
+            $this->setDrcentemp($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setDrcentemp($arr[$keys[6]]);
+            $this->setLclentemp($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setLclentemp($arr[$keys[7]]);
+            $this->setMncentemp($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setMncentemp($arr[$keys[8]]);
+            $this->setEntentemp($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setEntentemp($arr[$keys[9]]);
+            $this->setPasentorg($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setPasentorg($arr[$keys[10]]);
+            $this->setCdgpstemp($arr[$keys[10]]);
         }
         if (array_key_exists($keys[11], $arr)) {
-            $this->setCdgpstemp($arr[$keys[11]]);
+            $this->setCdgtrbemp($arr[$keys[11]]);
         }
         if (array_key_exists($keys[12], $arr)) {
-            $this->setCdgtrbemp($arr[$keys[12]]);
+            $this->setGirentemp($arr[$keys[12]]);
         }
         if (array_key_exists($keys[13], $arr)) {
-            $this->setGirentemp($arr[$keys[13]]);
+            $this->setTlfofiemp($arr[$keys[13]]);
         }
         if (array_key_exists($keys[14], $arr)) {
-            $this->setTlfofiemp($arr[$keys[14]]);
+            $this->setEmlofiemp($arr[$keys[14]]);
         }
         if (array_key_exists($keys[15], $arr)) {
-            $this->setEmlofiemp($arr[$keys[15]]);
+            $this->setDesaliemp($arr[$keys[15]]);
         }
         if (array_key_exists($keys[16], $arr)) {
-            $this->setDesaliemp($arr[$keys[16]]);
+            $this->setCandonemp($arr[$keys[16]]);
         }
         if (array_key_exists($keys[17], $arr)) {
-            $this->setCandonemp($arr[$keys[17]]);
+            $this->setTemconemp($arr[$keys[17]]);
         }
         if (array_key_exists($keys[18], $arr)) {
-            $this->setTemconemp($arr[$keys[18]]);
+            $this->setHorentemp($arr[$keys[18]]);
         }
         if (array_key_exists($keys[19], $arr)) {
-            $this->setHorentemp($arr[$keys[19]]);
+            $this->setDetentemo($arr[$keys[19]]);
         }
         if (array_key_exists($keys[20], $arr)) {
-            $this->setDetentemo($arr[$keys[20]]);
+            $this->setCreatedAt($arr[$keys[20]]);
         }
         if (array_key_exists($keys[21], $arr)) {
-            $this->setCreatedAt($arr[$keys[21]]);
+            $this->setUpdatedAt($arr[$keys[21]]);
         }
         if (array_key_exists($keys[22], $arr)) {
-            $this->setUpdatedAt($arr[$keys[22]]);
-        }
-        if (array_key_exists($keys[23], $arr)) {
-            $this->setHstentemp($arr[$keys[23]]);
+            $this->setHstentemp($arr[$keys[22]]);
         }
     }
 
@@ -2418,9 +2325,6 @@ abstract class Tblentemp implements ActiveRecordInterface
         }
         if ($this->isColumnModified(TblentempTableMap::COL_IDNENTPRS)) {
             $criteria->add(TblentempTableMap::COL_IDNENTPRS, $this->idnentprs);
-        }
-        if ($this->isColumnModified(TblentempTableMap::COL_IDNGIRORG)) {
-            $criteria->add(TblentempTableMap::COL_IDNGIRORG, $this->idngirorg);
         }
         if ($this->isColumnModified(TblentempTableMap::COL_NAMENTEMP)) {
             $criteria->add(TblentempTableMap::COL_NAMENTEMP, $this->namentemp);
@@ -2570,7 +2474,6 @@ abstract class Tblentemp implements ActiveRecordInterface
     {
         $copyObj->setUuid($this->getUuid());
         $copyObj->setIdnentprs($this->getIdnentprs());
-        $copyObj->setIdngirorg($this->getIdngirorg());
         $copyObj->setNamentemp($this->getNamentemp());
         $copyObj->setLogentemp($this->getLogentemp());
         $copyObj->setDrcentemp($this->getDrcentemp());
@@ -2688,57 +2591,6 @@ abstract class Tblentemp implements ActiveRecordInterface
         }
 
         return $this->aTblentprs;
-    }
-
-    /**
-     * Declares an association between this object and a ChildCatgirorg object.
-     *
-     * @param  ChildCatgirorg $v
-     * @return $this|\Tblentemp The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setCatgirorg(ChildCatgirorg $v = null)
-    {
-        if ($v === null) {
-            $this->setIdngirorg(NULL);
-        } else {
-            $this->setIdngirorg($v->getIdngirorg());
-        }
-
-        $this->aCatgirorg = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildCatgirorg object, it will not be re-added.
-        if ($v !== null) {
-            $v->addTblentemp($this);
-        }
-
-
-        return $this;
-    }
-
-
-    /**
-     * Get the associated ChildCatgirorg object
-     *
-     * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildCatgirorg The associated ChildCatgirorg object.
-     * @throws PropelException
-     */
-    public function getCatgirorg(ConnectionInterface $con = null)
-    {
-        if ($this->aCatgirorg === null && (($this->idngirorg !== "" && $this->idngirorg !== null))) {
-            $this->aCatgirorg = ChildCatgirorgQuery::create()->findPk($this->idngirorg, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aCatgirorg->addTblentemps($this);
-             */
-        }
-
-        return $this->aCatgirorg;
     }
 
 
@@ -3272,13 +3124,9 @@ abstract class Tblentemp implements ActiveRecordInterface
         if (null !== $this->aTblentprs) {
             $this->aTblentprs->removeTblentemp($this);
         }
-        if (null !== $this->aCatgirorg) {
-            $this->aCatgirorg->removeTblentemp($this);
-        }
         $this->idnentemp = null;
         $this->uuid = null;
         $this->idnentprs = null;
-        $this->idngirorg = null;
         $this->namentemp = null;
         $this->logentemp = null;
         $this->drcentemp = null;
@@ -3333,7 +3181,6 @@ abstract class Tblentemp implements ActiveRecordInterface
         $this->collTblentclns = null;
         $this->collTblentdncs = null;
         $this->aTblentprs = null;
-        $this->aCatgirorg = null;
     }
 
     /**

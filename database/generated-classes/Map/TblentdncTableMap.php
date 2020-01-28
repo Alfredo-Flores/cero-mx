@@ -39,7 +39,7 @@ class TblentdncTableMap extends TableMap
     /**
      * The default database name for this class
      */
-    const DATABASE_NAME = 'cero';
+    const DATABASE_NAME = 'cerodb';
 
     /**
      * The table name for this class
@@ -203,7 +203,7 @@ class TblentdncTableMap extends TableMap
         $this->addColumn('tipentdnc', 'Tipentdnc', 'VARCHAR', true, 255, null);
         $this->addColumn('kgsentdnc', 'Kgsentdnc', 'DOUBLE', true, null, null);
         $this->addColumn('cntcjsdnc', 'Cntcjsdnc', 'INTEGER', true, null, null);
-        $this->addColumn('tmprstdnc', 'Tmprstdnc', 'TIMESTAMP', true, null, 'CURRENT_TIMESTAMP');
+        $this->addColumn('tmprstdnc', 'Tmprstdnc', 'TIMESTAMP', true, null, null);
         $this->addForeignKey('idnentorg', 'Idnentorg', 'BIGINT', 'tblentorg', 'idnentorg', false, null, null);
         $this->addColumn('ntrentdnc', 'Ntrentdnc', 'BOOLEAN', true, 1, false);
         $this->addColumn('rqsentdnc', 'Rqsentdnc', 'BOOLEAN', true, 1, false);

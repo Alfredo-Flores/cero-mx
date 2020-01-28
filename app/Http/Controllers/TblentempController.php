@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ReturnHandler;
 use App\TransactionHandler;
+use Base\Tblentprs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -360,4 +361,101 @@ class TblentempController extends Controller
 
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)
+
+    public function profile(Request $request){
+        $rules = [
+            'Id' => 'required|numeric',
+        ];
+
+        $msgs = [
+            'Id' => 'required|numeric',
+        ];
+
+        $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
+
+        if(!empty($validator)){
+            return ReturnHandler::rtrerrjsn($validator[0]);
+        }
+        $id = $request->get('Id');
+
+
+        $trncnn = TransactionHandler::begin();
+
+        // 4 & 5 .- Variables a objeto & Regla de negocio
+        $entusr = \Users::fnousers($id, $trncnn);
+        if(!$entusr instanceof \Users){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('$entemp false');
+        }
+        $entprs = \Tblentprs::fnoentprs($id, $trncnn);
+        // 6.- Commit & return
+        if(!$entprs){
+            TransactionHandler::rollback($trncnn);
+            return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
+        }
+        if($entprs->getTipentprs() == 1){
+            $entemp = \Tblentemp::fnoentprs($entprs->getIdnentprs(), $trncnn);
+            TransactionHandler::commit($trncnn);
+            $rtndat = [
+              'Nombre' => $entprs->getNomentprs(),
+              'ApellidoP' => $entprs->getPrmaplprs(),
+              'ApellidoM' => $entprs->getSgnaplprs(),
+              'CorreoP' => $entprs->getEmllbrprs(),
+              'CorreoL' => $entprs->getEmllbrprs(),
+              'Pais' => $entprs->getPasentprs(),
+              'Estado' => $entprs->getEntentprs(),
+              'Municipio' => $entprs->getMncentprs(),
+              'Domicilio' => $entprs->getDmcentprs(),
+              'TelFijo' => $entprs->getTlffijprs(),
+              'TelMovil' => $entprs->getTlfmvlprs(),
+              'Foto' => $entprs->getFotentprs(),
+              'NombreEmp' => $entemp->getNamentemp(),
+              'Logo' => $entemp->getLogentemp(),
+              'Direccion' => $entemp->getDrcentemp(),
+              'LocalidadEmp' => $entemp->getLclentemp(),
+              'MunicipioEmp' => $entemp->getMncentemp(),
+              'EntidadEmp' => $entemp->getEntentemp(),
+              'PaisEmp' => $entemp->getPasentorg(),
+              'TelEmp' => $entemp->getTlfofiemp(),
+              'Giro' => $entemp->getGirentemp(),
+              'CorreoEmp' => $entemp->getEmlofiemp(),
+            ];
+            return ReturnHandler::rtrsccjsn($rtndat);
+        }
+        elseif ($entprs->getTipentprs() == 2){
+            $entorg = \Tblentorg::fnoentprs($entprs->getIdnentprs(), $trncnn);
+            TransactionHandler::commit($trncnn);
+            $rtndat = [
+                'Nombre' => $entprs->getNomentprs(),
+                'ApellidoP' => $entprs->getPrmaplprs(),
+                'ApellidoM' => $entprs->getSgnaplprs(),
+                'CorreoP' => $entprs->getEmllbrprs(),
+                'CorreoL' => $entprs->getEmllbrprs(),
+                'Pais' => $entprs->getPasentprs(),
+                'Estado' => $entprs->getEntentprs(),
+                'Municipio' => $entprs->getMncentprs(),
+                'Domicilio' => $entprs->getDmcentprs(),
+                'TelFijo' => $entprs->getTlffijprs(),
+                'TelMovil' => $entprs->getTlfmvlprs(),
+                'Foto' => $entprs->getFotentprs(),
+                'NombreEmp' => $entorg->getNmbentorg(),
+                'Logo' => $entorg->getLogentorg(),
+                'Direccion' => $entorg->getDmcentorg(),
+                'LocalidadEmp' => $entorg->getLclentorg(),
+                'MunicipioEmp' => $entorg->getMncentorg(),
+                'EntidadEmp' => $entorg->getEtdentorg(),
+                'PaisEmp' => $entorg->getPasentorg(),
+                'TelEmp' => $entorg->getTlffcnorg(),
+                'Giro' => $entorg->getSgmentorg(),
+                'CorreoEmp' => $entorg->getEmlfcnorg(),
+
+            ];
+            return ReturnHandler::rtrsccjsn($rtndat);
+        }
+
+
+    }
+
+
+
 }

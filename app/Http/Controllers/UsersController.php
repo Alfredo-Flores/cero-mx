@@ -309,6 +309,21 @@ class UsersController extends Controller
         return response()->json($this->guard()->user());
     }
 
+    public function stadistics()
+    {
+        $entorg = \Tblentorg::dspentorg(0, 0);
+        $entorg = count($entorg);
+        $entemp = \Tblentemp::dspentemp(0,0);
+        $entemp = count($entemp);
+
+        $rtndat = [
+            'organizaciones' => $entorg,
+            'empresas' => $entemp,
+        ];
+
+        return ReturnHandler::rtrsccjsn($rtndat);
+    }
+
     /**
      * Log the user out (Invalidate the token)
      *
