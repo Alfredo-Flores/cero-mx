@@ -47,9 +47,9 @@
                             <div class="card-icon">
                                 <i class="fab fa-twitter"></i>
                             </div>
-                            <p class="category">Kilos de Alimento</p>
+                            <p class="category">Kilos donados</p>
                             <h3 class="title">
-                                +<animated-number :value="245"></animated-number>
+                                +<animated-number :value="this.estadistica.kilos"></animated-number>
                             </h3>
                         </div>
 
@@ -426,21 +426,17 @@
                 menuTransitionDuration: 250,
                 pageTransitionDuration: 300,
                 year: new Date().getFullYear(),
-                notices: []
+                notices: [],
+                estadistica:{
+                    'organizaciones' : 0,
+                    'empresas': 0,
+                    'kilos': 1,
+                    'co2': 0,
+                }
+
             };
         },
         computed: {
-            setBgImage() {
-                let images = {
-                    Pricing: "./img/bg-pricing.jpg",
-                    Login: "./img/login.jpg",
-                    Register: "./img/register.jpg",
-                    Lock: "./img/lock.jpg"
-                };
-                return {
-                    backgroundImage: `url(${images[this.$route.name]})`
-                };
-            },
             setPageClass() {
                 return `${this.$route.name}-page`.toLowerCase();
             }
@@ -477,11 +473,22 @@
                 } else {
                     this.responsive = false;
                 }
+            },
+            estadisticas(){
+                let uri = '/estadisticas';
+                axios.get('/estadisticas')
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(e => {
+                    console.log(e)
+                })
             }
         },
         mounted() {
             this.onResponsiveInverted();
             window.addEventListener("resize", this.onResponsiveInverted);
+            this.estadisticas();
         },
         beforeDestroy() {
             this.closeMenu();

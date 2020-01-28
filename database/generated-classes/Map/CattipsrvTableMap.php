@@ -39,7 +39,7 @@ class CattipsrvTableMap extends TableMap
     /**
      * The default database name for this class
      */
-    const DATABASE_NAME = 'cero';
+    const DATABASE_NAME = 'cerodb';
 
     /**
      * The table name for this class

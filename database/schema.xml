@@ -64,6 +64,7 @@
     <column name="prdentcln" phpName="Prdentcln" type="INTEGER" required="true" defaultValue="0"/>
     <column name="fchinccln" phpName="Fchinccln" type="TIMESTAMP"/>
     <column name="fchfnlcln" phpName="Fchfnlcln" type="TIMESTAMP"/>
+    <column name="fnsentcln" phpName="Fnsentcln" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="tblentemp" name="tblentcln_idnentemp_foreign">
@@ -93,14 +94,25 @@
     <column name="tipentdnc" phpName="Tipentdnc" type="VARCHAR" size="255" required="true"/>
     <column name="kgsentdnc" phpName="Kgsentdnc" type="DOUBLE" required="true"/>
     <column name="cntcjsdnc" phpName="Cntcjsdnc" type="INTEGER" required="true"/>
-    <column name="tmprstdnc" phpName="Tmprstdnc" type="INTEGER" required="true"/>
+    <column name="tmprstdnc" phpName="Tmprstdnc" type="TIMESTAMP" required="true"/>
+    <column name="idnentorg" phpName="Idnentorg" type="BIGINT" sqlType="bigint(20) unsigned"/>
+    <column name="ntrentdnc" phpName="Ntrentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="rqsentdnc" phpName="Rqsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="clnentdnc" phpName="Clnentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="fnsentdnc" phpName="Fnsentdnc" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="tblentemp" name="tblentdnc_idnentemp_foreign">
       <reference local="idnentemp" foreign="idnentemp"/>
     </foreign-key>
+    <foreign-key foreignTable="tblentorg" name="tblentdnc_idnentorg_foreign">
+      <reference local="idnentorg" foreign="idnentorg"/>
+    </foreign-key>
     <index name="tblentdnc_idnentemp_foreign">
       <index-column name="idnentemp"/>
+    </index>
+    <index name="tblentdnc_idnentorg_foreign">
+      <index-column name="idnentorg"/>
     </index>
     <unique name="tblentdnc_uuid_unique">
       <unique-column name="uuid"/>
@@ -113,7 +125,6 @@
     <column name="idnentemp" phpName="Idnentemp" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
     <column name="idnentprs" phpName="Idnentprs" type="BIGINT" sqlType="bigint(20) unsigned"/>
-    <column name="idngirorg" phpName="Idngirorg" type="BIGINT" sqlType="bigint(20) unsigned"/>
     <column name="namentemp" phpName="Namentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="logentemp" phpName="Logentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="drcentemp" phpName="Drcentemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
@@ -128,22 +139,17 @@
     <column name="emlofiemp" phpName="Emlofiemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="desaliemp" phpName="Desaliemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="candonemp" phpName="Candonemp" type="VARCHAR" size="255" required="true" defaultValue=""/>
-    <column name="temconemp" phpName="Temconemp" type="TIMESTAMP"/>
-    <column name="horentemp" phpName="Horentemp" type="TIMESTAMP"/>
+    <column name="temconemp" phpName="Temconemp" type="VARCHAR" size="255"/>
+    <column name="horentemp" phpName="Horentemp" type="VARCHAR" size="255"/>
     <column name="detentemo" phpName="Detentemo" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
+    <column name="hstentemp" phpName="Hstentemp" type="VARCHAR" sqlType="json"/>
     <foreign-key foreignTable="tblentprs" name="tblentemp_idnentprs_foreign">
       <reference local="idnentprs" foreign="idnentprs"/>
     </foreign-key>
-    <foreign-key foreignTable="catgirorg" name="tblentemp_idngirorg_foreign">
-      <reference local="idngirorg" foreign="idngirorg"/>
-    </foreign-key>
     <index name="tblentemp_idnentprs_foreign">
       <index-column name="idnentprs"/>
-    </index>
-    <index name="tblentemp_idngirorg_foreign">
-      <index-column name="idngirorg"/>
     </index>
     <unique name="tblentemp_uuid_unique">
       <unique-column name="uuid"/>
@@ -156,7 +162,6 @@
     <column name="idnentorg" phpName="Idnentorg" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="uuid" phpName="Uuid" type="CHAR" size="36" required="true"/>
     <column name="idnentprs" phpName="Idnentprs" type="BIGINT" sqlType="bigint(20) unsigned"/>
-    <column name="idngirorg" phpName="Idngirorg" type="BIGINT" sqlType="bigint(20) unsigned"/>
     <column name="sgmentorg" phpName="Sgmentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="bnfentorg" phpName="Bnfentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="nmbentorg" phpName="Nmbentorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
@@ -175,17 +180,12 @@
     <column name="cnsdntorg" phpName="Cnsdntorg" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
+    <column name="hstentorg" phpName="Hstentorg" type="VARCHAR" sqlType="json"/>
     <foreign-key foreignTable="tblentprs" name="tblentorg_idnentprs_foreign">
       <reference local="idnentprs" foreign="idnentprs"/>
     </foreign-key>
-    <foreign-key foreignTable="catgirorg" name="tblentorg_idngirorg_foreign">
-      <reference local="idngirorg" foreign="idngirorg"/>
-    </foreign-key>
     <index name="tblentorg_idnentprs_foreign">
       <index-column name="idnentprs"/>
-    </index>
-    <index name="tblentorg_idngirorg_foreign">
-      <index-column name="idngirorg"/>
     </index>
     <unique name="tblentorg_uuid_unique">
       <unique-column name="uuid"/>
@@ -215,6 +215,7 @@
     <column name="tlffijprs" phpName="Tlffijprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
     <column name="tlfmvlprs" phpName="Tlfmvlprs" type="VARCHAR" size="12" required="true" defaultValue=""/>
     <column name="fotentprs" phpName="Fotentprs" type="VARCHAR" size="255"/>
+    <column name="tipentprs" phpName="Tipentprs" type="VARCHAR" size="255" required="true" defaultValue="0"/>
     <column name="created_at" phpName="CreatedAt" type="TIMESTAMP"/>
     <column name="updated_at" phpName="UpdatedAt" type="TIMESTAMP"/>
     <foreign-key foreignTable="users" name="tblentprs_idnentusr_foreign">

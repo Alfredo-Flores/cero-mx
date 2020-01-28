@@ -20,6 +20,11 @@ Route::post('auth/login', 'UsersController@login');
 Route::get('auth/user', 'UsersController@user');
 Route::get('auth/userdata', 'UsersController@userdata');
 Route::post("auth/registerinstitution", 'TblentprsController@create');
+Route::get("/estadisticas", 'UsersController@stadistics');
+
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::post('auth/logout', 'UsersController@logout');
+});
 
 Route::post('auth/logout', 'UsersController@logout');
 
@@ -63,6 +68,7 @@ Route::post('/Tblentrcp/fetch/empresas', 'TblentrcpController@loadlistemp')->nam
     Route::post('/Tblentdnc/finish', 'TblentdncController@finish')->name('Tblentdnc.finish');
     Route::post('/Tblentdnc/remove', 'TblentdncController@destroy')->name('Tblentdnc.remove');
 
+Route::post('/Tblentemp/profile', 'TblentempController@profile')->name('Tblentemp.profile');
 
 //Tblentemp Route
 Route::middleware(['auth'])->group(function () {
@@ -70,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/Tblentemp/fetch', 'TblentempController@loadtable')->name('Tblentemp.fetch');
     Route::post('/Tblentemp/modify', 'TblentempController@update')->name('Tblentemp.modify');
     Route::post('/Tblentemp/remove', 'TblentempController@destroy')->name('Tblentemp.remove');
+
 });
 
 
