@@ -2,7 +2,7 @@
     <div class="md-layout">
         <div class="md-layout-item md-size-40 md-small-hide mx-auto">
             <md-card>
-                <md-card-header class="md-card-header-text md-card-header-primary">
+                <md-card-header class="md-card-header-text md-card-header-danger">
                     <div class="card-text">
                         <h4 class="title">Información</h4>
                     </div>
@@ -129,15 +129,10 @@
 
                 let uuid = info.event.extendedProps.uuid;
 
-                for (let i = 0; i < this.ofertastemporales.length; i++) {
-                    if (this.ofertastemporales[i]["Uuid"] == uuid) {
-                        this.ofertatemporal = this.ofertastemporales[i];
-                    }
-                }
-
                 for (let i = 0; i < this.eventostemporales.length; i++) {
                     if (this.eventostemporales[i]["Uuid"] == uuid) {
                         this.eventotemporal = this.eventostemporales[i];
+                        this.ofertatemporal = this.ofertastemporales[i];
                     }
                 }
 

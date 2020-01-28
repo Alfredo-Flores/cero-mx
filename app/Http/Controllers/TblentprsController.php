@@ -22,7 +22,8 @@ class TblentprsController extends Controller
 
     }
 
-    public function guard() {
+    public function guard()
+    {
         return Auth::guard('api');
     }
 
@@ -81,51 +82,51 @@ class TblentprsController extends Controller
         ];
 
         $msgs = [
-            'Nombre.required' => 'Validacion fallada en Nombre.required',
-            'Nombre.string' => 'Validacion fallada en Nombre.string',
-            'Nombre.max' => 'Validacion fallada en Nombre.max',
+            'Nombre.required' => 'Por favor, escriba su nombre',
+            'Nombre.string' => 'Por favor, escriba un nombre valido',
+            'Nombre.max' => 'Por favor, escriba un nombre valido',
             'PrimerApellido.required' => 'Validacion fallada en PrimerApellido.required',
-            'PrimerApellido.string' => 'Validacion fallada en PrimerApellido.string',
-            'PrimerApellido.max' => 'Validacion fallada en PrimerApellido.max',
-            'SegundoApellido.required' => 'Validacion fallada en SegundoApellido.required',
-            'SegundoApellido.string' => 'Validacion fallada en SegundoApellido.string',
-            'SegundoApellido.max' => 'Validacion fallada en SegundoApellido.max',
-            'Curp.required' => 'Validacion fallada en Curp.required',
-            'Curp.string' => 'Validacion fallada en Curp.string',
-            'Curp.max' => 'Validacion fallada en Curp.max',
-            'Rfc.required' => 'Validacion fallada en Rfc.required',
-            'Rfc.string' => 'Validacion fallada en Rfc.string',
-            'Rfc.max' => 'Validacion fallada en Rfc.max',
-            'CorreoLaboral.required' => 'Validacion fallada en CorreoLaboral.required',
-            'CorreoLaboral.string' => 'Validacion fallada en CorreoLaboral.string',
-            'CorreoLaboral.max' => 'Validacion fallada en CorreoLaboral.max',
-            'CorreoPersonal.required' => 'Validacion fallada en CorreoPersonal.required',
-            'CorreoPersonal.string' => 'Validacion fallada en CorreoPersonal.string',
-            'CorreoPersonal.max' => 'Validacion fallada en CorreoPersonal.max',
-            'Nacionalidad.required' => 'Validacion fallada en Nacionalidad.required',
-            'Nacionalidad.string' => 'Validacion fallada en Nacionalidad.string',
-            'Nacionalidad.max' => 'Validacion fallada en Nacionalidad.max',
-            'Pais.required' => 'Validacion fallada en Pais.required',
-            'Pais.string' => 'Validacion fallada en Pais.string',
-            'Pais.max' => 'Validacion fallada en Pais.max',
-            'EntidadFed.required' => 'Validacion fallada en EntidadFed.required',
-            'EntidadFed.string' => 'Validacion fallada en EntidadFed.string',
-            'EntidadFed.max' => 'Validacion fallada en EntidadFed.max',
-            'Municipio.required' => 'Validacion fallada en Municipio.required',
-            'Municipio.string' => 'Validacion fallada en Municipio.string',
-            'Municipio.max' => 'Validacion fallada en Municipio.max',
-            'Localidad.required' => 'Validacion fallada en Localidad.required',
-            'Localidad.string' => 'Validacion fallada en Localidad.string',
-            'Localidad.max' => 'Validacion fallada en Localidad.max',
-            'Domicilio.required' => 'Validacion fallada en Domicilio.required',
-            'Domicilio.string' => 'Validacion fallada en Domicilio.string',
-            'Domicilio.max' => 'Validacion fallada en Domicilio.max',
-            'Codigo.required' => 'Validacion fallada en Codigo.required',
-            'Codigo.string' => 'Validacion fallada en Codigo.string',
-            'TelFijo.required' => 'Validacion fallada en TelFijo.required',
-            'TelFijo.string' => 'Validacion fallada en TelFijo.string',
-            'TelMovil.required' => 'Validacion fallada en TelMovil.required',
-            'TelMovil.string' => 'Validacion fallada en TelMovil.string',
+            'PrimerApellido.string' => 'Por favor, escriba un apellido paterno valido',
+            'PrimerApellido.max' => 'Por favor, escriba un apellido paterno valido',
+            'SegundoApellido.required' => 'Por favor, escriba un apellido materno',
+            'SegundoApellido.string' => 'Por favor, escriba un apellido materno valido',
+            'SegundoApellido.max' => 'Por favor, escriba un apellido materno valido',
+            'Curp.required' => 'Por favor, escriba un CURP',
+            'Curp.string' => 'Por favor, escriba un CURP valido',
+            'Curp.max' => 'Por favor, escriba un CURP valido',
+            'Rfc.required' => 'Por favor, escriba un RFC',
+            'Rfc.string' => 'Por favor, escriba un RFC valido',
+            'Rfc.max' => 'Por favor, escriba un RFC valido',
+            'CorreoLaboral.required' => 'Por favor, escriba un correo laboral',
+            'CorreoLaboral.string' => 'Por favor, escriba un correo laboral valido',
+            'CorreoLaboral.max' => 'Por favor, escriba un correo laboral valido',
+            'CorreoPersonal.required' => 'Por favor, escriba un correo personal',
+            'CorreoPersonal.string' => 'Por favor, escriba un correo personal valido',
+            'CorreoPersonal.max' => 'Por favor, escriba un correo personal valido',
+            'Nacionalidad.required' => 'Por favor, elija una nacionalidad',
+            'Nacionalidad.string' => 'Por favor, elija una nacionalidad valida',
+            'Nacionalidad.max' => 'Por favor, elija una nacionalidad valida',
+            'Pais.required' => 'Por favor, elija un país',
+            'Pais.string' => 'Por favor, elija un país valido',
+            'Pais.max' => 'Por favor, elija un país valido',
+            'EntidadFed.required' => 'Por favor, elija una entidad federativa',
+            'EntidadFed.string' => 'Por favor, elija una entidad federativa valido',
+            'EntidadFed.max' => 'Por favor, elija una entidad federativa valido',
+            'Municipio.required' => 'Por favor, escriba un municipio',
+            'Municipio.string' => 'Por favor, escriba un municipio valido',
+            'Municipio.max' => 'Por favor, escriba un municipio valido',
+            'Localidad.required' => 'Por favor, escriba una localidad',
+            'Localidad.string' => 'Por favor, escriba una localidad valida',
+            'Localidad.max' => 'Por favor, escriba una localidad valida',
+            'Domicilio.required' => 'Por favor, escriba un domicilio',
+            'Domicilio.string' => 'Por favor, escriba un domicilio valida',
+            'Domicilio.max' => 'Por favor, escriba un domicilio valida',
+            'Codigo.required' => 'Por favor, escriba un codigo postal',
+            'Codigo.string' => 'Por favor, escriba un codigo postal valido',
+            'TelFijo.required' => 'Por favor, escriba un telefono fijo',
+            'TelFijo.string' => 'Por favor, escriba un telefono fijo valido',
+            'TelMovil.required' => 'Por favor, escriba un telefono personal',
+            'TelMovil.string' => 'Por favor, escriba un telefono personal valido',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -186,7 +187,7 @@ class TblentprsController extends Controller
         // 6.- Seguimiento
         if (!$result) {
             TransactionHandler::rollback($trncnn);
-            return ReturnHandler::rtrerrjsn('');
+            return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
 
         $idnentprs = $result->getIdnentprs();
@@ -200,7 +201,6 @@ class TblentprsController extends Controller
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
-
     }
 
     // destroy (R)
@@ -271,72 +271,62 @@ class TblentprsController extends Controller
             'Codigo' => 'required|max:5',
             'TelFijo' => 'required|max:12',
             'TelMovil' => 'required|max:12',
-            'Foto' => 'nullable|max:255',
-            'Creado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
-            'Actualizado' => 'nullable|date_format:"Y-m-d\TH:i:sO"',
+            'Foto' => 'required',
         ];
 
-        $msgs = [ // TODO *Customizable*
-            'Uuid' => 'required|uuid|size:36',
-            'Nombre.required' => 'Validacion fallada en Nombre.required',
-            'Nombre.string' => 'Validacion fallada en Nombre.string',
-            'Nombre.max' => 'Validacion fallada en Nombre.max',
-            'PrimerApellido.required' => 'Validacion fallada en PrimerApellido.required',
-            'PrimerApellido.string' => 'Validacion fallada en PrimerApellido.string',
-            'PrimerApellido.max' => 'Validacion fallada en PrimerApellido.max',
-            'SegundoApellido.required' => 'Validacion fallada en SegundoApellido.required',
-            'SegundoApellido.string' => 'Validacion fallada en SegundoApellido.string',
-            'SegundoApellido.max' => 'Validacion fallada en SegundoApellido.max',
-            'Curp.required' => 'Validacion fallada en Curp.required',
-            'Curp.string' => 'Validacion fallada en Curp.string',
-            'Curp.max' => 'Validacion fallada en Curp.max',
-            'Rfc.required' => 'Validacion fallada en Rfc.required',
-            'Rfc.string' => 'Validacion fallada en Rfc.string',
-            'Rfc.max' => 'Validacion fallada en Rfc.max',
-            'CorreoLaboral.required' => 'Validacion fallada en CorreoLaboral.required',
-            'CorreoLaboral.string' => 'Validacion fallada en CorreoLaboral.string',
-            'CorreoLaboral.max' => 'Validacion fallada en CorreoLaboral.max',
-            'CorreoPersonal.required' => 'Validacion fallada en CorreoPersonal.required',
-            'CorreoPersonal.string' => 'Validacion fallada en CorreoPersonal.string',
-            'CorreoPersonal.max' => 'Validacion fallada en CorreoPersonal.max',
-            'Nacionalidad.required' => 'Validacion fallada en Nacionalidad.required',
-            'Nacionalidad.string' => 'Validacion fallada en Nacionalidad.string',
-            'Nacionalidad.max' => 'Validacion fallada en Nacionalidad.max',
-            'Pais.required' => 'Validacion fallada en Pais.required',
-            'Pais.string' => 'Validacion fallada en Pais.string',
-            'Pais.max' => 'Validacion fallada en Pais.max',
-            'EntidadFed.required' => 'Validacion fallada en EntidadFed.required',
-            'EntidadFed.string' => 'Validacion fallada en EntidadFed.string',
-            'EntidadFed.max' => 'Validacion fallada en EntidadFed.max',
-            'Municipio.required' => 'Validacion fallada en Municipio.required',
-            'Municipio.string' => 'Validacion fallada en Municipio.string',
-            'Municipio.max' => 'Validacion fallada en Municipio.max',
-            'Localidad.required' => 'Validacion fallada en Localidad.required',
-            'Localidad.string' => 'Validacion fallada en Localidad.string',
-            'Localidad.max' => 'Validacion fallada en Localidad.max',
-            'Domicilio.required' => 'Validacion fallada en Domicilio.required',
-            'Domicilio.string' => 'Validacion fallada en Domicilio.string',
-            'Domicilio.max' => 'Validacion fallada en Domicilio.max',
-            'Codigo.required' => 'Validacion fallada en Codigo.required',
-            'Codigo.string' => 'Validacion fallada en Codigo.string',
-            'Codigo.max' => 'Validacion fallada en Codigo.max 3',
-            'TelFijo.required' => 'Validacion fallada en TelFijo.required',
-            'TelFijo.string' => 'Validacion fallada en TelFijo.string',
-            'TelFijo.max' => 'Validacion fallada en TelFijo.max',
-            'TelMovil.required' => 'Validacion fallada en TelMovil.required',
-            'TelMovil.string' => 'Validacion fallada en TelMovil.string',
-            'TelMovil.max' => 'Validacion fallada en TelMovil.max',
-            'Foto.required' => 'Validacion fallada en Foto.required',
-            'Foto.string' => 'Validacion fallada en Foto.string',
-            'Foto.max' => 'Validacion fallada en Foto.max',
-            'Foto.nullable' => 'Validacion fallada en Foto.nullable',
-            'Creado.required' => 'Validacion fallada en Creado.required',
-            'Creado.date_format' => 'Validacion fallada en Creado.date_format',
-            'Creado.nullable' => 'Validacion fallada en Creado.nullable',
-            'Actualizado.required' => 'Validacion fallada en Actualizado.required',
-            'Actualizado.date_format' => 'Validacion fallada en Actualizado.date_format',
-            'Actualizado.nullable' => 'Validacion fallada en Actualizado.nullable',
-
+        $msgs = [
+            'Uuid.required' => 'Ocurrio un error inesperado',
+            'Uuid.uuid' => 'Ocurrio un error inesperado',
+            'Uuid.size' => 'Ocurrio un error inesperado',
+            'Nombre.required' => 'Por favor, escriba el nombre del representante',
+            'Nombre.string' => 'Por favor, escriba el nombre del representante correctamente',
+            'Nombre.max' => 'Por favor, escriba el nombre del representante correctamente',
+            'PrimerApellido.required' => 'Por favor, escriba el primer apellido del representante',
+            'PrimerApellido.string' => 'Por favor, escriba el primer apellido del representante correctamente',
+            'PrimerApellido.max' => 'Por favor, escriba el primer apellido del representante correctamente',
+            'SegundoApellido.required' => 'Por favor, escriba el segundo apellido del representante',
+            'SegundoApellido.string' => 'Por favor, escriba el segundo apellido del representante correctamente',
+            'SegundoApellido.max' => 'Por favor, escriba el segundo apellido del representante correctamente',
+            'Curp.required' => 'Por favor, escriba el CURP del representante',
+            'Curp.string' => 'Por favor, escriba el CURP del representante correctamente',
+            'Curp.max' => 'Por favor, escriba el CURP del representante correctamente',
+            'Rfc.required' => 'Por favor, escriba el RFC del representante',
+            'Rfc.string' => 'Por favor, escriba el RFC del representante correctamente',
+            'Rfc.max' => 'Por favor, escriba el RFC del representante correctamente',
+            'CorreoLaboral.required' => 'Por favor, escriba el correo laboral del representante',
+            'CorreoLaboral.string' => 'Por favor, escriba el correo laboral del representante correctamente',
+            'CorreoLaboral.max' => 'Por favor, escriba el correo laboral del representante correctamente',
+            'CorreoPersonal.required' => 'Por favor, escriba el correo personal del representante',
+            'CorreoPersonal.string' => 'Por favor, escriba el correo personal del representante correctamente',
+            'CorreoPersonal.max' => 'Por favor, escriba el correo personal del representante correctamente',
+            'Nacionalidad.required' => 'Por favor, elija la nacionalidad del representante',
+            'Nacionalidad.string' => 'Por favor, elija la nacionalidad del representante correctamente',
+            'Nacionalidad.max' => 'Por favor, elija la nacionalidad del representante correctamente',
+            'Pais.required' => 'Por favor, elija el país del representante',
+            'Pais.string' => 'Por favor, elija el país del representante correctamente',
+            'Pais.max' => 'Por favor, elija el país del representante correctamente',
+            'EntidadFed.required' => 'Por favor, elija la entidad federativa del representante',
+            'EntidadFed.string' => 'Por favor, elija la entidad federativa del representante correctamente',
+            'EntidadFed.max' => 'Por favor, elija la entidad federativa del representante correctamente',
+            'Municipio.required' => 'Por favor, escriba el municipio del representante',
+            'Municipio.string' => 'Por favor, escriba el municipio del representante correctamente',
+            'Municipio.max' => 'Por favor, escriba el municipio del representante correctamente',
+            'Localidad.required' => 'Por favor, escriba la localidad del representante correctamente',
+            'Localidad.string' => 'Por favor, escriba la localidad del representante correctamente correctamente',
+            'Localidad.max' => 'Por favor, escriba la localidad del representante correctamente correctamente',
+            'Domicilio.required' => 'Por favor, escriba el domicilio del representante',
+            'Domicilio.string' => 'Por favor, escriba el domicilio del representante correctamente',
+            'Domicilio.max' => 'Por favor, escriba el domicilio del representante correctamente',
+            'Codigo.required' => 'Por favor, escriba el codigo postal del representante',
+            'Codigo.string' => 'Por favor, escriba el codigo postal del representante correctamente',
+            'Codigo.max' => 'Por favor, escriba el codigo postal del representante correctamente',
+            'TelFijo.required' => 'Por favor, escriba el telefono fijo del representante',
+            'TelFijo.string' => 'Por favor, escriba el telefono fijo del representante correctamente',
+            'TelFijo.max' => 'Por favor, escriba el telefono fijo del representante correctamente',
+            'TelMovil.required' => 'Por favor, escriba el telefono movil del representante',
+            'TelMovil.string' => 'Por favor, escriba el telefono movil del representante correctamente',
+            'TelMovil.max' => 'Por favor, escriba el telefono movil del representante correctamente',
+            'Foto.required' => 'Por favor, suba una foto del representante',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
@@ -345,7 +335,7 @@ class TblentprsController extends Controller
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
-        // 2.- Peticion a variables TODO *Modificar*
+        // 2.- Peticion a variables
         $udxentprs = request('Uuid');
         $timestamp = date(DATE_ISO8601);
 
@@ -379,8 +369,8 @@ class TblentprsController extends Controller
             'tlffijprs' => request('TelFijo'),
             'tlfmvlprs' => request('TelMovil'),
             'fotentprs' => request('Foto'),
-            'created_at' => request('Creado'),
-            'updated_at' => request('Actualizado'),
+            'created_at' => $timestamp,
+            'updated_at' => $timestamp,
         ];
 
         $result = \Tblentprs::updentprs($data, $trncnn);

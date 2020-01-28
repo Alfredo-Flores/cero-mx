@@ -1,21 +1,16 @@
 // Boostrap y axios por defecto
-import {ValidationObserver, ValidationProvider} from "vee-validate";
 require("./bootstrap");
 window.Vue = require('vue');
+
 // Modulos NPM
 import VueToastr from "vue-toastr";
 import VueMaterial from 'vue-material'
 import SideBar from "./components/SidebarPlugin";
-import Chartist from "chartist";
 import VueRouter from 'vue-router';
 import DashboardPlugin from "./material-dashboard";
-import VueInternationalization from 'vue-i18n';
-import Locale from './vue-i18n-locales.generated';
 import App from './App.vue'
 import routes from "./routes/routes";
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VueAuth from '@websanova/vue-auth'
 import VueResource from 'vue-resource'
 
 // CSS para el Modulos
@@ -30,16 +25,7 @@ Vue.use(VueToastr);
 Vue.use(VueRouter);
 Vue.use(DashboardPlugin);
 Vue.use(SideBar);
-Vue.use(VueInternationalization);
 Vue.use(VueResource);
-
-// Internalicionalizacion
-const lang = document.documentElement.lang.substr(0, 2);
-
-const i18n = new VueInternationalization({
-    locale: lang,
-    messages: Locale
-});
 
 axios.defaults.baseURL = '/api';
 Vue.http.options.root = '/api';
@@ -73,22 +59,11 @@ Vue.use(require('@websanova/vue-auth'), {
     logoutData: {url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: true},
     refreshData: {url: 'auth/userdata', method: 'GET', enabled: true, interval: 30},
     parseUserData (data) {
-
         return data || {}
     },
 });
 
 App.router = Vue.router;
-
-// global library setup
-Vue.prototype.$Chartist = Chartist;
-
-// Chartist
-Object.defineProperty(Vue.prototype, "$Chartist", {
-    get() {
-        return Chartist;
-    }
-});
 
 new Vue({
     el: "#app",

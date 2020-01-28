@@ -348,24 +348,48 @@ class TblentrcpController extends Controller
             return null;
         }
 
+        $idnentprs = $tipentprs->getIdnentprs();
 
-            $idnentprs = $tipentprs->getIdnentprs();
+        $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
 
-            $idnentorg = \Tblentorg::fnoentprs($idnentprs)->getIdnentorg();
+        $rutinas = \Tblentrcp::fndentorg($idnentorg);
+        $rutinas = $rutinas->toArray();
 
-            $rutinas = \Tblentrcp::fndentorg($idnentorg);
-            $rutinas = $rutinas->toArray();
+        if (empty($rutinas)) {
+            $rutinas = null;
+        }
 
-
-
-            if (empty($rutinas)) {
-                $rutinas = null;
-            }
-
-            return json_encode([
-                'success' => true,
-                'data' => $rutinas,
-            ]);
-
+        return json_encode([
+            'success' => true,
+            'data' => $rutinas,
+        ]);
     }
+
+    public function loadlistemp(Request $request)
+    {
+        $id = $request->get("Id");
+
+        $tipentprs = \Tblentprs::fnoentusr($id);
+
+        if (!$tipentprs) {
+            return null;
+        }
+
+        $idnentprs = $tipentprs->getIdnentprs();
+
+        $idnentemp = \Tblentemp::fnoentprs($idnentprs)->getIdnentemp();
+
+        $rutinas = \Tblentrcp::fndentemp($idnentemp);
+        $rutinas = $rutinas->toArray();
+
+        if (empty($rutinas)) {
+            $rutinas = null;
+        }
+
+        return json_encode([
+            'success' => true,
+            'data' => $rutinas,
+        ]);
+    }
+
 }

@@ -131,6 +131,8 @@
                 this.representantetelefonofijo = telefonofijo;
                 this.representantetelefonomovil = telefonomovil;
                 this.representantefoto = foto;
+
+                console.log(this.representantecurp);
             },
             changeEmpresa(nombre, direccion, localidad, municipio, entidad, pais, codigopostal, rfc, giro, telefonooficina, correooficina, descripcionalimentos, cantidaddonacion, tiempoconsumo, horarioentrega, detallesentrega, logo) {
                 this.empresanombre = nombre;

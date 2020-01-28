@@ -1,6 +1,6 @@
 <template>
     <div class="md-layout">
-        <div class="md-layout-item md-size-60 md-small-size-100 mx-auto">
+        <div class="md-layout-item md-size-70 md-small-size-100 mx-auto">
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-primary">
                     <div class="card-text">
@@ -9,7 +9,7 @@
                 </md-card-header>
                 <md-card-content>
                     <div v-if="rutinas == null">
-                        <h4 class="title">Parece que esta vacio!</h4>
+                        <h4 class="title">¡Parece que no hay rutinas para hoy!</h4>
                     </div>
                     <div v-else>
                         <md-table>

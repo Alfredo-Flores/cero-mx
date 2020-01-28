@@ -60,33 +60,32 @@ class TblentclnController extends Controller
     // store (C)
     public function create(Request $request)
     {
-        // 1.- Validacion del request TODO *Modificar*
+        // 1.- Validacion del request
         $rules = [
-			'UuidOferta' => 'required',
-			'Idnentusr' => 'required|integer',
-			'Idnentorg' => 'required|integer',
-			'Periodicidad' => 'required|integer|min:0|max:9',
-			'FechaInicio' => 'date_format:"Y-m-d H:i:s"',
-			'FechaFinal' => 'date_format:"Y-m-d H:i:s"',
-		];
+            'UuidOferta' => 'required',
+            'Idnentusr' => 'required|integer',
+            'Idnentorg' => 'required|integer',
+            'Periodicidad' => 'required|integer|min:0|max:9',
+            'FechaInicio' => 'date_format:"Y-m-d H:i:s"',
+            'FechaFinal' => 'date_format:"Y-m-d H:i:s"',
+        ];
 
         $msgs = [
-            'Idnentusr.required' => 'Validacion fallada en Idnentusr.required',
-            'Idnentusr.integer' => 'Validacion fallada en Idnentusr.integer',
-            'Idnentorg.required' => 'Validacion fallada en Idnentorg.required',
-            'Idnentorg.integer' => 'Validacion fallada en Idnentorg.integer',
+            'UuidOferta.required' => 'Ocurrio un error inesperado',
+            'Idnentusr.required' => 'Ocurrio un error inesperado',
+            'Idnentusr.integer' => 'Ocurrio un error inesperado',
+            'Idnentorg.required' => 'Ocurrio un error inesperado',
+            'Idnentorg.integer' => 'Ocurrio un error inesperado',
 
-			'Periodicidad.required' => 'Validacion fallada en Periodicidad.required',
-			'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
-			'FechaInicio.nullable' => 'Validacion fallada en FechaInicio.nullable',
-			'FechaInicio.date_format' => 'Validacion fallada en FechaInicio.date_format',
-            'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
-            'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
-		];
+            'Periodicidad.required' => 'Por favor, elija la periodicidad de la rutina',
+            'Periodicidad.integer' => 'Por favor, elija la periodicidad de la rutina correctamente',
+            'FechaInicio.date_format' => 'Por favor, elija la fecha inicial de la rutina correctamente',
+            'FechaFinal.date_format' => 'Por favor, elija la fecha final de la rutina correctamente',
+        ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
-        if(!empty($validator)){
+        if (!empty($validator)) {
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
@@ -107,8 +106,8 @@ class TblentclnController extends Controller
 
         // 2.- Peticion a variables
         $data = [
-			'uuid' => $uuid4,
-			'idnentemp' => $idnentemp,
+            'uuid' => $uuid4,
+            'idnentemp' => $idnentemp,
             'idnentorg' => request('Idnentorg'),
             'prdentcln' => request('Periodicidad'),
             'fchinccln' => request('FechaInicio'),
@@ -124,7 +123,7 @@ class TblentclnController extends Controller
         $result = \Tblentcln::crtentcln($data, $trncnn);
 
         // 6.- Commit y return
-        if(!$result){
+        if (!$result) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrio un error inesperado');
         }
@@ -151,7 +150,7 @@ class TblentclnController extends Controller
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
-        if(!empty($validator)){
+        if (!empty($validator)) {
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
@@ -164,13 +163,13 @@ class TblentclnController extends Controller
 
         // 4 & 5 .- Variables a objeto & Regla de negocio
         $entcln = \Tblentcln::fnuentcln($uuid, $trncnn);
-        if(!$entcln instanceof \Tblentcln){
+        if (!$entcln instanceof \Tblentcln) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
 
         $entdnc = \Tblentdnc::fnuentdnc($uuiddnc, $trncnn);
-        if(!$entcln instanceof \Tblentcln){
+        if (!$entcln instanceof \Tblentcln) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
@@ -183,7 +182,7 @@ class TblentclnController extends Controller
         $resultdnc = \Tblentdnc::rmventdnc($entdnc->getIdentdnc(), $trncnn);
 
         // 6.- Commit & return
-        if(!$result || !$resultdnc || !$resultrcp){
+        if (!$result || !$resultdnc || !$resultrcp) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un inesperado');
         }
@@ -197,35 +196,35 @@ class TblentclnController extends Controller
     {
         // 1.- Validacion del request
         $rules = [
-			'Uuid' => 'required|uuid|size:36',
-			'Periodicidad' => 'required|integer|min:0|max:9',
-			'FechaInicio' => 'nullable|date_format:"Y-m-d H:i:s"',
-			'FechaFinal' => 'nullable|date_format:"Y-m-d H:i:s"',
-		];
+            'Uuid' => 'required|uuid|size:36',
+            'Periodicidad' => 'required|integer|min:0|max:9',
+            'FechaInicio' => 'nullable|date_format:"Y-m-d H:i:s"',
+            'FechaFinal' => 'nullable|date_format:"Y-m-d H:i:s"',
+        ];
 
         $msgs = [
-			'Uuid' => 'required|uuid|size:36',
-			'Periodicidad.required' => 'Validacion fallada en Periodicidad.required',
-			'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
-			'Periodicidad.min' => 'Validacion fallada en Periodicidad.min',
-			'Periodicidad.max' => 'Validacion fallada en Periodicidad.max',
-			'FechaInicio.required' => 'Validacion fallada en FechaInicio.required',
-			'FechaInicio.date_format' => 'Validacion fallada en FechaInicio.date_format',
-			'FechaInicio.nullable' => 'Validacion fallada en FechaInicio.nullable',
-			'FechaFinal.required' => 'Validacion fallada en FechaFinal.required',
-			'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
-			'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
+            'Uuid' => 'required|uuid|size:36',
+            'Periodicidad.required' => 'Validacion fallada en Periodicidad.required',
+            'Periodicidad.integer' => 'Validacion fallada en Periodicidad.integer',
+            'Periodicidad.min' => 'Validacion fallada en Periodicidad.min',
+            'Periodicidad.max' => 'Validacion fallada en Periodicidad.max',
+            'FechaInicio.required' => 'Validacion fallada en FechaInicio.required',
+            'FechaInicio.date_format' => 'Validacion fallada en FechaInicio.date_format',
+            'FechaInicio.nullable' => 'Validacion fallada en FechaInicio.nullable',
+            'FechaFinal.required' => 'Validacion fallada en FechaFinal.required',
+            'FechaFinal.date_format' => 'Validacion fallada en FechaFinal.date_format',
+            'FechaFinal.nullable' => 'Validacion fallada en FechaFinal.nullable',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();
 
-        if(!empty($validator)){
+        if (!empty($validator)) {
             return ReturnHandler::rtrerrjsn($validator[0]);
         }
 
         // 2.- Peticion a variables TODO *Modificar*
         $udxentcln = request('Uuid');
-		$timestamp = date(DATE_ISO8601);
+        $timestamp = date(DATE_ISO8601);
 
         // 3.- Iniciar Transaccion
         $trncnn = TransactionHandler::begin();
@@ -233,20 +232,20 @@ class TblentclnController extends Controller
         // 4 & 5 .- Variables a objeto & Regla de negocio
         $entcln = \Tblentcln::fnuentcln($udxentcln, $trncnn);
 
-        if(!$entcln instanceof \Tblentcln){
+        if (!$entcln instanceof \Tblentcln) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('$entcln false');
         }
 
 
         $data = [
-			'idnentcln' => $entcln->getIdnentcln(),
+            'idnentcln' => $entcln->getIdnentcln(),
             'idnentemp' => $entcln->getIdnentemp(),
             'idnentorg' => $entcln->getIdnentorg(),
-			'uuid' => $udxentcln,
-			'prdentcln' => request('Periodicidad'),
-			'fchinccln' => request('FechaInicio'),
-			'fchfnlcln' => request('FechaFinal'),
+            'uuid' => $udxentcln,
+            'prdentcln' => request('Periodicidad'),
+            'fchinccln' => request('FechaInicio'),
+            'fchfnlcln' => request('FechaFinal'),
             'updated_at' => date("Y-m-d H:i:s"),
             'created_at' => date("Y-m-d H:i:s"),
         ];
@@ -254,7 +253,7 @@ class TblentclnController extends Controller
         $result = \Tblentcln::updentcln($data, $trncnn);
 
         // 6.- Commit & return
-        if(!$result){
+        if (!$result) {
             TransactionHandler::rollback($trncnn);
             return ReturnHandler::rtrerrjsn('Ocurrió un error inesperado');
         }
@@ -289,8 +288,7 @@ class TblentclnController extends Controller
             $json = [];
 
 
-            foreach($eventos as $key => $evento)
-            {
+            foreach ($eventos as $key => $evento) {
                 if ($evento["Prdentcln"] == 1) {
 
                     $fecha = $evento["Fchinccln"];
@@ -314,7 +312,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 month'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 month'));
 
                         array_push($json, $array);
                     }
@@ -328,7 +326,7 @@ class TblentclnController extends Controller
 
                     $interval = $date1->diff($date2);
 
-                    $quincenas = floor($interval->days/15) + 1;
+                    $quincenas = floor($interval->days / 15) + 1;
 
                     for ($i = 1; $i <= $quincenas; $i++) {
 
@@ -343,7 +341,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 15 day'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 15 day'));
 
                         array_push($json, $array);
                     }
@@ -357,8 +355,7 @@ class TblentclnController extends Controller
 
                     $interval = $date1->diff($date2);
 
-                    $semanas = floor($interval->days/7) + 1;
-;
+                    $semanas = floor($interval->days / 7) + 1;;
                     for ($i = 1; $i <= $semanas; $i++) {
 
                         $array = [
@@ -372,7 +369,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 week'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 week'));
 
                         array_push($json, $array);
                     }
@@ -401,7 +398,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 day'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 day'));
 
                         array_push($json, $array);
                     }
@@ -448,12 +445,13 @@ class TblentclnController extends Controller
 
             $json = [];
 
-            foreach($eventos as $key => $evento)
-            {
+            foreach ($eventos as $key => $evento) {
                 if ($evento["Prdentcln"] == 1) {
 
                     $fecha = $evento["Fchinccln"];
                     $fechaFinal = $evento["Fchfnlcln"];
+
+                    $evento["uuidoferta"] = $ofertas[$key]["Uuid"];
 
                     $date1 = new DateTime($fecha);
                     $date2 = new DateTime($fechaFinal);
@@ -473,7 +471,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 month'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 month'));
 
                         array_push($json, $array);
                     }
@@ -487,7 +485,7 @@ class TblentclnController extends Controller
 
                     $interval = $date1->diff($date2);
 
-                    $quincenas = floor($interval->days/15) + 1;
+                    $quincenas = floor($interval->days / 15) + 1;
 
                     for ($i = 1; $i <= $quincenas; $i++) {
 
@@ -502,7 +500,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 15 day'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 15 day'));
 
                         array_push($json, $array);
                     }
@@ -516,8 +514,7 @@ class TblentclnController extends Controller
 
                     $interval = $date1->diff($date2);
 
-                    $semanas = floor($interval->days/7) + 1;
-                    ;
+                    $semanas = floor($interval->days / 7) + 1;;
                     for ($i = 1; $i <= $semanas; $i++) {
 
                         $array = [
@@ -531,7 +528,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 week'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 week'));
 
                         array_push($json, $array);
                     }
@@ -560,7 +557,7 @@ class TblentclnController extends Controller
                             ],
                         ];
 
-                        $fecha = date('Y-m-d H:i:s', strtotime($fecha. ' + 1 day'));
+                        $fecha = date('Y-m-d H:i:s', strtotime($fecha . ' + 1 day'));
 
                         array_push($json, $array);
                     }
@@ -588,7 +585,6 @@ class TblentclnController extends Controller
             }
 
 
-
             return json_encode([
                 'success' => true,
                 'data' => $json,
@@ -605,7 +601,6 @@ class TblentclnController extends Controller
     {
 
     }
-
 
 
     //TODO *CRUD Generator control separator line* (Don't remove this line!)

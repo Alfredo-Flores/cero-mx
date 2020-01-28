@@ -33,10 +33,12 @@ class UsersController extends Controller
         ];
 
         $msgs = [
-            'email.required' => 'Ingrese el correo electronico',
-            'email.email' => 'Ingrese el correo electronico correctamente',
-            'password.required' => 'Ingrese la contraseña',
-            'password.min' => 'Ingrese la contraseña con un minimo de 6 caracteres',
+            'email.required' => 'Por favor, escriba el correo electronico',
+            'email.email' => 'Por favor, escriba el correo electronico correctamente',
+            'email.max' => 'Por favor, escriba el correo electronico correctamente',
+            'password.required' => 'Por favor, escriba una contraseña',
+            'password.min' => 'Por favor, escriba una contraseña con un minimo de 6 caracteres',
+            'password.max' => 'Por favor, escriba una contraseña con un minimo de 6 caracteres',
         ];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();

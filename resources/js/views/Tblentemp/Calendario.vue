@@ -1,6 +1,6 @@
 <template>
     <div class="md-layout">
-        <div class="md-layout-item md-size-40 mx-auto">
+        <div class="md-layout-item md-size-40 md-medium-size-100 mx-auto">
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-primary">
                     <div class="card-text">
@@ -50,7 +50,7 @@
                 </md-card-content>
             </md-card>
         </div>
-        <div class="md-layout-item md-size-60 mx-auto">
+        <div class="md-layout-item md-size-60 md-medium-size-100 mx-auto">
             <md-card class="md-card-calendar">
                 <md-card-content>
                     <fullCalendar

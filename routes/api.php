@@ -50,6 +50,7 @@ Route::post('/Tblentcln/remove', 'TblentclnController@destroy')->name('Tblentcln
 Route::post('/Tblentrcp/submit', 'TblentrcpController@create')->name('Tblentrcp.submit');
 Route::post('/Tblentrcp/evaluate', 'TblentrcpController@evaluate')->name('Tblentrcp.evaluate');
 Route::post('/Tblentrcp/fetch', 'TblentrcpController@loadlist')->name('Tblentrcp.fetch');
+Route::post('/Tblentrcp/fetch/empresas', 'TblentrcpController@loadlistemp')->name('Tblentrcp.fetch.empresas');
 
 //Tblentdnc Route
     Route::post('/Tblentdnc/fetch', 'TblentdncController@table')->name('Tblentdnc.fetch');

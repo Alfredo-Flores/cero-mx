@@ -1,7 +1,7 @@
 <template>
     <div class="md-layout">
         <div
-            class="md-layout-item md-size-30 md-medium-size-100"
+            class="md-layout-item md-size-30 md-small-size-100"
         >
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-primary">
@@ -44,7 +44,7 @@
             </md-card>
         </div>
         <div
-            class="md-layout-item md-size-70 md-medium-size-100 mx-auto"
+            class="md-layout-item md-size-70 md-small-size-100 mx-auto"
         >
             <md-card>
                 <md-card-header class="md-card-header-text md-card-header-primary">

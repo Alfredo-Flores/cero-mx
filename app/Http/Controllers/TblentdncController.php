@@ -69,7 +69,7 @@ class TblentdncController extends Controller
     // store (C)
     public function create(Request $request)
     {
-        // 1.- Validacion del request TODO *Modificar*
+        // 1.- Validacion del request
         $rules = [
 			'Descripcion' => 'required|max:255',
 			'TipoAlimento' => 'required|max:255',
@@ -78,25 +78,25 @@ class TblentdncController extends Controller
 			'TiempoRestante' => 'required',
 		];
 
-        $msgs = [ // TODO *Customizable*
-			'Descripcion.required' => 'Validacion fallada en Descripcion.required',
-			'Descripcion.string' => 'Validacion fallada en Descripcion.string',
-			'Descripcion.max' => 'Validacion fallada en Descripcion.max',
-			'TipoAlimento.required' => 'Validacion fallada en TipoAlimento.required',
-			'TipoAlimento.string' => 'Validacion fallada en TipoAlimento.string',
-			'TipoAlimento.max' => 'Validacion fallada en TipoAlimento.max',
-			'Kilogramos.required' => 'Validacion fallada en Kilogramos.required',
-			'Kilogramos.numeric' => 'Validacion fallada en Kilogramos.numeric',
-			'Kilogramos.min' => 'Validacion fallada en Kilogramos.min',
-			'Kilogramos.max' => 'Validacion fallada en Kilogramos.max',
-			'CantCajas.required' => 'Validacion fallada en CantCajas.required',
-			'CantCajas.integer' => 'Validacion fallada en CantCajas.integer',
-			'CantCajas.min' => 'Validacion fallada en CantCajas.min',
-			'CantCajas.max' => 'Validacion fallada en CantCajas.max',
-			'TiempoRestante.required' => 'Validacion fallada en TiempoRestante.required',
-			'TiempoRestante.integer' => 'Validacion fallada en TiempoRestante.integer',
-			'TiempoRestante.min' => 'Validacion fallada en TiempoRestante.min',
-			'TiempoRestante.max' => 'Validacion fallada en TiempoRestante.max',
+        $msgs = [
+			'Descripcion.required' => 'Por favor, escriba la descripción de la oferta',
+			'Descripcion.string' => 'Por favor, escriba la descripción de la oferta correctamente',
+			'Descripcion.max' => 'Por favor, escriba la descripción de la oferta correctamente',
+			'TipoAlimento.required' => 'Por favor, elija el tipo de alimento de la oferta',
+			'TipoAlimento.string' => 'Por favor, elija el tipo de alimento de la oferta correctamente',
+			'TipoAlimento.max' => 'Por favor, elija el tipo de alimento de la oferta correctamente',
+			'Kilogramos.required' => 'Por favor, escriba los kilogramos de la oferta',
+			'Kilogramos.numeric' => 'Por favor, escriba los kilogramos de la oferta correctamente',
+			'Kilogramos.min' => 'Por favor, escriba los kilogramos de la oferta correctamente',
+			'Kilogramos.max' => 'Por favor, escriba los kilogramos de la oferta correctamente',
+			'CantCajas.required' => 'Por favor, escriba la cantidad de cajas aproximadas de la oferta que se puedan introducir',
+			'CantCajas.integer' => 'Por favor, escriba la cantidad de cajas aproximadas de la oferta que se puedan introducir correctamente',
+			'CantCajas.min' => 'Por favor, escriba la cantidad de cajas aproximadas de la oferta que se puedan introducir correctamente',
+			'CantCajas.max' => 'Por favor, escriba la cantidad de cajas aproximadas de la oferta que se puedan introducir correctamente',
+			'TiempoRestante.required' => 'Por favor, escriba el tiempo restante para consumo humano de la oferta',
+			'TiempoRestante.integer' => 'Por favor, escriba el tiempo restante para consumo humano de la oferta correctamente',
+			'TiempoRestante.min' => 'Por favor, escriba el tiempo restante para consumo humano de la oferta correctamente',
+			'TiempoRestante.max' => 'Por favor, escriba el tiempo restante para consumo humano de la oferta correctamente',
 		];
 
         $validator = Validator::make($request->toArray(), $rules, $msgs)->errors()->all();

@@ -1,10 +1,10 @@
 <template>
-    <div class="md-layout text-center">
+    <div class="md-layout">
         <div
             class="md-layout-item md-size-100"
         >
             <md-card>
-                <md-card-header class="md-card-header-text md-card-header-warning">
+                <md-card-header class="md-card-header-text md-card-header-danger">
                     <div class="card-text">
                         <h4 class="title">Ofertas disponibles</h4>
                     </div>
@@ -18,7 +18,6 @@
                             <md-table-row>
                                 <md-table-head md-numeric>ID</md-table-head>
                                 <md-table-head>Empresa</md-table-head>
-                                <md-table-head>Logo</md-table-head>
                                 <md-table-head>Descripción</md-table-head>
                                 <md-table-head>Tipo</md-table-head>
                                 <md-table-head>Peso</md-table-head>
@@ -29,7 +28,6 @@
                             <md-table-row v-for="(oferta, i) in ofertas" :key="i">
                                 <md-table-cell>{{ oferta.Identdnc }}</md-table-cell>
                                 <md-table-cell>{{ oferta.Namentemp }}</md-table-cell>
-                                <md-table-cell><md-icon>insert_emoticon</md-icon></md-table-cell>
                                 <md-table-cell>{{ oferta.Dscentdnc }}</md-table-cell>
                                 <md-table-cell>{{ oferta.Tipentdnc }}</md-table-cell>
                                 <md-table-cell>{{ oferta.Kgsentdnc }}</md-table-cell>

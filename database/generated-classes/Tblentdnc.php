@@ -394,18 +394,19 @@ if($filidnentemp != 0){
         return $entdnc;
     }
 
-    public static function fndorgcln(int $idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    public static function fndorgcln(int $idnentorg, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entdnc = \TblentdncQuery::create()
-            ->filterByIdnentemp($idnentemp)
+            ->filterByIdnentorg($idnentorg)
             ->useTblentempQuery()
-            ->withColumn("Namentemp")
-            ->withColumn("Drcentemp")
-            ->withColumn("Lclentemp")
-            ->withColumn("Tlfofiemp")
-            ->withColumn("Emlofiemp")
+                ->withColumn("Namentemp")
+                ->withColumn("Drcentemp")
+                ->withColumn("Lclentemp")
+                ->withColumn("Tlfofiemp")
+                ->withColumn("Emlofiemp")
             ->endUse()
             ->where("rqsentdnc = 1 && clnentdnc = 1")
+            ->orderByCreatedAt(Criteria::ASC)
             ->find($connection);
 
         if(!$entdnc) return false;

@@ -1,6 +1,7 @@
 <?php
 
 use Base\Tblentcln as BaseTblentcln;
+use Propel\Runtime\ActiveQuery\Criteria;
 
 class Tblentcln extends BaseTblentcln
 {
@@ -166,11 +167,14 @@ if($filidnentorg != 0){
                 ->withColumn("Tlfofiemp")
                 ->withColumn("Emlofiemp")
             ->endUse()
-            ->filterByIdnentemp($idnentorg)
+            ->filterByIdnentorg($idnentorg)
             ->where("fnsentcln != true")
+            ->orderByCreatedAt(Criteria::ASC)
             ->find($connection);
 
         if(!$entcln) return false;
+
+        \Illuminate\Support\Facades\Log::debug($entcln);
 
         return $entcln;
     }

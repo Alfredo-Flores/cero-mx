@@ -163,6 +163,28 @@ class Tblentrcp extends BaseTblentrcp
         return $entcln;
     }
 
+    public static function fndentemp($idnentemp, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $today = date("Y-m-d 00:00:00");
+        $tomorrow = date("Y-m-d 23:59:00");
+
+        $entcln = \TblentrcpQuery::create()
+            ->useTblentempQuery()
+                ->withColumn("Namentemp")
+                ->withColumn("Drcentemp")
+                ->withColumn("Lclentemp")
+                ->withColumn("Tlfofiemp")
+                ->withColumn("Emlofiemp")
+            ->endUse()
+            ->filterByIdnentemp($idnentemp)
+            ->where("vldentcln != true && fnsentcln != true &&  fchinccln > '" . $today . "' && fchinccln < '" . $tomorrow . "'")
+            ->find($connection);
+
+        if(!$entcln) return false;
+
+        return $entcln;
+    }
+
     public static function fnuentrcp($uuid, \Propel\Runtime\Connection\ConnectionInterface $connection = null)
     {
         $entcln = \TblentrcpQuery::create()
