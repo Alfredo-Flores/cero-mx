@@ -328,7 +328,7 @@ if($filidnentemp != 0){
                 ->withColumn("Emlfcnorg")
             ->endUse()
             ->filterByIdnentemp($idnentemp)
-            ->where("clnentdnc != true && fnsentdnc != true")
+            ->where("clnentdnc == true && fnsentdnc != true")
             ->find($connection);
 
         if(!$entdnc) return false;
@@ -405,7 +405,7 @@ if($filidnentemp != 0){
                 ->withColumn("Tlfofiemp")
                 ->withColumn("Emlofiemp")
             ->endUse()
-            ->where("rqsentdnc = 1 && clnentdnc = 1")
+            ->where("rqsentdnc = 1 && clnentdnc = 1 && fnsentdnc = 0")
             ->orderByCreatedAt(Criteria::ASC)
             ->find($connection);
 

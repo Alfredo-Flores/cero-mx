@@ -225,28 +225,7 @@
                                 <md-icon class="success" v-show="passed">done</md-icon>
                             </md-field>
                         </ValidationProvider>
-
-                        <ValidationProvider
-                            name="lugarnacio"
-                            rules="required"
-                            v-slot="{ passed, failed }"
-                        >
-                            <md-field
-                                :class="[
-                  { 'md-error': failed },
-                  { 'md-valid': passed },
-                  { 'md-form-group': true }
-                ]"
-                            >
-                                <md-icon>gps_fixed</md-icon>
-                                <label>Lugar donde se ubica</label>
-                                <p style="color: red">*</p>
-                                <md-input v-model="lugarnacio" type="text"></md-input>
-                                <md-icon class="error" v-show="failed">close</md-icon>
-                                <md-icon class="success" v-show="passed">done</md-icon>
-                            </md-field>
-                        </ValidationProvider>
-
+                        
                     </div>
 
                     <div class="md-layout-item md-size-50 ml-auto md-small-size-100">

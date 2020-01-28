@@ -131,8 +131,6 @@
                 this.representantetelefonofijo = telefonofijo;
                 this.representantetelefonomovil = telefonomovil;
                 this.representantefoto = foto;
-
-                console.log(this.representantecurp);
             },
             changeEmpresa(nombre, direccion, localidad, municipio, entidad, pais, codigopostal, rfc, giro, telefonooficina, correooficina, descripcionalimentos, cantidaddonacion, tiempoconsumo, horarioentrega, detallesentrega, logo) {
                 this.empresanombre = nombre;
@@ -158,7 +156,7 @@
                 formData.append("Nombre", this.representantenombre);
                 formData.append("PrimerApellido", this.representanteprimerapellido);
                 formData.append("SegundoApellido", this.representantesegundoapellido);
-                formData.append("Curp", this.curp);
+                formData.append("Curp", this.representantecurp);
                 formData.append("Rfc", this.representanterfc);
                 formData.append("CorreoLaboral", this.representantecorreolaboral);
                 formData.append("CorreoPersonal", this.representantecorreopersonal);

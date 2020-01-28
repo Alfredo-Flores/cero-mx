@@ -385,12 +385,6 @@
                             this.fechainicial = new Date(this.fechainicial);
                             this.fechafinal = new Date(this.fechafinal);
 
-                            this.fechainicial = this.fechainicial.setHours(this.hora - 6,0,0);
-                            this.fechafinal = this.fechafinal.setHours(this.hora - 6,0,0);
-
-                            this.fechainicial = new Date(this.fechainicial);
-                            this.fechafinal = new Date(this.fechafinal);
-
                             let dateinicial = this.fechainicial.toISOString().slice(0, 19).replace('T', ' ');
                             let datefinal = this.fechafinal.toISOString().slice(0, 19).replace('T', ' ');
 
