@@ -498,7 +498,6 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'App\\Http\\Controllers\\CatgirorgController' => __DIR__ . '/../..' . '/app/Http/Controllers/CatgirorgController.php',
         'App\\Http\\Controllers\\CattipsrvController' => __DIR__ . '/../..' . '/app/Http/Controllers/CattipsrvController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\MainController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainController.php',
         'App\\Http\\Controllers\\TblentclnController' => __DIR__ . '/../..' . '/app/Http/Controllers/TblentclnController.php',
         'App\\Http\\Controllers\\TblentdncController' => __DIR__ . '/../..' . '/app/Http/Controllers/TblentdncController.php',
         'App\\Http\\Controllers\\TblentempController' => __DIR__ . '/../..' . '/app/Http/Controllers/TblentempController.php',

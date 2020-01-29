@@ -196,4 +196,15 @@ class Tblentrcp extends BaseTblentrcp
         return $entcln;
     }
 
+    public static function fndentrcp( \Propel\Runtime\Connection\ConnectionInterface $connection = null)
+    {
+        $entrcp = \TblentrcpQuery::create()
+            ->where("vldentcln = 1")
+            ->find($connection);
+
+        if(!$entrcp) return false;
+
+        return $entrcp;
+    }
+
 }

@@ -440,13 +440,8 @@ class TblentclnController extends Controller
             $eventos = \Tblentcln::fndentorg($idnentorg);
             $eventos = $eventos->toArray();
 
-            Log::debug($eventos);
-
             $ofertas = \Tblentdnc::fndorgcln($idnentorg);
             $ofertas = $ofertas->toArray();
-
-            Log::debug($ofertas);
-
 
             $json = [];
 

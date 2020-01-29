@@ -328,7 +328,7 @@ if($filidnentemp != 0){
                 ->withColumn("Emlfcnorg")
             ->endUse()
             ->filterByIdnentemp($idnentemp)
-            ->where("clnentdnc == true && fnsentdnc != true")
+            ->where("fnsentdnc != 1")
             ->find($connection);
 
         if(!$entdnc) return false;

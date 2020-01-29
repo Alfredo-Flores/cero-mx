@@ -2,83 +2,70 @@
         <div class="container md-offset" v-if="!$auth.check()" >
             <div class="md-layout">
                 <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="blue">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <p class="category">Organizaciones </p>
+                            <h3 class="title">
+                                <animated-number :value=estadistica.organizaciones></animated-number>
+                            </h3>
+                        </div>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>add</md-icon>
+                                Registradas
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
+                    <stats-card header-color="blue">
+                        <div slot="header">
+                            <div class="card-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <p class="category">Empresas</p>
+                            <h3 class="title">
+                                <animated-number :value=estadistica.empresas></animated-number>
+                            </h3>
+                        </div>
+
+                        <div slot="footer">
+                            <div class="stats">
+                                <md-icon>add</md-icon>
+                                Registradas
+                            </div>
+                        </div>
+                    </stats-card>
+                </div>
+                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
                     <stats-card header-color="green">
                         <div slot="header">
                             <div class="card-icon">
-                                <i class="fab fa-twitter"></i>
+                                <i class="fas fa-apple-alt"></i>
                             </div>
-                            <p class="category">Organizaciones registradas</p>
+                            <p class="category">Alimento Donado </p>
                             <h3 class="title">
-                                +<animated-number :value="245"></animated-number>
+                                <animated-number :value=estadistica.kilos></animated-number> kg
                             </h3>
-                        </div>
-
-                        <div slot="footer">
-                            <div class="stats">
-                                <md-icon>update</md-icon>
-                                Just Updated
-                            </div>
                         </div>
                     </stats-card>
                 </div>
                 <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
-                    <stats-card header-color="blue">
+                    <stats-card header-color="green">
                         <div slot="header">
                             <div class="card-icon">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                            <p class="category">Empresas registradas</p>
-                            <h3 class="title">
-                                +<animated-number :value="245"></animated-number>
-                            </h3>
-                        </div>
-
-                        <div slot="footer">
-                            <div class="stats">
-                                <md-icon>update</md-icon>
-                                Just Updated
-                            </div>
-                        </div>
-                    </stats-card>
-                </div>
-                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
-                    <stats-card header-color="blue">
-                        <div slot="header">
-                            <div class="card-icon">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                            <p class="category">Kilos donados</p>
-                            <h3 class="title">
-                                +<animated-number :value="this.estadistica.kilos"></animated-number>
-                            </h3>
-                        </div>
-
-                        <div slot="footer">
-                            <div class="stats">
-                                <md-icon>update</md-icon>
-                                Just Updated
-                            </div>
-                        </div>
-                    </stats-card>
-                </div>
-                <div class="md-layout-item md-medium-size-25 md-xsmall-size-100 md-size-25">
-                    <stats-card header-color="blue">
-                        <div slot="header">
-                            <div class="card-icon">
-                                <i class="fab fa-twitter"></i>
+                                <i class="fas fa-tree"></i>
                             </div>
                             <p class="category">CO2 evitado</p>
                             <h3 class="title">
-                                +<animated-number :value="245"></animated-number>
+                                <animated-number :value=estadistica.co2></animated-number> kg
                             </h3>
                         </div>
 
-                        <div slot="footer">
-                            <div class="stats">
-                                <md-icon>update</md-icon>
-                                Just Updated
-                            </div>
-                        </div>
                     </stats-card>
                 </div>
 
@@ -91,7 +78,7 @@
                                     <md-card-media-cover>
                                         <md-card-media md-ratio="4:3">
                                             <img
-                                                src='/img/placeholder.jpg'
+                                                src='/img/Logo.png'
                                                 alt="Thumbnail">
                                         </md-card-media>
                                     </md-card-media-cover>
@@ -224,7 +211,6 @@
                     </md-card-content>
                 </md-card>
             </div>
-
         </div>
         <div class="container md-offset" v-else-if="$auth.check()">
             <div class="md-layout">
@@ -233,25 +219,17 @@
                         <div class="md-layout">
                             <div class="md-layout-item md-size-50 md-small-size-100">
                                 <md-card class="md-elevation-10">
-
-                                    <md-card-media md-ratio="16/9">
-                                        <img src="/img/placeholder.jpg" alt="People">
-                                    </md-card-media>
-
-                                    <md-card-header>
-                                        <div class="md-title">Presta servicio como empleado probono</div>
-                                        <div class="md-subhead">Ayudanos a hacer un mejor mundo</div>
-                                    </md-card-header>
-
-                                    <md-card-content>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-                                    </md-card-content>
+                                    <md-card-media-cover>
+                                        <md-card-media md-ratio="4:3">
+                                            <img
+                                                src='/img/Logo.png'
+                                                alt="Thumbnail">
+                                        </md-card-media>
+                                    </md-card-media-cover>
                                 </md-card>
 
                             </div>
                             <div class="md-layout-item md-size-50 md-small-size-100">
-
-
                                 <md-card>
                                     <md-card-header  class="md-elevation-3 md-primary">
                                         <div class="md-title">
@@ -394,8 +372,6 @@
             </div>
 
         </div>
-
-
     </template>
 <script>
     import { ZoomCenterTransition } from "vue2-transitions";
@@ -427,13 +403,7 @@
                 pageTransitionDuration: 300,
                 year: new Date().getFullYear(),
                 notices: [],
-                estadistica:{
-                    'organizaciones' : 0,
-                    'empresas': 0,
-                    'kilos': 1,
-                    'co2': 0,
-                }
-
+                estadistica: undefined
             };
         },
         computed: {
@@ -475,20 +445,21 @@
                 }
             },
             estadisticas(){
-                let uri = '/estadisticas';
                 axios.get('/estadisticas')
                 .then(response => {
-                    console.log(response)
+                    this.estadistica = response.data.message;
                 })
                 .catch(e => {
                     console.log(e)
                 })
             }
         },
+        created() {
+            this.estadisticas();
+        },
         mounted() {
             this.onResponsiveInverted();
             window.addEventListener("resize", this.onResponsiveInverted);
-            this.estadisticas();
         },
         beforeDestroy() {
             this.closeMenu();

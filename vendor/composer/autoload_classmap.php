@@ -17,7 +17,6 @@ return array(
     'App\\Http\\Controllers\\CatgirorgController' => $baseDir . '/app/Http/Controllers/CatgirorgController.php',
     'App\\Http\\Controllers\\CattipsrvController' => $baseDir . '/app/Http/Controllers/CattipsrvController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\MainController' => $baseDir . '/app/Http/Controllers/MainController.php',
     'App\\Http\\Controllers\\TblentclnController' => $baseDir . '/app/Http/Controllers/TblentclnController.php',
     'App\\Http\\Controllers\\TblentdncController' => $baseDir . '/app/Http/Controllers/TblentdncController.php',
     'App\\Http\\Controllers\\TblentempController' => $baseDir . '/app/Http/Controllers/TblentempController.php',

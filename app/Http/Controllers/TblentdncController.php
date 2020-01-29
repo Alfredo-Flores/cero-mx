@@ -36,7 +36,22 @@ class TblentdncController extends Controller
 
             foreach($ofertas as $key => $oferta)
             {
-                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+
+                $fecha = $oferta["Tmprstdnc"] ;
+                $fechaFinal = date();
+
+                $evento["uuidoferta"] = $ofertas[$key]["Uuid"];
+
+                $date1 = new DateTime($fecha);
+                $date2 = new DateTime($fechaFinal);
+
+                Log::debug($date1);
+                Log::debug($date2);
+
+                $interval = $date1->diff($date2);
+
+                $diferencia = $interval->d;
+
 
                 if ($diferencia < 1){
                     unset($ofertas[$key]);
@@ -121,7 +136,7 @@ class TblentdncController extends Controller
 
         $uuid4 = Uuid::uuid4();
         $idnentemp = $entemp->getIdnentemp();
-        $tmprstdnc = date ("Y-m-d 00:00:00", strtotime( request('TiempoRestante')));
+        $tmprstdnc = date ("Y-m-d H:i:s", strtotime( request('TiempoRestante')));
 
         // 2.- Peticion a variables TODO *Modificar*
         $data = [
@@ -510,12 +525,14 @@ class TblentdncController extends Controller
 
             foreach($ofertas as $key => $oferta)
             {
-                $future = strtotime($oferta["Tmprstdnc"]);
-                $today = strtotime(date("Y-m-d 06:00:00"));
+                $fecha = $oferta["Tmprstdnc"];
 
-                $diferencia = $future - $today;
+                $date1 = new DateTime($fecha);
+                $date2 = new DateTime(date("Y-m-d H:i:s"));
 
-                $days = floor($diferencia / (60*60*24));
+                $interval = $date1->diff($date2);
+
+                $days = $interval->d + 1;
 
                 if ($days < 0){
                     unset($ofertas[$key]);
@@ -542,11 +559,11 @@ class TblentdncController extends Controller
                 $fecha = $oferta["Tmprstdnc"];
 
                 $date1 = new DateTime($fecha);
-                $date2 = new DateTime(date("Y-m-d 06:00:00"));
+                $date2 = new DateTime(date("Y-m-d H:i:s"));
 
                 $interval = $date1->diff($date2);
 
-                $days = $interval->d;
+                $days = $interval->d + 1;
 
                 if ($days < 1){
                     unset($ofertas[$key]);
@@ -606,7 +623,15 @@ class TblentdncController extends Controller
 
             foreach($ofertas as $key => $oferta)
             {
-                $diferencia = date("d", strtotime($oferta["Tmprstdnc"] )) - date("d");
+                $fecha = date();
+                $fechaFinal = $oferta["Tmprstdnc"];
+
+                $date1 = new DateTime($fecha);
+                $date2 = new DateTime($fechaFinal);
+
+                $interval = $date1->diff($date2);
+
+                $diferencia = $interval->d;
 
                 if ($diferencia < 1){
                     unset($ofertas[$key]);

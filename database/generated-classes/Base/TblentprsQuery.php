@@ -200,7 +200,7 @@ abstract class TblentprsQuery extends ModelCriteria
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'cerodb', $modelName = '\\Tblentprs', $modelAlias = null)
+    public function __construct($dbName = 'cero', $modelName = '\\Tblentprs', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }

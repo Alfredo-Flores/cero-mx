@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use function Psy\debug;
 
 class UsersController extends Controller
 {
@@ -312,12 +313,25 @@ class UsersController extends Controller
     {
         $entorg = \Tblentorg::dspentorg(0, 0);
         $entorg = count($entorg);
+
         $entemp = \Tblentemp::dspentemp(0,0);
         $entemp = count($entemp);
+
+        $entdnc = \Tblentrcp::fndentrcp();
+        $entdnc = $entdnc->toArray();
+
+        $kilos = 0;
+
+        foreach($entdnc as $key => $dnc) {
+            $kilos += $dnc["Kgsentrcp"];
+        }
+
 
         $rtndat = [
             'organizaciones' => $entorg,
             'empresas' => $entemp,
+            'kilos' => $kilos,
+            'co2' => $kilos*2.5
         ];
 
         return ReturnHandler::rtrsccjsn($rtndat);

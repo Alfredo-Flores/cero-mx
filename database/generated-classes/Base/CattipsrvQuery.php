@@ -90,7 +90,7 @@ abstract class CattipsrvQuery extends ModelCriteria
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'cerodb', $modelName = '\\Cattipsrv', $modelAlias = null)
+    public function __construct($dbName = 'cero', $modelName = '\\Cattipsrv', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
