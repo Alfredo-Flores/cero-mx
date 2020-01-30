@@ -1,0 +1,134 @@
+[2020-01-28 17:57:25] local.DEBUG: Tblentclns: {  }
+  
+[2020-01-28 18:08:29] local.ERROR: Cannot use object of type Tblentrcp as array {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Cannot use object of type Tblentrcp as array at C:\\xampp\\htdocs\\cero\\app\\Http\\Controllers\\UsersController.php:324)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\UsersController->stadistics()
+#1 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
+#2 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('stadistics', Array)
+#3 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(219): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\UsersController), 'stadistics')
+#4 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(176): Illuminate\\Routing\\Route->runController()
+#5 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(681): Illuminate\\Routing\\Route->run()
+#6 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#7 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(41): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(59): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#11 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(683): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#13 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(658): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#14 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(624): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#15 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(613): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#16 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(170): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#18 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php(63): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 C:\\xampp\\htdocs\\cero\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(171): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(145): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#30 C:\\xampp\\htdocs\\cero\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#31 C:\\xampp\\htdocs\\cero\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#32 {main}
+"} 
+[2020-01-28 18:09:21] local.DEBUG: array (
+  0 => 
+  array (
+    'Idnentrcp' => '1',
+    'Idnentemp' => '1',
+    'Idnentorg' => '1',
+    'Idnentcln' => '1',
+    'Uuid' => 'e10df5ca-60a1-4413-aaa9-92a8e0be374a',
+    'Fchinccln' => '2020-01-29 00:00:00',
+    'Tipentrcp' => '',
+    'Kgsentrcp' => 0.0,
+    'Cntcjsrcp' => 1,
+    'Rtnentcln' => 0.0,
+    'Vldentcln' => true,
+    'Fnsentcln' => false,
+    'CreatedAt' => '2020-01-28 17:58:34',
+    'UpdatedAt' => '2020-01-28 17:58:34',
+  ),
+)  
+[2020-01-28 18:09:39] local.DEBUG: array (
+  0 => 
+  array (
+    'Idnentrcp' => '1',
+    'Idnentemp' => '1',
+    'Idnentorg' => '1',
+    'Idnentcln' => '1',
+    'Uuid' => 'e10df5ca-60a1-4413-aaa9-92a8e0be374a',
+    'Fchinccln' => '2020-01-29 00:00:00',
+    'Tipentrcp' => '',
+    'Kgsentrcp' => 65.0,
+    'Cntcjsrcp' => 1,
+    'Rtnentcln' => 0.0,
+    'Vldentcln' => true,
+    'Fnsentcln' => false,
+    'CreatedAt' => '2020-01-28 17:58:34',
+    'UpdatedAt' => '2020-01-28 17:58:34',
+  ),
+)  
+[2020-01-28 18:10:03] local.DEBUG: Tblentclns:
+    -
+        Idnentcln: '1'
+        Idnentemp: '1'
+        Idnentorg: '1'
+        Uuid: 11be9f16-a625-479d-9659-a82d348dc438
+        Prdentcln: 4
+        Fchinccln: '2020-01-28 00:00:00'
+        Fchfnlcln: '2020-01-31 06:00:00'
+        Fnsentcln: false
+        CreatedAt: '2020-01-28 17:58:34'
+        UpdatedAt: '2020-01-28 17:58:34'
+        Namentemp: 'El naranjo'
+        Drcentemp: 'Tuxpan 107'
+        Lclentemp: Universal
+        Tlfofiemp: '6181087527'
+        Emlofiemp: Marisa@gmail.com
+  
+[2020-01-28 18:10:08] local.DEBUG: Tblentclns:
+    -
+        Idnentcln: '1'
+        Idnentemp: '1'
+        Idnentorg: '1'
+        Uuid: 11be9f16-a625-479d-9659-a82d348dc438
+        Prdentcln: 4
+        Fchinccln: '2020-01-28 00:00:00'
+        Fchfnlcln: '2020-01-31 06:00:00'
+        Fnsentcln: false
+        CreatedAt: '2020-01-28 17:58:34'
+        UpdatedAt: '2020-01-28 17:58:34'
+        Namentemp: 'El naranjo'
+        Drcentemp: 'Tuxpan 107'
+        Lclentemp: Universal
+        Tlfofiemp: '6181087527'
+        Emlofiemp: Marisa@gmail.com
+  
+[2020-01-29 17:06:44] local.DEBUG: Tblentclns: {  }
+  
+[2020-01-29 17:07:33] local.DEBUG: Tblentclns:
+    -
+        Idnentcln: '1'
+        Idnentemp: '1'
+        Idnentorg: '1'
+        Uuid: 0b3b2fdb-090f-4484-9b1c-e3844e02b317
+        Prdentcln: 5
+        Fchinccln: '2020-01-29 00:00:00'
+        Fchfnlcln: '1970-01-01 00:00:00'
+        Fnsentcln: false
+        CreatedAt: '2020-01-29 17:07:08'
+        UpdatedAt: '2020-01-29 17:07:08'
+        Namentemp: 'El naranjo'
+        Drcentemp: 'Tuxpan 107'
+        Lclentemp: Universal
+        Tlfofiemp: '6181087527'
+        Emlofiemp: Marisa@gmail.com
+  
+[2020-01-29 17:54:43] local.DEBUG: Tblentclns: {  }
+  

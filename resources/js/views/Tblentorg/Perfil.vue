@@ -135,40 +135,7 @@
                 </md-card-content>
             </md-card>
         </div>
-        <div class="md-layout-item md-size-100">
-            <md-card>
-                <md-card-header class="md-card-header-icon md-card-header-green">
-                    <div class="card-icon">
-                        <md-icon>assignment</md-icon>
-                    </div>
-                    <h4 class="title">Estadisticas</h4>
-                </md-card-header>
-                <md-card-content>
-                    <stats-card header-color="blue">
-                        <div slot="header">
-                            <div class="card-icon">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                            <p class="category">CO2 evitado</p>
-                            <h3 class="title">
-                                +<animated-number :value="245"></animated-number>
-                            </h3>
-                        </div>
-                        <div slot="footer">
-                            <div class="stats">
-                                <md-icon>update</md-icon>
-                                Just Updated
-                            </div>
-                        </div>
-                    </stats-card>
-
-                </md-card-content>
-            </md-card>
-
-        </div>
     </div>
-
-
 </template>
 
 <script>

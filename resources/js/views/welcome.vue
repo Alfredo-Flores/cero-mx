@@ -104,9 +104,9 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>
@@ -127,16 +127,16 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>
                                 <md-card>
                                     <md-card-header class="md-elevation-3">
                                         <div class="md-title">
-                                            ¿Qué es Cero?
+                                            ¿Cómo puedes contribuir?
                                         </div>
                                     </md-card-header>
 
@@ -150,9 +150,9 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>
@@ -247,9 +247,9 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>
@@ -270,32 +270,9 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
-                                        </md-card-content>
-                                    </md-card-expand-content>
-                                </md-card>
-                                <md-card>
-                                    <md-card-header class="md-elevation-3">
-                                        <div class="md-title">
-                                            ¿Qué es Cero?
-                                        </div>
-                                    </md-card-header>
-
-                                    <md-card-expand>
-                                        <md-card-expand-trigger>
-                                            <md-button class="md-icon-button">
-                                                <md-icon>keyboard_arrow_down</md-icon>
-                                            </md-button>
-                                        </md-card-expand-trigger>
-                                    </md-card-expand>
-
-                                    <md-card-expand-content>
-                                        <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>
@@ -316,9 +293,9 @@
 
                                     <md-card-expand-content>
                                         <md-card-content>
-                                            fdsafdsafdsafaaaaaaaa
-                                            fsdafsdafdsafsdfsdafdsa
-                                            fdsafdsafdsafa
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Morbi ornare purus imperdiet erat tincidunt varius. Ut vulputate ipsum at imperdiet mattis.
+                                            Praesent quis tortor eleifend, pretium ante id, porttitor libero.
                                         </md-card-content>
                                     </md-card-expand-content>
                                 </md-card>

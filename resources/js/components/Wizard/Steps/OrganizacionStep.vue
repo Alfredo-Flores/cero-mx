@@ -247,7 +247,7 @@
                 ]"
                             >
                                 <md-icon>info</md-icon>
-                                <label>Segmento del mercado</label>
+                                <label>Grupos vulnerables a atender</label>
                                 <p style="color: red">*</p>
                                 <md-input v-model="segmentomercado" type="text"></md-input>
                                 <md-icon class="error" v-show="failed">close</md-icon>
@@ -319,6 +319,20 @@
     extend("min", min);
     extend("max", max);
     extend("integer", integer);
+
+    extend("rfc", {
+        validate: (value) => {
+            const re = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
+            return value.match(re);
+        }
+    });
+
+    extend("curp", {
+        validate: (value) => {
+            const re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
+            return value.match(re);
+        }
+    });
 
     export default {
         props: {

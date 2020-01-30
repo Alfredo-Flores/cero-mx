@@ -20,23 +20,12 @@ class UsersTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'uuid' => 'ab04a442-5871-3a34-8c49-7854b9f3cd62',
-                'email' => 'q@q.com',
+                'uuid' => 'dedc4444-9723-3316-a4a6-9e475f84fd84',
+                'email' => 'mujeres.oficiosvarios@hotmail.com',
                 'email_verified_at' => NULL,
-                'password' => '$2y$10$SWWTEdsrDzBw2AbgbxTebOY3KQBF9Z4qfgXi/gP78Na2n8XM7EsB6',
-                'created_at' => '2020-01-25 19:15:13',
-                'updated_at' => '2020-01-25 19:15:13',
-                'remember_token' => NULL,
-            ),
-            1 => 
-            array (
-                'id' => 2,
-                'uuid' => 'c7da29ed-1df3-35e8-9942-3f5b345c2d0c',
-                'email' => 'w@w.com',
-                'email_verified_at' => NULL,
-                'password' => '$2y$10$/uQ.DMpKzkZX..xPjpAerON8NaD81iFKcR8818IIpOqcEAx3oc4N2',
-                'created_at' => '2020-01-25 19:23:28',
-                'updated_at' => '2020-01-25 19:23:28',
+                'password' => '$2y$10$zW/m7EucFcrA5B/hW9IwbOAcR5SA9g9ufzNh8il6aa.E1WR295Xca',
+                'created_at' => '2020-01-29 17:28:44',
+                'updated_at' => '2020-01-29 17:28:44',
                 'remember_token' => NULL,
             ),
         ));
