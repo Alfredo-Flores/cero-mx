@@ -28,6 +28,17 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2020-01-29 17:28:44',
                 'remember_token' => NULL,
             ),
+            1 => 
+            array (
+                'id' => 2,
+                'uuid' => 'c94cc982-9fda-3dca-a728-c208b13700e4',
+                'email' => 'naranjerolomas1@hotmail.com',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$tTWEn9jkS0BD2/jqwlFZ/uzVBZf9vvaqKgOayV8GotLL1KaQWQ1cq',
+                'created_at' => '2020-01-30 13:55:52',
+                'updated_at' => '2020-01-30 13:55:52',
+                'remember_token' => NULL,
+            ),
         ));
         
         

@@ -43,6 +43,32 @@ class TblentprsTableSeeder extends Seeder
                 'created_at' => '2020-01-29 17:54:25',
                 'updated_at' => '2020-01-29 17:54:25',
             ),
+            1 => 
+            array (
+                'idnentprs' => 2,
+                'uuid' => '123496b0-ea62-4303-8b4d-9c3782e6e094',
+                'idnentusr' => 2,
+                'nomentprs' => 'diego alonso',
+                'prmaplprs' => 'Cavazos',
+                'sgnaplprs' => 'Alvarado',
+                'crpentprs' => 'CAAD840903HNLVLG04',
+                'rfcentprs' => 'CAAD840903C55',
+                'emllbrprs' => 'naranjeroloma1@hotmail.com',
+                'emlprsprs' => 'cavazos_diego@hotmail.com',
+                'ncnentprs' => 'Mexicano',
+                'pasentprs' => 'Mexico',
+                'ententprs' => 'Durango',
+                'mncentprs' => 'durango',
+                'lclentprs' => 'COLINAS DEL SALTITO',
+                'dmcentprs' => 'AV. MIMBRES #321',
+                'cdgpstprs' => '34105',
+                'tlffijprs' => '6181300765',
+                'tlfmvlprs' => '6181340837',
+                'fotentprs' => '123496b0-ea62-4303-8b4d-9c3782e6e094/',
+                'tipentprs' => '1',
+                'created_at' => '2020-01-30 14:07:25',
+                'updated_at' => '2020-01-30 14:07:25',
+            ),
         ));
         
         
