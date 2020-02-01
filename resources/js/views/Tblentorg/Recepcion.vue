@@ -63,7 +63,7 @@
                         <md-option value="Fruta">Fruta</md-option>
                         <md-option value="Verdura">Verdura</md-option>
                         <md-option value="Carnes/Lacteos">Carnes/Lacteos</md-option>
-                        <md-option value="Harina">Harina</md-option>
+                        <md-option value="Cereales/Harinas">Harina</md-option>
                         <md-option value="Abarrotes">Abarrotes</md-option>
                     </md-select>
                 </md-field>
