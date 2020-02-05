@@ -31,13 +31,6 @@
       0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
-  'martinlindhe/laravel-vue-i18n-generator' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider',
-    ),
-  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

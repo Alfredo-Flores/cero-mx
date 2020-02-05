@@ -15,7 +15,6 @@ import VueResource from 'vue-resource'
 
 // CSS para el Modulos
 import 'vue-material/dist/vue-material.min.css'
-import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 

@@ -53,7 +53,6 @@ return array(
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Namshi\\JOSE\\' => array($vendorDir . '/namshi/jose/src/Namshi/JOSE'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'MartinLindhe\\VueInternationalizationGenerator\\' => array($vendorDir . '/martinlindhe/laravel-vue-i18n-generator/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'League\\CommonMark\\Ext\\Table\\' => array($vendorDir . '/league/commonmark-ext-table/src'),
     'League\\CommonMark\\' => array($vendorDir . '/league/commonmark/src'),

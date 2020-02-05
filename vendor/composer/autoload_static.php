@@ -104,7 +104,6 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'M' => 
         array (
             'Monolog\\' => 8,
-            'MartinLindhe\\VueInternationalizationGenerator\\' => 46,
         ),
         'L' => 
         array (
@@ -345,10 +344,6 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
-        'MartinLindhe\\VueInternationalizationGenerator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/martinlindhe/laravel-vue-i18n-generator/src',
         ),
         'League\\Flysystem\\' => 
         array (
@@ -1505,6 +1500,7 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'Illuminate\\Console\\Application' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Application.php',
         'Illuminate\\Console\\Command' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Command.php',
         'Illuminate\\Console\\Concerns\\CallsCommands' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php',
+        'Illuminate\\Console\\Concerns\\HasParameters' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Concerns/HasParameters.php',
         'Illuminate\\Console\\ConfirmableTrait' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/ConfirmableTrait.php',
         'Illuminate\\Console\\DetectsApplicationNamespace' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/DetectsApplicationNamespace.php',
         'Illuminate\\Console\\Events\\ArtisanStarting' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Console/Events/ArtisanStarting.php',
@@ -1710,6 +1706,7 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'Illuminate\\Database\\Events\\MigrationStarted' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationStarted.php',
         'Illuminate\\Database\\Events\\MigrationsEnded' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsEnded.php',
         'Illuminate\\Database\\Events\\MigrationsStarted' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsStarted.php',
+        'Illuminate\\Database\\Events\\NoPendingMigrations' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/NoPendingMigrations.php',
         'Illuminate\\Database\\Events\\QueryExecuted' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/QueryExecuted.php',
         'Illuminate\\Database\\Events\\StatementPrepared' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/StatementPrepared.php',
         'Illuminate\\Database\\Events\\TransactionBeginning' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/TransactionBeginning.php',
@@ -2486,9 +2483,6 @@ class ComposerStaticInit9391e6e6112e9a2063ce49cfad2bd481
         'Map\\TblentrepTableMap' => __DIR__ . '/../..' . '/database/generated-classes/Map/TblentrepTableMap.php',
         'Map\\TblentsrvTableMap' => __DIR__ . '/../..' . '/database/generated-classes/Map/TblentsrvTableMap.php',
         'Map\\UsersTableMap' => __DIR__ . '/../..' . '/database/generated-classes/Map/UsersTableMap.php',
-        'MartinLindhe\\VueInternationalizationGenerator\\Commands\\GenerateInclude' => __DIR__ . '/..' . '/martinlindhe/laravel-vue-i18n-generator/src/Commands/GenerateInclude.php',
-        'MartinLindhe\\VueInternationalizationGenerator\\Generator' => __DIR__ . '/..' . '/martinlindhe/laravel-vue-i18n-generator/src/Generator.php',
-        'MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider' => __DIR__ . '/..' . '/martinlindhe/laravel-vue-i18n-generator/src/GeneratorProvider.php',
         'Migrations' => __DIR__ . '/../..' . '/database/generated-classes/Migrations.php',
         'MigrationsQuery' => __DIR__ . '/../..' . '/database/generated-classes/MigrationsQuery.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
